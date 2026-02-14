@@ -48,6 +48,10 @@
     "node": ">=20.0.0"
   },
   "lint-staged": {
-    "*": "prettier --write --ignore-unknown"
+    "*.{js,jsx,ts,tsx,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json,css}": "prettier --write"
   }
 }
