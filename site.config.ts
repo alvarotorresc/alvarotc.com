@@ -8,8 +8,8 @@ export const siteConfig = {
     name: 'Álvaro Torres Carrasco',
     email: 'hello@alvarotc.com',
     github: 'alvarotorresc',
-    linkedin: 'alvarotorresc',
-    twitter: 'alvarotorresc',
+    linkedin: 'alvaro-torres-carrasco',
+    twitter: 'torresc_alvaro',
     devto: 'alvarotorresc',
   },
 
@@ -22,8 +22,8 @@ export const siteConfig = {
 
   social: [
     { platform: 'github', url: 'https://github.com/alvarotorresc' },
-    { platform: 'linkedin', url: 'https://linkedin.com/in/alvarotorresc' },
-    { platform: 'twitter', url: 'https://twitter.com/alvarotorresc' },
+    { platform: 'linkedin', url: 'https://www.linkedin.com/in/alvaro-torres-carrasco/' },
+    { platform: 'twitter', url: 'https://x.com/torresc_alvaro' },
     { platform: 'devto', url: 'https://dev.to/alvarotorresc' },
   ],
 };
