@@ -19,8 +19,8 @@ I'm Alvaro Torres Carrasco, software developer with a passion for creating usefu
 Here you will find:
 
 - **Technical articles** on web development, tools and frameworks.
-- Reflections** on the software industry
-- Updates** on my personal projects
+- Reflections\*\* on the software industry
+- Updates\*\* on my personal projects
 - **Tutorials** and practical guides
 
 ## Featured projects

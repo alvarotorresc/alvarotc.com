@@ -10,8 +10,11 @@ if [ -n "$POSTS_CHANGED" ]; then
   echo "✅ Traducciones añadidas al commit"
 fi
 
-# Run formatter (auto-fix)
-npm run format
+# Run formatter (auto-fix) on staged files only
+npx prettier --write $(git diff --cached --name-only --diff-filter=ACM)
+
+# Add formatted files back to staging
+git add -u
 
 # Run linter
 npm run lint
