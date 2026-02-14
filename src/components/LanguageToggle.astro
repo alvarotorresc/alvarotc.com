@@ -1,0 +1,23 @@
+---
+const currentPath = Astro.url.pathname;
+const isSpanish = currentPath.startsWith('/es');
+
+// Generate the opposite language URL
+let oppositeUrl: string;
+if (isSpanish) {
+  // ES -> EN: remove /es prefix
+  oppositeUrl = currentPath.replace(/^\/es/, '') || '/';
+} else {
+  // EN -> ES: add /es prefix
+  oppositeUrl = '/es' + currentPath;
+}
+---
+
+<a
+  href={oppositeUrl}
+  class="group inline-flex items-center gap-2 text-sm text-text-muted hover:text-accent transition-colors"
+  aria-label={isSpanish ? 'Switch to English' : 'Cambiar a Español'}
+>
+  <span>{isSpanish ? 'EN' : 'ES'}</span>
+  <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+</a>

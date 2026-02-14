@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageToggle from '../../components/LanguageToggle.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/utils';
+
+const allPosts = await getCollection('posts');
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+
+const projects = [
+  {
+    name: 'Quedamos',
+    description: 'App social para organizar planes con amigos',
+    url: 'https://github.com/alvarotorresc/quedamos-app',
+  },
+  {
+    name: 'Sin Herencia',
+    description: 'Blog político semanal con análisis generacional',
+    url: 'https://sinherencia.com',
+  },
+  {
+    name: 'Guitar App',
+    description: 'Herramientas para guitarristas con Web Audio API',
+    url: '#',
+  },
+  {
+    name: 'PokeUtils',
+    description: 'Utilidades Pokémon con vanilla JavaScript',
+    url: 'https://pokemon-type-chart.netlify.app',
+  },
+  {
+    name: 'DevTools Suite',
+    description: 'UUID generator, hash calculator, JWT decoder y más',
+    url: '#',
+  },
+];
+
+const links = [
+  { name: 'GitHub', url: 'https://github.com/alvarotorresc' },
+  { name: 'LinkedIn', url: 'https://linkedin.com/in/alvarotorresc' },
+  { name: 'X', url: 'https://x.com/alvarotorresc' },
+];
+---
+
+<BaseLayout title="Alvaro Torres Carrasco">
+  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-2xl font-medium mb-2">Alvaro Torres Carrasco</h1>
+      <p class="text-text-muted mb-8">Desarrollador de Software</p>
+      <LanguageToggle />
+    </header>
+
+    <!-- Writing -->
+    <section class="mb-20">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-lg font-medium">Escritos</h2>
+        <a href="/es/blog" class="text-sm text-text-muted hover:text-accent transition-colors">
+          Ver todos →
+        </a>
+      </div>
+      <div class="space-y-3">
+        {
+          posts.map((post) => (
+            <div class="border-l-2 border-border pl-4 glow-border">
+              <a href={`/es/blog/${post.slug}`} class="group block py-1">
+                <div class="flex items-baseline justify-between gap-4 mb-1">
+                  <h3 class="font-medium group-hover:text-accent transition-colors">
+                    {post.data.title}
+                  </h3>
+                  <time class="text-xs text-text-muted shrink-0">
+                    {formatDate(post.data.date, 'es')}
+                  </time>
+                </div>
+                <p class="text-sm text-text-muted line-clamp-1">{post.data.description}</p>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="mb-20">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-lg font-medium">Proyectos</h2>
+        <a href="/es/projects" class="text-sm text-text-muted hover:text-accent transition-colors">
+          Ver todos →
+        </a>
+      </div>
+      <div class="space-y-3">
+        {
+          projects.map((project) => (
+            <div class="border-l-2 border-border pl-4 glow-border">
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group block py-1"
+              >
+                <h3 class="font-medium group-hover:text-accent transition-colors">
+                  {project.name}
+                </h3>
+                <p class="text-sm text-text-muted">{project.description}</p>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Links -->
+    <footer>
+      <div class="flex gap-4 text-sm">
+        {
+          links.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-text-muted hover:text-accent transition-colors"
+            >
+              {link.name}
+            </a>
+          ))
+        }
+      </div>
+    </footer>
+  </div>
+</BaseLayout>

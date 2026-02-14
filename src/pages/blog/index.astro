@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../lib/utils';
+
+const allPosts = await getCollection('posts-en');
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Writing">
+  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
+    <!-- Back link -->
+    <a
+      href="/"
+      class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
+    >
+      ← Back
+    </a>
+
+    <!-- Header -->
+    <header class="mb-12">
+      <h1 class="text-2xl font-medium mb-2">Writing</h1>
+      <p class="text-text-muted text-sm">All posts</p>
+    </header>
+
+    <!-- Posts -->
+    <div class="space-y-3">
+      {
+        posts.map((post) => (
+          <div class="border-l-2 border-border pl-4 glow-border">
+            <a href={`/blog/${post.slug}`} class="group block py-1">
+              <div class="flex items-baseline justify-between gap-4 mb-1">
+                <h3 class="font-medium group-hover:text-accent transition-colors">
+                  {post.data.title}
+                </h3>
+                <time class="text-xs text-text-muted shrink-0">
+                  {formatDate(post.data.date, 'en')}
+                </time>
+              </div>
+              <p class="text-sm text-text-muted line-clamp-1">{post.data.description}</p>
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

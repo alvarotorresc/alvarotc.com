@@ -1,0 +1,140 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ShareButtons from '../components/blog/ShareButtons.astro';
+import { formatDate, getReadingTime } from '../lib/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  image?: string;
+}
+
+const { title, description, date, image } = Astro.props;
+const readingTime = getReadingTime(description);
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type="article"
+  publishedTime={date.toISOString()}
+>
+  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
+    <article>
+      <!-- Back link -->
+      <a
+        href="/"
+        class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
+      >
+        ← Back
+      </a>
+
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-3 text-sm text-text-muted mb-4">
+          <time datetime={date.toISOString()}>{formatDate(date, 'en')}</time>
+          <span>•</span>
+          <span>{readingTime} min read</span>
+        </div>
+
+        <h1 class="text-3xl font-medium mb-4">{title}</h1>
+        <p class="text-text-muted">{description}</p>
+      </header>
+
+      <!-- Content -->
+      <div class="prose mb-12">
+        <slot />
+      </div>
+
+      <!-- Share -->
+      <div class="border-t border-border pt-8">
+        <ShareButtons title={title} url={canonicalURL} />
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .prose {
+    color: var(--color-text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .prose h2,
+  .prose h3,
+  .prose h4 {
+    color: var(--color-text);
+    font-weight: 500;
+    margin-top: 2em;
+    margin-bottom: 1em;
+    letter-spacing: -0.02em;
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+  }
+
+  .prose h3 {
+    font-size: 1.25rem;
+  }
+
+  .prose p {
+    margin-bottom: 1.5em;
+  }
+
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .prose a:hover {
+    opacity: 0.8;
+  }
+
+  .prose code {
+    background: var(--color-border);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+  }
+
+  .prose pre {
+    background: var(--color-border);
+    padding: 1.5em;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 2em 0;
+  }
+
+  .prose pre code {
+    background: none;
+    padding: 0;
+  }
+
+  .prose ul,
+  .prose ol {
+    margin: 1.5em 0;
+    padding-left: 1.5em;
+  }
+
+  .prose li {
+    margin-bottom: 0.5em;
+  }
+
+  .prose blockquote {
+    border-left: 2px solid var(--color-accent);
+    padding-left: 1.5em;
+    margin: 2em 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  .prose img {
+    border-radius: 0.5rem;
+    margin: 2em 0;
+  }
+</style>

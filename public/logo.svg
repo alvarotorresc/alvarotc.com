@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <!-- Cat ears -->
+  <path d="M30 25 L20 10 L25 25 Z" fill="currentColor" opacity="0.8"/>
+  <path d="M70 25 L80 10 L75 25 Z" fill="currentColor" opacity="0.8"/>
+  
+  <!-- Cat head -->
+  <circle cx="50" cy="45" r="20" fill="currentColor" opacity="0.9"/>
+  
+  <!-- Cat eyes (< > like code) -->
+  <text x="42" y="48" font-family="monospace" font-size="12" fill="var(--color-bg)" font-weight="bold">&lt;</text>
+  <text x="54" y="48" font-family="monospace" font-size="12" fill="var(--color-bg)" font-weight="bold">&gt;</text>
+  
+  <!-- Guitar neck -->
+  <rect x="47" y="65" width="6" height="30" fill="currentColor" opacity="0.7" rx="1"/>
+  
+  <!-- Guitar strings (3 lines) -->
+  <line x1="48" y1="70" x2="48" y2="92" stroke="var(--color-bg)" stroke-width="0.5"/>
+  <line x1="50" y1="70" x2="50" y2="92" stroke="var(--color-bg)" stroke-width="0.5"/>
+  <line x1="52" y1="70" x2="52" y2="92" stroke="var(--color-bg)" stroke-width="0.5"/>
+</svg>
