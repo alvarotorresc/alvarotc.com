@@ -1,0 +1,17 @@
+# Check if there are staged changes in src/content/posts/
+POSTS_CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep "^src/content/posts/.*\.md$")
+
+if [ -n "$POSTS_CHANGED" ]; then
+  echo "📝 Posts en español detectados, ejecutando traducción..."
+  npm run translate
+
+  # Add translated posts to staging
+  git add src/content/posts-en/
+  echo "✅ Traducciones añadidas al commit"
+fi
+
+# Run formatter (auto-fix)
+npm run format
+
+# Run linter
+npm run lint
