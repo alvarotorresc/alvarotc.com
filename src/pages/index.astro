@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LanguageToggle from '../components/LanguageToggle.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../lib/utils';
+import { getFeaturedProjects } from '../data/projects';
 
 const allPosts = await getCollection('posts-en');
 const posts = allPosts
@@ -10,33 +12,7 @@ const posts = allPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 5);
 
-const projects = [
-  {
-    name: 'Quedamos',
-    description: 'Social app para organizar planes con amigos',
-    url: 'https://github.com/alvarotorresc/quedamos-app',
-  },
-  {
-    name: 'Sin Herencia',
-    description: 'Blog político semanal con análisis generacional',
-    url: 'https://sinherencia.com',
-  },
-  {
-    name: 'Guitar App',
-    description: 'Herramientas para guitarristas con Web Audio API',
-    url: '#',
-  },
-  {
-    name: 'PokeUtils',
-    description: 'Utilidades Pokémon con vanilla JavaScript',
-    url: 'https://pokemon-type-chart.netlify.app',
-  },
-  {
-    name: 'DevTools Suite',
-    description: 'UUID generator, hash calculator, JWT decoder y más',
-    url: '#',
-  },
-];
+const projects = getFeaturedProjects();
 
 const links = [
   { name: 'GitHub', url: 'https://github.com/alvarotorresc' },
@@ -92,23 +68,7 @@ const links = [
         </a>
       </div>
       <div class="space-y-3">
-        {
-          projects.map((project) => (
-            <div class="border-l-2 border-border pl-4 glow-border">
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group block py-1"
-              >
-                <h3 class="font-medium group-hover:text-accent transition-colors">
-                  {project.name}
-                </h3>
-                <p class="text-sm text-text-muted">{project.description}</p>
-              </a>
-            </div>
-          ))
-        }
+        {projects.map((project) => <ProjectCard project={project} lang="en" />)}
       </div>
     </section>
 

@@ -1,58 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getVisibleProjects } from '../data/projects';
 
-const allProjects = [
-  {
-    name: 'Quedamos',
-    description: 'Social app para organizar planes con amigos',
-    url: 'https://github.com/alvarotorresc/quedamos-app',
-  },
-  {
-    name: 'Sin Herencia',
-    description: 'Blog político semanal con análisis generacional',
-    url: 'https://sinherencia.com',
-  },
-  {
-    name: 'Guitar App',
-    description: 'Herramientas para guitarristas con Web Audio API',
-    url: '#',
-  },
-  {
-    name: 'PokeUtils',
-    description: 'Utilidades Pokémon con vanilla JavaScript',
-    url: 'https://pokemon-type-chart.netlify.app',
-  },
-  {
-    name: 'DevTools Suite',
-    description: 'UUID generator, hash calculator, JWT decoder y más',
-    url: '#',
-  },
-  {
-    name: 'Finance Tracker',
-    description: 'Gestión de finanzas personales self-hosted',
-    url: '#',
-  },
-  {
-    name: 'Clipboard Manager',
-    description: 'Clipboard compartido en red local',
-    url: '#',
-  },
-  {
-    name: 'Price Tracker',
-    description: 'Seguimiento de precios de supermercados',
-    url: '#',
-  },
-  {
-    name: 'Swiss Knife',
-    description: 'Randomizador, ruleta, amigo invisible y más utilidades',
-    url: '#',
-  },
-  {
-    name: 'System Config',
-    description: 'Configuración Linux portable entre máquinas',
-    url: '#',
-  },
-];
+const allProjects = getVisibleProjects();
 ---
 
 <BaseLayout title="Projects">
@@ -62,7 +13,7 @@ const allProjects = [
       href="/"
       class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
     >
-      ← Back
+      &larr; Back
     </a>
 
     <!-- Header -->
@@ -73,21 +24,7 @@ const allProjects = [
 
     <!-- Projects -->
     <div class="space-y-3">
-      {
-        allProjects.map((project) => (
-          <div class="border-l-2 border-border pl-4 glow-border">
-            <a
-              href={project.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group block py-1"
-            >
-              <h3 class="font-medium group-hover:text-accent transition-colors">{project.name}</h3>
-              <p class="text-sm text-text-muted">{project.description}</p>
-            </a>
-          </div>
-        ))
-      }
+      {allProjects.map((project) => <ProjectCard project={project} lang="en" />)}
     </div>
   </div>
 </BaseLayout>
