@@ -50,11 +50,14 @@ async function translatePost(filename) {
   let description = '';
   let otherFrontmatter = [];
 
+  // Strip surrounding quotes from YAML values
+  const stripQuotes = (s) => s.replace(/^(['"])(.*)\1$/, '$2');
+
   for (const line of lines) {
     if (line.startsWith('title:')) {
-      title = line.replace('title:', '').trim();
+      title = stripQuotes(line.replace('title:', '').trim());
     } else if (line.startsWith('description:')) {
-      description = line.replace('description:', '').trim();
+      description = stripQuotes(line.replace('description:', '').trim());
     } else {
       otherFrontmatter.push(line);
     }
