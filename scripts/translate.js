@@ -76,17 +76,26 @@ async function translatePost(filename) {
     ...otherFrontmatter,
   ].join('\n');
 
-  // Build translated content
-  const translatedContent = `---\n${translatedFrontmatter}\n---\n\n${bodyEn.text}\n`;
+  // Build translated content — use double quotes for description to avoid YAML issues with apostrophes
+  const safeDescription = descriptionEn.text.replace(/"/g, '\\"');
+  const translatedFrontmatterSafe = [
+    `title: ${titleEn.text}`,
+    `description: "${safeDescription}"`,
+    ...otherFrontmatter.filter((l) => !l.startsWith('description:')),
+  ].join('\n');
 
-  // Generate English slug (replace common ES words)
-  const enFilename = filename
-    .replace('hola-mundo', 'hello-world')
-    .replace('consejos', 'tips')
-    .replace('rendimiento', 'performance')
-    .replace('configuracion', 'setup')
-    .replace('construyendo', 'building')
-    .replace('afinador', 'tuner');
+  const translatedContent = `---\n${translatedFrontmatterSafe}\n---\n\n${bodyEn.text}\n`;
+
+  // Generate English slug from translated title
+  const enSlug = titleEn.text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+  const enFilename = `${enSlug}.md`;
 
   const outputPath = path.join(postsEnDir, enFilename);
   fs.writeFileSync(outputPath, translatedContent, 'utf-8');
