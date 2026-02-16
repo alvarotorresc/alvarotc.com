@@ -19,8 +19,8 @@ export const projects: Project[] = [
     repo: 'https://github.com/alvarotorresc/sinherencia',
     url: 'https://sinherencia.com',
     category: 'flagship',
-    visible: true,
-    featured: true,
+    visible: false,
+    featured: false,
     order: 1,
   },
   {
