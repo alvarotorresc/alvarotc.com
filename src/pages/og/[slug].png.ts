@@ -3,8 +3,9 @@ import { generateOGImage } from '../../lib/og';
 import type { APIRoute } from 'astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts.map((post) => ({
+  const [posts, postsEn] = await Promise.all([getCollection('posts'), getCollection('posts-en')]);
+  const all = [...posts, ...postsEn];
+  return all.map((post) => ({
     params: { slug: post.slug },
     props: { post },
   }));

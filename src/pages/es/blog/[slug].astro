@@ -18,7 +18,7 @@ const { Content } = await post.render();
   title={post.data.title}
   description={post.data.description}
   date={post.data.date}
-  image={post.data.image}
+  image={post.data.image || `/og/${post.slug}.png`}
 >
   <Content />
 </BlogPostLayout>
