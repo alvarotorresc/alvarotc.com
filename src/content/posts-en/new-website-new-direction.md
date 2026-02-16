@@ -1,6 +1,6 @@
 ---
 title: New website, new direction
-description: "I have rebuilt my personal website from scratch. Here I tell why, what decisions I've made and what comes next."
+description: "'I have rebuilt my personal website from scratch. Here I tell why, what decisions I've made and what comes next.'"
 date: 2026-02-16
 draft: false
 tags: ['meta', 'web', 'astro', 'proyectos']
@@ -17,7 +17,7 @@ So a few weeks ago I decided it was time to throw it all away and start clean.
 The decision was easier than I thought. My personal website doesn't need SSR, it doesn't need API routes, it doesn't need a React runtime on every page. What it needs is:
 
 - **Extreme performance**: static HTML, zero unnecessary JavaScript.
-- Markdown for writing\*\*: no CMS, no database, just files
+- Markdown to write\*\*: no CMS, no database, just files
 - Flexibility for point-in-time interactivity\*\*: where I need it, I can mount a React component
 
 Astro 5 is a perfect fit. The concept of _islands architecture_ allows me to have animations with Framer Motion only where it makes sense, while the rest of the page is pure HTML. The result is a website that loads in milliseconds.
@@ -60,7 +60,7 @@ In case you're interested in the technical detail, here's what's under the hood:
 - Vercel\*\* for hosting with automatic deploy on each push
 - **GitHub Actions** for CI: lint, type checking, build and tests before merging
 
-All the code is open source. If you are interested in how it is done, the repository is linked in each project on the web.
+All the code is open source. If you are interested in how it is done, the repository is linked in each web project.
 
 ## Next step
 
