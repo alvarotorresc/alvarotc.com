@@ -18,7 +18,7 @@ export const GET: APIRoute = async ({ props }) => {
     subtitle: post.data.description,
   });
 
-  return new Response(png, {
+  return new Response(png as unknown as BodyInit, {
     headers: {
       'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=31536000, immutable',

@@ -30,6 +30,7 @@ export async function generateOGImage(options: OGImageOptions): Promise<Buffer> 
   const fonts = await loadFonts();
 
   const svg = await satori(
+    // @ts-expect-error satori accepts this format but types don't match ReactNode
     {
       type: 'div',
       props: {
