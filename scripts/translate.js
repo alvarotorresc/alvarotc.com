@@ -72,18 +72,12 @@ async function translatePost(filename) {
     translator.translateText(body.trim(), 'es', 'en-US'),
   ]);
 
-  // Build translated frontmatter
-  const translatedFrontmatter = [
-    `title: ${titleEn.text}`,
-    `description: ${descriptionEn.text}`,
-    ...otherFrontmatter,
-  ].join('\n');
-
-  // Build translated content — use double quotes for description to avoid YAML issues with apostrophes
-  const safeDescription = descriptionEn.text.replace(/"/g, '\\"');
+  // Build translated frontmatter. Title and description go double-quoted
+  // (JSON.stringify escapes quotes and backslashes): an unquoted title with
+  // a colon ("Foo: bar") is invalid YAML and breaks the Astro build.
   const translatedFrontmatterSafe = [
-    `title: ${titleEn.text}`,
-    `description: "${safeDescription}"`,
+    `title: ${JSON.stringify(titleEn.text)}`,
+    `description: ${JSON.stringify(descriptionEn.text)}`,
     ...otherFrontmatter.filter((l) => !l.startsWith('description:')),
   ].join('\n');
 
