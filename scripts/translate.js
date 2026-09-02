@@ -109,7 +109,19 @@ async function translatePost(filename) {
 async function main() {
   console.log('🌍 Starting translation process...\n');
 
-  const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
+  // Sin argumentos: traduce todos los posts (uso manual).
+  // Con argumentos: solo esos ficheros (el hook de pre-commit pasa los staged).
+  const requested = process.argv.slice(2).map((f) => path.basename(f));
+  const files =
+    requested.length > 0
+      ? requested.filter((f) => {
+          if (!f.endsWith('.md') || !fs.existsSync(path.join(postsDir, f))) {
+            console.log(`⚠️  Skipping ${f} - not a post in ${postsDir}`);
+            return false;
+          }
+          return true;
+        })
+      : fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
 
   for (const file of files) {
     try {
@@ -120,7 +132,7 @@ async function main() {
   }
 
   console.log('\n✨ Translation complete!');
-  console.log(`Translated ${files.length} posts from Spanish to English`);
+  console.log(`Translated ${files.length} post(s) from Spanish to English`);
 }
 
 main();

@@ -2,8 +2,9 @@
 POSTS_CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep "^src/content/posts/.*\.md$" || true)
 
 if [ -n "$POSTS_CHANGED" ]; then
-  echo "📝 Posts en español detectados, ejecutando traducción..."
-  npm run translate
+  echo "📝 Posts en español detectados, traduciendo solo los del commit..."
+  # shellcheck disable=SC2086
+  npm run translate -- $POSTS_CHANGED
   git add src/content/posts-en/
   echo "✅ Traducciones añadidas al commit"
 fi
