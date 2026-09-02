@@ -9,33 +9,74 @@ export interface Project {
   order: number;
 }
 
+// Los cinco primeros coinciden con los repos fijados en github.com/alvarotorresc.
 export const projects: Project[] = [
+  {
+    name: 'Bito',
+    description: {
+      es: 'Hábitos que se quedan. App de hábitos para Android, offline-first: sin cuentas ni nube',
+      en: 'Habits that stick. Offline-first habit tracker for Android: no accounts, no cloud',
+    },
+    repo: 'https://github.com/alvarotorresc/bito',
+    url: 'https://bito.alvarotc.com',
+    category: 'flagship',
+    visible: true,
+    featured: true,
+    order: 1,
+  },
   {
     name: 'Quedamos',
     description: {
-      es: 'App social para organizar planes con amigos',
-      en: 'Social app to organize plans with friends',
+      es: 'Coordina quedadas con tu grupo: disponibilidad compartida, planes y votaciones',
+      en: 'Coordinate meetups with your group: shared availability, plans and votes',
     },
     repo: 'https://github.com/alvarotorresc/quedamos-app',
-    url: 'https://quedamos-app-mobile.vercel.app',
+    url: 'https://quedamos.alvarotc.com',
     category: 'flagship',
     visible: true,
     featured: true,
     order: 2,
   },
   {
+    name: 'BaseCero',
+    description: {
+      es: 'Tu dinero, desde cero. Finanzas personales que viven enteras en tu dispositivo',
+      en: 'Your money, from scratch. Personal finance that lives entirely on your device',
+    },
+    repo: 'https://github.com/alvarotorresc/basecero',
+    url: 'https://basecero.alvarotc.com',
+    category: 'flagship',
+    visible: true,
+    featured: true,
+    order: 3,
+  },
+  {
     name: 'PokeUtils',
     description: {
-      es: 'Utilidades Pokémon con vanilla JavaScript',
-      en: 'Pokémon utilities with vanilla JavaScript',
+      es: 'Tu guía Pokémon retro: análisis competitivo, crianza y Pokédex completa',
+      en: 'Your retro Pokémon guide: competitive analysis, breeding tools and a full Pokédex',
     },
     repo: 'https://github.com/alvarotorresc/PokeUtils',
     url: 'https://pokeutils.alvarotc.com',
     category: 'lab',
     visible: true,
     featured: true,
-    order: 3,
+    order: 4,
   },
+  {
+    name: 'create-astro-blog',
+    description: {
+      es: 'Crea un blog con Astro, personalizable, con un solo comando',
+      en: 'Create a customizable Astro blog with one command',
+    },
+    repo: 'https://github.com/alvarotorresc/create-astro-blog',
+    url: 'https://www.npmjs.com/package/create-astro-blog',
+    category: 'lab',
+    visible: true,
+    featured: true,
+    order: 5,
+  },
+  // Ocultos desde 2026-09-02: fuera de los cinco fijados. visible: true para recuperarlos.
   {
     name: 'DevTools Suite',
     description: {
@@ -45,9 +86,9 @@ export const projects: Project[] = [
     repo: 'https://github.com/alvarotorresc/devtools',
     url: 'https://devtools.alvarotc.com',
     category: 'lab',
-    visible: true,
-    featured: true,
-    order: 4,
+    visible: false,
+    featured: false,
+    order: 6,
   },
   {
     name: 'Swiss Knife',
@@ -57,22 +98,9 @@ export const projects: Project[] = [
     },
     repo: 'https://github.com/alvarotorresc/swiss-knife',
     category: 'lab',
-    visible: true,
-    featured: true,
-    order: 5,
-  },
-  {
-    name: 'create-astro-blog',
-    description: {
-      es: 'CLI scaffolder para crear blogs con Astro',
-      en: 'CLI scaffolder to create blogs with Astro',
-    },
-    repo: 'https://github.com/alvarotorresc/create-astro-blog',
-    url: 'https://www.npmjs.com/package/create-astro-blog',
-    category: 'lab',
-    visible: true,
+    visible: false,
     featured: false,
-    order: 6,
+    order: 7,
   },
   // Set visible: true when ready
   {
