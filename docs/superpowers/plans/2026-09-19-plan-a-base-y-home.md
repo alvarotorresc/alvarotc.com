@@ -1228,6 +1228,197 @@ git commit -m "feat(layout): theme toggle, nav, footer and base layout with self
 
 ---
 
+---
+
+### Task 2b: Enlace de idioma correcto en los posts
+
+**Files:**
+
+- Create: `src/lib/i18n-paths.ts`, `tests/i18n-paths.test.ts`
+- Modify: `src/content.config.ts`, `scripts/translate.js`, los cinco ficheros de `src/content/posts-en/*.md` (solo frontmatter), `src/components/site/Nav.astro`, `src/components/site/Footer.astro`, `src/layouts/BaseLayout.astro`, `src/layouts/BlogPostLayout.astro`, `src/pages/blog/[slug].astro`, `src/pages/es/blog/[slug].astro`, `tests/nav.test.ts`, `tests/schemas.test.ts`
+
+**Why:** los posts en inglés tienen slugs traducidos distintos de los españoles, así que el enlace de idioma calculado como `/es` + ruta apunta a un 404 en cada post, y el `hreflang` alternate también. Cada post en inglés declara de qué post español viene y las páginas pasan la ruta alternativa real al layout.
+
+**Interfaces:**
+
+- Produces: `mirroredPath(lang: Locale, currentPath: string): string` en `src/lib/i18n-paths.ts`.
+- Produces: prop opcional `alternatePath?: string` en `BaseLayout`, `BlogPostLayout`, `Nav` y `Footer`. Cuando falta, se usa `mirroredPath`.
+- Produces: campo opcional `source` en `postSchema` (id del post español del que se tradujo; solo lo llevan los de `posts-en`).
+
+- [ ] **Step 1: Tests (fallan)**
+
+`tests/i18n-paths.test.ts`:
+
+```ts
+import { describe, it, expect } from 'vitest';
+import { mirroredPath } from '../src/lib/i18n-paths';
+
+describe('mirroredPath', () => {
+  it('prefixes English paths with /es', () => {
+    expect(mirroredPath('en', '/')).toBe('/es/');
+    expect(mirroredPath('en', '/about')).toBe('/es/about');
+    expect(mirroredPath('en', '/#projects')).toBe('/es/#projects');
+  });
+
+  it('strips the /es prefix from Spanish paths', () => {
+    expect(mirroredPath('es', '/es/')).toBe('/');
+    expect(mirroredPath('es', '/es')).toBe('/');
+    expect(mirroredPath('es', '/es/about')).toBe('/about');
+    expect(mirroredPath('es', '/es/#projects')).toBe('/#projects');
+  });
+
+  it('does not touch paths that merely start with es', () => {
+    expect(mirroredPath('en', '/essays')).toBe('/es/essays');
+  });
+});
+```
+
+Añadir a `tests/nav.test.ts` dentro del `describe('Nav')`:
+
+```ts
+it('uses an explicit alternate path when the page provides one', async () => {
+  const container = await AstroContainer.create();
+  const html = await container.renderToString(Nav, {
+    props: { lang: 'en', currentPath: '/blog/from-an-idea', alternatePath: '/es/blog/de-una-idea' },
+  });
+  expect(html).toContain('href="/es/blog/de-una-idea"');
+  expect(html).not.toContain('href="/es/blog/from-an-idea"');
+});
+```
+
+Añadir a `tests/schemas.test.ts` en el `describe('postSchema')`:
+
+```ts
+it('accepts an optional source id for translated posts', () => {
+  const parsed = postSchema.parse({
+    title: 'Hello',
+    description: 'A post',
+    date: '2026-09-01',
+    source: 'hola',
+  });
+  expect(parsed.source).toBe('hola');
+});
+```
+
+- [ ] **Step 2: Ejecutar y ver que fallan**
+
+Run: `npx vitest run tests/i18n-paths.test.ts tests/nav.test.ts tests/schemas.test.ts`
+Expected: FAIL en los tres nuevos casos (módulo inexistente, `alternatePath` ignorado, `source` eliminado por el esquema).
+
+- [ ] **Step 3: Helper y esquema**
+
+`src/lib/i18n-paths.ts`:
+
+```ts
+import type { Locale } from '../i18n/translations';
+
+export function mirroredPath(lang: Locale, currentPath: string): string {
+  if (lang === 'es') return currentPath.replace(/^\/es(?=\/|$)/, '') || '/';
+  return currentPath === '/' ? '/es/' : `/es${currentPath}`;
+}
+```
+
+En `src/content.config.ts`, dentro de `postSchema`, tras `tags`:
+
+```ts
+  source: z.string().optional(),
+```
+
+- [ ] **Step 4: Nav, Footer y layouts**
+
+En `Nav.astro` y `Footer.astro`: añadir `alternatePath?: string` a `Props`, importar `mirroredPath` desde `../../lib/i18n-paths`, y sustituir el cálculo de `otherLang` por:
+
+```ts
+const { lang, currentPath, alternatePath } = Astro.props;
+const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
+```
+
+En `BaseLayout.astro`: añadir `alternatePath?: string` a `Props`, importar `mirroredPath` desde `../lib/i18n-paths`, y sustituir el bloque de `alternateURL` por:
+
+```ts
+const alternate = alternatePath ?? mirroredPath(lang, currentPath);
+const alternateURL = new URL(alternate, Astro.site);
+```
+
+y pasar `alternatePath={alternate}` tanto a `<Nav>` como a `<Footer>`.
+
+En `BlogPostLayout.astro`: añadir `alternatePath?: string` a `Props`, leerla de `Astro.props` y pasarla a `<BaseLayout alternatePath={alternatePath} ...>`.
+
+- [ ] **Step 5: Páginas de post**
+
+`src/pages/blog/[slug].astro`: tras `const { Content } = await render(post);`:
+
+```ts
+const alternatePath = post.data.source ? `/es/blog/${post.data.source}` : '/es/blog';
+```
+
+y pasar `alternatePath={alternatePath}` a `<BlogPostLayout>`.
+
+`src/pages/es/blog/[slug].astro`: en `getStaticPaths`, cargar también los ingleses y emparejar por `source`:
+
+```ts
+export async function getStaticPaths() {
+  const [posts, postsEn] = await Promise.all([getCollection('posts'), getCollection('posts-en')]);
+  return posts.map((post) => {
+    const translation = postsEn.find((p) => p.data.source === post.id);
+    return {
+      params: { slug: post.id },
+      props: { post, alternatePath: translation ? `/blog/${translation.id}` : '/blog' },
+    };
+  });
+}
+
+const { post, alternatePath } = Astro.props;
+```
+
+y pasar `alternatePath={alternatePath}` a `<BlogPostLayout>`.
+
+- [ ] **Step 6: Datos y script de traducción**
+
+Añadir en el frontmatter de cada post en inglés la línea `source:` con el id del post español:
+
+| Fichero en `posts-en`                                                                                        | `source`                                             |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------- |
+| `basecero-your-money-doesnt-have-to-sit-on-someone-elses-server.md`                                          | `basecero-tu-dinero-no-vive-en-el-servidor-de-nadie` |
+| `from-an-idea-to-an-apk-in-24-hours.md`                                                                      | `de-una-idea-a-una-apk-en-24h`                       |
+| `set-up-a-service-on-your-vps-today-and-move-it-to-your-home-lab-tomorrow-freshrss-with-docker-and-caddy.md` | `freshrss-vps-docker-caddy-migrable`                 |
+| `new-website-new-direction.md`                                                                               | `nueva-web-nuevo-rumbo`                              |
+| `how-i-set-up-my-vps-with-full-observability-for-less-than-5month.md`                                        | `vps-observabilidad-completa`                        |
+
+En `scripts/translate.js`, en `translatedFrontmatterSafe`, añadir la línea `source` y filtrar cualquier `source:` previa:
+
+```js
+const translatedFrontmatterSafe = [
+  `title: ${JSON.stringify(titleEn.text)}`,
+  `description: ${JSON.stringify(descriptionEn.text)}`,
+  `source: ${JSON.stringify(filename.replace(/\.md$/, ''))}`,
+  ...otherFrontmatter.filter((l) => !l.startsWith('description:') && !l.startsWith('source:')),
+].join('\n');
+```
+
+- [ ] **Step 7: Verificar**
+
+Run: `npx vitest run && npm run lint && npm run build`
+Expected: todo verde. Después, comprobar que ningún enlace alternate de un post apunta a un 404:
+
+```bash
+for f in dist/blog/*/index.html dist/es/blog/*/index.html; do
+  alt=$(grep -o 'hreflang="[a-z]*" href="[^"]*"' "$f" | grep -o 'href="[^"]*"' | head -1 | sed 's/href="//;s/"$//;s|https://alvarotc.com||');
+  [ -f "dist${alt%/}/index.html" ] && echo "ok  $alt" || echo "404 $alt  (from $f)";
+done
+```
+
+Expected: diez líneas `ok`, ninguna `404`.
+
+- [ ] **Step 8: Commit**
+
+```bash
+git add src scripts tests
+git commit -m "fix(i18n): link each post to its translation instead of a mirrored path"
+```
+
+---
+
 ### Task 3: Migración de posts al content layer
 
 **Files:**
