@@ -21,13 +21,13 @@ Entra:
 
 - Home nueva de una sola página larga con nueve secciones.
 - Rutas nuevas: `/about`, `/cv`, `/stats`, `/projects/[slug]`, `/blog/[slug].md`, `/llms.txt`,
-  `/llms-full.txt`, `/api/contact`.
+  `/llms-full.txt`. Servicio de contacto externo a la web, en el VPS.
 - Colecciones de contenido nuevas: `experience`, `now`, `interests`. Proyectos unificados en una sola
   colección bilingüe.
 - Datos en build: GitHub, ListenBrainz, Umami, Lighthouse.
 - Tema claro y oscuro con toggle.
 - Paleta de comandos con búsqueda.
-- Formulario de contacto con envío real.
+- Formulario de contacto con envío real a través de un servicio propio en el VPS (repo aparte).
 - Espejo completo en `/es`.
 
 No entra:
@@ -47,32 +47,30 @@ No entra:
 | Identidad              | FOSS, privacidad y Linux explícitos: etiquetas en About, tarjeta "Daily driver" con Tux, pie con "no cookies, no trackers", licencias visibles |
 | Now                    | Reading, Daily driver, Listening (ListenBrainz, nunca Spotify), Building                                                                       |
 | Proyectos primera fila | Bito, Quedamos, Huellas                                                                                                                        |
-| Contacto               | Tarjeta (disponibilidad, email con copiar, tiempo de respuesta, reservar llamada) más formulario estilo terminal                               |
+| Contacto               | Tarjeta (disponibilidad, email con copiar, tiempo de respuesta) más formulario estilo terminal; envío por servicio propio en el VPS            |
 | Gustos                 | Sección "Off the clock" antes de Contact: guitarra eléctrica, ajedrez en Lichess, boxeo                                                        |
 | Datos de experiencia   | Aún inventados; se sustituyen cuando Álvaro los pase en bruto                                                                                  |
 
 ## 4. Rutas
 
-| Ruta                                               | Render    | Contenido                                                  |
-| -------------------------------------------------- | --------- | ---------------------------------------------------------- |
-| `/`                                                | estático  | Home completa                                              |
-| `/about`                                           | estático  | Historia en carril central, "What I care about"            |
-| `/cv`                                              | estático  | Hoja A4 imprimible con `@media print`, botón de imprimir   |
-| `/stats`                                           | estático  | Métricas de código, escritura y web                        |
-| `/projects`                                        | estático  | Todos los proyectos visibles, primera fila destacada       |
-| `/projects/[slug]`                                 | estático  | Ficha de proyecto con galería, "Try it", stack, changelog  |
-| `/blog`                                            | estático  | Lista completa con filtro por etiqueta                     |
-| `/blog/[slug]`                                     | estático  | Post, como ahora con nuevo layout                          |
-| `/blog/[slug].md`                                  | estático  | Markdown fuente del post, `Content-Type: text/markdown`    |
-| `/llms.txt`                                        | estático  | Índice para LLMs: quién, rutas, lista de posts y proyectos |
-| `/llms-full.txt`                                   | estático  | Todos los posts concatenados en Markdown                   |
-| `/rss.xml`, `/sitemap-index.xml`, `/og/[slug].png` | estático  | Ya existen, se mantienen                                   |
-| `/api/contact`                                     | on demand | Función serverless que envía el email                      |
-| `/es/...`                                          | estático  | Espejo de todas las rutas estáticas anteriores             |
+| Ruta                                               | Render   | Contenido                                                  |
+| -------------------------------------------------- | -------- | ---------------------------------------------------------- |
+| `/`                                                | estático | Home completa                                              |
+| `/about`                                           | estático | Historia en carril central, "What I care about"            |
+| `/cv`                                              | estático | Hoja A4 imprimible con `@media print`, botón de imprimir   |
+| `/stats`                                           | estático | Métricas de código, escritura y web                        |
+| `/projects`                                        | estático | Todos los proyectos visibles, primera fila destacada       |
+| `/projects/[slug]`                                 | estático | Ficha de proyecto con galería, "Try it", stack, changelog  |
+| `/blog`                                            | estático | Lista completa con filtro por etiqueta                     |
+| `/blog/[slug]`                                     | estático | Post, como ahora con nuevo layout                          |
+| `/blog/[slug].md`                                  | estático | Markdown fuente del post, `Content-Type: text/markdown`    |
+| `/llms.txt`                                        | estático | Índice para LLMs: quién, rutas, lista de posts y proyectos |
+| `/llms-full.txt`                                   | estático | Todos los posts concatenados en Markdown                   |
+| `/rss.xml`, `/sitemap-index.xml`, `/og/[slug].png` | estático | Ya existen, se mantienen                                   |
+| `/es/...`                                          | estático | Espejo de todas las rutas estáticas anteriores             |
 
-Astro 5 permite marcar una ruta con `export const prerender = false` manteniendo `output: 'static'`
-si hay adaptador. Se añade `@astrojs/vercel` solo para `/api/contact`. Todo lo demás sigue siendo HTML
-generado en build.
+La web es cien por cien estática, sin adaptador. El único endpoint dinámico, el de contacto, vive en
+el VPS (sección 12) y la web lo llama por `fetch` desde la isla del formulario.
 
 ## 5. Home, sección a sección
 
@@ -207,7 +205,7 @@ Regla: Astro estático por defecto. Isla React solo cuando hay estado en cliente
 | `ProjectBento.astro`                           | estático                  |                                                                                                                                                   |
 | `Timeline.tsx`                                 | isla, `client:visible`    | Framer Motion: `whileInView` por entrada y `useScroll` para la barra de progreso. Con `prefers-reduced-motion` renderiza estático                 |
 | `CommandPalette.tsx`                           | isla, `client:idle`       | ⌘K y Ctrl+K. Índice `search.json` generado en build (posts, proyectos, secciones). Búsqueda por subcadena con puntuación simple, sin dependencias |
-| `ContactTerminal.tsx`                          | isla, `client:visible`    | estado del formulario, envío a `/api/contact`, estados enviando, enviado y error                                                                  |
+| `ContactTerminal.tsx`                          | isla, `client:visible`    | estado del formulario, envío por `fetch` a `https://contact.alvarotc.com` (VPS), estados enviando, enviado y error                                |
 | `CopyEmail.astro`                              | script vanilla            | `navigator.clipboard`                                                                                                                             |
 | `PlaygroundFrame.astro`                        | script vanilla            | carga el iframe solo al pulsar "Load the playground"                                                                                              |
 | `CvSheet.astro`                                | estático                  | usado por `/cv` y `/es/cv`, con `@media print`                                                                                                    |
@@ -269,15 +267,27 @@ logo oficial de Linux (Larry Ewing, licencia libre) como SVG en `public/`.
 
 ## 12. Contacto
 
-- `src/pages/api/contact.ts` con `prerender = false`, método POST, JSON `{ from, subject, body,
-website }`. `website` es el honeypot.
-- Validación: email con formato, subject de 3 a 120 caracteres, body de 10 a 4000, honeypot vacío,
-  y un campo `t` con el timestamp de apertura del formulario para descartar envíos en menos de tres
-  segundos.
-- Envío con Resend (`RESEND_API_KEY`) a `hello@alvarotc.com`, con `reply-to` al remitente.
-  Alternativa documentada: SMTP propio en el VPS con nodemailer si se prefiere evitar servicios.
-- Sin base de datos, sin cookies. Respuesta `{ ok: true }` o `{ ok: false, error }`.
-- Botón "Book a 20 min call" enlaza a Cal.com (software libre). Sin embed.
+Principio: ningún tercero lee el mensaje. La web es estática; el contacto es un servicio propio.
+
+- **Dirección.** `hello@alvarotc.com` se crea en Cloudflare Email Routing (el dominio ya está en
+  Cloudflare) reenviando al buzón de Proton de Álvaro. Cloudflare reenvía, no almacena buzón.
+- **Servicio.** Repo aparte `alvarotc-contact`: servicio Node mínimo (Hono o Fastify) en un
+  contenedor Docker en el VPS de Hetzner, detrás de Caddy en `contact.alvarotc.com`, junto a la API de
+  Quedamos y Umami. Un solo endpoint `POST /send`. CORS limitado a `https://alvarotc.com`.
+- **Contrato.** JSON `{ from, subject, body, website, t }`. `website` es el honeypot y debe llegar
+  vacío. `t` es el timestamp de apertura del formulario; se descartan envíos en menos de tres
+  segundos. Validación: email con formato, subject de 3 a 120 caracteres, body de 10 a 4000.
+  Respuesta `{ ok: true }` o `{ ok: false, error }`. Límite de 5 envíos por IP y hora en memoria.
+- **Entrega.** nodemailer en modo directo: el servicio conecta con los MX de `alvarotc.com` (Cloudflare)
+  y entrega a `hello@alvarotc.com`, con `reply-to` al remitente. Sin credenciales SMTP de nadie. Para
+  que Cloudflare lo acepte: SPF con la IP del VPS, DKIM firmado por el servicio con clave publicada en
+  DNS, y rDNS del VPS en Hetzner. Requisito: puerto 25 de salida abierto en Hetzner (se pide por ticket
+  si está bloqueado).
+- **Plan B** si el puerto 25 no se abre: Proton SMTP submission (planes de empresa) o Proton Mail
+  Bridge en Docker en el mismo VPS, y nodemailer por SMTP local.
+- Sin base de datos, sin cookies, sin logs del cuerpo del mensaje (solo fecha, resultado y hash de IP
+  para el límite).
+- El botón de reservar llamada queda fuera por ahora. Si se añade, será Cal.com autoalojado.
 
 ## 13. Accesibilidad y móvil
 
@@ -298,7 +308,7 @@ website }`. `website` es el honeypot.
 ## 15. Tests y verificación
 
 - Vitest: esquemas de contenido con fixtures, `fetch-data.ts` con respuestas grabadas y fallback,
-  generador de `search.json`, validación de `/api/contact`, contraste de tokens, y el
+  generador de `search.json`, contraste de tokens, y el
   `tests/build.test.ts` existente ampliado a las rutas nuevas (existencia de `/cv`, `/stats`,
   `/llms.txt`, `/blog/<slug>.md`, `/es/cv`).
 - CI: lint, `astro check`, build y test como ahora, más Lighthouse CI en `main` con umbrales
@@ -314,7 +324,8 @@ website }`. `website` es el honeypot.
 - Gustos: años tocando, rating de Lichess, sesiones de boxeo, o dejar sin cifras.
 - Imágenes: foto o avatar, icono y capturas de Bito y Quedamos, vídeo promo de Bito, concepto de
   Huellas.
-- Cuenta de Resend o SMTP, enlace de Cal.com, `GITHUB_TOKEN` y `UMAMI_API_KEY` en Vercel.
+- `GITHUB_TOKEN` y `UMAMI_API_KEY` en Vercel. Para el servicio de contacto: puerto 25 abierto en
+  Hetzner, registros SPF, DKIM y rDNS, y la regla de Email Routing en Cloudflare.
 
 ## 17. Fases de implementación (para el plan)
 
