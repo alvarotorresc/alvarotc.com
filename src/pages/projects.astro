@@ -1,30 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getVisibleProjects } from '../data/projects';
+import Tag from '../components/ui/Tag.astro';
+import { getProjects, projectSlug } from '../lib/projects';
+import { t, statusLabel } from '../i18n/translations';
 
-const allProjects = getVisibleProjects();
+const lang = 'en';
+const projects = await getProjects(lang);
 ---
 
-<BaseLayout title="Projects">
-  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
-    <!-- Back link -->
-    <a
-      href="/"
-      class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
-    >
-      &larr; Back
-    </a>
-
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-2xl font-medium mb-2">Projects</h1>
-      <p class="text-text-muted text-sm">All projects</p>
-    </header>
-
-    <!-- Projects -->
-    <div class="space-y-3">
-      {allProjects.map((project) => <ProjectCard project={project} lang="en" />)}
-    </div>
+<BaseLayout title={t('projects.title', lang)} lang={lang}>
+  <div class="container-page py-14">
+    <h1 class="mb-8 text-3xl font-extrabold tracking-tight">{t('projects.title', lang)}</h1>
+    <ul class="grid gap-4 md:grid-cols-2">
+      {
+        projects.map((p) => (
+          <li class="card flex flex-col gap-2 p-5">
+            <div class="flex items-center gap-2">
+              <h2 class="text-lg font-bold">{p.data.name}</h2>
+              <Tag>{statusLabel(p.data.status, lang)}</Tag>
+            </div>
+            <p class="text-sm text-muted">{p.data.tagline}</p>
+            <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
+              <a href={`/projects/${projectSlug(p)}`}>{t('projects.caseStudy', lang)}</a>
+              {p.data.url && <a href={p.data.url}>{t('projects.live', lang)}</a>}
+              {p.data.repo && <a href={p.data.repo}>{t('projects.repo', lang)}</a>}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </BaseLayout>
