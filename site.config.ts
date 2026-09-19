@@ -1,8 +1,8 @@
 export const siteConfig = {
   name: 'Álvaro Torres Carrasco',
-  tagline: 'Software Developer',
+  tagline: 'Backend developer',
   domain: 'https://alvarotc.com',
-  description: 'Software Developer. Building things.',
+  description: 'Backend developer. Offline-first apps, self-hosted infrastructure, free software.',
 
   author: {
     name: 'Álvaro Torres Carrasco',
@@ -14,10 +14,12 @@ export const siteConfig = {
   },
 
   nav: [
-    { label: 'Inicio', href: '/' },
-    { label: 'Sobre mí', href: '/about' },
-    { label: 'Proyectos', href: '/projects' },
-    { label: 'Blog', href: '/blog' },
+    { key: 'nav.about', href: '/about' },
+    { key: 'nav.projects', href: '/#projects' },
+    { key: 'nav.experience', href: '/#experience' },
+    { key: 'nav.writing', href: '/blog' },
+    { key: 'nav.stats', href: '/stats' },
+    { key: 'nav.cv', href: '/cv' },
   ],
 
   social: [

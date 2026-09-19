@@ -1,0 +1,113 @@
+---
+import Icon from '../icons/Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { t, translations, type Locale } from '../../i18n/translations';
+import { getNav } from '../../lib/config';
+
+interface Props {
+  lang: Locale;
+  currentPath: string;
+}
+const { lang, currentPath } = Astro.props;
+
+const prefix = lang === 'es' ? '/es' : '';
+const items = getNav().map((item) => ({
+  label: t(item.key as keyof typeof translations.en, lang),
+  href: `${prefix}${item.href}`,
+}));
+
+const otherLang =
+  lang === 'es'
+    ? currentPath.replace(/^\/es/, '') || '/'
+    : `/es${currentPath === '/' ? '/' : currentPath}`;
+---
+
+<header class="border-b border-border">
+  <nav class="container-page flex h-[72px] items-center justify-between">
+    <a href={`${prefix}/`} class="text-base font-extrabold tracking-tight">alvarotc</a>
+
+    <div class="hidden items-center gap-6 text-sm font-medium md:flex">
+      {
+        items.map((item) => (
+          <a href={item.href} class="text-muted hover:text-text">
+            {item.label}
+          </a>
+        ))
+      }
+      <button
+        type="button"
+        data-command-palette
+        class="flex h-[34px] items-center gap-2 rounded-lg border border-border bg-surface pl-3 pr-2 text-[13px] text-muted"
+      >
+        <Icon name="search" size={14} />
+        <span>{t('nav.search', lang)}</span>
+        <kbd class="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint"
+          >⌘K</kbd
+        >
+      </button>
+      <a
+        href={otherLang}
+        class="text-[13px] text-muted hover:text-text"
+        hreflang={lang === 'es' ? 'en' : 'es'}
+      >
+        {t('nav.lang', lang)}
+      </a>
+      <ThemeToggle lang={lang} />
+    </div>
+
+    <div class="flex items-center gap-2 md:hidden">
+      <ThemeToggle lang={lang} />
+      <button
+        type="button"
+        data-menu-toggle
+        aria-label={t('nav.menu', lang)}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-border bg-surface text-muted"
+      >
+        <Icon name="menu" size={16} />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" hidden class="container-page border-t border-border pb-4 md:hidden">
+    <ul class="flex flex-col gap-1 pt-2">
+      {
+        items.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a
+          href={otherLang}
+          class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
+        >
+          {t('footer.lang', lang)}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  function bind() {
+    const button = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const menu = document.getElementById('mobile-menu');
+    if (!button || !menu || button.dataset.bound) return;
+    button.dataset.bound = 'true';
+    button.addEventListener('click', () => {
+      const open = menu.hidden;
+      menu.hidden = !open;
+      button.setAttribute('aria-expanded', String(open));
+    });
+  }
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>
