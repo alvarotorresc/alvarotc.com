@@ -24,4 +24,17 @@ describe('Nav', () => {
     expect(html).toContain('href="/"');
     expect(html).toContain('Sobre mí');
   });
+
+  it('uses an explicit alternate path when the page provides one', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Nav, {
+      props: {
+        lang: 'en',
+        currentPath: '/blog/from-an-idea',
+        alternatePath: '/es/blog/de-una-idea',
+      },
+    });
+    expect(html).toContain('href="/es/blog/de-una-idea"');
+    expect(html).not.toContain('href="/es/blog/from-an-idea"');
+  });
 });

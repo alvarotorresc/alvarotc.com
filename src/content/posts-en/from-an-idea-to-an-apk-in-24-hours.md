@@ -4,6 +4,7 @@ description: "Four design documents before writing a single line of code. That's
 date: 2026-08-14
 draft: false
 tags: ['android', 'kotlin', 'compose', 'foss', 'proceso', 'ia-engineering']
+source: de-una-idea-a-una-apk-en-24h
 ---
 
 On the evening of August 13, I finished Bito’s first design document. By the evening of the 14th, I had the APK installed on my Pixel. A little over twenty-four hours, spread over two afternoons.

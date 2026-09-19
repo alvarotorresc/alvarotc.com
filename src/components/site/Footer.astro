@@ -1,15 +1,14 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
+import { mirroredPath } from '../../lib/i18n-paths';
 
 interface Props {
   lang: Locale;
   currentPath: string;
+  alternatePath?: string;
 }
-const { lang, currentPath } = Astro.props;
-const otherLang =
-  lang === 'es'
-    ? currentPath.replace(/^\/es/, '') || '/'
-    : `/es${currentPath === '/' ? '/' : currentPath}`;
+const { lang, currentPath, alternatePath } = Astro.props;
+const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 const rss = lang === 'es' ? '/rss.xml' : '/rss-en.xml';
 ---
 

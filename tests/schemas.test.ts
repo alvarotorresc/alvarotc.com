@@ -16,4 +16,14 @@ describe('postSchema', () => {
   it('rejects a post without description', () => {
     expect(() => postSchema.parse({ title: 'x', date: '2026-01-01' })).toThrow();
   });
+
+  it('accepts an optional source id for translated posts', () => {
+    const parsed = postSchema.parse({
+      title: 'Hello',
+      description: 'A post',
+      date: '2026-09-01',
+      source: 'hola',
+    });
+    expect(parsed.source).toBe('hola');
+  });
 });

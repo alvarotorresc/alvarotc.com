@@ -4,6 +4,7 @@ description: 'Why did I create a serverless, accountless, open-source personal f
 date: 2026-09-07
 draft: false
 tags: ['foss', 'privacidad', 'local-first', 'pwa', 'finanzas', 'producto']
+source: basecero-tu-dinero-no-vive-en-el-servidor-de-nadie
 ---
 
 Install any finance app and see what it asks for before letting you log your first expense. An email address. A password. Almost always, your bank credentials, to “automatically sync your transactions.” In exchange, you pay nothing.

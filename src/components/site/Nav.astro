@@ -3,12 +3,14 @@ import Icon from '../icons/Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { t, translations, type Locale } from '../../i18n/translations';
 import { getNav } from '../../lib/config';
+import { mirroredPath } from '../../lib/i18n-paths';
 
 interface Props {
   lang: Locale;
   currentPath: string;
+  alternatePath?: string;
 }
-const { lang, currentPath } = Astro.props;
+const { lang, currentPath, alternatePath } = Astro.props;
 
 const prefix = lang === 'es' ? '/es' : '';
 const items = getNav().map((item) => ({
@@ -16,10 +18,7 @@ const items = getNav().map((item) => ({
   href: `${prefix}${item.href}`,
 }));
 
-const otherLang =
-  lang === 'es'
-    ? currentPath.replace(/^\/es/, '') || '/'
-    : `/es${currentPath === '/' ? '/' : currentPath}`;
+const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 ---
 
 <header class="border-b border-border">

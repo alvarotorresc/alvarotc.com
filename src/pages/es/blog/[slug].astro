@@ -3,11 +3,17 @@ import { getCollection, render } from 'astro:content';
 import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const [posts, postsEn] = await Promise.all([getCollection('posts'), getCollection('posts-en')]);
+  return posts.map((post) => {
+    const translation = postsEn.find((p) => p.data.source === post.id);
+    return {
+      params: { slug: post.id },
+      props: { post, alternatePath: translation ? `/blog/${translation.id}` : '/blog' },
+    };
+  });
 }
 
-const { post } = Astro.props;
+const { post, alternatePath } = Astro.props;
 const { Content } = await render(post);
 ---
 
@@ -16,6 +22,7 @@ const { Content } = await render(post);
   description={post.data.description}
   date={post.data.date}
   image={post.data.image || `/og/${post.id}.png`}
+  alternatePath={alternatePath}
 >
   <Content />
 </BlogPostLayout>
