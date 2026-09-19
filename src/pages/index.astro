@@ -11,12 +11,11 @@ import OffClock from '../components/home/OffClock.astro';
 import ContactSection from '../components/home/ContactSection.astro';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
 import { getProjects } from '../lib/projects';
+import { getPosts } from '../lib/posts';
 import { mockEntries, warnMock } from '../lib/mock-report';
 
 const lang = 'en';
-const posts = (await getCollection('posts-en', (p) => !p.data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getPosts(lang);
 const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
 const author = getAuthor();
 

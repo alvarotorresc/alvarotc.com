@@ -1,0 +1,38 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  headings: MarkdownHeading[];
+}
+const { lang, headings } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
+const rss = lang === 'es' ? '/rss.xml' : '/rss.xml';
+---
+
+<aside class="flex flex-col gap-8 lg:sticky lg:top-8">
+  {
+    toc.length > 0 && (
+      <nav aria-label={t('post.toc', lang)} class="flex flex-col gap-3">
+        <h2 class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
+          {t('post.toc', lang)}
+        </h2>
+        <ol class="flex flex-col gap-2 text-sm">
+          {toc.map((h) => (
+            <li>
+              <a href={`#${h.slug}`} class="text-muted hover:text-text">
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )
+  }
+  <div class="card-sm flex flex-col gap-2 p-4">
+    <h2 class="text-sm font-bold">{t('post.subscribe', lang)}</h2>
+    <p class="text-[13px] text-muted">{t('post.rssOnly', lang)}</p>
+    <a href={rss} class="text-[13px] font-semibold text-accent">{t('post.rss', lang)}</a>
+  </div>
+</aside>

@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Hero from '../../components/home/Hero.astro';
 import About from '../../components/home/About.astro';
@@ -11,11 +10,10 @@ import OffClock from '../../components/home/OffClock.astro';
 import ContactSection from '../../components/home/ContactSection.astro';
 import { getSiteName, getDescription, getAuthor } from '../../lib/config';
 import { getProjects } from '../../lib/projects';
+import { getPosts } from '../../lib/posts';
 
 const lang = 'es';
-const posts = (await getCollection('posts', (p) => !p.data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getPosts(lang);
 const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
 const author = getAuthor();
 

@@ -1,49 +1,43 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagFilter from '../../components/blog/TagFilter.astro';
 import { t } from '../../i18n/translations';
-import { formatDate } from '../../lib/utils';
+import { formatDate, getReadingTime } from '../../lib/utils';
+import { getPosts, tagCounts } from '../../lib/posts';
 
 const lang = 'en';
-const posts = (await getCollection('posts-en', (post) => !post.data.draft)).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getPosts(lang);
+const tags = tagCounts(posts);
 ---
 
 <BaseLayout title={t('writing.title', lang)} lang={lang}>
-  <div class="container-page py-14">
-    <div class="max-w-[720px]">
-      <a href="/" class="mb-12 inline-block text-sm text-muted hover:text-accent">
-        ← {t('nav.back', lang)}
-      </a>
-
-      <header class="mb-12 flex flex-col gap-2">
-        <h1 class="text-3xl font-extrabold tracking-tight">{t('writing.title', lang)}</h1>
-        <p class="text-sm text-faint">{t('writing.all', lang)}</p>
-      </header>
-
-      <ul class="flex flex-col">
-        {
-          posts.map((post) => (
-            <li class="border-t border-border last:border-b">
-              <a href={`/blog/${post.id}`} class="flex flex-col gap-1.5 py-4">
-                <div class="flex flex-wrap items-baseline justify-between gap-x-4">
-                  <span class="text-base font-bold leading-snug hover:text-accent">
-                    {post.data.title}
-                  </span>
-                  <time
-                    datetime={post.data.date.toISOString()}
-                    class="shrink-0 font-mono text-xs text-faint"
-                  >
-                    {formatDate(post.data.date, lang)}
-                  </time>
-                </div>
-                <p class="text-sm leading-relaxed text-muted">{post.data.description}</p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+  <div class="container-page flex flex-col gap-8 py-14">
+    <header class="flex flex-col gap-3">
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('writing.title', lang)}</h1>
+      <p class="text-muted">{posts.length} {t('writing.count', lang)}</p>
+    </header>
+    <TagFilter lang={lang} tags={tags} />
+    <ul class="flex flex-col">
+      {
+        posts.map((post) => (
+          <li data-tags={post.data.tags.join(' ')} class="border-t border-border last:border-b">
+            <a href={`/blog/${post.id}`} class="flex flex-col gap-2 py-6 md:flex-row md:gap-8">
+              <span class="shrink-0 font-mono text-[13px] text-faint md:w-[160px]">
+                <time datetime={post.data.date.toISOString()}>
+                  {formatDate(post.data.date, lang)}
+                </time>
+                <span class="block">
+                  {getReadingTime(post.body ?? '')} {t('post.minRead', lang)}
+                </span>
+              </span>
+              <span class="flex flex-col gap-1">
+                <span class="text-lg font-bold">{post.data.title}</span>
+                <span class="text-sm leading-relaxed text-muted">{post.data.description}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </BaseLayout>
