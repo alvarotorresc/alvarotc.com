@@ -1,0 +1,141 @@
+---
+import Icon from '../icons/Icon.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { getAuthor } from '../../lib/config';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const { email } = getAuthor();
+const calLink = 'https://cal.com/alvarotc';
+---
+
+<section id="contact" class="section container-page flex flex-col gap-5">
+  <h2 class="text-[22px] font-bold tracking-tight">{t('contact.title', lang)}</h2>
+  <div class="grid grid-cols-1 gap-5 lg:grid-cols-[400px_minmax(0,1fr)]">
+    <div class="card flex flex-col gap-[18px] p-6">
+      <p class="flex items-center gap-2.5 text-[13px] font-bold text-ok">
+        <span class="h-2 w-2 rounded-full bg-ok" aria-hidden="true"></span>
+        {t('contact.open', lang)}
+      </p>
+      <div class="flex flex-col gap-1.5">
+        <span class="text-xs text-faint">{t('contact.email', lang)}</span>
+        <div
+          class="flex items-center justify-between gap-2.5 rounded-lg border border-border bg-bg px-3 py-2.5"
+        >
+          <span class="font-mono text-sm font-semibold">{email}</span>
+          <button
+            type="button"
+            data-copy={email}
+            data-copied-label={t('contact.copied', lang)}
+            class="flex h-7 items-center gap-1.5 rounded-md border border-border bg-surface px-2.5 text-xs text-muted"
+          >
+            <Icon name="copy" size={12} />
+            <span>{t('contact.copy', lang)}</span>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <span class="text-xs text-faint">{t('contact.response', lang)}</span>
+        <span class="text-sm font-semibold">{t('contact.responseValue', lang)}</span>
+      </div>
+      <a href={calLink} class="btn-primary h-10">{t('contact.call', lang)}</a>
+      <div class="flex gap-3.5 text-[13px] text-accent">
+        <a href="https://github.com/alvarotorresc">GitHub</a>
+        <a href="https://www.linkedin.com/in/alvaro-torres-carrasco/">LinkedIn</a>
+        <a href="https://x.com/torresc_alvaro">X</a>
+      </div>
+    </div>
+
+    <form
+      data-contact-form
+      class="flex flex-col overflow-hidden rounded-2xl border border-border bg-[#0b0d11] font-mono text-[#e7e9ee]"
+      aria-describedby="contact-soon"
+    >
+      <div class="flex items-center gap-2 border-b border-[#22262e] bg-[#12151b] px-3.5 py-2.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-[#2c313b]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#2c313b]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#2c313b]"></span>
+        <span class="ml-2 text-xs text-[#8a93a3]">alvarotc.com, mail</span>
+      </div>
+      <div class="flex flex-col gap-2.5 p-4 text-[13px] leading-relaxed">
+        <p class="flex gap-2.5"><span class="text-[#5fd08a]">$</span><span>mail alvaro</span></p>
+        <div class="flex items-center gap-2.5">
+          <label for="c-from" class="w-[60px] text-[#8a93a3]">{t('contact.from', lang)}</label>
+          <input
+            id="c-from"
+            name="from"
+            type="email"
+            autocomplete="email"
+            placeholder="you@company.com"
+            class="h-[30px] flex-1 rounded-md border border-[#22262e] bg-[#0f1115] px-2.5 font-mono text-[13px] text-[#e7e9ee] placeholder:text-[#5c6470]"
+          />
+        </div>
+        <div class="flex items-center gap-2.5">
+          <label for="c-subject" class="w-[60px] text-[#8a93a3]">{t('contact.subject', lang)}</label
+          >
+          <input
+            id="c-subject"
+            name="subject"
+            type="text"
+            class="h-[30px] flex-1 rounded-md border border-[#22262e] bg-[#0f1115] px-2.5 font-mono text-[13px] text-[#e7e9ee]"
+          />
+        </div>
+        <div class="flex items-start gap-2.5">
+          <label for="c-body" class="w-[60px] pt-1.5 text-[#8a93a3]"
+            >{t('contact.body', lang)}</label
+          >
+          <textarea
+            id="c-body"
+            name="body"
+            rows="5"
+            class="flex-1 resize-y rounded-md border border-[#22262e] bg-[#0f1115] px-2.5 py-2 font-mono text-[13px] text-[#e7e9ee]"
+          ></textarea>
+        </div>
+        <input
+          type="text"
+          name="website"
+          tabindex="-1"
+          autocomplete="off"
+          class="hidden"
+          aria-hidden="true"
+        />
+        <div class="flex items-center justify-between gap-3 pt-1">
+          <span id="contact-soon" class="text-xs text-[#8a93a3]">{t('contact.soon', lang)}</span>
+          <button
+            type="submit"
+            disabled
+            class="h-8 rounded-md border border-[#2c313b] bg-[#161920] px-3.5 font-mono text-xs text-[#e7e9ee] opacity-60"
+          >
+            {t('contact.send', lang)} ↵
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', async () => {
+        const label = button.querySelector('span');
+        const original = label?.textContent ?? '';
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? '');
+          if (label) label.textContent = button.dataset.copiedLabel ?? original;
+          setTimeout(() => {
+            if (label) label.textContent = original;
+          }, 1500);
+        } catch {
+          /* clipboard unavailable */
+        }
+      });
+    });
+  }
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>

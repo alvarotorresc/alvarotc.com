@@ -16,7 +16,7 @@ export function isCurrent(entry: ExperienceEntry): boolean {
 }
 
 export function sortExperience(entries: ExperienceEntry[]): ExperienceEntry[] {
-  return [...entries].sort((a, b) => (a.data.start < b.data.start ? 1 : -1));
+  return [...entries].sort((a, b) => b.data.start.localeCompare(a.data.start));
 }
 
 export async function getExperience(): Promise<ExperienceEntry[]> {
