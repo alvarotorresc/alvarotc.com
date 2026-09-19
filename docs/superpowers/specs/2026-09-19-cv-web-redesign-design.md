@@ -39,17 +39,17 @@ No entra:
 
 ## 3. Decisiones cerradas
 
-| Tema                   | Decisión                                                                                                                                       |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Estructura             | Home larga más rutas secundarias (opción 2 de tres)                                                                                            |
-| Idioma                 | Inglés en la raíz, español en `/es`, como ahora                                                                                                |
-| Visual                 | Minimal claro y oscuro con toggle, un acento, sans limpia, pocas animaciones                                                                   |
-| Identidad              | FOSS, privacidad y Linux explícitos: etiquetas en About, tarjeta "Daily driver" con Tux, pie con "no cookies, no trackers", licencias visibles |
-| Now                    | Reading, Daily driver, Listening (ListenBrainz, nunca Spotify), Building                                                                       |
-| Proyectos primera fila | Bito, Quedamos, Huellas                                                                                                                        |
-| Contacto               | Tarjeta (disponibilidad, email con copiar, tiempo de respuesta) más formulario estilo terminal; envío por servicio propio en el VPS            |
-| Gustos                 | Sección "Off the clock" antes de Contact: guitarra eléctrica, ajedrez en Lichess, boxeo                                                        |
-| Datos de experiencia   | Aún inventados; se sustituyen cuando Álvaro los pase en bruto                                                                                  |
+| Tema                   | Decisión                                                                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Estructura             | Home larga más rutas secundarias (opción 2 de tres)                                                                                                              |
+| Idioma                 | Inglés en la raíz, español en `/es`, como ahora                                                                                                                  |
+| Visual                 | Minimal claro y oscuro con toggle, un acento, sans limpia, pocas animaciones                                                                                     |
+| Identidad              | FOSS, privacidad y Linux explícitos: etiquetas en About, tarjeta "Daily driver" con Tux, pie con "no cookies, no trackers", licencias visibles                   |
+| Now                    | Reading, Daily driver, Listening (ListenBrainz, nunca Spotify), Building                                                                                         |
+| Proyectos primera fila | Bito, Quedamos, Huellas                                                                                                                                          |
+| Contacto               | Tarjeta (disponibilidad, email con copiar, tiempo de respuesta, reservar llamada en Cal.com) más formulario estilo terminal; envío por servicio propio en el VPS |
+| Gustos                 | Sección "Off the clock" antes de Contact: guitarra eléctrica, ajedrez en Lichess, boxeo                                                                          |
+| Datos de experiencia   | Aún inventados; se sustituyen cuando Álvaro los pase en bruto                                                                                                    |
 
 ## 4. Rutas
 
@@ -287,7 +287,9 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
   Bridge en Docker en el mismo VPS, y nodemailer por SMTP local.
 - Sin base de datos, sin cookies, sin logs del cuerpo del mensaje (solo fecha, resultado y hash de IP
   para el límite).
-- El botón de reservar llamada queda fuera por ahora. Si se añade, será Cal.com autoalojado.
+- Botón "Book a 20 min call" en la tarjeta de contacto, enlace a la página pública de Cal.com de
+  Álvaro, sin embed. Cal.com es software libre; se puede autoalojar en el VPS más adelante sin tocar
+  la web.
 
 ## 13. Accesibilidad y móvil
 
@@ -325,7 +327,8 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
 - Imágenes: foto o avatar, icono y capturas de Bito y Quedamos, vídeo promo de Bito, concepto de
   Huellas.
 - `GITHUB_TOKEN` y `UMAMI_API_KEY` en Vercel. Para el servicio de contacto: puerto 25 abierto en
-  Hetzner, registros SPF, DKIM y rDNS, y la regla de Email Routing en Cloudflare.
+  Hetzner, registros SPF, DKIM y rDNS, la regla de Email Routing en Cloudflare, y el enlace público de
+  Cal.com.
 
 ## 17. Fases de implementación (para el plan)
 
