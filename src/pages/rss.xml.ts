@@ -1,12 +1,10 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 import { getSiteName, getDescription, getDomain } from '../lib/config';
+import { getPosts } from '../lib/posts';
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async (context) => {
-  const posts = (await getCollection('posts'))
-    .filter((post) => !post.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  const posts = await getPosts('es');
 
   return rss({
     title: getSiteName(),
