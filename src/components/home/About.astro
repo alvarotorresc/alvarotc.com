@@ -7,7 +7,6 @@ interface Props {
   lang: Locale;
 }
 const { lang } = Astro.props;
-const prefix = lang === 'es' ? '/es' : '';
 
 const paragraphs = {
   en: [
@@ -41,9 +40,6 @@ const tags = [
           ))
         }
       </ul>
-      <a href={`${prefix}/about`} class="text-sm font-semibold text-accent"
-        >{t('about.more', lang)}</a
-      >
     </div>
     <NowCards lang={lang} />
   </div>

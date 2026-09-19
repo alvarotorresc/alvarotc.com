@@ -36,6 +36,8 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
       <button
         type="button"
         data-command-palette
+        disabled
+        aria-disabled="true"
         class="flex h-[34px] items-center gap-2 rounded-lg border border-border bg-surface pl-3 pr-2 text-[13px] text-muted"
       >
         <Icon name="search" size={14} />

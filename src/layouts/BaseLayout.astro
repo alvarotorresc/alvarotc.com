@@ -9,7 +9,7 @@ import Nav from '../components/site/Nav.astro';
 import Footer from '../components/site/Footer.astro';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
 import { mirroredPath } from '../lib/i18n-paths';
-import type { Locale } from '../i18n/translations';
+import { t, type Locale } from '../i18n/translations';
 
 interface Props {
   title: string;
@@ -25,7 +25,6 @@ interface Props {
 const currentPath = Astro.url.pathname;
 const {
   title,
-  description = getDescription(),
   image = '/og-default.png',
   type = 'website',
   publishedTime,
@@ -33,6 +32,7 @@ const {
   alternatePath,
   jsonLd,
 } = Astro.props;
+const description = Astro.props.description ?? getDescription(lang);
 
 const canonicalURL = new URL(currentPath, Astro.site);
 const ogImage = new URL(image, Astro.site);
@@ -112,8 +112,14 @@ const defaultJsonLd = {
       data-website-id="4dc00bab-7da7-488d-b399-299d751b6801"></script>
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-fg"
+    >
+      {t('nav.skip', lang)}
+    </a>
     <Nav lang={lang} currentPath={currentPath} alternatePath={alternate} />
-    <main class="flex-1">
+    <main id="main" class="flex-1">
       <slot />
     </main>
     <Footer lang={lang} currentPath={currentPath} alternatePath={alternate} />

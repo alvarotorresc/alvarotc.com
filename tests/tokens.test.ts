@@ -21,8 +21,11 @@ const pairs: Array<[string, string, number]> = [
   ['text-muted', 'surface', 4.5],
   ['text-faint', 'surface', 4.5],
   ['accent-fg', 'accent', 4.5],
-  ['accent', 'bg', 3],
+  ['accent', 'bg', 4.5],
   ['ok', 'surface', 3],
+  ['text-faint', 'surface-2', 4.5],
+  ['text-muted', 'surface-2', 4.5],
+  ['accent', 'surface-2', 4.5],
 ];
 
 describe('color tokens', () => {

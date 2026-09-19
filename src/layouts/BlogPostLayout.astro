@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import ShareButtons from '../components/blog/ShareButtons.astro';
+import { t, type Locale } from '../i18n/translations';
 import { formatDate, getReadingTime } from '../lib/utils';
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const { title, description, date, image, alternatePath } = Astro.props;
+const lang: Locale = Astro.url.pathname.startsWith('/es/') ? 'es' : 'en';
+const prefix = lang === 'es' ? '/es' : '';
 const readingTime = getReadingTime(description);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -22,6 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
   image={image}
   type="article"
   publishedTime={date.toISOString()}
+  lang={lang}
   alternatePath={alternatePath}
 >
   <div class="container-page py-14">
@@ -29,18 +33,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
       <article>
         <!-- Back link -->
         <a
-          href="/"
-          class="inline-block text-sm text-muted hover:text-accent transition-colors mb-12"
+          href={`${prefix}/blog`}
+          class="mb-12 inline-block text-sm text-muted transition-colors hover:text-accent"
         >
-          ← Back
+          ← {t('nav.back', lang)}
         </a>
 
         <!-- Header -->
         <header class="mb-12">
           <div class="flex items-center gap-3 text-sm text-muted mb-4">
-            <time datetime={date.toISOString()}>{formatDate(date, 'en')}</time>
+            <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
             <span>•</span>
-            <span>{readingTime} min read</span>
+            <span>{readingTime} {t('post.minRead', lang)}</span>
           </div>
 
           <h1 class="text-3xl font-medium mb-4">{title}</h1>
@@ -54,7 +58,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
         <!-- Share -->
         <div class="border-t border-border pt-8">
-          <ShareButtons title={title} url={canonicalURL} />
+          <ShareButtons title={title} url={canonicalURL} lang={lang} />
         </div>
       </article>
     </div>

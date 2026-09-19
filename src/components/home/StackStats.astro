@@ -3,10 +3,9 @@ import { t, type Locale } from '../../i18n/translations';
 
 interface Props {
   lang: Locale;
-  stats?: { commits?: number; posts: number; apps: number };
+  stats?: { commits?: number; posts?: number; apps?: number };
 }
 const { lang, stats } = Astro.props;
-const prefix = lang === 'es' ? '/es' : '';
 
 const groups = [
   { label: 'Backend', items: ['TypeScript, Node', 'NestJS, PostgreSQL', 'Prisma, Redis'] },
@@ -19,10 +18,16 @@ const groups = [
 ];
 
 const counters = [
-  { value: stats?.commits ?? '[n]', label: t('stats.commits', lang) },
-  { value: stats?.posts ?? '[n]', label: t('stats.posts', lang) },
-  { value: stats?.apps ?? '[n]', label: t('stats.apps', lang) },
-];
+  { value: stats?.commits, label: t('stats.commits', lang) },
+  { value: stats?.posts, label: t('stats.posts', lang) },
+  { value: stats?.apps, label: t('stats.apps', lang) },
+].filter((c): c is { value: number; label: string } => typeof c.value === 'number');
+
+const columns: Record<number, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-2',
+  3: 'grid-cols-3',
+};
 ---
 
 <section id="stats" class="section container-page grid grid-cols-1 gap-10 md:grid-cols-2">
@@ -43,19 +48,19 @@ const counters = [
       }
     </dl>
   </div>
-  <div class="flex flex-col gap-4">
-    <h2 class="text-[22px] font-bold tracking-tight">{t('stats.title', lang)}</h2>
-    <ul class="grid grid-cols-3 gap-3">
-      {
-        counters.map((c) => (
-          <li class="card-sm flex flex-col gap-1 p-4">
-            <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
-            <span class="text-xs text-faint">{c.label}</span>
-          </li>
-        ))
-      }
-    </ul>
-    <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">{t('stats.full', lang)}</a
-    >
-  </div>
+  {
+    counters.length > 0 && (
+      <div class="flex flex-col gap-4">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.title', lang)}</h2>
+        <ul class:list={['grid gap-3', columns[counters.length] ?? 'grid-cols-3']}>
+          {counters.map((c) => (
+            <li class="card-sm flex flex-col gap-1 p-4">
+              <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
+              <span class="text-xs text-faint">{c.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 </section>

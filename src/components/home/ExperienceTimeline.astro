@@ -1,62 +1,60 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro';
-import { t, type Locale } from '../../i18n/translations';
-import { getExperience, formatPeriod, isCurrent } from '../../lib/experience';
+import { getExperience, formatPeriod, isCurrent, hasMockExperience } from '../../lib/experience';
+import type { Locale } from '../../i18n/translations';
 
 interface Props {
   lang: Locale;
 }
 const { lang } = Astro.props;
-const prefix = lang === 'es' ? '/es' : '';
-const entries = await getExperience();
+const all = await getExperience();
+const entries = hasMockExperience(all) ? [] : all;
 ---
 
-<SectionHeading
-  id="experience"
-  lang={lang}
-  titleKey="experience.title"
-  link={`${prefix}/cv`}
-  linkLabel={t('experience.cv', lang)}
->
-  <ol class="grid grid-cols-[28px_minmax(0,1fr)] gap-x-4 md:grid-cols-[120px_28px_minmax(0,1fr)]">
-    {
-      entries.map((e, i) => {
-        const current = isCurrent(e);
-        const last = i === entries.length - 1;
-        return (
-          <li class="contents">
-            <span
-              class:list={[
-                'col-span-2 pb-1 font-mono text-[13px] md:col-span-1 md:pb-10',
-                current ? 'text-accent' : 'text-faint',
-              ]}
-            >
-              {formatPeriod(e.data.start, e.data.end, lang)}
-            </span>
-            <span class="flex flex-col items-center" aria-hidden="true">
+{
+  entries.length > 0 && (
+    <SectionHeading id="experience" lang={lang} titleKey="experience.title">
+      <ol class="grid grid-cols-[28px_minmax(0,1fr)] gap-x-4 md:grid-cols-[120px_28px_minmax(0,1fr)]">
+        {entries.map((e, i) => {
+          const current = isCurrent(e);
+          const last = i === entries.length - 1;
+          return (
+            <li class="contents">
               <span
                 class:list={[
-                  'h-3 w-3 rounded-full',
-                  current
-                    ? 'bg-accent ring-4 ring-accent/25'
-                    : i < 2
-                      ? 'bg-accent'
-                      : 'bg-surface-2',
+                  'col-span-2 pb-1 font-mono text-[13px] md:col-span-1 md:pb-10',
+                  current ? 'text-accent' : 'text-faint',
                 ]}
-              />
-              {!last && (
-                <span class:list={['w-0.5 flex-1', i < 1 ? 'bg-accent' : 'bg-surface-2']} />
-              )}
-            </span>
-            <article class:list={['flex flex-col gap-1.5', !last && 'pb-10']}>
-              <h3 class:list={['text-[17px] font-bold', !current && i >= 2 && 'text-muted']}>
-                {e.data.role[lang]}, {e.data.company}
-              </h3>
-              <p class="max-w-[640px] text-sm leading-relaxed text-muted">{e.data.summary[lang]}</p>
-            </article>
-          </li>
-        );
-      })
-    }
-  </ol>
-</SectionHeading>
+              >
+                {formatPeriod(e.data.start, e.data.end, lang)}
+              </span>
+              <span class="flex flex-col items-center" aria-hidden="true">
+                <span
+                  class:list={[
+                    'h-3 w-3 rounded-full',
+                    current
+                      ? 'bg-accent ring-4 ring-accent/25'
+                      : i < 2
+                        ? 'bg-accent'
+                        : 'bg-surface-2',
+                  ]}
+                />
+                {!last && (
+                  <span class:list={['w-0.5 flex-1', i < 1 ? 'bg-accent' : 'bg-surface-2']} />
+                )}
+              </span>
+              <article class:list={['flex flex-col gap-1.5', !last && 'pb-10']}>
+                <h3 class:list={['text-[17px] font-bold', !current && i >= 2 && 'text-muted']}>
+                  {e.data.role[lang]}, {e.data.company}
+                </h3>
+                <p class="max-w-[640px] text-sm leading-relaxed text-muted">
+                  {e.data.summary[lang]}
+                </p>
+              </article>
+            </li>
+          );
+        })}
+      </ol>
+    </SectionHeading>
+  )
+}
