@@ -4,6 +4,7 @@ description: 'How to set up a self-hosted RSS reader so that migrating it later 
 date: 2026-09-02
 draft: false
 tags: ['self-hosted', 'docker', 'caddy', 'vps', 'homelab', 'rss']
+source: freshrss-vps-docker-caddy-migrable
 ---
 
 I wanted my own RSS reader, and I wanted it right away. The homelab that’s going to host it doesn’t even have an operating system yet. So I deployed it on the VPS I already have, with one condition: that moving it to my home in a few weeks would just take an `rsync` and a DNS change.

@@ -9,6 +9,7 @@ export const postSchema = z.object({
   draft: z.boolean().default(false),
   image: z.string().optional(),
   tags: z.array(z.string()).default([]),
+  source: z.string().optional(),
 });
 
 const posts = defineCollection({

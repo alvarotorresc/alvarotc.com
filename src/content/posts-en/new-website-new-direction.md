@@ -4,6 +4,7 @@ description: 'I have rebuilt my personal website from scratch. Here I tell why, 
 date: 2026-02-16
 draft: false
 tags: ['meta', 'web', 'astro', 'proyectos']
+source: nueva-web-nuevo-rumbo
 ---
 
 ## The previous website was dead

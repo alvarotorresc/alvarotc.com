@@ -8,6 +8,7 @@ import Analytics from '@vercel/analytics/astro';
 import Nav from '../components/site/Nav.astro';
 import Footer from '../components/site/Footer.astro';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
+import { mirroredPath } from '../lib/i18n-paths';
 import type { Locale } from '../i18n/translations';
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
   type?: 'website' | 'article';
   publishedTime?: string;
   lang?: Locale;
+  alternatePath?: string;
   jsonLd?: Record<string, unknown>;
 }
 
@@ -28,6 +30,7 @@ const {
   type = 'website',
   publishedTime,
   lang = currentPath.startsWith('/es') ? 'es' : 'en',
+  alternatePath,
   jsonLd,
 } = Astro.props;
 
@@ -37,10 +40,8 @@ const siteName = getSiteName();
 const author = getAuthor();
 const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
-const alternateURL =
-  lang === 'es'
-    ? new URL(currentPath.replace(/^\/es/, '') || '/', Astro.site)
-    : new URL('/es' + currentPath, Astro.site);
+const alternate = alternatePath ?? mirroredPath(lang, currentPath);
+const alternateURL = new URL(alternate, Astro.site);
 
 const defaultJsonLd = {
   '@context': 'https://schema.org',
@@ -111,10 +112,10 @@ const defaultJsonLd = {
       data-website-id="4dc00bab-7da7-488d-b399-299d751b6801"></script>
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
-    <Nav lang={lang} currentPath={currentPath} />
+    <Nav lang={lang} currentPath={currentPath} alternatePath={alternate} />
     <main class="flex-1">
       <slot />
     </main>
-    <Footer lang={lang} currentPath={currentPath} />
+    <Footer lang={lang} currentPath={currentPath} alternatePath={alternate} />
   </body>
 </html>

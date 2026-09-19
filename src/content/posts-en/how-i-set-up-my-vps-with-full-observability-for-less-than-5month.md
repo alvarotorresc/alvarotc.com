@@ -4,6 +4,7 @@ description: "Docker Compose, Caddy, Upptime, Sentry, Firebase Analytics, and Um
 date: 2026-03-26
 draft: false
 tags: ['devops', 'docker', 'observabilidad', 'vps', 'self-hosted']
+source: vps-observabilidad-completa
 ---
 
 I had several products deployed as managed services. A backend on Railway, frontends on Vercel, and a database on Supabase. Everything was working, but I had no idea what was happening when I wasn’t looking. Was anything going down? How many people were using my apps? What errors were occurring in production? I didn’t have answers to any of those questions.

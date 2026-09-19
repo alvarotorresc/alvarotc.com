@@ -8,9 +8,10 @@ interface Props {
   description: string;
   date: Date;
   image?: string;
+  alternatePath?: string;
 }
 
-const { title, description, date, image } = Astro.props;
+const { title, description, date, image, alternatePath } = Astro.props;
 const readingTime = getReadingTime(description);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -21,6 +22,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
   image={image}
   type="article"
   publishedTime={date.toISOString()}
+  alternatePath={alternatePath}
 >
   <div class="container-page py-14">
     <div class="max-w-[720px]">

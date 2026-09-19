@@ -78,7 +78,8 @@ async function translatePost(filename) {
   const translatedFrontmatterSafe = [
     `title: ${JSON.stringify(titleEn.text)}`,
     `description: ${JSON.stringify(descriptionEn.text)}`,
-    ...otherFrontmatter.filter((l) => !l.startsWith('description:')),
+    `source: ${JSON.stringify(filename.replace(/\.md$/, ''))}`,
+    ...otherFrontmatter.filter((l) => !l.startsWith('description:') && !l.startsWith('source:')),
   ].join('\n');
 
   const translatedContent = `---\n${translatedFrontmatterSafe}\n---\n\n${bodyEn.text}\n`;
