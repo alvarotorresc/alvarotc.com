@@ -1,0 +1,9 @@
+kind: education
+company: '[University]'
+role: { en: BSc Computer Engineering, es: Grado en Ingeniería Informática }
+start: '2017-09'
+end: '2021-06'
+summary:
+  en: Final project on distributed systems.
+  es: Trabajo de fin de grado sobre sistemas distribuidos.
+mock: true

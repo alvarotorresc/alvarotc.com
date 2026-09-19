@@ -50,8 +50,71 @@ const projects = defineCollection({
   schema: projectSchema,
 });
 
+const localized = z.object({ en: z.string(), es: z.string() });
+const localizedList = z.object({ en: z.array(z.string()), es: z.array(z.string()) });
+
+export const experienceSchema = z.object({
+  kind: z.enum(['work', 'education', 'certification']),
+  company: z.string(),
+  role: localized,
+  location: z.string().optional(),
+  start: z.string().regex(/^\d{4}-\d{2}$/),
+  end: z
+    .string()
+    .regex(/^\d{4}-\d{2}$/)
+    .optional(),
+  summary: localized,
+  highlights: localizedList.optional(),
+  stack: z.array(z.string()).default([]),
+  url: z.url().optional(),
+  mock: z.boolean().default(false),
+});
+
+export const nowSchema = z.object({
+  reading: z.object({
+    title: z.string(),
+    author: z.string(),
+    progress: z.number().min(0).max(100),
+    cover: z.string().optional(),
+  }),
+  dailyDriver: z.object({
+    distro: z.string(),
+    kernel: z.string().optional(),
+    selfHosted: z.array(z.string()).default([]),
+  }),
+  building: z.object({ project: z.string() }),
+  listenbrainzUser: z.string().optional(),
+  mock: z.boolean().default(false),
+});
+
+export const interestSchema = z.object({
+  icon: z.enum(['guitar', 'chess', 'boxing', 'book', 'music']),
+  order: z.number(),
+  title: localized,
+  text: localized,
+  mock: z.boolean().default(false),
+});
+
+const experience = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/experience' }),
+  schema: experienceSchema,
+});
+
+const now = defineCollection({
+  loader: glob({ pattern: 'now.yaml', base: './src/content/now' }),
+  schema: nowSchema,
+});
+
+const interests = defineCollection({
+  loader: glob({ pattern: '*.yaml', base: './src/content/interests' }),
+  schema: interestSchema,
+});
+
 export const collections = {
   posts,
   'posts-en': postsEn,
   projects,
+  experience,
+  now,
+  interests,
 };

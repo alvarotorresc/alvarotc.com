@@ -1,0 +1,10 @@
+kind: work
+company: Nortia Software
+role: { en: Backend Engineer, es: Ingeniero backend }
+location: Remote, Spain
+start: '2024-07'
+summary:
+  en: Own the payments and notifications services of a B2B platform. NestJS, PostgreSQL, Redis queues, Docker on Hetzner. Cut p95 latency of the main API by 40 percent.
+  es: Responsable de los servicios de pagos y notificaciones de una plataforma B2B. NestJS, PostgreSQL, colas en Redis, Docker en Hetzner. Reduje la latencia p95 de la API principal un 40 por ciento.
+stack: [TypeScript, NestJS, PostgreSQL, Redis, Docker]
+mock: true

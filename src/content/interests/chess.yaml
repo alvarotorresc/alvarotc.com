@@ -1,0 +1,7 @@
+icon: chess
+order: 2
+title: { en: Chess, es: Ajedrez }
+text:
+  en: On Lichess, which is free software too. Always up for a game.
+  es: En Lichess, que también es software libre. Siempre listo para una partida.
+mock: true
