@@ -278,13 +278,14 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
   vacío. `t` es el timestamp de apertura del formulario; se descartan envíos en menos de tres
   segundos. Validación: email con formato, subject de 3 a 120 caracteres, body de 10 a 4000.
   Respuesta `{ ok: true }` o `{ ok: false, error }`. Límite de 5 envíos por IP y hora en memoria.
-- **Entrega.** nodemailer en modo directo: el servicio conecta con los MX de `alvarotc.com` (Cloudflare)
-  y entrega a `hello@alvarotc.com`, con `reply-to` al remitente. Sin credenciales SMTP de nadie. Para
-  que Cloudflare lo acepte: SPF con la IP del VPS, DKIM firmado por el servicio con clave publicada en
-  DNS, y rDNS del VPS en Hetzner. Requisito: puerto 25 de salida abierto en Hetzner (se pide por ticket
-  si está bloqueado).
-- **Plan B** si el puerto 25 no se abre: Proton SMTP submission (planes de empresa) o Proton Mail
-  Bridge en Docker en el mismo VPS, y nodemailer por SMTP local.
+- **Entrega.** Proton Mail Bridge en un contenedor del mismo VPS (imagen comunitaria, plan Proton de
+  pago, inicio de sesión con 2FA una sola vez, volumen persistente para la sesión). El servicio envía
+  con nodemailer por SMTP a Bridge en `localhost:1025` dentro de la red Docker; Bridge entrega por la
+  API de Proton desde la cuenta de Álvaro hacia su propio buzón, con `reply-to` al remitente. Sin
+  terceros en el camino. Comprobado el 2026-09-19: Hetzner bloquea el puerto 25 de salida en este VPS,
+  así que la entrega directa a los MX queda descartada salvo que se abra por ticket.
+- **Salud.** El servicio expone `GET /health` que comprueba que Bridge responde; Upptime lo vigila
+  como al resto de servicios del VPS.
 - Sin base de datos, sin cookies, sin logs del cuerpo del mensaje (solo fecha, resultado y hash de IP
   para el límite).
 - Botón "Book a 20 min call" en la tarjeta de contacto, enlace a la página pública de Cal.com de
@@ -326,9 +327,9 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
 - Gustos: años tocando, rating de Lichess, sesiones de boxeo, o dejar sin cifras.
 - Imágenes: foto o avatar, icono y capturas de Bito y Quedamos, vídeo promo de Bito, concepto de
   Huellas.
-- `GITHUB_TOKEN` y `UMAMI_API_KEY` en Vercel. Para el servicio de contacto: puerto 25 abierto en
-  Hetzner, registros SPF, DKIM y rDNS, la regla de Email Routing en Cloudflare, y el enlace público de
-  Cal.com.
+- `GITHUB_TOKEN` y `UMAMI_API_KEY` en Vercel. Para el servicio de contacto: sesión de Proton Bridge
+  iniciada en el VPS, la regla de Email Routing en Cloudflare para `hello@alvarotc.com`, y el enlace
+  público de Cal.com.
 
 ## 17. Fases de implementación (para el plan)
 
