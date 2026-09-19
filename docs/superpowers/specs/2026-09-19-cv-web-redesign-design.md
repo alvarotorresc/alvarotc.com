@@ -1,7 +1,7 @@
 # alvarotc.com como CV en la web: diseño técnico
 
 Fecha: 2026-09-19
-Estado: borrador para revisión
+Estado: aprobada por Álvaro el 2026-09-19
 Maquetas aprobadas: https://claude.ai/artifact/EYTiKDiSKdrHf44jcyEnTP (artboards `Home`, `Post`, `Project`, `About`, `CV`, `Stats`)
 Investigación previa: `reports/Webs personales de desarrolladores CV.md`
 
@@ -282,7 +282,8 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
   pago, inicio de sesión con 2FA una sola vez, volumen persistente para la sesión). El servicio envía
   con nodemailer por SMTP a Bridge en `localhost:1025` dentro de la red Docker; Bridge entrega por la
   API de Proton desde la cuenta de Álvaro hacia su propio buzón, con `reply-to` al remitente. Sin
-  terceros en el camino. Comprobado el 2026-09-19: Hetzner bloquea el puerto 25 de salida en este VPS,
+  terceros en el camino. Cada correo lleva el asunto con prefijo `[contact form]` y la cabecera
+  `X-Contact-Source: alvarotc.com`, para los filtros y etiquetas de Proton. Comprobado el 2026-09-19: Hetzner bloquea el puerto 25 de salida en este VPS,
   así que la entrega directa a los MX queda descartada salvo que se abra por ticket.
 - **Salud.** El servicio expone `GET /health` que comprueba que Bridge responde; Upptime lo vigila
   como al resto de servicios del VPS.
