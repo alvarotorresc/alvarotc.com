@@ -10,13 +10,13 @@ export const GET: APIRoute = async (context) => {
 
   return rss({
     title: getSiteName(),
-    description: getDescription(),
+    description: getDescription('es'),
     site: context.site || getDomain(),
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
       description: post.data.description,
-      link: `/blog/${post.id}/`,
+      link: `/es/blog/${post.id}/`,
     })),
   });
 };

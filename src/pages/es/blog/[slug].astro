@@ -8,7 +8,7 @@ export async function getStaticPaths() {
     const translation = postsEn.find((p) => p.data.source === post.id);
     return {
       params: { slug: post.id },
-      props: { post, alternatePath: translation ? `/blog/${translation.id}` : '/blog' },
+      props: { post, alternatePath: translation ? `/blog/${translation.id}/` : '/blog/' },
     };
   });
 }

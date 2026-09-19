@@ -9,7 +9,6 @@ interface Props {
 }
 const { lang, currentPath, alternatePath } = Astro.props;
 const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
-const rss = lang === 'es' ? '/rss.xml' : '/rss-en.xml';
 ---
 
 <footer class="border-t border-border">
@@ -19,8 +18,7 @@ const rss = lang === 'es' ? '/rss.xml' : '/rss-en.xml';
     <span>{t('footer.privacy', lang)}</span>
     <div class="flex gap-4">
       <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
-      <a href={rss} class="hover:text-text">RSS</a>
-      <a href="/llms.txt" class="hover:text-text">llms.txt</a>
+      <a href="/rss.xml" class="hover:text-text">RSS</a>
       <a href="https://github.com/alvarotorresc/alvarotc-web" class="hover:text-text"
         >{t('footer.source', lang)}</a
       >

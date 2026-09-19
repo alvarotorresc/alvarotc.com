@@ -14,6 +14,7 @@ export const translations = {
     'nav.lang': 'ES',
     'nav.viewAll': 'View all',
     'nav.back': 'Back',
+    'nav.skip': 'Skip to content',
     'footer.privacy':
       'No cookies, no trackers. Analytics self-hosted with Umami. Source under AGPL.',
     'footer.lang': 'Español',
@@ -52,6 +53,7 @@ export const translations = {
     'writing.latest': 'Latest',
     'writing.minRead': 'min read',
     'post.minRead': 'min read',
+    'post.share': 'Share',
     'stack.title': 'Stack',
     'stats.title': 'Stats',
     'stats.full': 'Full stats page',
@@ -76,6 +78,9 @@ export const translations = {
     'contact.soon': 'Sending arrives with the next release. Use the email meanwhile.',
     'lang.spanish': 'Español',
     'lang.english': 'English',
+    'error.title': 'Page not found',
+    'error.text': 'This page does not exist, or it has moved somewhere else.',
+    'error.home': 'Back to the home page',
   },
   es: {
     'site.title': 'Álvaro Torres Carrasco',
@@ -92,6 +97,7 @@ export const translations = {
     'nav.lang': 'EN',
     'nav.viewAll': 'Ver todos',
     'nav.back': 'Volver',
+    'nav.skip': 'Saltar al contenido',
     'footer.privacy':
       'Sin cookies ni rastreadores. Analítica autoalojada con Umami. Código bajo AGPL.',
     'footer.lang': 'English',
@@ -130,6 +136,7 @@ export const translations = {
     'writing.latest': 'Último',
     'writing.minRead': 'min de lectura',
     'post.minRead': 'min de lectura',
+    'post.share': 'Compartir',
     'stack.title': 'Stack',
     'stats.title': 'Stats',
     'stats.full': 'Página de stats',
@@ -154,6 +161,9 @@ export const translations = {
     'contact.soon': 'El envío llega en la próxima versión. Mientras, usa el email.',
     'lang.spanish': 'Español',
     'lang.english': 'English',
+    'error.title': 'Página no encontrada',
+    'error.text': 'Esta página no existe o se ha movido a otro sitio.',
+    'error.home': 'Volver a la portada',
   },
 };
 

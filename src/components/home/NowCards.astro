@@ -1,7 +1,6 @@
 ---
 import { getEntry } from 'astro:content';
 import Icon from '../icons/Icon.astro';
-import Placeholder from '../ui/Placeholder.astro';
 import { t, type Locale } from '../../i18n/translations';
 
 interface Props {
@@ -17,7 +16,12 @@ const { reading, dailyDriver, building } = now.data;
 const project = await getEntry('projects', `${lang}/${building.project}`);
 ---
 
-<ul class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+<ul
+  class:list={[
+    'grid grid-cols-1 gap-3.5 sm:grid-cols-2',
+    listening ? 'xl:grid-cols-4' : 'xl:grid-cols-3',
+  ]}
+>
   <li class="card-sm flex gap-3.5 p-3.5">
     {
       reading.cover ? (
@@ -29,7 +33,12 @@ const project = await getEntry('projects', `${lang}/${building.project}`);
           class="h-20 w-[54px] shrink-0 rounded object-cover"
         />
       ) : (
-        <Placeholder label="cover" class="h-20 w-[54px] shrink-0 !p-1 !text-[9px]" />
+        <div
+          class="flex h-20 w-[54px] shrink-0 items-center justify-center rounded bg-surface-2 text-faint"
+          aria-hidden="true"
+        >
+          <Icon name="book" size={22} />
+        </div>
       )
     }
     <div class="flex flex-col justify-center gap-1">
@@ -68,29 +77,32 @@ const project = await getEntry('projects', `${lang}/${building.project}`);
     </div>
   </li>
 
-  <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      listening?.art ? (
-        <img
-          src={listening.art}
-          alt=""
-          width="54"
-          height="54"
-          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
-        />
-      ) : (
-        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
-          <Icon name="music" size={22} />
+  {
+    listening && (
+      <li class="card-sm flex gap-3.5 p-3.5">
+        {listening.art ? (
+          <img
+            src={listening.art}
+            alt=""
+            width="54"
+            height="54"
+            class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
+          />
+        ) : (
+          <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
+            <Icon name="music" size={22} />
+          </div>
+        )}
+        <div class="flex flex-col justify-center gap-1">
+          <span class="text-[11px] font-bold text-ok">{t('now.listening', lang)}</span>
+          <span class="text-[13px] font-bold leading-snug">{listening.title}</span>
+          <span class="text-xs text-muted">
+            {listening.artist}, {t('now.via', lang)}
+          </span>
         </div>
-      )
-    }
-    <div class="flex flex-col justify-center gap-1">
-      <span class="text-[11px] font-bold text-ok">{t('now.listening', lang)}</span>
-      <span class="text-[13px] font-bold leading-snug">{listening?.title ?? '[track title]'}</span>
-      <span class="text-xs text-muted">{listening?.artist ?? '[artist]'}, {t('now.via', lang)}</span
-      >
-    </div>
-  </li>
+      </li>
+    )
+  }
 
   <li class="card-sm flex gap-3.5 p-3.5">
     {

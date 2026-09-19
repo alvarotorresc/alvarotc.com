@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Tag from '../components/ui/Tag.astro';
-import { getProjects, projectSlug } from '../lib/projects';
+import { getProjects } from '../lib/projects';
 import { t, statusLabel } from '../i18n/translations';
 
 const lang = 'en';
@@ -21,9 +21,16 @@ const projects = await getProjects(lang);
             </div>
             <p class="text-sm text-muted">{p.data.tagline}</p>
             <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
-              <a href={`/projects/${projectSlug(p)}`}>{t('projects.caseStudy', lang)}</a>
-              {p.data.url && <a href={p.data.url}>{t('projects.live', lang)}</a>}
-              {p.data.repo && <a href={p.data.repo}>{t('projects.repo', lang)}</a>}
+              {p.data.url && (
+                <a href={p.data.url} rel="noopener">
+                  {t('projects.live', lang)}
+                </a>
+              )}
+              {p.data.repo && (
+                <a href={p.data.repo} rel="noopener">
+                  {t('projects.repo', lang)}
+                </a>
+              )}
             </div>
           </li>
         ))

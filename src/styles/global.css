@@ -25,11 +25,27 @@
     --border: #dfe2e8;
     --text: #16181d;
     --text-muted: #4b5160;
-    --text-faint: #6b7280;
-    --accent: #2f6fe4;
+    --text-faint: #5b6270;
+    --accent: #2563eb;
     --accent-fg: #ffffff;
     --ok: #1a7f4b;
     color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --bg: #0f1115;
+      --surface: #161920;
+      --surface-2: #1c2029;
+      --border: #22262e;
+      --text: #e7e9ee;
+      --text-muted: #9aa3b2;
+      --text-faint: #8a93a3;
+      --accent: #4f8ef7;
+      --accent-fg: #0b1020;
+      --ok: #5fd08a;
+      color-scheme: dark;
+    }
   }
 
   :root[data-theme='dark'] {

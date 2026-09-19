@@ -3,7 +3,12 @@ import ShareButtons from '../src/components/blog/ShareButtons.astro';
 
 describe('Astro environment', () => {
   it('astro:content module resolves', async () => {
-    const { z } = await import('astro:content');
+    const { defineCollection } = await import('astro:content');
+    expect(typeof defineCollection).toBe('function');
+  });
+
+  it('exposes zod through astro/zod', async () => {
+    const { z } = await import('astro/zod');
     expect(typeof z.object).toBe('function');
   });
 

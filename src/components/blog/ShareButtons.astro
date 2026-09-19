@@ -1,10 +1,13 @@
 ---
+import { t, type Locale } from '../../i18n/translations';
+
 interface Props {
   title: string;
   url: string;
+  lang?: Locale;
 }
 
-const { title, url } = Astro.props;
+const { title, url, lang = 'en' } = Astro.props;
 
 const encodedTitle = encodeURIComponent(title);
 const encodedUrl = encodeURIComponent(url);
@@ -17,12 +20,12 @@ const shareUrls = {
 ---
 
 <div class="share-buttons flex items-center gap-3">
-  <span class="text-text-muted text-sm font-semibold">Compartir:</span>
+  <span class="text-sm font-semibold text-muted">{t('post.share', lang)}:</span>
   <a
     href={shareUrls.twitter}
     target="_blank"
     rel="noopener noreferrer"
-    class="p-2 rounded-full glass hover:text-accent transition-colors"
+    class="rounded-full border border-border bg-surface p-2 text-muted transition-colors hover:text-accent"
     aria-label="Share on X"
   >
     <svg
@@ -41,7 +44,7 @@ const shareUrls = {
     href={shareUrls.linkedin}
     target="_blank"
     rel="noopener noreferrer"
-    class="p-2 rounded-full glass hover:text-accent transition-colors"
+    class="rounded-full border border-border bg-surface p-2 text-muted transition-colors hover:text-accent"
     aria-label="Share on LinkedIn"
   >
     <svg
@@ -60,7 +63,7 @@ const shareUrls = {
     href={shareUrls.whatsapp}
     target="_blank"
     rel="noopener noreferrer"
-    class="p-2 rounded-full glass hover:text-accent transition-colors"
+    class="rounded-full border border-border bg-surface p-2 text-muted transition-colors hover:text-accent"
     aria-label="Share on WhatsApp"
   >
     <svg
@@ -78,8 +81,8 @@ const shareUrls = {
   <button
     id="copy-link"
     data-url={url}
-    class="p-2 rounded-full glass hover:text-accent transition-colors relative"
-    aria-label="Copy link"
+    class="relative rounded-full border border-border bg-surface p-2 text-muted transition-colors hover:text-accent"
+    aria-label={t('contact.copy', lang)}
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -94,8 +97,8 @@ const shareUrls = {
       <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
     </svg>
     <span
-      class="copy-feedback absolute -top-8 left-1/2 transform -translate-x-1/2 bg-text text-bg px-2 py-1 rounded text-xs opacity-0 transition-opacity whitespace-nowrap"
-      >Copiado</span
+      class="copy-feedback absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-text px-2 py-1 text-xs text-bg opacity-0 transition-opacity"
+      >{t('contact.copied', lang)}</span
     >
   </button>
 </div>

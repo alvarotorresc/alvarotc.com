@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const alternatePath = post.data.source ? `/es/blog/${post.data.source}` : '/es/blog';
+const alternatePath = post.data.source ? `/es/blog/${post.data.source}/` : '/es/blog/';
 ---
 
 <BlogPostLayout
