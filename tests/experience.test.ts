@@ -22,4 +22,10 @@ describe('sortExperience', () => {
     const list = [entry('a', '2017-09'), entry('b', '2024-07'), entry('c', '2022-03')];
     expect(sortExperience(list).map((e) => e.id)).toEqual(['b', 'c', 'a']);
   });
+
+  it('keeps a stable, symmetric order for equal start dates', () => {
+    expect(sortExperience([entry('a', '2024-07'), entry('b', '2024-07')]).map((e) => e.id)).toEqual(
+      ['a', 'b'],
+    );
+  });
 });

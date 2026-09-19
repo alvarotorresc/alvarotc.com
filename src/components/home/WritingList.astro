@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, type Locale } from '../../i18n/translations';
+import { formatDate, getReadingTime } from '../../lib/utils';
+
+interface Props {
+  lang: Locale;
+  posts: Array<CollectionEntry<'posts'> | CollectionEntry<'posts-en'>>;
+}
+const { lang, posts } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const [latest, ...rest] = posts;
+const minutes = (p: (typeof posts)[number]) => getReadingTime(p.body ?? p.data.description);
+---
+
+<section id="writing" class="section container-page flex flex-col gap-5">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-[22px] font-bold tracking-tight">{t('writing.title', lang)}</h2>
+    <a href={`${prefix}/blog`} class="text-sm font-semibold text-accent">{t('writing.all', lang)}</a
+    >
+  </div>
+
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
+    {
+      latest && (
+        <a href={`${prefix}/blog/${latest.id}`} class="card flex flex-col gap-3 p-6 md:col-span-7">
+          {latest.data.image ? (
+            <img
+              src={latest.data.image}
+              alt=""
+              class="h-[200px] w-full rounded-[10px] object-cover"
+            />
+          ) : (
+            <img
+              src={`/og/${latest.id}.png`}
+              alt=""
+              class="h-[200px] w-full rounded-[10px] object-cover"
+              loading="lazy"
+            />
+          )}
+          <span class="font-mono text-[13px] text-accent">
+            {t('writing.latest', lang)}, {formatDate(latest.data.date, lang)}, {minutes(latest)}{' '}
+            {t('writing.minRead', lang)}
+          </span>
+          <h3 class="text-2xl font-extrabold leading-tight tracking-tight">{latest.data.title}</h3>
+          <p class="text-sm leading-relaxed text-muted">{latest.data.description}</p>
+        </a>
+      )
+    }
+    <ul class="flex flex-col md:col-span-5">
+      {
+        rest.slice(0, 3).map((p, i) => (
+          <li class:list={['border-t border-border', i === 2 && 'border-b']}>
+            <a href={`${prefix}/blog/${p.id}`} class="flex flex-col gap-1.5 py-4">
+              <span class="font-mono text-xs text-faint">
+                {formatDate(p.data.date, lang)}, {minutes(p)} {t('writing.minRead', lang)}
+              </span>
+              <span class="text-base font-bold leading-snug">{p.data.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

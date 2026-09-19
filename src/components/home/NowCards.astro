@@ -38,6 +38,10 @@ const project = await getEntry('projects', `${lang}/${building.project}`);
       <span class="text-xs text-muted">{reading.author}</span>
       <span
         class="h-[3px] w-full overflow-hidden rounded-sm bg-surface-2"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={reading.progress}
         aria-label={`${reading.progress}%`}
       >
         <span class="block h-full bg-accent" style={`width: ${reading.progress}%`}></span>

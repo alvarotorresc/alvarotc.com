@@ -1,0 +1,61 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  stats?: { commits?: number; posts: number; apps: number };
+}
+const { lang, stats } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+
+const groups = [
+  { label: 'Backend', items: ['TypeScript, Node', 'NestJS, PostgreSQL', 'Prisma, Redis'] },
+  { label: 'Infra', items: ['Linux, Docker, Caddy', 'Hetzner, Cloudflare', 'GitHub Actions'] },
+  { label: 'Frontend', items: ['React, Astro', 'Tailwind', 'Capacitor'] },
+  {
+    label: lang === 'es' ? 'Servicios' : 'Services',
+    items: ['Supabase, Vercel', 'Firebase Cloud Messaging', 'Umami'],
+  },
+];
+
+const counters = [
+  { value: stats?.commits ?? '[n]', label: t('stats.commits', lang) },
+  { value: stats?.posts ?? '[n]', label: t('stats.posts', lang) },
+  { value: stats?.apps ?? '[n]', label: t('stats.apps', lang) },
+];
+---
+
+<section id="stats" class="section container-page grid grid-cols-1 gap-10 md:grid-cols-2">
+  <div class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold tracking-tight">{t('stack.title', lang)}</h2>
+    <dl class="grid grid-cols-2 gap-4">
+      {
+        groups.map((g) => (
+          <div class="flex flex-col gap-1.5">
+            <dt class="text-xs font-bold text-faint">{g.label}</dt>
+            <dd class="text-sm leading-relaxed text-muted">
+              {g.items.map((line) => (
+                <span class="block">{line}</span>
+              ))}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+  <div class="flex flex-col gap-4">
+    <h2 class="text-[22px] font-bold tracking-tight">{t('stats.title', lang)}</h2>
+    <ul class="grid grid-cols-3 gap-3">
+      {
+        counters.map((c) => (
+          <li class="card-sm flex flex-col gap-1 p-4">
+            <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
+            <span class="text-xs text-faint">{c.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">{t('stats.full', lang)}</a
+    >
+  </div>
+</section>
