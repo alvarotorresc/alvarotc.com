@@ -6,13 +6,15 @@
 
 **Architecture:** Astro 5 estático. Todo lo de este plan es HTML generado en build con scripts vanilla mínimos (tema, menú móvil, copiar email). Sin islas React todavía: la timeline animada, la paleta de comandos y el envío del formulario llegan en el plan B. El contenido pasa al content layer de Astro 5 (`src/content.config.ts` con `glob()`), lo que obliga a migrar las páginas de blog de `post.slug` a `post.id` y de `post.render()` a `render(post)`.
 
-**Tech Stack:** Astro 5.17, Tailwind 3.4 (`@astrojs/tailwind`), TypeScript strict, Vitest 2 con el Container API de Astro, `@fontsource-variable/manrope`, `@fontsource/jetbrains-mono`, Prettier + ESLint + husky (ya configurados).
+**Tech Stack:** Astro 7.3 (Vite 8, Node 22.12+), Tailwind 4 vía `@tailwindcss/vite`, TypeScript strict, Vitest 5 con `getViteConfig` y el Container API de Astro, `@fontsource-variable/manrope`, `@fontsource/jetbrains-mono`, Prettier + ESLint + husky (ya configurados). La Task 1 se escribió sobre Astro 5 y Tailwind 3; la Task 1b sube de versión y adapta lo que la Task 1 dejó.
 
 **Spec:** `docs/superpowers/specs/2026-09-19-cv-web-redesign-design.md`
 
 ## Global Constraints
 
-- Node >= 20 (`package.json` `engines`). Node 22 instalado.
+- Node >= 22.12 (Astro 7). Node 22 instalado. `engines.node` pasa a `>=22.12.0` en la Task 1b.
+- Astro 7, Tailwind 4 con `@tailwindcss/vite`, Vitest 5, `@astrojs/react` 6. Sin `@astrojs/tailwind` ni `tailwind.config.ts` a partir de la Task 1b.
+- Zod 4: `z.url()`, nunca `z.string().url()`.
 - `npm run build` ejecuta `astro check && astro build`; ambos deben pasar en cada commit.
 - `npm run lint` (ESLint + Prettier check) debe pasar. El hook pre-commit ya formatea con Prettier y lanza `eslint --fix`.
 - Conventional Commits en inglés: `feat:`, `fix:`, `refactor:`, `test:`, `chore:`, `docs:`.
@@ -438,6 +440,142 @@ Expected: PASS, 3 + 18 tests.
 ```bash
 git add package.json package-lock.json vitest.config.ts src/lib/contrast.ts src/styles/global.css tailwind.config.ts tests/contrast.test.ts tests/tokens.test.ts
 git commit -m "feat(design): color tokens for light and dark, self-hosted fonts, contrast tests"
+```
+
+---
+
+### Task 1b: Subida a Astro 7, Vitest 5 y Tailwind 4
+
+**Files:**
+
+- Modify: `package.json`, `package-lock.json`, `astro.config.mjs`, `src/styles/global.css`, `vitest.config.ts`, `.gitignore`
+- Create: `.prettierignore`
+- Delete: `tailwind.config.ts`
+
+**Interfaces:**
+
+- Consumes: los tokens y tests de la Task 1 (`tests/tokens.test.ts` sigue leyendo `src/styles/global.css` y debe pasar sin cambios) y `tests/astro-env.test.ts` (Container API y `astro:content`).
+- Produces: las mismas clases Tailwind que prometía la Task 1 (`bg-bg`, `bg-surface`, `bg-surface-2`, `border-border`, `text-text`, `text-muted`, `text-faint`, `text-accent`, `bg-accent`, `text-accent-fg`, `text-ok`, `font-sans`, `font-mono`) pero declaradas en `@theme`; variante `dark:` activa bajo `[data-theme='dark']`.
+
+- [ ] **Step 1: Subir dependencias**
+
+```bash
+npm uninstall @astrojs/tailwind tailwindcss
+npm install astro@^7.3 @astrojs/react@^6 @astrojs/sitemap@^3.7 @astrojs/rss@^4
+npm install -D vite@^8 vitest@^5 @tailwindcss/vite@^4 tailwindcss@^4 @astrojs/check@latest
+npm ls vite astro vitest tailwindcss
+```
+
+Expected: una sola copia de `vite@8.x`, `astro@7.3.x`, `vitest@5.x`, `tailwindcss@4.x`. Si `npm ls vite` muestra dos copias, `npm dedupe` y repetir. Cambiar en `package.json` `"engines": { "node": ">=22.12.0" }`.
+
+- [ ] **Step 2: `astro.config.mjs`**
+
+```js
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  site: 'https://alvarotc.com',
+  integrations: [
+    react(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: { en: 'en', es: 'es' },
+      },
+    }),
+  ],
+  output: 'static',
+  build: { inlineStylesheets: 'auto' },
+  vite: {
+    plugins: [tailwindcss()],
+    ssr: { noExternal: ['framer-motion'] },
+  },
+});
+```
+
+- [ ] **Step 3: `src/styles/global.css` a Tailwind 4**
+
+Sustituir las tres líneas `@tailwind base; @tailwind components; @tailwind utilities;` por:
+
+```css
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-ok: var(--ok);
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+```
+
+El resto del fichero (los dos bloques `:root`, `@layer base`, `@layer components`, reduced motion) se mantiene tal cual. Borrar `tailwind.config.ts`:
+
+```bash
+git rm tailwind.config.ts
+```
+
+- [ ] **Step 4: `vitest.config.ts`**
+
+Debe quedar exactamente:
+
+```ts
+/// <reference types="vitest/config" />
+import { getViteConfig } from 'astro/config';
+
+export default getViteConfig({
+  test: {
+    globals: true,
+    include: ['tests/**/*.test.ts'],
+  },
+});
+```
+
+- [ ] **Step 5: Ficheros de ignore**
+
+Añadir a `.gitignore` al final:
+
+```
+# SDD scratch
+.superpowers/
+.playwright-mcp/
+```
+
+Crear `.prettierignore`:
+
+```
+dist/
+.astro/
+node_modules/
+.superpowers/
+.playwright-mcp/
+reports/
+research_notes/
+package-lock.json
+```
+
+- [ ] **Step 6: Verificar**
+
+Run: `npx vitest run && npm run lint && npm run build`
+Expected: 24 tests PASS (contrast 3, tokens 18, build 1, astro-env 2); lint limpio en todo el repo; `astro check` y build de Astro 7 completos. Si `astro check` señala HTML sin cerrar en páginas antiguas (compilador nuevo), cerrar las etiquetas y anotarlo en el report. Si `@vercel/analytics/astro` no compila con Astro 7, quitar su import y su `<Analytics />` de `BaseLayout.astro` (Umami ya cubre la analítica) y anotarlo.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add -A package.json package-lock.json astro.config.mjs src/styles/global.css vitest.config.ts tailwind.config.ts .gitignore .prettierignore
+git commit -m "chore(deps): upgrade to Astro 7, Vitest 5 and Tailwind 4"
 ```
 
 ---
@@ -1259,8 +1397,8 @@ export const projectSchema = z.object({
   tier: z.enum(['featured', 'lab']),
   order: z.number(),
   visible: z.boolean().default(true),
-  repo: z.string().url().optional(),
-  url: z.string().url().optional(),
+  repo: z.url().optional(),
+  url: z.url().optional(),
   license: z.string().optional(),
   stack: z.array(z.string()).default([]),
   platform: z.string().optional(),
@@ -1786,7 +1924,7 @@ export const experienceSchema = z.object({
   summary: localized,
   highlights: localizedList.optional(),
   stack: z.array(z.string()).default([]),
-  url: z.string().url().optional(),
+  url: z.url().optional(),
   mock: z.boolean().default(false),
 });
 
