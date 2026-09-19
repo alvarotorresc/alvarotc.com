@@ -22,7 +22,36 @@ const postsEn = defineCollection({
   schema: postSchema,
 });
 
+export const projectSchema = z.object({
+  name: z.string(),
+  tagline: z.string(),
+  status: z.enum(['published', 'beta', 'development', 'design', 'archived']),
+  tier: z.enum(['featured', 'lab']),
+  order: z.number(),
+  visible: z.boolean().default(true),
+  repo: z.url().optional(),
+  url: z.url().optional(),
+  license: z.string().optional(),
+  stack: z.array(z.string()).default([]),
+  platform: z.string().optional(),
+  icon: z.string().optional(),
+  hero: z.string().optional(),
+  gallery: z.array(z.string()).default([]),
+  playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.string() }).optional(),
+  changelog: z
+    .array(z.object({ version: z.string(), date: z.string().optional(), note: z.string() }))
+    .default([]),
+  githubRepo: z.string().optional(),
+  mock: z.boolean().default(false),
+});
+
+const projects = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
+  schema: projectSchema,
+});
+
 export const collections = {
   posts,
   'posts-en': postsEn,
+  projects,
 };
