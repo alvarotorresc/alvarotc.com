@@ -1,0 +1,11 @@
+kind: work
+company: Kestrel Labs
+role: { en: Junior Developer, es: Desarrollador junior }
+location: Madrid
+start: '2021-06'
+end: '2022-02'
+summary:
+  en: Internal tools and a React admin panel. First production incidents, first on-call, first migrations.
+  es: Herramientas internas y un panel de administración en React. Primeros incidentes en producción, primera guardia, primeras migraciones.
+stack: [React, Node, PostgreSQL]
+mock: true

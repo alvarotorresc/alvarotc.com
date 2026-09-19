@@ -1,0 +1,11 @@
+kind: work
+company: Bluemar Logistics
+role: { en: Software Developer, es: Desarrollador de software }
+location: Madrid
+start: '2022-03'
+end: '2024-06'
+summary:
+  en: Built the shipment tracking API and its carrier integrations. Node, TypeScript, Prisma. Introduced CI with GitHub Actions and containerised deploys.
+  es: Construí la API de seguimiento de envíos y sus integraciones con transportistas. Node, TypeScript, Prisma. Introduje CI con GitHub Actions y despliegues en contenedores.
+stack: [Node, TypeScript, Prisma, GitHub Actions]
+mock: true

@@ -1,0 +1,11 @@
+reading:
+  title: Designing Data-Intensive Applications
+  author: Martin Kleppmann
+  progress: 62
+dailyDriver:
+  distro: Nobara Linux
+  kernel: '7.1'
+  selfHosted: [FreshRSS, Umami, Plane]
+building:
+  project: huellas
+mock: true
