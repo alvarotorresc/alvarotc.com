@@ -1,0 +1,30 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  currentPath: string;
+}
+const { lang, currentPath } = Astro.props;
+const otherLang =
+  lang === 'es'
+    ? currentPath.replace(/^\/es/, '') || '/'
+    : `/es${currentPath === '/' ? '/' : currentPath}`;
+const rss = lang === 'es' ? '/rss.xml' : '/rss-en.xml';
+---
+
+<footer class="border-t border-border">
+  <div
+    class="container-page flex flex-col gap-3 py-6 pb-10 text-[13px] text-faint md:flex-row md:items-center md:justify-between"
+  >
+    <span>{t('footer.privacy', lang)}</span>
+    <div class="flex gap-4">
+      <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
+      <a href={rss} class="hover:text-text">RSS</a>
+      <a href="/llms.txt" class="hover:text-text">llms.txt</a>
+      <a href="https://github.com/alvarotorresc/alvarotc-web" class="hover:text-text"
+        >{t('footer.source', lang)}</a
+      >
+    </div>
+  </div>
+</footer>
