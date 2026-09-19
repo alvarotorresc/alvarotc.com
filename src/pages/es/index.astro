@@ -1,87 +1,46 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import LanguageToggle from '../../components/LanguageToggle.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../../lib/utils';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/home/Hero.astro';
+import About from '../../components/home/About.astro';
+import ProjectBento from '../../components/home/ProjectBento.astro';
+import ExperienceTimeline from '../../components/home/ExperienceTimeline.astro';
+import WritingList from '../../components/home/WritingList.astro';
+import StackStats from '../../components/home/StackStats.astro';
+import OffClock from '../../components/home/OffClock.astro';
+import ContactSection from '../../components/home/ContactSection.astro';
+import { getSiteName, getDescription, getAuthor } from '../../lib/config';
+import { getProjects } from '../../lib/projects';
 
-const allPosts = await getCollection('posts');
-const posts = allPosts
-  .filter((post) => !post.data.draft)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 5);
+const lang = 'es';
+const posts = (await getCollection('posts', (p) => !p.data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
+const author = getAuthor();
 
-const links = [
-  { name: 'GitHub', url: 'https://github.com/alvarotorresc' },
-  { name: 'LinkedIn', url: 'https://www.linkedin.com/in/alvaro-torres-carrasco/' },
-  { name: 'X', url: 'https://x.com/torresc_alvaro' },
-];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: author.name,
+  url: 'https://alvarotc.com/es/',
+  email: `mailto:${author.email}`,
+  jobTitle: 'Desarrollador backend',
+  sameAs: [
+    `https://github.com/${author.github}`,
+    `https://www.linkedin.com/in/${author.linkedin}/`,
+    `https://x.com/${author.twitter}`,
+  ],
+};
 ---
 
-<BaseLayout title="Alvaro Torres Carrasco">
-  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-2xl font-medium mb-2">Alvaro Torres Carrasco</h1>
-      <p class="text-text-muted mb-8">Desarrollador de Software</p>
-      <LanguageToggle />
-    </header>
-
-    <!-- Writing -->
-    <section class="mb-20">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-medium">Escritos</h2>
-        <a href="/es/blog" class="text-sm text-text-muted hover:text-accent transition-colors">
-          Ver todos →
-        </a>
-      </div>
-      <div class="space-y-3">
-        {
-          posts.map((post) => (
-            <div class="border-l-2 border-border pl-4 glow-border">
-              <a href={`/es/blog/${post.id}`} class="group block py-1">
-                <div class="flex items-baseline justify-between gap-4 mb-1">
-                  <h3 class="font-medium group-hover:text-accent transition-colors">
-                    {post.data.title}
-                  </h3>
-                  <time class="text-xs text-text-muted shrink-0">
-                    {formatDate(post.data.date, 'es')}
-                  </time>
-                </div>
-                <p class="text-sm text-text-muted line-clamp-1">{post.data.description}</p>
-              </a>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="mb-20">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-lg font-medium">Proyectos</h2>
-        <a href="/es/projects" class="text-sm text-text-muted hover:text-accent transition-colors">
-          Ver todos →
-        </a>
-      </div>
-      <p class="text-sm text-text-muted">Próximamente.</p>
-    </section>
-
-    <!-- Links -->
-    <footer>
-      <div class="flex gap-4 text-sm">
-        {
-          links.map((link) => (
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-text-muted hover:text-accent transition-colors"
-            >
-              {link.name}
-            </a>
-          ))
-        }
-      </div>
-    </footer>
-  </div>
+<BaseLayout title={getSiteName()} description={getDescription()} lang={lang} jsonLd={jsonLd}>
+  <Hero lang={lang} />
+  <About lang={lang} />
+  <ProjectBento lang={lang} />
+  <ExperienceTimeline lang={lang} />
+  <WritingList lang={lang} posts={posts} />
+  <StackStats lang={lang} stats={{ posts: posts.length, apps }} />
+  <OffClock lang={lang} />
+  <ContactSection lang={lang} />
 </BaseLayout>
