@@ -15,6 +15,15 @@ Referencia principal: shivypatel.com (claridad, una página, pocas animaciones b
 concretas tomadas de braydoncoyer.dev (tarjetas "Now", página de stats, about con carril central) y de
 educalvolopez.com (paleta de comandos con búsqueda).
 
+## 1b. Versiones (decidido el 2026-09-19)
+
+Se sube a **Astro 7** antes de construir nada: Astro 7.3 (Node 22.12+, Vite 8), `@astrojs/react` 6,
+`@astrojs/sitemap` 3, `@astrojs/rss` 4, Vitest 5 con `getViteConfig`, y **Tailwind 4** mediante
+`@tailwindcss/vite` (los tokens se declaran en CSS con `@theme`; desaparecen `@astrojs/tailwind` y
+`tailwind.config.ts`). Zod 4: `z.url()` en lugar de `z.string().url()`. El compilador de Astro 7 exige
+HTML bien cerrado; el Markdown se procesa con el motor nativo (Sätteri), suficiente porque los posts no
+usan plugins remark/rehype. React se mantiene en 18.
+
 ## 2. Alcance
 
 Entra:
@@ -93,7 +102,7 @@ Orden aprobado en la maqueta:
 
 ## 6. Modelo de contenido
 
-Todo en `src/content/`, con el content layer de Astro 5 (`glob` y `file` loaders) y esquemas Zod en
+Todo en `src/content/`, con el content layer de Astro (`glob` y `file` loaders) y esquemas Zod 4 en
 `src/content.config.ts`. Los textos bilingües se guardan como `{ en, es }` en los datos, y como
 ficheros separados por idioma en Markdown.
 
@@ -216,8 +225,8 @@ lo cubre.
 
 ## 9. Sistema visual
 
-Tokens en `src/styles/global.css` como custom properties, con Tailwind `darkMode: 'class'` que ya
-está configurado.
+Tokens en `src/styles/global.css` como custom properties, expuestos a Tailwind 4 en un bloque
+`@theme` y con una variante `dark` definida con `@custom-variant` sobre `[data-theme='dark']`.
 
 | Token          | Claro     | Oscuro    |
 | -------------- | --------- | --------- |
