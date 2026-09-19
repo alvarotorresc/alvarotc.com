@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import ShareButtons from '../src/components/blog/ShareButtons.astro';
 
 describe('Astro environment', () => {
   it('astro:content module resolves', async () => {
@@ -6,11 +7,15 @@ describe('Astro environment', () => {
     expect(typeof z.object).toBe('function');
   });
 
-  it('experimental_AstroContainer is available', async () => {
+  it('renders Astro components through Container API', async () => {
     const { experimental_AstroContainer } = await import('astro/container');
-    expect(experimental_AstroContainer).toBeDefined();
     const container = await experimental_AstroContainer.create();
-    expect(container).toBeDefined();
-    expect(typeof container.renderToString).toBe('function');
+    const html = await container.renderToString(ShareButtons, {
+      props: {
+        title: 'Hello',
+        url: 'https://alvarotc.com/x',
+      },
+    });
+    expect(html).toContain('Hello');
   });
 });
