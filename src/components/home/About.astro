@@ -1,0 +1,50 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import NowCards from './NowCards.astro';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+
+const paragraphs = {
+  en: [
+    'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. Lately I ship small apps end to end so I understand the whole thing, not just my slice.',
+    'Everything I publish is free software and works without an account. I run Linux, self-host what I can, and treat your data as yours. Based in Spain, working in English and Spanish, open to backend and full-stack roles.',
+  ],
+  es: [
+    'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Últimamente publico apps pequeñas de principio a fin para entender el conjunto, no solo mi trozo.',
+    'Todo lo que publico es software libre y funciona sin cuenta. Uso Linux, autoalojo lo que puedo y trato tus datos como tuyos. Vivo en España, trabajo en inglés y español, y estoy abierto a roles backend y full-stack.',
+  ],
+}[lang];
+
+const tags = [
+  'about.tag.foss',
+  'about.tag.privacy',
+  'about.tag.offline',
+  'about.tag.selfhosted',
+] as const;
+---
+
+<SectionHeading id="about" lang={lang} titleKey="about.title">
+  <div class="flex flex-col gap-6">
+    <div class="flex max-w-[720px] flex-col gap-3">
+      {paragraphs.map((p) => <p class="text-[17px] leading-relaxed text-muted">{p}</p>)}
+      <ul class="flex flex-wrap gap-2 pt-1">
+        {
+          tags.map((key) => (
+            <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
+              {t(key, lang)}
+            </li>
+          ))
+        }
+      </ul>
+      <a href={`${prefix}/about`} class="text-sm font-semibold text-accent"
+        >{t('about.more', lang)}</a
+      >
+    </div>
+    <NowCards lang={lang} />
+  </div>
+</SectionHeading>

@@ -1,0 +1,117 @@
+---
+import { getEntry } from 'astro:content';
+import Icon from '../icons/Icon.astro';
+import Placeholder from '../ui/Placeholder.astro';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  listening?: { title: string; artist: string; art?: string };
+  lastCommit?: { message: string; repo: string; when: string };
+}
+const { lang, listening, lastCommit } = Astro.props;
+
+const now = await getEntry('now', 'now');
+if (!now) throw new Error('Missing src/content/now/now.yaml');
+const { reading, dailyDriver, building } = now.data;
+const project = await getEntry('projects', `${lang}/${building.project}`);
+---
+
+<ul class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+  <li class="card-sm flex gap-3.5 p-3.5">
+    {
+      reading.cover ? (
+        <img
+          src={reading.cover}
+          alt=""
+          width="54"
+          height="80"
+          class="h-20 w-[54px] shrink-0 rounded object-cover"
+        />
+      ) : (
+        <Placeholder label="cover" class="h-20 w-[54px] shrink-0 !p-1 !text-[9px]" />
+      )
+    }
+    <div class="flex flex-col justify-center gap-1">
+      <span class="text-[11px] font-bold text-faint">{t('now.reading', lang)}</span>
+      <span class="text-[13px] font-bold leading-snug">{reading.title}</span>
+      <span class="text-xs text-muted">{reading.author}</span>
+      <span
+        class="h-[3px] w-full overflow-hidden rounded-sm bg-surface-2"
+        aria-label={`${reading.progress}%`}
+      >
+        <span class="block h-full bg-accent" style={`width: ${reading.progress}%`}></span>
+      </span>
+    </div>
+  </li>
+
+  <li class="card-sm flex gap-3.5 p-3.5">
+    <div
+      class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2"
+    >
+      <Icon name="tux" size={30} strokeWidth={1.6} />
+    </div>
+    <div class="flex flex-col justify-center gap-1">
+      <span class="text-[11px] font-bold text-faint">{t('now.driver', lang)}</span>
+      <span class="text-[13px] font-bold leading-snug">
+        {dailyDriver.distro}{dailyDriver.kernel && `, kernel ${dailyDriver.kernel}`}
+      </span>
+      {
+        dailyDriver.selfHosted.length > 0 && (
+          <span class="text-xs text-muted">Self-hosted: {dailyDriver.selfHosted.join(', ')}</span>
+        )
+      }
+    </div>
+  </li>
+
+  <li class="card-sm flex gap-3.5 p-3.5">
+    {
+      listening?.art ? (
+        <img
+          src={listening.art}
+          alt=""
+          width="54"
+          height="54"
+          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
+        />
+      ) : (
+        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
+          <Icon name="music" size={22} />
+        </div>
+      )
+    }
+    <div class="flex flex-col justify-center gap-1">
+      <span class="text-[11px] font-bold text-ok">{t('now.listening', lang)}</span>
+      <span class="text-[13px] font-bold leading-snug">{listening?.title ?? '[track title]'}</span>
+      <span class="text-xs text-muted">{listening?.artist ?? '[artist]'}, {t('now.via', lang)}</span
+      >
+    </div>
+  </li>
+
+  <li class="card-sm flex gap-3.5 p-3.5">
+    {
+      project?.data.icon ? (
+        <img
+          src={project.data.icon}
+          alt=""
+          width="54"
+          height="54"
+          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
+        />
+      ) : (
+        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
+          <Icon name="hammer" size={22} />
+        </div>
+      )
+    }
+    <div class="flex flex-col justify-center gap-1">
+      <span class="text-[11px] font-bold text-faint">{t('now.building', lang)}</span>
+      <span class="text-[13px] font-bold leading-snug"
+        >{project?.data.name ?? building.project}</span
+      >
+      <span class="font-mono text-xs text-muted">
+        {lastCommit ? `${lastCommit.message}, ${lastCommit.when}` : (project?.data.tagline ?? '')}
+      </span>
+    </div>
+  </li>
+</ul>

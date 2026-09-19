@@ -1,0 +1,9 @@
+---
+interface Props {
+  label: string;
+  class?: string;
+}
+const { label, class: className = '' } = Astro.props;
+---
+
+<div class={`placeholder ${className}`} role="img" aria-label={label}>[{label}]</div>
