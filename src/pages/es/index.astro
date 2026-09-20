@@ -11,11 +11,14 @@ import ContactSection from '../../components/home/ContactSection.astro';
 import { getSiteName, getDescription } from '../../lib/config';
 import { getProjects } from '../../lib/projects';
 import { getPosts } from '../../lib/posts';
+import { reportMockContent } from '../../lib/mock-report';
 import { personJsonLd } from '../../lib/jsonld';
 
 const lang = 'es';
 const posts = await getPosts(lang);
 const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
+
+await reportMockContent();
 
 const jsonLd = personJsonLd(lang);
 ---

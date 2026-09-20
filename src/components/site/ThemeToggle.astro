@@ -26,7 +26,8 @@ const { lang } = Astro.props;
       button.addEventListener('click', () => {
         const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
         const next = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.dataset.theme = next;
+        if (typeof window.__applyTheme === 'function') window.__applyTheme(next);
+        else document.documentElement.dataset.theme = next;
         try {
           localStorage.setItem('theme', next);
         } catch {
