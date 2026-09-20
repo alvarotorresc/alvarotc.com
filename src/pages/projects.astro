@@ -1,40 +1,33 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Tag from '../components/ui/Tag.astro';
-import { getProjects } from '../lib/projects';
-import { t, statusLabel } from '../i18n/translations';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+import { getFeaturedProjects, getLabProjects } from '../lib/projects';
+import { t } from '../i18n/translations';
 
 const lang = 'en';
-const projects = await getProjects(lang);
+const featured = await getFeaturedProjects(lang);
+const lab = await getLabProjects(lang);
 ---
 
 <BaseLayout title={t('projects.title', lang)} lang={lang}>
-  <div class="container-page py-14">
-    <h1 class="mb-8 text-3xl font-extrabold tracking-tight">{t('projects.title', lang)}</h1>
-    <ul class="grid gap-4 md:grid-cols-2">
-      {
-        projects.map((p) => (
-          <li class="card flex flex-col gap-2 p-5">
-            <div class="flex items-center gap-2">
-              <h2 class="text-lg font-bold">{p.data.name}</h2>
-              <Tag>{statusLabel(p.data.status, lang)}</Tag>
-            </div>
-            <p class="text-sm text-muted">{p.data.tagline}</p>
-            <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
-              {p.data.url && (
-                <a href={p.data.url} rel="noopener">
-                  {t('projects.live', lang)}
-                </a>
-              )}
-              {p.data.repo && (
-                <a href={p.data.repo} rel="noopener">
-                  {t('projects.repo', lang)}
-                </a>
-              )}
-            </div>
-          </li>
-        ))
-      }
-    </ul>
+  <div class="container-page flex flex-col gap-12 py-14">
+    <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('projects.title', lang)}</h1>
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+      {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
+    </div>
+
+    {
+      lab.length > 0 && (
+        <div class="flex flex-col gap-5">
+          <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {lab.map((project) => (
+              <ProjectCard lang={lang} project={project} />
+            ))}
+          </div>
+        </div>
+      )
+    }
   </div>
 </BaseLayout>

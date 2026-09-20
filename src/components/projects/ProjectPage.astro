@@ -1,0 +1,220 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Tag from '../ui/Tag.astro';
+import PlaygroundFrame from './PlaygroundFrame.astro';
+import { t, statusLabel, type Locale } from '../../i18n/translations';
+import { getAuthor } from '../../lib/config';
+import { projectSlug, type ProjectEntry } from '../../lib/projects';
+
+interface Props {
+  lang: Locale;
+  project: ProjectEntry;
+}
+const { lang, project } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const slug = projectSlug(project);
+const alternatePath = `${lang === 'es' ? '' : '/es'}/projects/${slug}/`;
+
+const {
+  name,
+  tagline,
+  status,
+  platform,
+  license,
+  repo,
+  url,
+  icon,
+  hero,
+  gallery,
+  changelog,
+  playground,
+} = project.data;
+
+const isVideo = (src: string) => src.endsWith('.mp4') || src.endsWith('.webm');
+const image = hero && !isVideo(hero) ? hero : undefined;
+
+const lastRelease = changelog.find((entry) => entry.date);
+const versionSuffix = lastRelease ? `, ${lastRelease.version}` : '';
+
+const author = getAuthor();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name,
+  description: tagline,
+  applicationCategory: 'DeveloperApplication',
+  ...(platform && { operatingSystem: platform }),
+  ...(url && { url }),
+  ...(repo && { codeRepository: repo }),
+  ...(license && { license }),
+  author: { '@type': 'Person', name: author.name },
+};
+
+const { Content } = await render(project);
+---
+
+<BaseLayout
+  title={name}
+  description={tagline}
+  image={image}
+  lang={lang}
+  alternatePath={alternatePath}
+  jsonLd={jsonLd}
+>
+  <div class="container-page flex flex-col gap-10 py-14">
+    <a href={`${prefix}/projects`} class="text-sm font-semibold text-accent">
+      {t('projects.all', lang)}
+    </a>
+
+    <header class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-4">
+          {
+            icon ? (
+              <img src={icon} alt="" class="h-14 w-14 rounded-2xl object-cover" />
+            ) : (
+              <div
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-2 text-xl font-extrabold text-faint"
+                aria-hidden="true"
+              >
+                {name.slice(0, 1)}
+              </div>
+            )
+          }
+          <div class="flex flex-col gap-1.5">
+            <div class="flex items-center gap-2.5">
+              <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{name}</h1>
+              <Tag tone={status === 'published' ? 'ok' : status === 'beta' ? 'warn' : 'neutral'}>
+                {statusLabel(status, lang)}
+                {versionSuffix}
+              </Tag>
+            </div>
+            <p class="text-lg text-muted">{tagline}</p>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          {
+            url && (
+              <a href={url} rel="noopener" class="btn-primary">
+                {t('projects.live', lang)}
+              </a>
+            )
+          }
+          {
+            repo && (
+              <a href={repo} rel="noopener" class="btn-secondary">
+                {t('project.source', lang)}
+              </a>
+            )
+          }
+        </div>
+      </div>
+      {
+        (platform || license || lastRelease) && (
+          <dl class="grid grid-cols-2 gap-3 md:w-[340px]">
+            {platform && (
+              <div class="card-sm flex flex-col gap-0.5 p-3.5">
+                <dt class="text-xs text-faint">{t('project.platform', lang)}</dt>
+                <dd class="text-sm font-bold">{platform}</dd>
+              </div>
+            )}
+            {license && (
+              <div class="card-sm flex flex-col gap-0.5 p-3.5">
+                <dt class="text-xs text-faint">{t('project.license', lang)}</dt>
+                <dd class="text-sm font-bold">{license}</dd>
+              </div>
+            )}
+            {lastRelease && (
+              <div class="card-sm flex flex-col gap-0.5 p-3.5">
+                <dt class="text-xs text-faint">{t('project.lastRelease', lang)}</dt>
+                <dd class="font-mono text-sm font-bold">{lastRelease.date}</dd>
+              </div>
+            )}
+          </dl>
+        )
+      }
+    </header>
+
+    {
+      hero && (
+        <section>
+          {isVideo(hero) ? (
+            <video
+              controls
+              muted
+              playsinline
+              preload="metadata"
+              class="aspect-video w-full rounded-2xl border border-border"
+            >
+              <source src={hero} />
+            </video>
+          ) : (
+            <img
+              src={hero}
+              alt={name}
+              class="aspect-video w-full rounded-2xl border border-border object-cover"
+            />
+          )}
+        </section>
+      )
+    }
+
+    {
+      gallery.length > 0 && (
+        <section class="grid grid-cols-2 gap-3 md:grid-cols-4">
+          {gallery.map((src, i) => (
+            <img
+              src={src}
+              alt={`${t('project.screenshot', lang)} ${i + 1}`}
+              loading="lazy"
+              class="aspect-[9/16] w-full rounded-xl border border-border object-cover"
+            />
+          ))}
+        </section>
+      )
+    }
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    {
+      playground && (
+        <section class="flex flex-col gap-6 border-t border-border pt-10">
+          <div class="flex flex-col gap-2">
+            <h2 class="text-[22px] font-bold tracking-tight">{t('project.try', lang)}</h2>
+            <p class="max-w-[520px] text-sm leading-relaxed text-muted">
+              {t('project.tryText', lang)}
+            </p>
+          </div>
+          <PlaygroundFrame kind={playground.kind} src={playground.src} title={name} lang={lang} />
+        </section>
+      )
+    }
+
+    {
+      changelog.length > 0 && (
+        <section class="flex flex-col gap-4 border-t border-border pt-10">
+          <h2 class="text-[22px] font-bold tracking-tight">{t('project.changelog', lang)}</h2>
+          <ul class="flex flex-col">
+            {changelog.map((entry) => (
+              <li class="grid grid-cols-1 gap-2 border-t border-border py-3.5 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-4">
+                <span class="font-mono text-[13px] text-accent">{entry.version}</span>
+                <span class="text-sm text-muted">
+                  {entry.date && <span class="mr-2 text-faint">{entry.date}</span>}
+                  {entry.note}
+                </span>
+              </li>
+            ))}
+          </ul>
+          {repo && (
+            <a href={`${repo}/releases`} rel="noopener" class="text-sm font-semibold text-accent">
+              {t('project.changelogFull', lang)}
+            </a>
+          )}
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>
