@@ -1,0 +1,75 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { mockEntries, warnMock } from '../../lib/mock-report';
+import { personJsonLd } from '../../lib/jsonld';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+
+const entry = await getEntry('about', lang);
+if (!entry) throw new Error(`Missing src/content/about/${lang}.md`);
+warnMock('about', mockEntries([entry]));
+
+const { title, intro, values, mock } = entry.data;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={t('about.title', lang)}
+  description={intro}
+  lang={lang}
+  jsonLd={personJsonLd(lang)}
+>
+  <div class="container-page py-14">
+    <div class="mx-auto flex max-w-[680px] flex-col gap-10">
+      <header class="flex flex-col items-center gap-4 text-center">
+        <div
+          class="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-surface-2 text-2xl font-extrabold text-faint md:h-[104px] md:w-[104px]"
+          aria-hidden="true"
+        >
+          AT
+        </div>
+        <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
+        <p class="max-w-[520px] text-lg leading-relaxed text-muted">{intro}</p>
+      </header>
+
+      {
+        !mock && (
+          <div class="prose">
+            <Content />
+          </div>
+        )
+      }
+
+      <section class="flex flex-col gap-6 border-t border-border pt-10">
+        <h2 class="text-center text-[22px] font-bold tracking-tight">
+          {t('about.values', lang)}
+        </h2>
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {
+            values.map((value) => (
+              <div class="flex flex-col gap-1.5">
+                <h3 class="text-base font-bold">{value.title}</h3>
+                <p class="text-sm leading-relaxed text-muted">{value.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <div class="flex justify-center gap-3">
+        <a href={`${prefix}/#contact`} class="btn-primary">
+          {t('hero.contact', lang)}
+        </a>
+        <a href={`${prefix}/cv`} class="btn-secondary">
+          {t('experience.cv', lang)}
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
