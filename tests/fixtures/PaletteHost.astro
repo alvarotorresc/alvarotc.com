@@ -1,0 +1,11 @@
+---
+import CommandPalette from '../../src/components/islands/CommandPalette';
+import type { Locale } from '../../src/i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+---
+
+<CommandPalette client:idle lang={lang} />
