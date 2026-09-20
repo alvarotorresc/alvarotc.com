@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { t, type Locale } from '../../i18n/translations';
 import {
   buildContactPayload,
@@ -21,7 +21,10 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
   const [website, setWebsite] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<ContactErrorCode | null>(null);
+  const [mounted, setMounted] = useState(false);
   const openedAt = useRef(Date.now());
+
+  useEffect(() => setMounted(true), []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -153,7 +156,11 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
               )}
             </p>
             {status !== 'sent' && (
-              <button type="submit" className="terminal-button h-8 px-3.5 text-xs">
+              <button
+                type="submit"
+                disabled={!mounted}
+                className="terminal-button h-8 px-3.5 text-xs"
+              >
                 {status === 'sending' ? t('contact.sending', lang) : t('contact.send', lang)} ↵
               </button>
             )}
