@@ -15,6 +15,7 @@ describe('ContactTerminal', () => {
     expect(html).toContain('Enviado por un servicio propio, sin rastreo.');
     expect(html).not.toContain('<fieldset disabled');
     expect(html).toContain('type="submit" disabled=""');
+    expect(html).toContain('novalidate');
   });
 
   it('keeps the labels in English for the root locale', async () => {

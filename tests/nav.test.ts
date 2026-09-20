@@ -43,6 +43,14 @@ describe('Nav', () => {
     expect(html).not.toContain('aria-disabled');
   });
 
+  it('renders a command palette trigger for desktop and one for the mobile menu', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Nav, {
+      props: { lang: 'en', currentPath: '/' },
+    });
+    expect(html.match(/<button[^>]*data-command-palette/g)).toHaveLength(2);
+  });
+
   it('prefixes links with /es for Spanish', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Nav, {

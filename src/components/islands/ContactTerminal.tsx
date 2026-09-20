@@ -70,7 +70,7 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="terminal flex flex-col overflow-hidden">
+    <form onSubmit={onSubmit} noValidate className="terminal flex flex-col overflow-hidden">
       <div className="terminal-bar flex items-center gap-2 px-3.5 py-2.5">
         <span className="h-2.5 w-2.5 rounded-full bg-[#2c313b]" aria-hidden="true" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#2c313b]" aria-hidden="true" />

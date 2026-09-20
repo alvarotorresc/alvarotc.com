@@ -87,6 +87,16 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
         ))
       }
       <li>
+        <button
+          type="button"
+          data-command-palette
+          class="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-left text-sm font-medium text-muted hover:bg-surface-2"
+        >
+          <Icon name="search" size={16} />
+          {t('nav.search', lang)}
+        </button>
+      </li>
+      <li>
         <a
           href={otherLang}
           class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
@@ -114,6 +124,10 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
       if (trigger.dataset.bound) return;
       trigger.dataset.bound = 'true';
       trigger.addEventListener('click', () => {
+        if (menu && !menu.hidden) {
+          menu.hidden = true;
+          button?.setAttribute('aria-expanded', 'false');
+        }
         document.dispatchEvent(new CustomEvent('command-palette:open'));
       });
     });

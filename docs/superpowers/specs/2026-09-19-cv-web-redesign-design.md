@@ -283,9 +283,10 @@ Principio: ningún tercero lee el mensaje. La web es estática; el contacto es u
 - **Servicio.** Repo aparte `alvarotc-contact`: servicio Node mínimo (Hono o Fastify) en un
   contenedor Docker en el VPS de Hetzner, detrás de Caddy en `contact.alvarotc.com`, junto a la API de
   Quedamos y Umami. Un solo endpoint `POST /send`. CORS limitado a `https://alvarotc.com`.
-- **Contrato.** JSON `{ from, subject, body, website, t }`. `website` es el honeypot y debe llegar
-  vacío. `t` es el timestamp de apertura del formulario; se descartan envíos en menos de tres
-  segundos. Validación: email con formato, subject de 3 a 120 caracteres, body de 10 a 4000.
+- **Contrato.** JSON `{ from, subject, body, website, elapsed }`. `website` es el honeypot y debe
+  llegar vacío. `elapsed` son los milisegundos transcurridos desde que se montó el formulario; se
+  descartan envíos en menos de tres segundos. Validación: email con formato, subject de 3 a 120
+  caracteres, body de 10 a 4000.
   Respuesta `{ ok: true }` o `{ ok: false, error }`. Límite de 5 envíos por IP y hora en memoria.
 - **Entrega.** Proton Mail Bridge en un contenedor del mismo VPS (imagen comunitaria, plan Proton de
   pago, inicio de sesión con 2FA una sola vez, volumen persistente para la sesión). El servicio envía
