@@ -40,7 +40,7 @@ export const projectSchema = z.object({
   gallery: z.array(z.string()).default([]),
   playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.string() }).optional(),
   changelog: z
-    .array(z.object({ version: z.string(), date: z.string().optional(), note: z.string() }))
+    .array(z.object({ version: z.string(), date: z.coerce.date().optional(), note: z.string() }))
     .default([]),
   githubRepo: z.string().optional(),
   mock: z.boolean().default(false),
