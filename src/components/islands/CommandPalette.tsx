@@ -10,21 +10,43 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
   const [active, setActive] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
 
   const results = searchItems(items ?? [], query, lang);
 
-  const close = useCallback(() => setOpen(false), []);
+  const restoreFocus = useCallback(() => {
+    const trigger = triggerRef.current;
+    if (trigger && trigger.isConnected) trigger.focus();
+  }, []);
+
+  const close = useCallback(() => {
+    setOpen(false);
+    restoreFocus();
+  }, [restoreFocus]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
-        setOpen((value) => !value);
+        setOpen((value) => {
+          const next = !value;
+          if (next) {
+            if (document.activeElement instanceof HTMLElement) {
+              triggerRef.current = document.activeElement;
+            }
+          } else {
+            restoreFocus();
+          }
+          return next;
+        });
       } else if (event.key === 'Escape') {
-        setOpen(false);
+        close();
       }
     }
     function onOpen() {
+      if (document.activeElement instanceof HTMLElement) {
+        triggerRef.current = document.activeElement;
+      }
       setOpen(true);
     }
     window.addEventListener('keydown', onKeyDown);
@@ -33,7 +55,7 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
       window.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('command-palette:open', onOpen);
     };
-  }, []);
+  }, [close, restoreFocus]);
 
   useEffect(() => {
     if (!open) {
@@ -57,7 +79,7 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
 
   function go(url: string) {
     setOpen(false);
-    void navigate(url);
+    void navigate(url).then(() => restoreFocus());
   }
 
   function onInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
