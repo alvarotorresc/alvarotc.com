@@ -36,8 +36,6 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
       <button
         type="button"
         data-command-palette
-        disabled
-        aria-disabled="true"
         class="flex h-[34px] items-center gap-2 rounded-lg border border-border bg-surface pl-3 pr-2 text-[13px] text-muted"
       >
         <Icon name="search" size={14} />
@@ -101,12 +99,20 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
   function bind() {
     const button = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
     const menu = document.getElementById('mobile-menu');
-    if (!button || !menu || button.dataset.bound) return;
-    button.dataset.bound = 'true';
-    button.addEventListener('click', () => {
-      const open = menu.hidden;
-      menu.hidden = !open;
-      button.setAttribute('aria-expanded', String(open));
+    if (button && menu && !button.dataset.bound) {
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        const open = menu.hidden;
+        menu.hidden = !open;
+        button.setAttribute('aria-expanded', String(open));
+      });
+    }
+    document.querySelectorAll<HTMLButtonElement>('[data-command-palette]').forEach((trigger) => {
+      if (trigger.dataset.bound) return;
+      trigger.dataset.bound = 'true';
+      trigger.addEventListener('click', () => {
+        document.dispatchEvent(new CustomEvent('command-palette:open'));
+      });
     });
   }
   bind();

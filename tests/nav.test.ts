@@ -23,12 +23,13 @@ describe('Nav', () => {
     expect(html).not.toContain('/cv');
   });
 
-  it('disables the command palette button', async () => {
+  it('enables the command palette button', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Nav, {
       props: { lang: 'en', currentPath: '/' },
     });
-    expect(html).toContain('aria-disabled="true"');
+    expect(html).toContain('data-command-palette');
+    expect(html).not.toContain('aria-disabled');
   });
 
   it('prefixes links with /es for Spanish', async () => {
