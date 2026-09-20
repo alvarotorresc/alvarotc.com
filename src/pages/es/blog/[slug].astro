@@ -1,10 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
 import { getPosts } from '../../../lib/posts';
 
 export async function getStaticPaths() {
-  const [posts, postsEn] = await Promise.all([getPosts('es'), getCollection('posts-en')]);
+  const [posts, postsEn] = await Promise.all([getPosts('es'), getPosts('en')]);
   return posts.map((post, i) => {
     const translation = postsEn.find((p) => p.data.source === post.id);
     return {
