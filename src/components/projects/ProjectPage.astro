@@ -5,6 +5,7 @@ import Tag from '../ui/Tag.astro';
 import PlaygroundFrame from './PlaygroundFrame.astro';
 import { t, statusLabel, type Locale } from '../../i18n/translations';
 import { getAuthor } from '../../lib/config';
+import { formatDate } from '../../lib/utils';
 import { projectSlug, type ProjectEntry } from '../../lib/projects';
 
 interface Props {
@@ -125,10 +126,14 @@ const { Content } = await render(project);
                 <dd class="text-sm font-bold">{license}</dd>
               </div>
             )}
-            {lastRelease && (
+            {lastRelease?.date && (
               <div class="card-sm flex flex-col gap-0.5 p-3.5">
                 <dt class="text-xs text-faint">{t('project.lastRelease', lang)}</dt>
-                <dd class="font-mono text-sm font-bold">{lastRelease.date}</dd>
+                <dd class="font-mono text-sm font-bold">
+                  <time datetime={lastRelease.date.toISOString()}>
+                    {formatDate(lastRelease.date, lang)}
+                  </time>
+                </dd>
               </div>
             )}
           </dl>
@@ -202,7 +207,13 @@ const { Content } = await render(project);
               <li class="grid grid-cols-1 gap-2 border-t border-border py-3.5 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-4">
                 <span class="font-mono text-[13px] text-accent">{entry.version}</span>
                 <span class="text-sm text-muted">
-                  {entry.date && <span class="mr-2 text-faint">{entry.date}</span>}
+                  {entry.date && (
+                    <span class="mr-2 text-faint">
+                      <time datetime={entry.date.toISOString()}>
+                        {formatDate(entry.date, lang)}
+                      </time>
+                    </span>
+                  )}
                   {entry.note}
                 </span>
               </li>
