@@ -1,5 +1,4 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import About from '../components/home/About.astro';
@@ -12,16 +11,14 @@ import ContactSection from '../components/home/ContactSection.astro';
 import { getSiteName, getDescription } from '../lib/config';
 import { getProjects } from '../lib/projects';
 import { getPosts } from '../lib/posts';
-import { mockEntries, warnMock } from '../lib/mock-report';
+import { reportMockContent } from '../lib/mock-report';
 import { personJsonLd } from '../lib/jsonld';
 
 const lang = 'en';
 const posts = await getPosts(lang);
 const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
 
-warnMock('experience', mockEntries(await getCollection('experience')));
-warnMock('now', mockEntries(await getCollection('now')));
-warnMock('interests', mockEntries(await getCollection('interests')));
+await reportMockContent();
 
 const jsonLd = personJsonLd(lang);
 ---
