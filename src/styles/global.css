@@ -284,3 +284,35 @@
     scroll-behavior: auto;
   }
 }
+
+@media print {
+  :root,
+  :root[data-theme='dark'] {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #eef0f4;
+    --border: #dfe2e8;
+    --text: #16181d;
+    --text-muted: #4b5160;
+    --text-faint: #5b6270;
+    --accent: #2563eb;
+    --accent-fg: #ffffff;
+    --ok: #1a7f4b;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  .cv-sheet {
+    border: 0;
+    max-width: none;
+    padding: 0;
+  }
+
+  @page {
+    margin: 16mm;
+  }
+}

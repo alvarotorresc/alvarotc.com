@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
+import { getStackGroups } from '../../lib/stack';
 
 interface Props {
   lang: Locale;
@@ -7,15 +8,7 @@ interface Props {
 }
 const { lang, stats } = Astro.props;
 
-const groups = [
-  { label: 'Backend', items: ['TypeScript, Node', 'NestJS, PostgreSQL', 'Prisma, Redis'] },
-  { label: 'Infra', items: ['Linux, Docker, Caddy', 'Hetzner, Cloudflare', 'GitHub Actions'] },
-  { label: 'Frontend', items: ['React, Astro', 'Tailwind', 'Capacitor'] },
-  {
-    label: lang === 'es' ? 'Servicios' : 'Services',
-    items: ['Supabase, Vercel', 'Firebase Cloud Messaging', 'Umami'],
-  },
-];
+const groups = getStackGroups(lang);
 
 const counters = [
   { value: stats?.commits, label: t('stats.commits', lang) },
