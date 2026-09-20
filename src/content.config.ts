@@ -38,7 +38,7 @@ export const projectSchema = z.object({
   icon: z.string().optional(),
   hero: z.string().optional(),
   gallery: z.array(z.string()).default([]),
-  playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.string() }).optional(),
+  playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.url() }).optional(),
   changelog: z
     .array(z.object({ version: z.string(), date: z.coerce.date().optional(), note: z.string() }))
     .default([]),

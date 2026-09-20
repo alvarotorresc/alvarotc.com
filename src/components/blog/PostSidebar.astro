@@ -8,7 +8,6 @@ interface Props {
 }
 const { lang, headings } = Astro.props;
 const toc = headings.filter((h) => h.depth === 2);
-const rss = lang === 'es' ? '/rss.xml' : '/rss.xml';
 ---
 
 <aside class="flex flex-col gap-8 lg:sticky lg:top-8">
@@ -30,9 +29,15 @@ const rss = lang === 'es' ? '/rss.xml' : '/rss.xml';
       </nav>
     )
   }
-  <div class="card-sm flex flex-col gap-2 p-4">
-    <h2 class="text-sm font-bold">{t('post.subscribe', lang)}</h2>
-    <p class="text-[13px] text-muted">{t('post.rssOnly', lang)}</p>
-    <a href={rss} class="text-[13px] font-semibold text-accent">{t('post.rss', lang)}</a>
-  </div>
+  {
+    lang === 'es' && (
+      <div class="card-sm flex flex-col gap-2 p-4">
+        <h2 class="text-sm font-bold">{t('post.subscribe', lang)}</h2>
+        <p class="text-[13px] text-muted">{t('post.rssOnly', lang)}</p>
+        <a href="/rss.xml" class="text-[13px] font-semibold text-accent">
+          {t('post.rss', lang)}
+        </a>
+      </div>
+    )
+  }
 </aside>

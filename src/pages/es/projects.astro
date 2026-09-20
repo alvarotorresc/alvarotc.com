@@ -13,9 +13,12 @@ const lab = await getLabProjects(lang);
   <div class="container-page flex flex-col gap-12 py-14">
     <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('projects.title', lang)}</h1>
 
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
-    </div>
+    <section class="flex flex-col gap-5">
+      <h2 class="sr-only">{t('projects.featured', lang)}</h2>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
+      </div>
+    </section>
 
     {
       lab.length > 0 && (
