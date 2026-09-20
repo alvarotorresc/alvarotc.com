@@ -9,33 +9,21 @@ import WritingList from '../components/home/WritingList.astro';
 import StackStats from '../components/home/StackStats.astro';
 import OffClock from '../components/home/OffClock.astro';
 import ContactSection from '../components/home/ContactSection.astro';
-import { getSiteName, getDescription, getAuthor } from '../lib/config';
+import { getSiteName, getDescription } from '../lib/config';
 import { getProjects } from '../lib/projects';
 import { getPosts } from '../lib/posts';
 import { mockEntries, warnMock } from '../lib/mock-report';
+import { personJsonLd } from '../lib/jsonld';
 
 const lang = 'en';
 const posts = await getPosts(lang);
 const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
-const author = getAuthor();
 
 warnMock('experience', mockEntries(await getCollection('experience')));
 warnMock('now', mockEntries(await getCollection('now')));
 warnMock('interests', mockEntries(await getCollection('interests')));
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: author.name,
-  url: 'https://alvarotc.com',
-  email: `mailto:${author.email}`,
-  jobTitle: 'Backend developer',
-  sameAs: [
-    `https://github.com/${author.github}`,
-    `https://www.linkedin.com/in/${author.linkedin}/`,
-    `https://x.com/${author.twitter}`,
-  ],
-};
+const jsonLd = personJsonLd(lang);
 ---
 
 <BaseLayout title={getSiteName()} description={getDescription(lang)} lang={lang} jsonLd={jsonLd}>

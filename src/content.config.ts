@@ -111,6 +111,18 @@ const interests = defineCollection({
   schema: interestSchema,
 });
 
+export const aboutSchema = z.object({
+  title: z.string(),
+  intro: z.string(),
+  values: z.array(z.object({ title: z.string(), text: z.string() })).min(1),
+  mock: z.boolean().default(false),
+});
+
+const about = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/about' }),
+  schema: aboutSchema,
+});
+
 export const collections = {
   posts,
   'posts-en': postsEn,
@@ -118,4 +130,5 @@ export const collections = {
   experience,
   now,
   interests,
+  about,
 };
