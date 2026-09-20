@@ -19,7 +19,10 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
     if (trigger && trigger.isConnected) trigger.focus();
   }, []);
 
-  const close = useCallback(() => {
+  // Single close-and-restore path for every non-navigating close: Escape, backdrop click, the
+  // close button, and the Cmd/Ctrl+K toggle-close. Only ever called while the palette is open, so
+  // restoring focus here never yanks focus away from an unrelated part of the page.
+  const closeAndRestore = useCallback(() => {
     setOpen(false);
     restoreFocus();
   }, [restoreFocus]);
@@ -28,19 +31,16 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
     function onKeyDown(event: KeyboardEvent) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
-        setOpen((value) => {
-          const next = !value;
-          if (next) {
-            if (document.activeElement instanceof HTMLElement) {
-              triggerRef.current = document.activeElement;
-            }
-          } else {
-            restoreFocus();
+        if (open) {
+          closeAndRestore();
+        } else {
+          if (document.activeElement instanceof HTMLElement) {
+            triggerRef.current = document.activeElement;
           }
-          return next;
-        });
-      } else if (event.key === 'Escape') {
-        close();
+          setOpen(true);
+        }
+      } else if (event.key === 'Escape' && open) {
+        closeAndRestore();
       }
     }
     function onOpen() {
@@ -55,7 +55,7 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
       window.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('command-palette:open', onOpen);
     };
-  }, [close, restoreFocus]);
+  }, [open, closeAndRestore]);
 
   useEffect(() => {
     if (!open) {
@@ -78,8 +78,10 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
   useEffect(() => setActive(0), [query]);
 
   function go(url: string) {
+    // Navigating away closes the palette but does not restore focus: the view transition swaps
+    // the page, so the captured trigger node may no longer be connected to the document.
     setOpen(false);
-    void navigate(url).then(() => restoreFocus());
+    void navigate(url).catch(() => {});
   }
 
   function onInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
@@ -109,7 +111,7 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-start justify-center bg-bg/80 px-4 pt-[12vh]"
-      onClick={close}
+      onClick={closeAndRestore}
     >
       <div
         role="dialog"
@@ -153,7 +155,7 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
             ref={closeRef}
             type="button"
             aria-label={t('search.close', lang)}
-            onClick={close}
+            onClick={closeAndRestore}
             className="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint"
           >
             Esc
