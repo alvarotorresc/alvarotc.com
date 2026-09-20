@@ -17,6 +17,14 @@ export function getDescription(lang: Locale = 'en'): string {
   return siteConfig.description[lang];
 }
 
+export function getContactEndpoint(): string {
+  return siteConfig.contactEndpoint;
+}
+
+export function getCalLink(): string {
+  return siteConfig.calLink;
+}
+
 export function getAuthor() {
   return siteConfig.author;
 }

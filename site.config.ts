@@ -7,6 +7,9 @@ export const siteConfig = {
     es: 'Desarrollador backend. Apps offline-first, infraestructura autoalojada, software libre.',
   },
 
+  contactEndpoint: 'https://contact.alvarotc.com/send',
+  calLink: 'https://cal.com/alvarotc',
+
   author: {
     name: 'Álvaro Torres Carrasco',
     email: 'hello@alvarotc.com',
