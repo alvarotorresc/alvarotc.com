@@ -1,0 +1,58 @@
+---
+import Tag from '../ui/Tag.astro';
+import { t, statusLabel, type Locale } from '../../i18n/translations';
+import { projectSlug, type ProjectEntry } from '../../lib/projects';
+
+interface Props {
+  lang: Locale;
+  project: ProjectEntry;
+  featured?: boolean;
+}
+const { lang, project, featured = false } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const slug = projectSlug(project);
+const tone = (status: string) =>
+  status === 'published' ? 'ok' : status === 'beta' ? 'warn' : 'neutral';
+---
+
+<div class="card flex flex-col gap-3 p-5">
+  {
+    featured && project.data.hero && (
+      <img
+        src={project.data.hero}
+        alt={project.data.name}
+        class="aspect-video w-full rounded-[10px] object-cover"
+      />
+    )
+  }
+  <a href={`${prefix}/projects/${slug}`} class="flex items-center gap-2.5">
+    <h3 class="text-lg font-extrabold tracking-tight">{project.data.name}</h3>
+    <Tag tone={tone(project.data.status)}>{statusLabel(project.data.status, lang)}</Tag>
+  </a>
+  <p class="text-sm leading-relaxed text-muted">{project.data.tagline}</p>
+  {
+    project.data.stack.length > 0 && (
+      <ul class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-accent">
+        {project.data.stack.slice(0, 3).map((s) => (
+          <li>{s}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    (project.data.url || project.data.repo) && (
+      <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
+        {project.data.url && (
+          <a href={project.data.url} rel="noopener">
+            {t('projects.live', lang)}
+          </a>
+        )}
+        {project.data.repo && (
+          <a href={project.data.repo} rel="noopener">
+            {t('projects.repo', lang)}
+          </a>
+        )}
+      </div>
+    )
+  }
+</div>

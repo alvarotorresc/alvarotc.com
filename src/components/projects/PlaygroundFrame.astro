@@ -1,0 +1,54 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  kind: 'pwa' | 'iframe' | 'video';
+  src: string;
+  title: string;
+  lang: Locale;
+}
+const { kind, src, title, lang } = Astro.props;
+---
+
+{
+  kind === 'video' ? (
+    <video
+      controls
+      src={src}
+      title={title}
+      class="mx-auto w-full max-w-[420px] rounded-2xl border border-border"
+    />
+  ) : (
+    <div class="mx-auto flex aspect-[9/19] w-full max-w-[360px] items-center justify-center overflow-hidden rounded-[36px] border-[6px] border-border bg-surface-2">
+      <button
+        type="button"
+        data-playground-load
+        data-src={src}
+        data-title={title}
+        class="btn-primary"
+      >
+        {t('project.load', lang)}
+      </button>
+    </div>
+  )
+}
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLButtonElement>('[data-playground-load]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = button.dataset.src ?? '';
+        iframe.title = button.dataset.title ?? '';
+        iframe.loading = 'lazy';
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms');
+        iframe.className = 'h-full w-full';
+        button.replaceWith(iframe);
+      });
+    });
+  }
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>

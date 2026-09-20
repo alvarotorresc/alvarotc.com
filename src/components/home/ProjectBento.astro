@@ -1,7 +1,12 @@
 ---
 import Tag from '../ui/Tag.astro';
 import { t, statusLabel, type Locale } from '../../i18n/translations';
-import { getFeaturedProjects, getLabProjects, type ProjectEntry } from '../../lib/projects';
+import {
+  getFeaturedProjects,
+  getLabProjects,
+  projectSlug,
+  type ProjectEntry,
+} from '../../lib/projects';
 
 interface Props {
   lang: Locale;
@@ -14,7 +19,7 @@ const lab = await getLabProjects(lang);
 
 const tone = (status: string) =>
   status === 'published' ? 'ok' : status === 'beta' ? 'warn' : 'neutral';
-const href = (p: ProjectEntry) => p.data.url ?? p.data.repo;
+const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
 ---
 
 <section id="projects" class="section container-page flex flex-col gap-6">
