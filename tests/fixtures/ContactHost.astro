@@ -1,0 +1,12 @@
+---
+import ContactTerminal from '../../src/components/islands/ContactTerminal';
+import type { Locale } from '../../src/i18n/translations';
+
+interface Props {
+  lang: Locale;
+  endpoint: string;
+}
+const { lang, endpoint } = Astro.props;
+---
+
+<ContactTerminal client:visible lang={lang} endpoint={endpoint} />
