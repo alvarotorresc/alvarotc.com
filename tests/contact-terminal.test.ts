@@ -13,7 +13,8 @@ describe('ContactTerminal', () => {
     expect(html).toContain('aria-live="polite"');
     expect(html).toContain('De:');
     expect(html).toContain('Enviado por un servicio propio, sin rastreo.');
-    expect(html).not.toContain('disabled');
+    expect(html).not.toContain('<fieldset disabled');
+    expect(html).toContain('type="submit" disabled=""');
   });
 
   it('keeps the labels in English for the root locale', async () => {
