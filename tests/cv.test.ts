@@ -49,4 +49,15 @@ describe('CvSheet markup', () => {
     expect(sheet).not.toContain('<header');
     expect(sheet).not.toContain('<footer');
   });
+
+  it('gives the sheet a real heading outline: one h1 for the name, h2 for each section', () => {
+    // The five section labels (Experience, Projects, Skills, Education, Writing) must be
+    // <h2>, not <span>, so assistive tech, reader modes and PDF extraction see a real outline.
+    const sectionLabel =
+      '<h2 class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">';
+    expect(sheet).not.toContain(
+      '<span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">',
+    );
+    expect(sheet.split(sectionLabel).length - 1).toBe(5);
+  });
 });
