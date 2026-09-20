@@ -1,3 +1,5 @@
+export type NavItem = { key: string; href: string; requires?: 'experience' };
+
 export const siteConfig = {
   name: 'Álvaro Torres Carrasco',
   tagline: 'Backend developer',
@@ -20,11 +22,13 @@ export const siteConfig = {
   },
 
   nav: [
-    { key: 'nav.about', href: '/#about' },
+    { key: 'nav.about', href: '/about' },
     { key: 'nav.projects', href: '/#projects' },
+    { key: 'nav.experience', href: '/#experience', requires: 'experience' },
     { key: 'nav.writing', href: '/blog' },
-    { key: 'nav.stats', href: '/#stats' },
-  ],
+    { key: 'nav.stats', href: '/stats' },
+    { key: 'nav.cv', href: '/cv' },
+  ] as NavItem[],
 
   social: [
     { platform: 'github', url: 'https://github.com/alvarotorresc' },

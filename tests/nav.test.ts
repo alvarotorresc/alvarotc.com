@@ -3,24 +3,35 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import Nav from '../src/components/site/Nav.astro';
 
 describe('Nav', () => {
-  it('renders English links at the root', async () => {
+  it('renders every English link at the root', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Nav, {
       props: { lang: 'en', currentPath: '/' },
     });
-    expect(html).toContain('href="/#about"');
-    expect(html).toContain('href="/#stats"');
+    expect(html).toContain('href="/about"');
+    expect(html).toContain('href="/#projects"');
     expect(html).toContain('href="/blog"');
+    expect(html).toContain('href="/stats"');
+    expect(html).toContain('href="/cv"');
     expect(html).toContain('href="/es/"');
     expect(html).toContain('aria-label="Toggle theme"');
   });
 
-  it('has no CV link while there is no CV page', async () => {
+  it('hides the experience entry while the experience is mock', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Nav, {
       props: { lang: 'en', currentPath: '/' },
     });
-    expect(html).not.toContain('/cv');
+    expect(html).not.toContain('#experience');
+  });
+
+  it('shows the experience entry when the caller says it is visible', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Nav, {
+      props: { lang: 'en', currentPath: '/', experienceVisible: true },
+    });
+    expect(html).toContain('href="/#experience"');
+    expect(html).toContain('Experience');
   });
 
   it('enables the command palette button', async () => {
@@ -37,8 +48,9 @@ describe('Nav', () => {
     const html = await container.renderToString(Nav, {
       props: { lang: 'es', currentPath: '/es/' },
     });
-    expect(html).toContain('href="/es/#about"');
+    expect(html).toContain('href="/es/about"');
     expect(html).toContain('href="/es/#projects"');
+    expect(html).toContain('href="/es/cv"');
     expect(html).toContain('href="/"');
     expect(html).toContain('Sobre mí');
   });

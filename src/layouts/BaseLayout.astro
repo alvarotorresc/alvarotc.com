@@ -10,6 +10,7 @@ import Nav from '../components/site/Nav.astro';
 import Footer from '../components/site/Footer.astro';
 import CommandPalette from '../components/islands/CommandPalette';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
+import { getExperience, hasMockExperience } from '../lib/experience';
 import { mirroredPath } from '../lib/i18n-paths';
 import { t, type Locale } from '../i18n/translations';
 
@@ -44,6 +45,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
 const alternate = alternatePath ?? mirroredPath(lang, currentPath);
 const alternateURL = new URL(alternate, Astro.site);
+const experienceVisible = !hasMockExperience(await getExperience());
 
 const defaultJsonLd = {
   '@context': 'https://schema.org',
@@ -125,7 +127,12 @@ const defaultJsonLd = {
     >
       {t('nav.skip', lang)}
     </a>
-    <Nav lang={lang} currentPath={currentPath} alternatePath={alternate} />
+    <Nav
+      lang={lang}
+      currentPath={currentPath}
+      alternatePath={alternate}
+      experienceVisible={experienceVisible}
+    />
     <main id="main" class="flex-1">
       <slot />
     </main>

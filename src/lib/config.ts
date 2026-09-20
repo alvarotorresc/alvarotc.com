@@ -1,4 +1,4 @@
-import { siteConfig } from '../../site.config';
+import { siteConfig, type NavItem } from '../../site.config';
 import type { Locale } from '../i18n/translations';
 
 export function getSiteName(): string {
@@ -33,7 +33,7 @@ export function getSocialLinks() {
   return siteConfig.social;
 }
 
-export function getNav() {
+export function getNav(): NavItem[] {
   return siteConfig.nav;
 }
 

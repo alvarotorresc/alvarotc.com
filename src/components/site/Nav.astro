@@ -9,14 +9,17 @@ interface Props {
   lang: Locale;
   currentPath: string;
   alternatePath?: string;
+  experienceVisible?: boolean;
 }
-const { lang, currentPath, alternatePath } = Astro.props;
+const { lang, currentPath, alternatePath, experienceVisible = false } = Astro.props;
 
 const prefix = lang === 'es' ? '/es' : '';
-const items = getNav().map((item) => ({
-  label: t(item.key as keyof typeof translations.en, lang),
-  href: `${prefix}${item.href}`,
-}));
+const items = getNav()
+  .filter((item) => item.requires !== 'experience' || experienceVisible)
+  .map((item) => ({
+    label: t(item.key as keyof typeof translations.en, lang),
+    href: `${prefix}${item.href}`,
+  }));
 
 const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 ---
