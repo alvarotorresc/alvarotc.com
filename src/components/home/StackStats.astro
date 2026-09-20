@@ -9,6 +9,7 @@ interface Props {
 const { lang, stats } = Astro.props;
 
 const groups = getStackGroups(lang);
+const prefix = lang === 'es' ? '/es' : '';
 
 const counters = [
   { value: stats?.commits, label: t('stats.commits', lang) },
@@ -53,6 +54,9 @@ const columns: Record<number, string> = {
             </li>
           ))}
         </ul>
+        <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">
+          {t('stats.full', lang)}
+        </a>
       </div>
     )
   }
