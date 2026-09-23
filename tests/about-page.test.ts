@@ -107,7 +107,7 @@ describe('AboutStory polaroid script', () => {
 
   it('observes the stages with the spec rootMargin', () => {
     expect(source).toContain('IntersectionObserver');
-    expect(source).toContain("rootMargin: '-40% 0px -50% 0px'");
+    expect(source).toContain("rootMargin: '-40% 0px -30% 0px'");
     expect(source).toContain('[data-stage]');
   });
 
