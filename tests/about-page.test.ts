@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import AboutStory from '../src/components/about/AboutStory.astro';
 import type { StoryStage } from '../src/lib/about-stages';
@@ -98,5 +99,27 @@ describe('AboutStory', () => {
     const html = await render(false);
     expect(html).toContain('href="/es/#contact"');
     expect(html).toContain('href="/es/cv"');
+  });
+});
+
+describe('AboutStory polaroid script', () => {
+  const source = readFileSync('src/components/about/AboutStory.astro', 'utf8');
+
+  it('observes the stages with the spec rootMargin', () => {
+    expect(source).toContain('IntersectionObserver');
+    expect(source).toContain("rootMargin: '-40% 0px -50% 0px'");
+    expect(source).toContain('[data-stage]');
+  });
+
+  it('crossfades in 200ms and skips it with reduced motion', () => {
+    expect(source).toContain('transition: opacity 200ms');
+    expect(source).toContain('prefers-reduced-motion: reduce');
+  });
+
+  it('re-initialises on client navigation and uses no islands', () => {
+    expect(source).toContain('astro:page-load');
+    expect(source).toContain('astro:before-swap');
+    expect(source).not.toContain('client:');
+    expect(source).not.toContain('framer-motion');
   });
 });
