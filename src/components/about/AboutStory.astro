@@ -117,4 +117,77 @@ const mobile = polaroidFor(stages, 'own-2026');
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+  .about-sticky :global([data-polaroid-img]) {
+    transition: opacity 200ms ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-sticky :global([data-polaroid-img]) {
+      transition: none;
+    }
+  }
 </style>
+
+<script>
+  const FACTS = ['year', 'place', 'os', 'stack'] as const;
+
+  function initAboutPolaroid(): () => void {
+    const root = document.querySelector<HTMLElement>('[data-polaroid="sticky"]');
+    const img = root?.querySelector<HTMLImageElement>('[data-polaroid-img]');
+    const caption = root?.querySelector<HTMLElement>('[data-polaroid-caption]');
+    if (!root || !img || !caption) return () => {};
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let current = img.getAttribute('src');
+    let timer: number | undefined;
+
+    const apply = (photo: string, data: DOMStringMap) => {
+      img.src = photo;
+      img.alt = data.alt ?? '';
+      caption.textContent = data.caption ?? '';
+      for (const key of FACTS) {
+        const field = root.querySelector<HTMLElement>(`[data-fact="${key}"]`);
+        if (field) field.textContent = data[key] ?? '';
+      }
+    };
+
+    const show = (stage: HTMLElement) => {
+      const data = stage.dataset;
+      const photo = data.photo;
+      if (!photo || photo === current) return;
+      current = photo;
+      window.clearTimeout(timer);
+      if (reduce.matches) {
+        apply(photo, data);
+        img.style.opacity = '1';
+        return;
+      }
+      img.style.opacity = '0';
+      timer = window.setTimeout(() => {
+        apply(photo, data);
+        img.style.opacity = '1';
+      }, 200);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) show(entry.target as HTMLElement);
+        }
+      },
+      { rootMargin: '-40% 0px -50% 0px' },
+    );
+    document.querySelectorAll<HTMLElement>('[data-stage]').forEach((s) => observer.observe(s));
+
+    return () => {
+      window.clearTimeout(timer);
+      observer.disconnect();
+    };
+  }
+
+  let cleanup: () => void = () => {};
+  document.addEventListener('astro:page-load', () => {
+    cleanup();
+    cleanup = initAboutPolaroid();
+  });
+  document.addEventListener('astro:before-swap', () => cleanup());
+</script>
