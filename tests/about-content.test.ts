@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 
 const ids = [
   'daw-2018',
@@ -58,5 +58,24 @@ describe.each(['es', 'en'])('about/%s.md', (lang) => {
 describe('about placeholders', () => {
   it.each(photos)('%s.jpg exists', (name) => {
     expect(existsSync(`src/assets/about/${name}.jpg`)).toBe(true);
+  });
+});
+
+describe.skipIf(!process.env.RELEASE_CHECK)('about release guard', () => {
+  it('has no [DATO] placeholders left', () => {
+    const es = readFileSync('src/content/about/es.md', 'utf8');
+    const en = readFileSync('src/content/about/en.md', 'utf8');
+    expect(es).not.toContain('[DATO]');
+    expect(en).not.toContain('[DATO]');
+  });
+
+  it('ships real photos, not placeholders', () => {
+    const files = readdirSync('src/assets/about/');
+    const jpgs = files.filter((f) => f.endsWith('.jpg'));
+
+    jpgs.forEach((jpg) => {
+      const stat = statSync(`src/assets/about/${jpg}`);
+      expect(stat.size).toBeGreaterThan(20000);
+    });
   });
 });
