@@ -120,6 +120,25 @@ const mobile = polaroidFor(stages, 'own-2026');
   .about-sticky :global([data-polaroid-img]) {
     transition: opacity 200ms ease;
   }
+  @media (max-width: 1023px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      row-gap: 56px;
+    }
+    .about-text {
+      gap: 64px;
+    }
+    .about-aside {
+      display: none;
+    }
+    .about-mobile {
+      display: block;
+      order: -1;
+      width: 100%;
+      max-width: 360px;
+      padding-inline: 8px;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .about-sticky :global([data-polaroid-img]) {
       transition: none;

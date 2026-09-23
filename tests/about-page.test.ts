@@ -123,3 +123,17 @@ describe('AboutStory polaroid script', () => {
     expect(source).not.toContain('framer-motion');
   });
 });
+
+describe('AboutStory mobile layout', () => {
+  const source = readFileSync('src/components/about/AboutStory.astro', 'utf8');
+
+  it('collapses to one column below 1024px with a single 360px polaroid first', () => {
+    const start = source.indexOf('@media (max-width: 1023px)');
+    expect(start).toBeGreaterThan(-1);
+    const block = source.slice(start, source.indexOf('</style>', start));
+    expect(block).toContain('grid-template-columns: 1fr');
+    expect(block).toContain('max-width: 360px');
+    expect(block).toContain('order: -1');
+    expect(block).toMatch(/\.about-aside\s*{\s*display: none;/);
+  });
+});
