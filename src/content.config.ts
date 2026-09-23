@@ -123,12 +123,29 @@ const interests = defineCollection({
   schema: interestSchema,
 });
 
-export const aboutSchema = z.object({
-  title: z.string(),
-  intro: z.string(),
-  values: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })).min(1),
-  mock: z.boolean().default(false),
-});
+const stageSchema = (image: SchemaContext['image']) =>
+  z.object({
+    id: z.string(),
+    kicker: z.string(),
+    title: z.string(),
+    paragraphs: z.array(z.string()).min(1),
+    links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
+    photo: image().optional(),
+    photoAlt: z.string().optional(),
+    caption: z.string().optional(),
+    facts: z
+      .object({ year: z.string(), place: z.string(), os: z.string(), stack: z.string() })
+      .optional(),
+  });
+
+export const aboutSchema = ({ image }: SchemaContext) =>
+  z.object({
+    title: z.string(),
+    intro: z.string(),
+    values: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })).min(1),
+    stages: z.array(stageSchema(image)).min(1),
+    mock: z.boolean().default(false),
+  });
 
 const about = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/about' }),
