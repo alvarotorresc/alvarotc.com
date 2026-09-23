@@ -1,22 +1,31 @@
 ---
-import { getEntry, render } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutStory from './AboutStory.astro';
 import { t, type Locale } from '../../i18n/translations';
 import { mockEntries, warnMock } from '../../lib/mock-report';
 import { personJsonLd } from '../../lib/jsonld';
+import { toStoryStage } from '../../lib/about-stages';
 
 interface Props {
   lang: Locale;
 }
 const { lang } = Astro.props;
-const prefix = lang === 'es' ? '/es' : '';
 
 const entry = await getEntry('about', lang);
 if (!entry) throw new Error(`Missing src/content/about/${lang}.md`);
 warnMock('about', mockEntries([entry]));
 
 const { title, intro, mock } = entry.data;
-const { Content } = await render(entry);
+const stages = await Promise.all(
+  entry.data.stages.map(async (stage) => {
+    const image = stage.photo
+      ? await getImage({ src: stage.photo, width: 800, format: 'webp' })
+      : undefined;
+    return toStoryStage(stage, image?.src);
+  }),
+);
 ---
 
 <BaseLayout
@@ -25,29 +34,5 @@ const { Content } = await render(entry);
   lang={lang}
   jsonLd={personJsonLd(lang)}
 >
-  <div class="container-page py-14">
-    <div class="mx-auto flex max-w-[680px] flex-col gap-10">
-      <header class="flex flex-col gap-4">
-        <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
-        <p class="max-w-[560px] text-lg leading-relaxed text-muted">{intro}</p>
-      </header>
-
-      {
-        !mock && (
-          <div class="prose">
-            <Content />
-          </div>
-        )
-      }
-
-      <div class="flex gap-3 border-t border-border pt-10">
-        <a href={`${prefix}/#contact`} class="btn-primary">
-          {t('hero.contact', lang)}
-        </a>
-        <a href={`${prefix}/cv`} class="btn-secondary">
-          {t('experience.cv', lang)}
-        </a>
-      </div>
-    </div>
-  </div>
+  <AboutStory lang={lang} title={title} intro={intro} stages={stages} mock={mock} />
 </BaseLayout>
