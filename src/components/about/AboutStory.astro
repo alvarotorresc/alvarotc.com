@@ -189,10 +189,21 @@ const mobile = polaroidFor(stages, 'own-2026');
     );
     stages.forEach((s) => observer.observe(s));
 
+    const onScroll = () => {
+      const atBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+      if (!atBottom) return;
+      const stagesWithPhoto = Array.from(stages).filter((s) => s.dataset.photo);
+      const last = stagesWithPhoto[stagesWithPhoto.length - 1];
+      if (last) show(last);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     return () => {
       window.clearTimeout(timer);
       observer.disconnect();
       intersecting.clear();
+      window.removeEventListener('scroll', onScroll);
     };
   }
 
