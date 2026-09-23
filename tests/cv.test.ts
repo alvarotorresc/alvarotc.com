@@ -3,16 +3,16 @@ import { readFileSync } from 'node:fs';
 import { getStackGroups } from '../src/lib/stack';
 
 describe('getStackGroups', () => {
-  it('returns four groups for Spanish, with a translated services label', () => {
+  it('returns four groups for Spanish, with a translated data label', () => {
     const groups = getStackGroups('es');
     expect(groups).toHaveLength(4);
-    expect(groups.map((g) => g.label)).toEqual(['Backend', 'Infra', 'Frontend', 'Servicios']);
+    expect(groups.map((g) => g.label)).toEqual(['Backend', 'Datos', 'Infra', 'Frontend']);
   });
 
-  it('returns four groups for English, with an English services label', () => {
+  it('returns four groups for English, with an English data label', () => {
     const groups = getStackGroups('en');
     expect(groups).toHaveLength(4);
-    expect(groups.map((g) => g.label)).toEqual(['Backend', 'Infra', 'Frontend', 'Services']);
+    expect(groups.map((g) => g.label)).toEqual(['Backend', 'Data', 'Infra', 'Frontend']);
   });
 
   it('gives every group at least one item', () => {

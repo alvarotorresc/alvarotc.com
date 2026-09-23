@@ -21,10 +21,6 @@ export function getContactEndpoint(): string {
   return siteConfig.contactEndpoint;
 }
 
-export function getCalLink(): string {
-  return siteConfig.calLink;
-}
-
 export function getAuthor() {
   return siteConfig.author;
 }

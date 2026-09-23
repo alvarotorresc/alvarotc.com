@@ -2,7 +2,7 @@ export type NavItem = { key: string; href: string; requires?: 'experience' };
 
 export const siteConfig = {
   name: 'Álvaro Torres Carrasco',
-  tagline: 'Backend developer',
+  tagline: 'Software Engineer',
   domain: 'https://alvarotc.com',
   description: {
     en: 'Backend developer. Offline-first apps, self-hosted infrastructure, free software.',
@@ -10,7 +10,6 @@ export const siteConfig = {
   },
 
   contactEndpoint: 'https://contact.alvarotc.com/send',
-  calLink: 'https://cal.com/alvarotc',
 
   author: {
     name: 'Álvaro Torres Carrasco',

@@ -1,11 +1,59 @@
 reading:
-  title: Designing Data-Intensive Applications
-  author: Martin Kleppmann
-  progress: 62
-dailyDriver:
-  distro: Nobara Linux
-  kernel: '7.1'
-  selfHosted: [FreshRSS, Umami, Plane]
+  - title: Noches blancas
+    author: Fiódor Dostoievski
+    cover: ../../assets/covers/noches-blancas.jpg
+  - title: '1984'
+    author: George Orwell
+    cover: ../../assets/covers/1984.jpg
+  - title: La sociedad del cansancio
+    author: Byung-Chul Han
+    cover: ../../assets/covers/la-sociedad-del-cansancio.jpg
+  - title: Vozdevieja
+    author: Elisa Victoria
+    cover: ../../assets/covers/vozdevieja.jpg
+  - title: Un mundo feliz
+    author: Aldous Huxley
+    cover: ../../assets/covers/un-mundo-feliz.jpg
+  - title: Privacidad es poder
+    author: Carissa Véliz
+    cover: ../../assets/covers/privacidad-es-poder.jpg
+  - title: Crónicas balcánicas
+    author: Axel Torres
+    cover: ../../assets/covers/cronicas-balcanicas.jpg
+listening:
+  - title: Wait and Bleed
+    artist: Slipknot
+    art: ../../assets/art/slipknot.jpg
+  - title: Otro amanecer
+    artist: Delaossa y Andrés Calamaro
+    art: ../../assets/art/la-madruga.jpg
+  - title: La ley innata
+    artist: Extremoduro
+    art: ../../assets/art/la-ley-innata.jpg
+  - title: La canción más triste
+    artist: Robe
+    art: ../../assets/art/destrozares.jpg
+  - title: B.Y.O.B.
+    artist: System of a Down
+    art: ../../assets/art/mezmerize.jpg
+  - title: Indoctrinate
+    artist: Angelus Apatrida
+    art: ../../assets/art/angelus-apatrida.jpg
+tools:
+  - { name: OpenCode, icon: opencode }
+  - { name: Claude, icon: claude }
+  - { name: Fedora Linux, icon: fedora }
+  - { name: Kitty, svg: ../../assets/tools/kitty.svg }
+  - { name: DaVinci Resolve, icon: davinciresolve }
+  - { name: DuckDuckGo, icon: duckduckgo }
+  - { name: GrapheneOS, icon: grapheneos }
+  - { name: Docker, icon: docker }
+  - { name: GitHub, icon: github }
+  - { name: Python, icon: python }
+  - { name: Django, icon: django }
+  - { name: NestJS, icon: nestjs }
+  - { name: PostgreSQL, icon: postgresql }
+  - { name: MongoDB, icon: mongodb }
 building:
   project: huellas
-mock: true
+mock: false

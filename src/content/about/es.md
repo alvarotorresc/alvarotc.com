@@ -1,34 +1,52 @@
 ---
 title: 'Hola, soy Álvaro. Me gusta el software que respeta a quien lo usa.'
-intro: 'Desarrollador backend en España. Esta es la versión larga.'
+intro: 'Software engineer en Sevilla. Esta es la versión larga: quién soy, de dónde vengo y qué hago cuando cierro el portátil.'
 values:
-  - title: 'Software libre'
-    text: 'Si lo publico, puedes leerlo, compilarlo y bifurcarlo.'
-  - title: 'Privacidad por defecto'
-    text: 'Sin cuentas de usuario, salvo que se lo ganen. Sin rastreadores, nunca.'
-  - title: 'Infraestructura aburrida'
-    text: 'Linux, Docker, Caddy, un VPS pequeño y buenas alertas ganan a una factura de nube enorme.'
-  - title: 'Dejarlo por escrito'
-    text: 'Decisiones, no tutoriales. Qué funcionó, qué se rompió, y por qué.'
-mock: true
+  - icon: git-fork
+    title: 'Software libre'
+    text: 'Todo lo que publico tiene el código abierto. Puedes leerlo, compilarlo y bifurcarlo.'
+  - icon: shield-check
+    title: 'Privacidad y seguridad'
+    text: 'Sin cuentas cuando no hacen falta, sin rastreadores, y los datos protegidos por diseño.'
+  - icon: paw
+    title: 'Los animales'
+    text: 'Vegano y voluntario en refugios de gatos. Huellas nace de ahí.'
+  - icon: pen-line
+    title: 'Construir en público'
+    text: 'Documento el proceso en el blog, en vídeo y en redes. Qué funcionó, qué se rompió, y por qué.'
+mock: false
 ---
 
-## 2008. Primer ordenador, primer Linux
+## Quién soy
 
-Un portátil de segunda mano y un live CD. Rompí el gestor de arranque la primera semana y aprendí más arreglándolo que en el año siguiente de clases.
+Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Llevo más de cinco años haciéndolo en producción, y lo que más me interesa es que lo que construyo se pueda usar sin tener que fiarse de nadie. Por eso todo lo que publico es software libre: puedes leerlo, compilarlo y bifurcarlo. Y por eso mis aplicaciones funcionan sin cuenta cuando no hace falta una, sin rastreadores y con los datos protegidos por diseño.
 
-## 2017. Ingeniería informática, y el lado del servidor
+Soy vegano y me importan los animales. Colaboro con refugios de gatos en Sevilla desde 2024, y de esa experiencia sale Huellas, la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.
 
-Entré queriendo hacer videojuegos y salí preocupándome por las bases de datos. El momento en que algo que escribí aguantó tráfico real sin caerse, quedé enganchado.
+Construyo en público. Documento el proceso en el blog, en vídeo y en redes: qué funcionó, qué se rompió y por qué. No tutoriales, sino decisiones.
 
-## 2021. Producción, guardias y humildad
+## Mi trayectoria
 
-Primer trabajo, primer incidente a las tres de la madrugada, primera migración que no se podía deshacer. Ahí aprendí que aburrido es una virtud y que la observabilidad no es opcional.
+### 2018. Desarrollo de Aplicaciones Web
 
-## 2026. Publicar mis propias cosas
+Dos años de ciclo superior en el IES Velázquez de Sevilla. Por el camino, la certificación de algoritmos y estructuras de datos de freeCodeCamp y el Codefest de Everis, donde descubrí que me gustaba más la parte del servidor que la pantalla.
 
-Bito, Quedamos, BaseCero, ahora Huellas. Todo software libre, todo offline-first cuando tiene sentido. Construir en público y dejar las decisiones escritas.
+### 2020. Z1 Digital Studio
 
-## Fuera del teclado. Guitarra, ajedrez, boxeo
+Primer trabajo. Productos digitales para clientes de Estados Unidos y Canadá en energía, seguridad y redes sociales. Python y Django, Node y TypeScript, APIs REST y GraphQL, Docker en AWS. Aprendí a entregar en equipo, con Scrum o Kanban según el cliente, y que los tests no son opcionales.
 
-Guitarra eléctrica mal grabada con Ardour, partidas rápidas en Lichess y unas cuantas sesiones de boxeo a la semana. Las tres cosas que me alejan de una terminal.
+### 2022. Therapyside
+
+Backend de una plataforma de terapia online con más de cinco mil usuarios activos al día. Migré el proyecto de Python 2.7 a 3.7, llevé los websockets a Django Channels, rehice las notificaciones sobre Celery y Redis y monté la estructura de tests. Soporte diario con el equipo de operaciones. Aquí aprendí que aburrido es una virtud.
+
+### 2025. Soltel
+
+Microservicios en Java 17 y Node 22 que hablan entre sí y con agentes externos, Angular en el front, Oracle y MongoDB detrás. Un sistema de baremación de expedientes con Drools construido desde cero.
+
+### 2026. Mis propias cosas
+
+Bito, Quedamos, BaseCero y ahora Huellas. Todo software libre, con las decisiones escritas en el blog.
+
+## Fuera del teclado
+
+Guitarra eléctrica, ajedrez y boxeo, en ese orden de ruido. Y los gatos del refugio.

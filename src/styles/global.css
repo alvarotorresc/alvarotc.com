@@ -352,3 +352,14 @@
     margin: 16mm;
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-cursor {
+    animation: hero-blink 1.1s steps(1, end) infinite;
+  }
+  @keyframes hero-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}

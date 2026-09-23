@@ -4,6 +4,7 @@ tagline: Crea un blog con Astro, personalizable, con un solo comando.
 status: published
 tier: lab
 order: 6
+visible: false
 repo: https://github.com/alvarotorresc/create-astro-blog
 url: https://www.npmjs.com/package/create-astro-blog
 hero: /projects/create-astro-blog.png

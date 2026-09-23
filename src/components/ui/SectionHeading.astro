@@ -12,19 +12,19 @@ interface Props {
 const { id, lang, titleKey, subtitle, link, linkLabel } = Astro.props;
 ---
 
-<section id={id} class="section container-page grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-x-6">
-  <div class="flex flex-col gap-2 md:col-span-3">
-    <h2 class="text-[22px] font-bold tracking-tight">{t(titleKey, lang)}</h2>
-    {subtitle && <p class="text-sm leading-relaxed text-faint">{subtitle}</p>}
-    {
-      link && (
-        <a href={link} class="text-sm font-semibold text-accent">
-          {linkLabel}
-        </a>
-      )
-    }
+<section id={id} class="section container-page flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 class="text-[22px] font-bold tracking-tight">{t(titleKey, lang)}</h2>
+      {
+        link && (
+          <a href={link} class="text-sm font-semibold text-accent">
+            {linkLabel}
+          </a>
+        )
+      }
+    </div>
+    {subtitle && <p class="max-w-[720px] text-sm leading-relaxed text-faint">{subtitle}</p>}
   </div>
-  <div class="md:col-span-9">
-    <slot />
-  </div>
+  <slot />
 </section>
