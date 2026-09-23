@@ -9,7 +9,7 @@ export function personJsonLd(lang: Locale): Record<string, unknown> {
     name: author.name,
     url: lang === 'es' ? 'https://alvarotc.com/es/' : 'https://alvarotc.com',
     email: `mailto:${author.email}`,
-    jobTitle: lang === 'es' ? 'Desarrollador backend' : 'Backend developer',
+    jobTitle: 'Software Engineer',
     sameAs: [
       `https://github.com/${author.github}`,
       `https://www.linkedin.com/in/${author.linkedin}/`,

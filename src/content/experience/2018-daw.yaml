@@ -1,0 +1,12 @@
+kind: education
+company: IES Velázquez
+role:
+  en: Higher Technician in Web Application Development (DAW)
+  es: Técnico Superior en Desarrollo de Aplicaciones Web (DAW)
+location: Sevilla
+start: '2018-09'
+end: '2020-06'
+summary:
+  en: Two-year vocational degree in web development. In parallel, the freeCodeCamp JavaScript Algorithms and Data Structures certification (2020) and Codefest 2019 at Everis Sevilla.
+  es: Ciclo formativo de grado superior en desarrollo web. En paralelo, la certificación JavaScript Algorithms and Data Structures de freeCodeCamp (2020) y el Codefest 2019 de Everis Sevilla.
+mock: false

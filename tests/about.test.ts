@@ -7,7 +7,9 @@ describe('aboutSchema', () => {
     const parsed = aboutSchema.parse({
       title: 'Hi, I am Álvaro.',
       intro: 'Backend developer from Spain.',
-      values: [{ title: 'Free software', text: 'If I ship it, you can read it.' }],
+      values: [
+        { icon: 'git-fork', title: 'Free software', text: 'If I ship it, you can read it.' },
+      ],
     });
     expect(parsed.mock).toBe(false);
   });
@@ -26,14 +28,14 @@ describe('personJsonLd', () => {
       url: string;
       sameAs: string[];
     };
-    expect(jsonLd.jobTitle).toBe('Desarrollador backend');
+    expect(jsonLd.jobTitle).toBe('Software Engineer');
     expect(jsonLd.url).toBe('https://alvarotc.com/es/');
     expect(jsonLd.sameAs).toHaveLength(3);
   });
 
   it('builds the Person schema for English', () => {
     const jsonLd = personJsonLd('en') as { jobTitle: string; url: string };
-    expect(jsonLd.jobTitle).toBe('Backend developer');
+    expect(jsonLd.jobTitle).toBe('Software Engineer');
     expect(jsonLd.url).toBe('https://alvarotc.com');
   });
 });

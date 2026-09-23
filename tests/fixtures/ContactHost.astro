@@ -9,4 +9,10 @@ interface Props {
 const { lang, endpoint } = Astro.props;
 ---
 
-<ContactTerminal client:visible lang={lang} endpoint={endpoint} />
+<ContactTerminal
+  client:visible
+  lang={lang}
+  endpoint={endpoint}
+  email="hello@example.com"
+  links={[]}
+/>

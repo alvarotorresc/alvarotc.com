@@ -1,6 +1,8 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro';
 import NowCards from './NowCards.astro';
+import { getEntry } from 'astro:content';
+import Icon from '../icons/Icon.astro';
 import { t, type Locale } from '../../i18n/translations';
 
 interface Props {
@@ -9,42 +11,67 @@ interface Props {
 const { lang } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 
+const about = await getEntry('about', lang);
+if (!about) throw new Error(`Missing src/content/about/${lang}.md`);
+const values = about.data.values;
+
 const paragraphs = {
   en: [
-    'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. Lately I ship small apps end to end so I understand the whole thing, not just my slice.',
-    'Everything I publish is free software and works without an account. I run Linux, self-host what I can, and treat your data as yours. Based in Spain, working in English and Spanish, open to backend and full-stack roles.',
+    'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. And I build them end to end, so whoever uses them never has to worry about their data, their privacy or their security.',
+    'Everything I build is free software. I run Linux, self-host what I can, and treat your data as yours. Based in Spain, working in English and Spanish, open to backend and full-stack roles.',
   ],
   es: [
-    'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Últimamente publico apps pequeñas de principio a fin para entender el conjunto, no solo mi trozo.',
-    'Todo lo que publico es software libre y funciona sin cuenta. Uso Linux, autoalojo lo que puedo y trato tus datos como tuyos. Vivo en España, trabajo en inglés y español, y estoy abierto a roles backend y full-stack.',
+    'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Y lo hago de principio a fin, para que quien lo use no tenga que preocuparse por sus datos, su privacidad ni su seguridad.',
+    'Todo lo que construyo es software libre. Uso Linux, autoalojo lo que puedo y trato tus datos como tuyos. Vivo en España, trabajo en inglés y español, y estoy abierto a roles backend y full-stack.',
   ],
 }[lang];
-
-const tags = [
-  'about.tag.foss',
-  'about.tag.privacy',
-  'about.tag.offline',
-  'about.tag.selfhosted',
-] as const;
 ---
 
 <SectionHeading id="about" lang={lang} titleKey="about.title">
-  <div class="flex flex-col gap-6">
-    <div class="flex max-w-[720px] flex-col gap-3">
-      {paragraphs.map((p) => <p class="text-[17px] leading-relaxed text-muted">{p}</p>)}
-      <ul class="flex flex-wrap gap-2 pt-1">
+  <div class="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
+    <div class="flex flex-col gap-6 md:col-span-6">
+      <div class="flex max-w-[640px] flex-col gap-3">
+        {paragraphs.map((p) => <p class="text-[17px] leading-relaxed text-muted">{p}</p>)}
+      </div>
+      <dl class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {
-          tags.map((key) => (
-            <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
-              {t(key, lang)}
-            </li>
+          values.map((v) => (
+            <div class="flex gap-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-accent">
+                <Icon name={v.icon} size={18} />
+              </span>
+              <span class="flex flex-col gap-1">
+                <dt class="text-[15px] font-bold leading-snug">{v.title}</dt>
+                <dd class="text-[13px] leading-relaxed text-muted">{v.text}</dd>
+              </span>
+            </div>
           ))
         }
-      </ul>
-      <a href={`${prefix}/about`} class="text-sm font-semibold text-accent">
+      </dl>
+      <a
+        href={`${prefix}/about`}
+        class="about-more inline-flex w-fit items-center gap-1.5 text-[15px] font-semibold text-accent"
+      >
         {t('about.more', lang)}
+        <Icon name="arrow" size={16} class="about-arrow" />
       </a>
     </div>
-    <NowCards lang={lang} />
+    <div class="md:col-span-6">
+      <NowCards lang={lang} />
+    </div>
   </div>
 </SectionHeading>
+
+<style>
+  .about-arrow {
+    transition: transform 0.2s ease;
+  }
+  .about-more:hover .about-arrow {
+    transform: translateX(3px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-arrow {
+      transition: none;
+    }
+  }
+</style>

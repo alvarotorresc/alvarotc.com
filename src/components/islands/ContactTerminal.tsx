@@ -12,9 +12,11 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 interface Props {
   lang: Locale;
   endpoint: string;
+  email: string;
+  links: { label: string; href: string }[];
 }
 
-export default function ContactTerminal({ lang, endpoint }: Props) {
+export default function ContactTerminal({ lang, endpoint, email, links }: Props) {
   const [from, setFrom] = useState('');
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
@@ -22,7 +24,18 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<ContactErrorCode | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [copied, setCopied] = useState(false);
   const openedAt = useRef(Date.now());
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable */
+    }
+  }
 
   useEffect(() => setMounted(true), []);
 
@@ -75,7 +88,20 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#2c313b]" aria-hidden="true" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#2c313b]" aria-hidden="true" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#2c313b]" aria-hidden="true" />
-        <span className="terminal-muted ml-2 text-xs">alvarotc.com, mail</span>
+        <span className="terminal-muted ml-2 hidden text-xs sm:inline">mail</span>
+        <span className="ml-auto flex items-center gap-2">
+          <a href={`mailto:${email}`} className="text-xs text-[#e7e9ee] hover:underline">
+            {email}
+          </a>
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="terminal-button h-6 px-2 text-[11px]"
+            aria-label={t('contact.copy', lang)}
+          >
+            {copied ? t('contact.copied', lang) : t('contact.copy', lang)}
+          </button>
+        </span>
       </div>
       <div className="flex flex-col gap-2.5 p-4 text-[13px] leading-relaxed">
         <p className="flex gap-2.5">
@@ -166,6 +192,14 @@ export default function ContactTerminal({ lang, endpoint }: Props) {
             )}
           </div>
         </fieldset>
+      </div>
+      <div className="terminal-bar flex flex-wrap items-center gap-x-4 gap-y-1 border-t px-4 py-2 text-xs">
+        <span className="terminal-muted">{t('contact.elsewhere', lang)}</span>
+        {links.map((link) => (
+          <a key={link.href} href={link.href} className="terminal-prompt hover:underline">
+            {link.label}
+          </a>
+        ))}
       </div>
     </form>
   );

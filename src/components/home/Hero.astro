@@ -1,6 +1,7 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
-import { getSiteName } from '../../lib/config';
+import { getAuthor, getSiteName } from '../../lib/config';
+import HeroTerminal from '../islands/HeroTerminal';
 
 interface Props {
   lang: Locale;
@@ -11,13 +12,10 @@ const prefix = lang === 'es' ? '/es' : '';
 
 <header
   id="top"
-  class="container-page flex flex-col items-start gap-6 py-14 md:flex-row md:items-center md:gap-8 md:py-20"
+  class="container-page flex flex-col items-start gap-8 py-14 md:flex-row md:items-center md:justify-between md:gap-12 md:py-20"
 >
-  <div
-    class="hero-in flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-full bg-surface-2 text-2xl font-extrabold text-faint md:h-[104px] md:w-[104px]"
-    aria-hidden="true"
-  >
-    AT
+  <div class="hero-in w-full max-w-[340px] md:order-last md:w-[360px] md:max-w-none">
+    <HeroTerminal client:idle lang={lang} email={getAuthor().email} />
   </div>
   <div class="flex flex-col gap-4">
     <h1

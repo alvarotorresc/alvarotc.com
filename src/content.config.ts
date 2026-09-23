@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
@@ -71,25 +71,37 @@ export const experienceSchema = z.object({
   mock: z.boolean().default(false),
 });
 
-export const nowSchema = z.object({
-  reading: z.object({
-    title: z.string(),
-    author: z.string(),
-    progress: z.number().min(0).max(100),
-    cover: z.string().optional(),
-  }),
-  dailyDriver: z.object({
-    distro: z.string(),
-    kernel: z.string().optional(),
-    selfHosted: z.array(z.string()).default([]),
-  }),
-  building: z.object({ project: z.string() }),
-  listenbrainzUser: z.string().optional(),
-  mock: z.boolean().default(false),
-});
+const nowSchema = ({ image }: SchemaContext) =>
+  z.object({
+    reading: z
+      .array(
+        z.object({
+          title: z.string(),
+          author: z.string(),
+          cover: image().optional(),
+          url: z.url().optional(),
+        }),
+      )
+      .default([]),
+    listening: z
+      .array(
+        z.object({
+          title: z.string(),
+          artist: z.string(),
+          art: image().optional(),
+          url: z.url().optional(),
+        }),
+      )
+      .default([]),
+    tools: z
+      .array(z.object({ name: z.string(), icon: z.string().optional(), svg: image().optional() }))
+      .default([]),
+    building: z.object({ project: z.string() }),
+    mock: z.boolean().default(false),
+  });
 
 export const interestSchema = z.object({
-  icon: z.enum(['guitar', 'chess', 'boxing', 'book', 'music']),
+  icon: z.enum(['guitar', 'chess', 'boxing', 'book', 'music', 'paw']),
   order: z.number(),
   title: localized,
   text: localized,
@@ -103,7 +115,7 @@ const experience = defineCollection({
 
 const now = defineCollection({
   loader: glob({ pattern: 'now.yaml', base: './src/content/now' }),
-  schema: nowSchema,
+  schema: ({ image }) => nowSchema({ image }),
 });
 
 const interests = defineCollection({
@@ -114,7 +126,7 @@ const interests = defineCollection({
 export const aboutSchema = z.object({
   title: z.string(),
   intro: z.string(),
-  values: z.array(z.object({ title: z.string(), text: z.string() })).min(1),
+  values: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })).min(1),
   mock: z.boolean().default(false),
 });
 

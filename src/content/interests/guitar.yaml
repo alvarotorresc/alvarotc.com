@@ -4,4 +4,4 @@ title: { en: Electric guitar, es: Guitarra eléctrica }
 text:
   en: Mostly rock and blues, badly recorded on Linux with Ardour.
   es: Sobre todo rock y blues, mal grabado en Linux con Ardour.
-mock: true
+mock: false

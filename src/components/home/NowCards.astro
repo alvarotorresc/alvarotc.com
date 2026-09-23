@@ -1,132 +1,362 @@
 ---
 import { getEntry } from 'astro:content';
+import { Image } from 'astro:assets';
 import Icon from '../icons/Icon.astro';
-import { t, type Locale } from '../../i18n/translations';
+import BrandIcon from '../icons/BrandIcon.astro';
+import { t, statusLabel, type Locale } from '../../i18n/translations';
 
 interface Props {
   lang: Locale;
-  listening?: { title: string; artist: string; art?: string };
-  lastCommit?: { message: string; repo: string; when: string };
 }
-const { lang, listening, lastCommit } = Astro.props;
+const { lang } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
 
 const now = await getEntry('now', 'now');
 if (!now) throw new Error('Missing src/content/now/now.yaml');
-const { reading, dailyDriver, building } = now.data;
+const { reading, listening, tools, building } = now.data;
 const project = await getEntry('projects', `${lang}/${building.project}`);
 if (!project) throw new Error(`now.yaml points to a missing project: ${lang}/${building.project}`);
+
+const half = Math.ceil(tools.length / 2);
+const toolRows = tools.length > 4 ? [tools.slice(0, half), tools.slice(half)] : [tools];
+
+const STAGES = ['design', 'development', 'beta', 'published'] as const;
+const stageIndex = Math.max(0, STAGES.indexOf(project.data.status as (typeof STAGES)[number]));
+
+const tiles = [reading.length > 0, listening.length > 0, tools.length > 0, true].filter(
+  Boolean,
+).length;
+const readingWide = tiles % 2 === 1;
 ---
 
-<ul
-  class:list={[
-    'grid grid-cols-1 gap-3.5 sm:grid-cols-2',
-    listening ? 'xl:grid-cols-4' : 'xl:grid-cols-3',
-  ]}
->
-  <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      reading.cover ? (
-        <img
-          src={reading.cover}
-          alt=""
-          width="54"
-          height="80"
-          class="h-20 w-[54px] shrink-0 rounded object-cover"
-        />
-      ) : (
-        <div
-          class="flex h-20 w-[54px] shrink-0 items-center justify-center rounded bg-surface-2 text-faint"
-          aria-hidden="true"
-        >
-          <Icon name="book" size={22} />
-        </div>
-      )
-    }
-    <div class="flex flex-col justify-center gap-1">
-      <span class="text-[11px] font-bold text-faint">{t('now.reading', lang)}</span>
-      <span class="text-[13px] font-bold leading-snug">{reading.title}</span>
-      <span class="text-xs text-muted">{reading.author}</span>
-      <span
-        class="h-[3px] w-full overflow-hidden rounded-sm bg-surface-2"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow={reading.progress}
-        aria-label={`${reading.progress}%`}
+<ul class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+  {
+    reading.length > 0 && (
+      <li
+        class:list={['card-sm flex flex-col gap-3 p-4', readingWide && 'sm:col-span-2']}
+        data-picker
       >
-        <span class="block h-full bg-accent" style={`width: ${reading.progress}%`}></span>
-      </span>
-    </div>
-  </li>
-
-  <li class="card-sm flex gap-3.5 p-3.5">
-    <div
-      class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2"
-    >
-      <Icon name="tux" size={30} strokeWidth={1.6} />
-    </div>
-    <div class="flex flex-col justify-center gap-1">
-      <span class="text-[11px] font-bold text-faint">{t('now.driver', lang)}</span>
-      <span class="text-[13px] font-bold leading-snug">
-        {dailyDriver.distro}{dailyDriver.kernel && `, kernel ${dailyDriver.kernel}`}
-      </span>
-      {
-        dailyDriver.selfHosted.length > 0 && (
-          <span class="text-xs text-muted">Self-hosted: {dailyDriver.selfHosted.join(', ')}</span>
-        )
-      }
-    </div>
-  </li>
+        <span class="text-xs font-bold text-faint">{t('now.reading', lang)}</span>
+        <ul class="flex flex-wrap gap-2">
+          {reading.slice(0, 8).map((book, i) => (
+            <li>
+              <button
+                type="button"
+                class="now-pick now-cover block rounded-[3px]"
+                data-title={book.title}
+                data-sub={book.author}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                aria-label={`${book.title}, ${book.author}`}
+              >
+                {book.cover ? (
+                  <Image
+                    src={book.cover}
+                    alt=""
+                    width={128}
+                    height={192}
+                    class="h-[66px] w-[44px] rounded-[3px] object-cover shadow-md"
+                  />
+                ) : (
+                  <span class="flex h-[66px] w-[44px] items-end rounded-[3px] bg-surface-2 p-1 text-left text-[9px] font-bold leading-tight text-muted shadow-md">
+                    {book.title}
+                  </span>
+                )}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <span class="flex flex-col gap-0.5" aria-live="polite">
+          <span class="text-[15px] font-bold leading-snug" data-caption-title>
+            {reading[0].title}
+          </span>
+          <span class="text-[13px] text-muted" data-caption-sub>
+            {reading[0].author}
+          </span>
+        </span>
+      </li>
+    )
+  }
 
   {
-    listening && (
-      <li class="card-sm flex gap-3.5 p-3.5">
-        {listening.art ? (
-          <img
-            src={listening.art}
-            alt=""
-            width="54"
-            height="54"
-            class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
-          />
-        ) : (
-          <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
-            <Icon name="music" size={22} />
-          </div>
-        )}
-        <div class="flex flex-col justify-center gap-1">
-          <span class="text-[11px] font-bold text-ok">{t('now.listening', lang)}</span>
-          <span class="text-[13px] font-bold leading-snug">{listening.title}</span>
-          <span class="text-xs text-muted">
-            {listening.artist}, {t('now.via', lang)}
+    listening.length > 0 && (
+      <li class="card-sm flex flex-col gap-3 p-4" data-picker>
+        <span class="text-xs font-bold text-faint">{t('now.listening', lang)}</span>
+        <ul class="flex flex-wrap gap-2">
+          {listening.slice(0, 8).map((track, i) => (
+            <li>
+              <button
+                type="button"
+                class="now-pick now-art relative block rounded-md"
+                data-title={track.title}
+                data-sub={track.artist}
+                aria-pressed={i === 0 ? 'true' : 'false'}
+                aria-label={`${track.title}, ${track.artist}`}
+              >
+                {track.art ? (
+                  <Image
+                    src={track.art}
+                    alt=""
+                    width={112}
+                    height={112}
+                    class="h-[66px] w-[66px] rounded-md object-cover shadow-md"
+                  />
+                ) : (
+                  <span class="flex h-[66px] w-[66px] items-center justify-center rounded-md bg-surface-2 text-muted">
+                    <Icon name="music" size={18} />
+                  </span>
+                )}
+                <span
+                  class="now-eq absolute bottom-1 right-1 flex items-end gap-[2px]"
+                  aria-hidden="true"
+                >
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <span class="flex flex-col gap-0.5" aria-live="polite">
+          <span class="text-[15px] font-bold leading-snug" data-caption-title>
+            {listening[0].title}
           </span>
+          <span class="text-[13px] text-muted" data-caption-sub>
+            {listening[0].artist}
+          </span>
+        </span>
+      </li>
+    )
+  }
+
+  {
+    tools.length > 0 && (
+      <li class="card-sm flex flex-col gap-3 overflow-hidden p-4">
+        <span class="text-xs font-bold text-faint">{t('now.tools', lang)}</span>
+        <div class="-mx-4 my-auto flex flex-col gap-4 px-4 py-2">
+          {toolRows.map((row, r) => (
+            <div class="now-marquee">
+              <ul
+                class:list={['now-track flex items-center gap-7', r === 1 && 'now-track-reverse']}
+              >
+                {[0, 1, 2].map((copy) =>
+                  row.map((tool) => (
+                    <li
+                      class="flex h-10 w-10 items-center justify-center"
+                      title={tool.name}
+                      aria-hidden={copy > 0 ? 'true' : undefined}
+                      data-dup={copy > 0 ? '' : undefined}
+                    >
+                      {tool.svg ? (
+                        <img
+                          src={tool.svg.src}
+                          alt={tool.name}
+                          width="32"
+                          height="32"
+                          class="h-8 w-8"
+                        />
+                      ) : tool.icon ? (
+                        <BrandIcon slug={tool.icon} size={32} brand />
+                      ) : null}
+                      <span class="sr-only">{tool.name}</span>
+                    </li>
+                  )),
+                )}
+              </ul>
+            </div>
+          ))}
         </div>
       </li>
     )
   }
 
-  <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      project.data.icon ? (
-        <img
-          src={project.data.icon}
-          alt=""
-          width="54"
-          height="54"
-          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
-        />
-      ) : (
-        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
-          <Icon name="hammer" size={22} />
-        </div>
-      )
-    }
-    <div class="flex flex-col justify-center gap-1">
-      <span class="text-[11px] font-bold text-faint">{t('now.building', lang)}</span>
-      <span class="text-[13px] font-bold leading-snug">{project.data.name}</span>
-      <span class="font-mono text-xs text-muted">
-        {lastCommit ? `${lastCommit.message}, ${lastCommit.when}` : project.data.tagline}
+  <li>
+    <a
+      href={`${prefix}/projects/${building.project}`}
+      class="now-building card-sm flex h-full flex-col gap-3 p-4"
+    >
+      <span class="flex items-center justify-between text-xs font-bold text-faint">
+        {t('now.building', lang)}
+        <Icon name="arrow" size={14} class="now-arrow text-muted" />
       </span>
-    </div>
+      <span class="flex items-center gap-3">
+        <span
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"
+        >
+          {
+            project.data.icon ? (
+              <img
+                src={project.data.icon}
+                alt=""
+                width="48"
+                height="48"
+                class="h-12 w-12 rounded-lg object-cover"
+              />
+            ) : (
+              <Icon name="hard-hat" size={24} strokeWidth={1.7} />
+            )
+          }
+        </span>
+        <span class="flex flex-col gap-1">
+          <span class="text-base font-bold leading-snug">{project.data.name}</span>
+          <span class="text-sm leading-relaxed text-muted">{project.data.tagline}</span>
+        </span>
+      </span>
+      <span class="mt-auto flex flex-col gap-1.5 pt-1">
+        <span class="flex gap-1" aria-hidden="true">
+          {
+            STAGES.map((stage, i) => (
+              <span
+                class:list={[
+                  'h-1.5 flex-1 rounded-full',
+                  i < stageIndex && 'bg-accent/40',
+                  i === stageIndex && 'now-stage bg-accent',
+                  i > stageIndex && 'bg-surface-2',
+                ]}
+              />
+            ))
+          }
+        </span>
+        <span class="text-xs font-semibold text-accent"
+          >{statusLabel(project.data.status, lang)}</span
+        >
+      </span>
+    </a>
   </li>
 </ul>
+
+<style>
+  .now-pick,
+  .now-building,
+  .now-arrow {
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .now-pick {
+    position: relative;
+    cursor: pointer;
+  }
+  .now-pick:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .now-pick:hover {
+    transform: translateY(-2px);
+  }
+  .now-pick[aria-pressed='true'] {
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .now-eq {
+    display: none;
+  }
+  .now-art[aria-pressed='true'] .now-eq {
+    display: flex;
+  }
+  .now-eq span {
+    width: 3px;
+    height: 6px;
+    border-radius: 1px;
+    background: var(--accent);
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 0.4);
+  }
+  .now-marquee {
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .now-track {
+    width: max-content;
+  }
+  .now-building:hover,
+  .now-building:focus-visible {
+    border-color: var(--accent);
+  }
+  .now-building:hover .now-arrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .now-track {
+      animation: now-marquee 40s linear infinite;
+    }
+    .now-track-reverse {
+      animation-direction: reverse;
+    }
+    .now-marquee:hover .now-track {
+      animation-play-state: paused;
+    }
+    @keyframes now-marquee {
+      to {
+        transform: translateX(calc(-100% / 3));
+      }
+    }
+    .now-stage {
+      animation: now-stage 1.6s ease-in-out infinite alternate;
+    }
+    @keyframes now-stage {
+      to {
+        opacity: 0.45;
+      }
+    }
+    .now-eq span {
+      animation: now-eq 0.9s ease-in-out infinite alternate;
+    }
+    .now-eq span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .now-eq span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes now-eq {
+      from {
+        height: 4px;
+      }
+      to {
+        height: 14px;
+      }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .now-track {
+      width: auto;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .now-track > li[data-dup] {
+      display: none;
+    }
+    .now-marquee {
+      mask-image: none;
+    }
+    .now-pick,
+    .now-building,
+    .now-arrow {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLElement>('[data-picker]').forEach((picker) => {
+      if (picker.dataset.bound) return;
+      picker.dataset.bound = 'true';
+      const buttons = picker.querySelectorAll<HTMLButtonElement>('.now-pick');
+      const title = picker.querySelector<HTMLElement>('[data-caption-title]');
+      const sub = picker.querySelector<HTMLElement>('[data-caption-sub]');
+      const select = (button: HTMLButtonElement) => {
+        buttons.forEach((b) => b.setAttribute('aria-pressed', b === button ? 'true' : 'false'));
+        if (title) title.textContent = button.dataset.title ?? '';
+        if (sub) sub.textContent = button.dataset.sub ?? '';
+      };
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => select(button));
+        button.addEventListener('pointerenter', () => select(button));
+        button.addEventListener('focus', () => select(button));
+      });
+    });
+  }
+  bind();
+  document.addEventListener('astro:page-load', bind);
+</script>

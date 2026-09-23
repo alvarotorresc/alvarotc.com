@@ -1,0 +1,24 @@
+kind: work
+company: Therapyside
+role: { en: Backend Developer, es: Backend Developer }
+location: Madrid (remote)
+start: '2022-07'
+end: '2024-12'
+summary:
+  en: Backend of an online therapy platform with more than 5,000 daily active users. Python, Django REST Framework, PostgreSQL, Celery and Redis on AWS.
+  es: Backend de una plataforma de terapia online con más de 5.000 usuarios activos diarios. Python, Django REST Framework, PostgreSQL, Celery y Redis en AWS.
+highlights:
+  en:
+    - Migrated the project from Python 2.7 to 3.7 and the in-house websockets to Django Channels.
+    - Shipped couples therapy and a new onboarding on Django REST Framework.
+    - Rebuilt notifications on Celery and Redis; tuned PostgreSQL queries.
+    - Set up the Pytest suite and CI with Jenkins and GitHub Actions.
+    - Daily support for the operations team through Zendesk.
+  es:
+    - Migración del proyecto de Python 2.7 a 3.7 y de los websockets propios a Django Channels.
+    - Terapia de pareja y un onboarding nuevo sobre Django REST Framework.
+    - Notificaciones reconstruidas sobre Celery y Redis; optimización de queries en PostgreSQL.
+    - Estructura de tests con Pytest y CI con Jenkins y GitHub Actions.
+    - Soporte diario al equipo de operaciones a través de Zendesk.
+stack: [Python, Django, PostgreSQL, Celery, Redis, AWS, Pytest]
+mock: false
