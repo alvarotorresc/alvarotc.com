@@ -10,6 +10,7 @@ repo: https://github.com/alvarotorresc/create-astro-blog
 url: https://www.npmjs.com/package/create-astro-blog
 stack: [Node, CLI, Astro]
 githubRepo: alvarotorresc/create-astro-blog
+license: MIT
 command: npx create-astro-blog my-blog
 terminal:
   - '$ npx create-astro-blog my-blog'
@@ -26,9 +27,9 @@ terminal:
   - 'Done! Your blog is ready.'
   - '$ cd my-blog && npm run dev'
 facts:
-  - { label: 'Latest version', value: '[DATO]', mono: true }
-  - { label: 'Node', value: '[DATO]', mono: true }
-  - { label: 'License', value: '[DATO]', mono: true }
+  - { label: 'Latest version', value: '1.0.0', mono: true }
+  - { label: 'Node', value: '>=18.0.0', mono: true }
+  - { label: 'License', value: 'MIT', mono: true }
 featuresIntro: 'A static blog with Astro 5, ready for your first post.'
 features:
   - title: 'Static blog with Astro 5'
@@ -68,7 +69,7 @@ built:
   - 'Your answers end up in blog.config.ts, a file you read and edit.'
   - 'Code at [github.com/alvarotorresc/create-astro-blog](https://github.com/alvarotorresc/create-astro-blog).'
 changelog:
-  - { version: '[DATO]', note: '[DATO]' }
+  - { version: 'v1.0.0', note: '[DATO]' }
 ---
 
 [DATO: why it exists, first paragraph]
