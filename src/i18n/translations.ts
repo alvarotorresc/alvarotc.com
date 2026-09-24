@@ -154,9 +154,10 @@ export const translations = {
     'stats.title': 'Stats',
     'stats.full': 'Full stats page',
     'stats.commits': 'commits this year',
-    'stats.posts': 'posts published',
+    'stats.posts': 'articles published',
     'stats.apps': 'apps in the wild',
     'stats.homeHeatmapCaption': 'Days with commits, last 6 months',
+    'stats.homeHeatmapAria': 'Contribution activity over the last 6 months',
     'cv.title': 'Curriculum vitae',
     'cv.subtitle':
       'Same content as the timeline, laid out for paper. Print it or save it as PDF from your browser.',
@@ -180,11 +181,14 @@ export const translations = {
     'stats.contributions': 'Contributions, last 12 months',
     'stats.contributionsText':
       'I work in bursts, not a steady drip: {total} contributions over the last 12 months, spread across only {days} days. The busiest day had {max}.',
+    'stats.contributionsTextSteady':
+      '{total} contributions over the last 12 months, across {days} days. The busiest day had {max}.',
     'stats.heatmapLegend': 'Each column is a week, Sunday to Saturday.',
     'stats.heatmapAria':
       'Contribution map for the last year: {days} active days, totalling {total} contributions, busiest day {max}.',
     'stats.heatmapLess': 'Less',
     'stats.heatmapMore': 'More',
+    'stats.heatmapCellContributions': '{count} contributions',
     'stats.repos': 'public repos',
     'stats.reposText': 'By bytes of code, here is what is inside:',
     'stats.stars': 'stars received',
@@ -208,12 +212,13 @@ export const translations = {
     'stats.topics': 'Topics',
     'stats.site': 'This site',
     'stats.cookies': 'cookies',
-    'stats.thirdPartyText':
-      'And {n} third-party requests. Analytics is self-hosted and stores nothing in your browser.',
+    'stats.thirdPartyText': 'And {n} third-party requests.',
     'stats.analyticsText': 'Analytics is self-hosted with Umami.',
     'stats.sources': 'Where the numbers come from',
     'stats.sourcesText':
       'GitHub GraphQL API and the Umami API, fetched by a scheduled GitHub Action that rebuilds the site once a day. Nothing runs in your browser to compute this page.',
+    'stats.sourcesTextNoUmami':
+      'GitHub GraphQL API, fetched by a scheduled GitHub Action that rebuilds the site once a day. Nothing runs in your browser to compute this page.',
     'offclock.title': 'Off the clock',
     'offclock.subtitle': 'What I do when the laptop is closed.',
     'contact.title': 'Contact',
@@ -400,9 +405,10 @@ export const translations = {
     'stats.title': 'Stats',
     'stats.full': 'Página de stats',
     'stats.commits': 'commits este año',
-    'stats.posts': 'posts publicados',
+    'stats.posts': 'artículos publicados',
     'stats.apps': 'apps en producción',
     'stats.homeHeatmapCaption': 'Días con commits, últimos 6 meses',
+    'stats.homeHeatmapAria': 'Actividad de contribuciones en los últimos 6 meses',
     'cv.title': 'Currículum',
     'cv.subtitle':
       'El mismo contenido que la línea de tiempo, maquetado para papel. Imprímelo o guárdalo como PDF desde el navegador.',
@@ -426,11 +432,14 @@ export const translations = {
     'stats.contributions': 'Contribuciones, últimos 12 meses',
     'stats.contributionsText':
       'Trabajo a ráfagas, no a goteo: {total} contribuciones en los últimos 12 meses, repartidas en solo {days} días. El día más intenso sumó {max}.',
+    'stats.contributionsTextSteady':
+      '{total} contribuciones en los últimos 12 meses, en {days} días. El día más intenso sumó {max}.',
     'stats.heatmapLegend': 'Cada columna es una semana, de domingo a sábado.',
     'stats.heatmapAria':
       'Mapa de contribuciones del último año: {days} días con actividad, {total} contribuciones en total, día más intenso {max}.',
     'stats.heatmapLess': 'Menos',
     'stats.heatmapMore': 'Más',
+    'stats.heatmapCellContributions': '{count} contribuciones',
     'stats.repos': 'repos públicos',
     'stats.reposText': 'Por bytes de código, esto es lo que hay dentro:',
     'stats.stars': 'estrellas recibidas',
@@ -454,12 +463,13 @@ export const translations = {
     'stats.topics': 'Temas',
     'stats.site': 'Esta web',
     'stats.cookies': 'cookies',
-    'stats.thirdPartyText':
-      'Y {n} peticiones a terceros. La analítica está autoalojada y no guarda nada en tu navegador.',
+    'stats.thirdPartyText': 'Y {n} peticiones a terceros.',
     'stats.analyticsText': 'La analítica está autoalojada con Umami.',
     'stats.sources': 'De dónde salen los números',
     'stats.sourcesText':
       'API GraphQL de GitHub y API de Umami, consultadas por una GitHub Action programada que reconstruye la web una vez al día. Nada se ejecuta en tu navegador para calcular esta página.',
+    'stats.sourcesTextNoUmami':
+      'API GraphQL de GitHub, consultada por una GitHub Action programada que reconstruye la web una vez al día. Nada se ejecuta en tu navegador para calcular esta página.',
     'offclock.title': 'Fuera del teclado',
     'offclock.subtitle': 'Lo que hago cuando cierro el portátil.',
     'contact.title': 'Contacto',
