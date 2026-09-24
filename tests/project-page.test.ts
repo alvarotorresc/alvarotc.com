@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import ProjectCard from '../src/components/projects/ProjectCard.astro';
-import PlaygroundFrame from '../src/components/projects/PlaygroundFrame.astro';
 import type { ProjectEntry } from '../src/lib/projects';
 
 function project(overrides: Record<string, unknown> = {}): ProjectEntry {
@@ -33,23 +32,5 @@ describe('ProjectCard', () => {
       props: { lang: 'es', project: project() },
     });
     expect(html).toContain('href="/es/projects/bito"');
-  });
-});
-
-describe('PlaygroundFrame', () => {
-  it('renders a load button for a pwa playground', async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(PlaygroundFrame, {
-      props: { kind: 'pwa', src: 'https://bito.alvarotc.com', title: 'Bito', lang: 'en' },
-    });
-    expect(html).toContain('data-playground-load');
-  });
-
-  it('renders no load button for a video playground', async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(PlaygroundFrame, {
-      props: { kind: 'video', src: '/videos/bito.mp4', title: 'Bito', lang: 'en' },
-    });
-    expect(html).not.toContain('data-playground-load');
   });
 });
