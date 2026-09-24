@@ -1,18 +1,23 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
 import { getStackGroups } from '../../lib/stack';
+import { heatLevel } from '../../lib/stats';
 
 interface Props {
   lang: Locale;
-  stats?: { commits?: number; posts?: number; apps?: number };
+  stats?: { posts?: number; apps?: number };
+  commits?: number;
+  heatmapWeeks?: number[][];
 }
-const { lang, stats } = Astro.props;
+const { lang, stats, commits, heatmapWeeks } = Astro.props;
 
 const groups = getStackGroups(lang);
 const prefix = lang === 'es' ? '/es' : '';
+const locale = lang === 'es' ? 'es-ES' : 'en-US';
+const num = (n: number) => n.toLocaleString(locale, { useGrouping: 'always' });
 
 const counters = [
-  { value: stats?.commits, label: t('stats.commits', lang) },
+  { value: commits, label: t('stats.commits', lang) },
   { value: stats?.posts, label: t('stats.posts', lang) },
   { value: stats?.apps, label: t('stats.apps', lang) },
 ].filter((c): c is { value: number; label: string } => typeof c.value === 'number');
@@ -22,42 +27,107 @@ const columns: Record<number, string> = {
   2: 'grid-cols-2',
   3: 'grid-cols-3',
 };
+
+const heatmapCells = heatmapWeeks?.flat() ?? [];
+const heatmapMax = heatmapCells.length > 0 ? Math.max(1, ...heatmapCells) : 0;
 ---
 
-<section id="stats" class="section container-page grid grid-cols-1 gap-10 md:grid-cols-2">
-  <div class="flex flex-col gap-4">
-    <h2 class="text-[22px] font-bold tracking-tight">{t('stack.title', lang)}</h2>
-    <dl class="grid grid-cols-2 gap-4">
-      {
-        groups.map((g) => (
-          <div class="flex flex-col gap-1.5">
-            <dt class="text-xs font-bold text-faint">{g.label}</dt>
-            <dd class="text-sm leading-relaxed text-muted">
-              {g.items.map((line) => (
-                <span class="block">{line}</span>
-              ))}
-            </dd>
+<section id="stats" class="section container-page flex flex-col gap-8">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-[22px] font-bold tracking-tight">{t('home.stackStats', lang)}</h2>
+    <a href={`${prefix}/stats`} class="btn-secondary gap-2">
+      {t('stats.full', lang)}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3.5 8h9"></path>
+        <path d="M8.5 3.5 13 8l-4.5 4.5"></path>
+      </svg>
+    </a>
+  </div>
+
+  <div class="card flex flex-col gap-8 p-6 md:flex-row md:items-center md:gap-12">
+    {
+      heatmapCells.length > 0 && (
+        <div class="flex flex-shrink-0 flex-col gap-2 overflow-x-auto">
+          <div
+            class="stack-stats-heatmap"
+            role="img"
+            aria-label={t('stats.homeHeatmapCaption', lang)}
+          >
+            {heatmapCells.map((count) => (
+              <div
+                class:list={['stack-stats-heatmap-cell', `lvl-${heatLevel(count, heatmapMax)}`]}
+                title={String(count)}
+              />
+            ))}
           </div>
+          <span class="text-xs text-faint">{t('stats.homeHeatmapCaption', lang)}</span>
+        </div>
+      )
+    }
+    <ul class:list={['grid flex-1 gap-6', columns[counters.length] ?? 'grid-cols-3']}>
+      {
+        counters.map((c, i) => (
+          <li class:list={['flex flex-col gap-1.5', i > 0 && 'border-l border-border pl-6']}>
+            <span class="font-mono text-2xl font-medium tracking-tight md:text-4xl">
+              {num(c.value)}
+            </span>
+            <span class="text-sm text-muted">{c.label}</span>
+          </li>
         ))
       }
-    </dl>
+    </ul>
   </div>
-  {
-    counters.length > 0 && (
-      <div class="flex flex-col gap-4">
-        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.title', lang)}</h2>
-        <ul class:list={['grid gap-3', columns[counters.length] ?? 'grid-cols-3']}>
-          {counters.map((c) => (
-            <li class="card-sm flex flex-col gap-1 p-4">
-              <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
-              <span class="text-xs text-faint">{c.label}</span>
-            </li>
-          ))}
-        </ul>
-        <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">
-          {t('stats.full', lang)}
-        </a>
-      </div>
-    )
-  }
+
+  <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+    {
+      groups.map((g) => (
+        <div class="flex flex-col gap-2.5 border-t border-border pt-4">
+          <h3 class="text-sm font-bold">{g.label}</h3>
+          <div class="flex flex-col gap-1.5 text-sm text-muted">
+            {g.items.map((line) => (
+              <span>{line}</span>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
 </section>
+
+<style>
+  .stack-stats-heatmap {
+    display: grid;
+    grid-template-rows: repeat(7, 8px);
+    grid-auto-flow: column;
+    grid-auto-columns: 8px;
+    gap: 2px;
+  }
+  .stack-stats-heatmap-cell {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--surface-2);
+  }
+  .lvl-1 {
+    background: color-mix(in srgb, var(--accent) 25%, var(--surface-2));
+  }
+  .lvl-2 {
+    background: color-mix(in srgb, var(--accent) 50%, var(--surface-2));
+  }
+  .lvl-3 {
+    background: color-mix(in srgb, var(--accent) 75%, var(--surface-2));
+  }
+  .lvl-4 {
+    background: var(--accent);
+  }
+</style>
