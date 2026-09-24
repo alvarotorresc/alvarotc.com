@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "translate": "node scripts/translate.js",
+    "stats": "node --env-file-if-exists=.env scripts/fetch-data.mjs",
     "prepare": "husky"
   },
   "dependencies": {
