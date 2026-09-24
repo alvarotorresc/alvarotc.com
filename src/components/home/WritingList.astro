@@ -9,15 +9,36 @@ interface Props {
 }
 const { lang, posts } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
+const shown = 4;
+const total = posts.length;
 const [latest, ...rest] = posts;
 const minutes = (p: (typeof posts)[number]) => getReadingTime(p.body ?? p.data.description);
+const allLabel =
+  total > shown
+    ? t('writing.allCount', lang).replace('{n}', String(total))
+    : t('writing.all', lang);
 ---
 
 <section id="writing" class="section container-page flex flex-col gap-5">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('writing.title', lang)}</h2>
-    <a href={`${prefix}/blog`} class="text-sm font-semibold text-accent">{t('writing.all', lang)}</a
-    >
+    <a href={`${prefix}/blog`} class="btn-secondary gap-2">
+      {allLabel}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3.5 8h9"></path>
+        <path d="M8.5 3.5 13 8l-4.5 4.5"></path>
+      </svg>
+    </a>
   </div>
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
