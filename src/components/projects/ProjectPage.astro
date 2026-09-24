@@ -33,13 +33,19 @@ const images = {
   cover: await optional(data.cover, data.kind === 'mobile' ? 780 : 1240),
   coverMobile: await optional(data.coverMobile, 400),
   illustration: await optional(data.illustration, 320),
+  promo: await optional(data.promo, 1240),
   screenshots: await Promise.all(data.screenshots.map((shot) => webp(shot.src, shotWidth))),
   features: await Promise.all(data.features.map((feature) => optional(feature.image, 288))),
 };
 
+const coverIsVertical = Boolean(data.cover && data.cover.height > data.cover.width);
+const ogImage = images.promo ?? (coverIsVertical ? undefined : images.cover);
+
 async function findPost(id: string): Promise<LinkRef> {
   const entry = lang === 'es' ? await getEntry('posts', id) : await getEntry('posts-en', id);
-  if (!entry) throw new Error(`Project ${project.id} points to a missing post: ${id}`);
+  if (!entry || entry.data.draft) {
+    throw new Error(`Project ${project.id} points to a missing post: ${id}`);
+  }
   return { href: `${prefix}/blog/${entry.id}`, label: entry.data.title };
 }
 
@@ -66,7 +72,7 @@ const { Content } = await render(project);
 <BaseLayout
   title={data.name}
   description={data.tagline}
-  image={images.cover}
+  image={ogImage}
   lang={lang}
   alternatePath={alternatePath}
   jsonLd={jsonLd}

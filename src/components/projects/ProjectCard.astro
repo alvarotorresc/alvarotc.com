@@ -2,7 +2,13 @@
 import { Image } from 'astro:assets';
 import Tag from '../ui/Tag.astro';
 import { t, statusLabel, type Locale } from '../../i18n/translations';
-import { projectSlug, tone, type ProjectEntry } from '../../lib/projects';
+import {
+  homeImage,
+  isVerticalImage,
+  projectSlug,
+  tone,
+  type ProjectEntry,
+} from '../../lib/projects';
 
 interface Props {
   lang: Locale;
@@ -12,16 +18,20 @@ interface Props {
 const { lang, project, featured = false } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 const slug = projectSlug(project);
+const cover = featured ? homeImage(project) : undefined;
 ---
 
 <div class="card flex flex-col gap-3 p-5">
   {
-    featured && project.data.cover && (
+    cover && (
       <Image
-        src={project.data.cover}
+        src={cover}
         alt={project.data.name}
         width={640}
-        class="aspect-video w-full rounded-[10px] object-cover"
+        class:list={[
+          'aspect-video w-full rounded-[10px]',
+          isVerticalImage(cover) ? 'bg-surface-2 object-contain' : 'object-cover',
+        ]}
       />
     )
   }

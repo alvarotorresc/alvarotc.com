@@ -102,6 +102,14 @@ describe('projectSchema', () => {
     expect(p.features[0].image).toBeUndefined();
   });
 
+  it('accepts an optional promo image for the home', () => {
+    const p = project.parse({
+      ...minimal,
+      promo: '../../../assets/projects/bito/promo.jpg',
+    });
+    expect(p.promo).toBe('../../../assets/projects/bito/promo.jpg');
+  });
+
   it('drops the removed hero and gallery fields', () => {
     const p = project.parse({ ...minimal, hero: '/projects/x.png', gallery: ['/a.png'] });
     expect(p).not.toHaveProperty('hero');

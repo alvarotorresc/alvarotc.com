@@ -41,6 +41,7 @@ export const projectSchema = ({ image }: SchemaContext) =>
     icon: image().optional(),
     cover: image().optional(),
     coverMobile: image().optional(),
+    promo: image().optional(),
     download: z.object({ url: z.url(), label: z.string() }).optional(),
     command: z.string().optional(),
     terminal: z.array(z.string()).default([]),

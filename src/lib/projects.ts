@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import type { ImageMetadata } from 'astro';
 import type { Locale } from '../i18n/translations';
 
 export type ProjectEntry = CollectionEntry<'projects'>;
@@ -26,6 +27,14 @@ export async function getFeaturedProjects(lang: Locale): Promise<ProjectEntry[]>
 
 export async function getLabProjects(lang: Locale): Promise<ProjectEntry[]> {
   return (await getProjects(lang)).filter((e) => e.data.tier === 'lab');
+}
+
+export function homeImage(entry: ProjectEntry): ImageMetadata | undefined {
+  return entry.data.promo ?? entry.data.cover;
+}
+
+export function isVerticalImage(image: ImageMetadata): boolean {
+  return image.height > image.width;
 }
 
 export type StatusTone = 'ok' | 'warn' | 'neutral';

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { existsSync, readFileSync } from 'node:fs';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import ProjectCard from '../src/components/projects/ProjectCard.astro';
-import type { ProjectEntry } from '../src/lib/projects';
+import { homeImage, isVerticalImage, type ProjectEntry } from '../src/lib/projects';
 import ProjectView from '../src/components/projects/ProjectView.astro';
 import { translations } from '../src/i18n/translations';
 import { bitoFields, bitoImages, cliFields, makeView, sparseFields } from './fixtures/project-view';
@@ -128,11 +128,11 @@ describe('home project media', () => {
   });
 
   it.each(['src/components/home/ProjectBento.astro', 'src/components/projects/ProjectCard.astro'])(
-    '%s reads the cover and the shared tone',
+    '%s reads the home image and the shared tone',
     (path) => {
       const source = readFileSync(path, 'utf8');
       expect(source).not.toContain('data.hero');
-      expect(source).toContain('data.cover');
+      expect(source).toContain('homeImage');
       expect(source).not.toMatch(/const tone =/);
     },
   );
@@ -140,5 +140,25 @@ describe('home project media', () => {
   it('renders the Now card icon as an optimised image', () => {
     const source = readFileSync('src/components/home/NowCards.astro', 'utf8');
     expect(source).toMatch(/<Image\s+src=\{project\.data\.icon\}/);
+  });
+});
+
+describe('homeImage', () => {
+  it('prefers the promo image over the cover', () => {
+    const cover = { src: '/cover.jpg', width: 400, height: 844, format: 'jpg' };
+    const promo = { src: '/promo.jpg', width: 1280, height: 720, format: 'jpg' };
+    const entry = project({ cover, promo }) as unknown as ProjectEntry;
+    expect(homeImage(entry)).toBe(promo);
+  });
+
+  it('falls back to the cover when there is no promo', () => {
+    const cover = { src: '/cover.jpg', width: 400, height: 844, format: 'jpg' };
+    const entry = project({ cover }) as unknown as ProjectEntry;
+    expect(homeImage(entry)).toBe(cover);
+  });
+
+  it('flags a vertical image so the home paints it with object-contain', () => {
+    expect(isVerticalImage({ src: '/x.jpg', width: 400, height: 844, format: 'jpg' })).toBe(true);
+    expect(isVerticalImage({ src: '/x.jpg', width: 1280, height: 720, format: 'jpg' })).toBe(false);
   });
 });
