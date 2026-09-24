@@ -173,6 +173,16 @@ describe.skipIf(!built)('blog index and topic pages: hreflang, description and J
     const html = page('blog/index.html');
     expect(html).not.toMatch(/href="\/blog\/[a-z0-9-]+"[^/]/);
   });
+
+  it('noindexes a thin topic with only 1 article', () => {
+    const html = page('blog/topic/proceso/index.html');
+    expect(html).toContain('<meta name="robots" content="noindex, follow">');
+  });
+
+  it('does not noindex the docker topic, which has 2 articles', () => {
+    const html = page('blog/topic/docker/index.html');
+    expect(html).not.toContain('name="robots"');
+  });
 });
 
 describe.skipIf(!built)('sitemap', () => {
@@ -192,6 +202,15 @@ describe.skipIf(!built)('sitemap', () => {
     );
     expect(topicEntry).not.toBeNull();
     expect(topicEntry![0]).toContain('/es/blog/tema/docker/');
+  });
+
+  it('excludes noindexed, thin topic pages', () => {
+    const xml = readdirSync(dist)
+      .filter((f) => /^sitemap-\d+\.xml$/.test(f))
+      .map((f) => readFileSync(join(dist, f), 'utf8'))
+      .join('\n');
+    expect(xml).not.toContain('https://alvarotc.com/blog/topic/proceso/');
+    expect(xml).not.toContain('https://alvarotc.com/es/blog/tema/proceso/');
   });
 });
 
