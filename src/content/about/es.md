@@ -2,16 +2,16 @@
 title: 'Hola, soy Álvaro. Me gusta el software que respeta a quien lo usa.'
 intro: 'Software engineer en Sevilla. Esta es la versión larga: quién soy, de dónde vengo y qué hago cuando cierro el portátil.'
 values:
-  - icon: git-fork
+  - icon: tux
     title: 'Software libre'
     text: 'Todo lo que publico tiene el código abierto. Puedes leerlo, compilarlo y bifurcarlo.'
-  - icon: shield-check
+  - icon: lock
     title: 'Privacidad y seguridad'
     text: 'Sin cuentas cuando no hacen falta, sin rastreadores, y los datos protegidos por diseño.'
-  - icon: paw
+  - icon: cat
     title: 'Los animales'
     text: 'Vegano y voluntario en refugios de gatos. Huellas nace de ahí.'
-  - icon: pen-line
+  - icon: megaphone
     title: 'Construir en público'
     text: 'Documento el proceso en el blog, en vídeo y en redes. Qué funcionó, qué se rompió, y por qué.'
 stages:

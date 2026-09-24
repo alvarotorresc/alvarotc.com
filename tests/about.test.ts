@@ -9,7 +9,7 @@ const schema = aboutSchema({ image: () => z.string() } as unknown as SchemaConte
 const base = {
   title: 'Hi, I am Álvaro.',
   intro: 'Backend developer from Spain.',
-  values: [{ icon: 'git-fork', title: 'Free software', text: 'If I ship it, you can read it.' }],
+  values: [{ icon: 'tux', title: 'Free software', text: 'If I ship it, you can read it.' }],
 };
 
 const withPhoto = {

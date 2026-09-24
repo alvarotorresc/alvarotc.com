@@ -3,6 +3,8 @@ import SectionHeading from '../ui/SectionHeading.astro';
 import NowCards from './NowCards.astro';
 import { getEntry } from 'astro:content';
 import Icon from '../icons/Icon.astro';
+import ColorIcon from '../icons/color/ColorIcon.astro';
+import { colorIconTint } from '../icons/color/tints';
 import { t, type Locale } from '../../i18n/translations';
 
 interface Props {
@@ -37,16 +39,17 @@ const paragraphs = {
         {
           values.map((v) => (
             <div class="flex flex-col gap-1">
-              <dt class="flex items-center gap-3 text-[15px] font-bold leading-snug">
+              <dt class="flex items-center gap-3.5 text-[15px] font-bold leading-snug">
                 <span
-                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-accent"
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full"
+                  style={`background: color-mix(in srgb, ${colorIconTint[v.icon]} 10%, var(--bg));`}
                   aria-hidden="true"
                 >
-                  <Icon name={v.icon} size={18} />
+                  <ColorIcon name={v.icon} size={36} />
                 </span>
                 {v.title}
               </dt>
-              <dd class="pl-12 text-[13px] leading-relaxed text-muted">{v.text}</dd>
+              <dd class="pl-[58px] text-[13px] leading-relaxed text-muted">{v.text}</dd>
             </div>
           ))
         }
