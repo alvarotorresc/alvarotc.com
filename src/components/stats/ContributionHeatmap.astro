@@ -1,41 +1,126 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
-import { heatLevel } from '../../lib/stats';
+import type { HeatmapCell, HeatmapMonthLabel } from '../../lib/stats-view';
 
 interface Props {
-  weeks: number[][];
+  columns: HeatmapCell[][];
+  monthLabels: HeatmapMonthLabel[];
+  legend: string;
+  ariaLabel: string;
   lang: Locale;
 }
-const { weeks, lang } = Astro.props;
-
-const max = Math.max(1, ...weeks.flat());
-const opacityByLevel: Record<0 | 1 | 2 | 3 | 4, number> = { 0: 1, 1: 0.25, 2: 0.5, 3: 0.75, 4: 1 };
+const { columns, monthLabels, legend, ariaLabel, lang } = Astro.props;
+const CELL = 12;
 ---
 
-<svg
-  viewBox={`0 0 ${53 * 12} ${7 * 12}`}
-  role="img"
-  aria-label={t('stats.contributions', lang)}
-  class="aspect-[53/7] w-full"
->
-  {
-    weeks.map((week, w) =>
-      week.map((count, d) => {
-        const level = heatLevel(count, max);
-        return (
-          <rect
-            x={w * 12}
-            y={d * 12}
-            width="10"
-            height="10"
-            rx="2"
-            fill={level === 0 ? 'var(--surface-2)' : 'var(--accent)'}
-            opacity={opacityByLevel[level]}
-          >
-            <title>{count}</title>
-          </rect>
-        );
-      }),
-    )
+<div class="stats-heatmap">
+  <div class="stats-heatmap-scroll" role="img" aria-label={ariaLabel}>
+    <div class="stats-heatmap-content" style={`width: ${columns.length * CELL}px`}>
+      <div class="stats-heatmap-months">
+        {
+          monthLabels.map((month) => (
+            <span style={`left: ${month.column * CELL}px`}>{month.label}</span>
+          ))
+        }
+      </div>
+      <div class="stats-heatmap-cols">
+        {
+          columns.map((column) => (
+            <div class="stats-heatmap-col">
+              {column.map((cell) => (
+                <div
+                  class:list={['stats-heatmap-cell', `lvl-${cell.level}`]}
+                  title={String(cell.count)}
+                />
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <div class="stats-heatmap-footer">
+    <span>{legend}</span>
+    <span class="stats-heatmap-scale">
+      <span>{t('stats.heatmapLess', lang)}</span>
+      <span class="stats-heatmap-cell lvl-0"></span>
+      <span class="stats-heatmap-cell lvl-1"></span>
+      <span class="stats-heatmap-cell lvl-2"></span>
+      <span class="stats-heatmap-cell lvl-3"></span>
+      <span class="stats-heatmap-cell lvl-4"></span>
+      <span>{t('stats.heatmapMore', lang)}</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .stats-heatmap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
-</svg>
+  .stats-heatmap-scroll {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 2px;
+  }
+  .stats-heatmap-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stats-heatmap-months {
+    position: relative;
+    height: 14px;
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+  .stats-heatmap-months span {
+    position: absolute;
+    top: 0;
+  }
+  .stats-heatmap-cols {
+    display: flex;
+    gap: 1px;
+  }
+  .stats-heatmap-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 11px;
+    scroll-snap-align: start;
+  }
+  .stats-heatmap-cell {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+  }
+  .lvl-0 {
+    background: var(--surface-2);
+  }
+  .lvl-1 {
+    background: color-mix(in srgb, var(--accent) 25%, var(--surface-2));
+  }
+  .lvl-2 {
+    background: color-mix(in srgb, var(--accent) 50%, var(--surface-2));
+  }
+  .lvl-3 {
+    background: color-mix(in srgb, var(--accent) 75%, var(--surface-2));
+  }
+  .lvl-4 {
+    background: var(--accent);
+  }
+  .stats-heatmap-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .stats-heatmap-scale {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+</style>
