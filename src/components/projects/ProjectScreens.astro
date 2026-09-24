@@ -1,30 +1,26 @@
 ---
 import { t } from '../../i18n/translations';
-import { overhangs, type ProjectView } from '../../lib/project-view';
+import type { ProjectView } from '../../lib/project-view';
 
 interface Props {
   view: ProjectView;
 }
 const { view } = Astro.props;
 const wide = view.kind === 'web';
-const clearance = overhangs(view) ? (wide ? 'xl:pt-[120px]' : 'lg:pt-[120px]') : '';
 ---
 
 {
   view.screenshots.length > 0 && (
-    <section
-      data-section="screens"
-      class="grid grid-cols-1 gap-y-6 border-t border-border pb-12 pt-10 md:grid-cols-[200px_minmax(0,1fr)] md:gap-x-10"
-    >
-      <div class="flex flex-col gap-2 md:pt-10">
+    <section data-section="screens" class="flex flex-col gap-6 border-t border-border pb-12 pt-10">
+      <div class="flex flex-col gap-2">
         <h2 class="text-[22px] font-bold tracking-[-0.02em]">
           {t('project.screenshots', view.lang)}
         </h2>
         {view.screenshotsIntro && (
-          <p class="text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
+          <p class="max-w-[520px] text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
         )}
       </div>
-      <div class:list={['shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0', clearance]}>
+      <div class="shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0">
         <ul class="flex w-max gap-5">
           {view.screenshots.map((shot) => (
             <li class="shot">
@@ -49,7 +45,6 @@ const clearance = overhangs(view) ? (wide ? 'xl:pt-[120px]' : 'lg:pt-[120px]') :
 <style>
   .shots {
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 16px;
   }
   .shot {
     scroll-snap-align: start;
@@ -71,6 +66,9 @@ const clearance = overhangs(view) ? (wide ? 'xl:pt-[120px]' : 'lg:pt-[120px]') :
     border-radius: 12px;
   }
   @media (max-width: 767px) {
+    .shots {
+      scroll-padding-inline: 16px;
+    }
     .shot-wide {
       width: 300px;
     }

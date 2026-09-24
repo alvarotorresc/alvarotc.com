@@ -6,7 +6,6 @@ import {
   factRows,
   fillParts,
   hasMedia,
-  overhangs,
   parseTerminalLine,
   playgroundNotes,
   releaseLabel,
@@ -227,29 +226,24 @@ describe('playgroundNotes', () => {
   });
 });
 
-describe('hasMedia and overhangs', () => {
-  it('overhang needs a cover and screenshots', () => {
+describe('hasMedia', () => {
+  it('a mobile or web project has media whenever it has a cover', () => {
     const bito = makeView(bitoFields, bitoImages);
     expect(hasMedia(bito)).toBe(true);
-    expect(overhangs(bito)).toBe(true);
     const coverOnly = makeView(
       { ...bitoFields, screenshots: [] },
       { ...bitoImages, screenshots: [] },
     );
     expect(hasMedia(coverOnly)).toBe(true);
-    expect(overhangs(coverOnly)).toBe(false);
   });
 
-  it('a sparse project has no media and no overhang', () => {
-    const sparse = makeView(sparseFields);
-    expect(hasMedia(sparse)).toBe(false);
-    expect(overhangs(sparse)).toBe(false);
+  it('a sparse project has no media', () => {
+    expect(hasMedia(makeView(sparseFields))).toBe(false);
   });
 
-  it('a cli has media only with a terminal session and never overhangs', () => {
+  it('a cli has media only with a terminal session', () => {
     const cli = makeView(cliFields);
     expect(hasMedia(cli)).toBe(true);
-    expect(overhangs(cli)).toBe(false);
     expect(hasMedia(makeView({ ...cliFields, terminal: [] }))).toBe(false);
   });
 });

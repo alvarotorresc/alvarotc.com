@@ -30,12 +30,11 @@ describe('ProjectHeader, mobile', () => {
     expect(html).toContain('href="/es/projects"');
   });
 
-  it('shows the cover in a phone frame lifted over the fold', async () => {
+  it('shows the cover in a phone frame', async () => {
     const html = await render(makeView(bitoFields, bitoImages));
     expect(html).toContain('data-media="mobile"');
     expect(html).toContain('data-frame="device"');
     expect(html).toContain('alt="Pantalla principal de Bito"');
-    expect(html).toContain('lg:-mb-[152px]');
   });
 
   it('offers the APK first, then GitHub, then the site', async () => {
@@ -59,12 +58,17 @@ describe('ProjectHeader, mobile', () => {
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
   });
 
-  it('does not lift a cover when there are no screenshots', async () => {
+  it('puts font-mono only on verifiable fact values, not on the platform', async () => {
+    const html = await render(makeView(bitoFields, bitoImages));
+    expect(html).toMatch(/<dd class="break-words text-sm">Android 10\+<\/dd>/);
+    expect(html).toMatch(/<dd class="break-words text-sm font-mono">GPL-3\.0<\/dd>/);
+  });
+
+  it('still shows the cover when there are no screenshots', async () => {
     const html = await render(
       makeView({ ...bitoFields, screenshots: [] }, { ...bitoImages, screenshots: [] }),
     );
     expect(html).toContain('data-media="mobile"');
-    expect(html).not.toContain('-mb-[152px]');
   });
 
   it('translates the labels to English', async () => {
@@ -85,7 +89,6 @@ describe('ProjectHeader, web', () => {
     expect(html).toContain('Abrir la web');
     expect(html).not.toContain('data-action="download"');
     expect(html).not.toContain('data-action="site"');
-    expect(html).toContain('xl:-mb-[152px]');
   });
 });
 
@@ -112,7 +115,6 @@ describe('ProjectHeader, cli', () => {
     expect(html).toContain('Ver en npm');
     expect(html).toContain('data-media="cli"');
     expect(html).toContain('~/proyectos');
-    expect(html).not.toContain('-mb-[152px]');
     expect(html).not.toContain('<img');
   });
 });

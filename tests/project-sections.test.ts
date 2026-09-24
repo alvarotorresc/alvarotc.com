@@ -26,7 +26,6 @@ describe('ProjectScreens', () => {
     expect(html).toContain('alt="Widget en la pantalla de inicio"');
     expect(html).toMatch(/<figcaption[^>]*>Widget<\/figcaption>/);
     expect(html).toContain('shot-tall');
-    expect(html).toContain('lg:pt-[120px]');
   });
 
   it('uses wide 16:10 screenshots for the web', async () => {
@@ -35,7 +34,6 @@ describe('ProjectScreens', () => {
       props: { view: makeView(pokeFields, pokeImages) },
     });
     expect(html).toContain('shot-wide');
-    expect(html).toContain('xl:pt-[120px]');
   });
 
   it('renders nothing without screenshots', async () => {

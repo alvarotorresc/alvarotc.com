@@ -3,7 +3,7 @@ import DeviceFrame from './DeviceFrame.astro';
 import BrowserFrame from './BrowserFrame.astro';
 import TerminalFrame from './TerminalFrame.astro';
 import { t } from '../../i18n/translations';
-import { displayUrl, overhangs, type ProjectView } from '../../lib/project-view';
+import { displayUrl, type ProjectView } from '../../lib/project-view';
 
 interface Props {
   view: ProjectView;
@@ -12,37 +12,26 @@ const { view } = Astro.props;
 const { lang, name } = view;
 const coverAlt = t('project.coverAlt', lang).replace('{name}', name);
 const phoneAlt = t('project.coverMobileAlt', lang).replace('{name}', name);
-const lift = overhangs(view)
-  ? {
-      mobile: 'lg:relative lg:z-[1] lg:-mb-[152px]',
-      hybrid: 'lg:relative lg:z-[1] lg:-mb-[152px]',
-      web: 'xl:relative xl:z-[1] xl:-mb-[152px]',
-      cli: '',
-    }[view.kind]
-  : '';
 const appAddress = view.playground ? displayUrl(view.playground.src) : (view.address ?? '');
 ---
 
 {
   view.kind === 'mobile' && view.cover && (
-    <div data-media="mobile" class:list={['flex justify-center lg:block', lift]}>
+    <div data-media="mobile" class="flex justify-center lg:block">
       <DeviceFrame size="hero" src={view.cover} alt={coverAlt} />
     </div>
   )
 }
 {
   view.kind === 'web' && view.cover && (
-    <div data-media="web" class:list={['min-w-0 xl:self-end', lift]}>
+    <div data-media="web" class="min-w-0 xl:self-end">
       <BrowserFrame size="hero" address={view.address ?? ''} src={view.cover} alt={coverAlt} />
     </div>
   )
 }
 {
   view.kind === 'hybrid' && view.cover && (
-    <div
-      data-media="hybrid"
-      class:list={['min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end', lift]}
-    >
+    <div data-media="hybrid" class="min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end">
       <div
         class:list={[
           'lg:absolute lg:left-0 lg:top-0 lg:w-[520px]',
