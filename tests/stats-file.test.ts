@@ -2,13 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import {
-  readStats,
-  buildStats,
-  withLighthouse,
-  serializeStats,
-  writeStats,
-} from '../scripts/lib/stats-file.mjs';
+import { readStats, buildStats, serializeStats, writeStats } from '../scripts/lib/stats-file.mjs';
 
 const now = new Date('2026-09-24T05:00:00Z');
 const github = {
@@ -21,7 +15,6 @@ const github = {
   languages: [{ name: 'JavaScript', percent: 100 }],
 };
 const umami = { views30d: 1342, mostRead: [] };
-const lighthouse = { performanceMobile: 96, performanceDesktop: 100 };
 
 describe('buildStats', () => {
   it('stamps generatedAt and keeps a null block per missing source', () => {
@@ -29,7 +22,6 @@ describe('buildStats', () => {
       generatedAt: '2026-09-24T05:00:00.000Z',
       github,
       umami: null,
-      lighthouse: null,
     });
   });
 
@@ -37,32 +29,11 @@ describe('buildStats', () => {
     expect(buildStats({ github: null, umami: null, previous: null, now }).generatedAt).toBeNull();
   });
 
-  it('keeps the lighthouse block of the previous file', () => {
-    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github: null, umami, lighthouse };
-    expect(buildStats({ github, umami, previous, now }).lighthouse).toEqual(lighthouse);
-  });
-
   it('keeps the previous generatedAt when nothing changed', () => {
-    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github, umami, lighthouse };
+    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github, umami };
     expect(buildStats({ github, umami, previous, now }).generatedAt).toBe(
       '2026-09-23T05:00:00.000Z',
     );
-  });
-});
-
-describe('withLighthouse', () => {
-  it('replaces only the lighthouse block', () => {
-    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github, umami, lighthouse: null };
-    expect(withLighthouse(previous, lighthouse, now)).toEqual({ ...previous, lighthouse });
-  });
-
-  it('starts an empty file when there is none', () => {
-    expect(withLighthouse(null, lighthouse, now)).toEqual({
-      generatedAt: '2026-09-24T05:00:00.000Z',
-      github: null,
-      umami: null,
-      lighthouse,
-    });
   });
 });
 

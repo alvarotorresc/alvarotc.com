@@ -133,22 +133,6 @@ const author = getAuthor();
       }
     </section>
 
-    {
-      stats.lighthouse && (
-        <section class="flex flex-col gap-4 border-t border-border pt-10">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('stats.site', lang)}</h2>
-          <StatsGrid
-            items={[
-              {
-                value: num(stats.lighthouse.performanceMobile),
-                label: t('stats.lighthouse', lang),
-              },
-            ]}
-          />
-        </section>
-      )
-    }
-
     <section class="flex flex-col gap-3 border-t border-border pt-10">
       <h2 class="text-[22px] font-bold tracking-tight">{t('stats.sources', lang)}</h2>
       <p class="max-w-[640px] text-sm leading-relaxed text-muted">{t('stats.sourcesText', lang)}</p>

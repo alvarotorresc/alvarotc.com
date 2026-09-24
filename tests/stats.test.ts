@@ -17,7 +17,7 @@ function makeRoot(): string {
   return root;
 }
 
-const emptyStats: StatsData = { generatedAt: null, github: null, umami: null, lighthouse: null };
+const emptyStats: StatsData = { generatedAt: null, github: null, umami: null };
 
 describe('loadStats', () => {
   it('reads the fallback file when there is no generated one', () => {
