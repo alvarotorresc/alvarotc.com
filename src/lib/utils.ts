@@ -6,6 +6,15 @@ export function formatDate(date: Date, locale: string = 'es'): string {
   });
 }
 
+export function formatShortDate(date: Date, locale: string = 'es'): string {
+  return date.toLocaleDateString(locale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
 export function getReadingTime(content: string): number {
   const wordsPerMinute = 200;
   const words = content.trim().split(/\s+/).length;
