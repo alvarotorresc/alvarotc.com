@@ -37,6 +37,12 @@ const tags = [
   { tag: 'android', count: 1 },
 ];
 
+function headerCountText(html: string): string {
+  const match = html.match(/<p class="text-muted">([\s\S]*?)<\/p>/);
+  if (!match) throw new Error('header count paragraph not found');
+  return match[1].replace(/<[^>]+>/g, '').trim();
+}
+
 async function renderList(lang: 'en' | 'es') {
   const container = await AstroContainer.create();
   return container.renderToString(PostList, {
@@ -84,20 +90,36 @@ describe('PostList', () => {
     expect(en).toMatch(/<a[^>]*href="\/rss\.xml"[^>]*>[\s\S]*?RSS/);
   });
 
-  it('shows the Spanish header, count and footer texts', async () => {
+  it('shows the Spanish header, count and footer texts with a space between the number and the word', async () => {
     const html = await renderList('es');
     expect(html).toContain('Artículos');
-    expect(html).toMatch(/<span data-header-count>3<\/span>\s*artículos/);
+    expect(headerCountText(html)).toBe('3 artículos');
     expect(html).toContain('Filtrar por tema');
     expect(html).toContain('3 de 3');
   });
 
-  it('shows the English header, count and footer texts', async () => {
+  it('shows the English header, count and footer texts with a space between the number and the word', async () => {
     const html = await renderList('en');
     expect(html).toContain('Writing');
-    expect(html).toMatch(/<span data-header-count>3<\/span>\s*articles/);
+    expect(headerCountText(html)).toBe('3 articles');
     expect(html).toContain('Filter by topic');
     expect(html).toContain('3 of 3');
+  });
+
+  it('keeps the space between the count and the word after the filter script rewrites the number (filtered state)', async () => {
+    const es = await renderList('es');
+    const esFiltered = es.replace(
+      '<span data-header-count>3</span>',
+      '<span data-header-count>2</span>',
+    );
+    expect(headerCountText(esFiltered)).toBe('2 artículos');
+
+    const en = await renderList('en');
+    const enFiltered = en.replace(
+      '<span data-header-count>3</span>',
+      '<span data-header-count>2</span>',
+    );
+    expect(headerCountText(enFiltered)).toBe('2 articles');
   });
 
   it('renders the topics panel closed by default', async () => {
