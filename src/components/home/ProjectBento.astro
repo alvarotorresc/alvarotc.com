@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import Tag from '../ui/Tag.astro';
 import { t, statusLabel, type Locale } from '../../i18n/translations';
 import {
   getFeaturedProjects,
   getLabProjects,
   projectSlug,
+  tone,
   type ProjectEntry,
 } from '../../lib/projects';
 
@@ -17,8 +19,6 @@ const prefix = lang === 'es' ? '/es' : '';
 const [big, mid, band] = await getFeaturedProjects(lang);
 const lab = await getLabProjects(lang);
 
-const tone = (status: string) =>
-  status === 'published' ? 'ok' : status === 'beta' ? 'warn' : 'neutral';
 const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
 ---
 
@@ -38,10 +38,11 @@ const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
           rel="noopener"
           class="card flex flex-col gap-4 border-accent/30 bg-accent/5 p-5 md:col-span-8"
         >
-          {big.data.hero && (
-            <img
-              src={big.data.hero}
+          {big.data.cover && (
+            <Image
+              src={big.data.cover}
               alt={big.data.name}
+              width={960}
               class="aspect-video w-full rounded-[10px] object-cover"
             />
           )}
@@ -66,10 +67,11 @@ const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
     {
       mid && (
         <a href={href(mid)} rel="noopener" class="card flex flex-col gap-3 p-5 md:col-span-4">
-          {mid.data.hero && (
-            <img
-              src={mid.data.hero}
+          {mid.data.cover && (
+            <Image
+              src={mid.data.cover}
               alt={mid.data.name}
+              width={480}
               class="h-[200px] w-full rounded-[10px] object-cover"
             />
           )}
@@ -92,7 +94,7 @@ const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
           rel="noopener"
           class:list={[
             'card grid grid-cols-1 items-center gap-6 p-5 md:col-span-12',
-            band.data.hero && 'md:grid-cols-[minmax(0,1fr)_340px]',
+            band.data.cover && 'md:grid-cols-[minmax(0,1fr)_340px]',
           ]}
         >
           <div class="flex flex-col gap-2">
@@ -103,10 +105,11 @@ const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
             <p class="max-w-[620px] text-sm leading-relaxed text-muted">{band.data.tagline}</p>
             <span class="font-mono text-xs text-faint">{band.data.stack.join(', ')}</span>
           </div>
-          {band.data.hero && (
-            <img
-              src={band.data.hero}
+          {band.data.cover && (
+            <Image
+              src={band.data.cover}
               alt={band.data.name}
+              width={680}
               class="h-[120px] w-full rounded-[10px] object-cover"
             />
           )}

@@ -18,6 +18,12 @@ const routes = [
   'es/projects/index.html',
   'projects/bito/index.html',
   'es/projects/bito/index.html',
+  'projects/pokeutils/index.html',
+  'es/projects/pokeutils/index.html',
+  'projects/basecero/index.html',
+  'es/projects/basecero/index.html',
+  'projects/quedamos/index.html',
+  'es/projects/huellas/index.html',
   'blog/index.html',
   'es/blog/index.html',
   'search.json',
@@ -46,5 +52,49 @@ describe.skipIf(!built)('built home page', () => {
     const html = readFileSync(join(dist, 'index.html'), 'utf8');
     if (experienceIsMock) expect(html).not.toContain('href="/#experience"');
     else expect(html).toContain('href="/#experience"');
+  });
+});
+
+const page = (route: string) => readFileSync(join(dist, route), 'utf8');
+
+describe.skipIf(!built)('built project pages', () => {
+  it('renders Bito as a mobile page with webp images', () => {
+    const html = page('es/projects/bito/index.html');
+    expect(html).toContain('data-project="mobile"');
+    expect(html).toContain('data-media="mobile"');
+    expect(html).toContain('Descargar APK');
+    expect(html).toMatch(/data-frame="device"[\s\S]*?src="[^"]+\.webp"/);
+    expect(html).toContain('application/ld+json');
+  });
+
+  it('renders PokeUtils as a web page', () => {
+    const html = page('projects/pokeutils/index.html');
+    expect(html).toContain('data-media="web"');
+    expect(html).toContain('Open the site');
+    expect(html).not.toContain('data-section="playground"');
+  });
+
+  it('renders BaseCero as a hybrid page with its playground', () => {
+    const html = page('es/projects/basecero/index.html');
+    expect(html).toContain('data-media="hybrid"');
+    expect(html).toContain('data-playground-load');
+    expect(html).toContain('basecero.alvarotc.com/app/');
+  });
+
+  it('renders Quedamos without a media block', () => {
+    const html = page('projects/quedamos/index.html');
+    expect(html).not.toContain('data-media=');
+    expect(html).toContain('data-section="why"');
+  });
+
+  it('does not build the hidden projects', () => {
+    expect(existsSync(join(dist, 'projects/create-astro-blog/index.html'))).toBe(false);
+    expect(existsSync(join(dist, 'es/projects/devtools/index.html'))).toBe(false);
+  });
+
+  it('shows the Bito cover on the home without the old PNGs', () => {
+    const html = page('es/index.html');
+    expect(html).not.toMatch(/\/projects\/[\w-]+\.png/);
+    expect(html).toContain('alt="Bito"');
   });
 });

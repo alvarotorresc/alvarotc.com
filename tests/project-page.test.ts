@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { existsSync, readFileSync } from 'node:fs';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import ProjectCard from '../src/components/projects/ProjectCard.astro';
 import type { ProjectEntry } from '../src/lib/projects';
@@ -35,6 +36,16 @@ describe('ProjectCard', () => {
       props: { lang: 'es', project: project() },
     });
     expect(html).toContain('href="/es/projects/bito"');
+  });
+
+  it('shows the publishing status in the warn tone and no image without a cover', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: { lang: 'es', project: project({ status: 'publishing' }), featured: true },
+    });
+    expect(html).toContain('En publicación');
+    expect(html).toContain('text-amber-600');
+    expect(html).not.toContain('<img');
   });
 });
 
@@ -109,4 +120,25 @@ describe('retired project translations', () => {
       expect(translations.es).not.toHaveProperty([key]);
     },
   );
+});
+
+describe('home project media', () => {
+  it('no longer ships the empty project PNGs', () => {
+    expect(existsSync('public/projects')).toBe(false);
+  });
+
+  it.each(['src/components/home/ProjectBento.astro', 'src/components/projects/ProjectCard.astro'])(
+    '%s reads the cover and the shared tone',
+    (path) => {
+      const source = readFileSync(path, 'utf8');
+      expect(source).not.toContain('data.hero');
+      expect(source).toContain('data.cover');
+      expect(source).not.toMatch(/const tone =/);
+    },
+  );
+
+  it('renders the Now card icon as an optimised image', () => {
+    const source = readFileSync('src/components/home/NowCards.astro', 'utf8');
+    expect(source).toMatch(/<Image\s+src=\{project\.data\.icon\}/);
+  });
 });
