@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { GET as llmsTxt } from '../src/pages/llms.txt';
+import { GET as llmsTxtEs } from '../src/pages/es/llms.txt';
 import { GET as llmsFullEn } from '../src/pages/llms-full.txt';
 import { GET as llmsFullEs } from '../src/pages/es/llms-full.txt';
 import { GET as postMdEn, getStaticPaths as postMdEnPaths } from '../src/pages/blog/[slug].md';
@@ -58,18 +59,64 @@ describe('/llms.txt', () => {
     expect(text).toContain('\n\n## Articles\n\n');
     expect(text).toContain('\n\n## Artículos (Español)\n\n');
   });
+
+  it('cross-references the Spanish version', async () => {
+    const res = await llmsTxt(context);
+    const text = await res.text();
+
+    expect(text).toContain('https://alvarotc.com/es/llms.txt');
+  });
+});
+
+describe('/es/llms.txt', () => {
+  it('mirrors the structure in Spanish, with Pages and Projects under /es/', async () => {
+    const res = await llmsTxtEs(context);
+    const text = await res.text();
+
+    expect(text).toContain('# Álvaro Torres Carrasco');
+    expect(text).toContain('## Artículos');
+    expect(text).toContain('## Articles (English)');
+    expect(text).toContain('## Proyectos');
+    expect(text).toContain('## Páginas');
+    expect(text).toContain('## Feeds');
+
+    for (const title of esTitles) expect(text).toContain(title);
+    for (const title of enTitles) expect(text).toContain(title);
+
+    expect(text).toContain('https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo.md');
+    expect(text).toContain('https://alvarotc.com/es/projects/');
+    expect(text).toContain('https://alvarotc.com/es/about/');
+    expect(text).toContain('https://alvarotc.com/es/rss.xml');
+    expect(text).toContain('https://alvarotc.com/es/llms-full.txt');
+    expect(text).toContain('https://alvarotc.com/llms.txt');
+  });
 });
 
 describe('/llms-full.txt (English)', () => {
+  it('has a document header with name, summary and language', async () => {
+    const res = await llmsFullEn(context);
+    const text = await res.text();
+
+    expect(text.startsWith('# Álvaro Torres Carrasco\n\n> ')).toBe(true);
+    expect(text).toContain('Language: English');
+  });
+
   it('only contains English posts, with real body content', async () => {
     const res = await llmsFullEn(context);
     const text = await res.text();
 
-    for (const title of enTitles) expect(text).toContain(`# ${title}`);
-    for (const title of esTitles) expect(text).not.toContain(`# ${title}`);
+    for (const title of enTitles) expect(text).toContain(`## ${title}`);
+    for (const title of esTitles) expect(text).not.toContain(`## ${title}`);
 
     expect(text).toContain('My personal website had been dead for over two years with Next.js 12');
     expect(text).toContain('URL: https://alvarotc.com/blog/new-website-new-direction/');
+  });
+
+  it('separates articles with an unambiguous heading + metadata block', async () => {
+    const res = await llmsFullEn(context);
+    const text = await res.text();
+
+    expect(text).toMatch(/\n\n## .+\n\nURL: /);
   });
 
   it('translates the Spanish-slugged tag to English', async () => {
@@ -82,12 +129,20 @@ describe('/llms-full.txt (English)', () => {
 });
 
 describe('/es/llms-full.txt (Spanish)', () => {
+  it('has a document header with name, summary and language', async () => {
+    const res = await llmsFullEs(context);
+    const text = await res.text();
+
+    expect(text.startsWith('# Álvaro Torres Carrasco\n\n> ')).toBe(true);
+    expect(text).toContain('Idioma: Español');
+  });
+
   it('only contains Spanish posts, with real body content', async () => {
     const res = await llmsFullEs(context);
     const text = await res.text();
 
-    for (const title of esTitles) expect(text).toContain(`# ${title}`);
-    for (const title of enTitles) expect(text).not.toContain(`# ${title}`);
+    for (const title of esTitles) expect(text).toContain(`## ${title}`);
+    for (const title of enTitles) expect(text).not.toContain(`## ${title}`);
 
     expect(text).toContain('Mi web personal llevaba más de dos años con Next.js 12');
     expect(text).toContain('URL: https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo/');
@@ -159,6 +214,7 @@ const built = existsSync(dist);
 describe.skipIf(!built)('build output', () => {
   it('generates llms.txt, llms-full.txt and per-post Markdown files', () => {
     expect(existsSync(resolve(dist, 'llms.txt'))).toBe(true);
+    expect(existsSync(resolve(dist, 'es/llms.txt'))).toBe(true);
     expect(existsSync(resolve(dist, 'llms-full.txt'))).toBe(true);
     expect(existsSync(resolve(dist, 'es/llms-full.txt'))).toBe(true);
     expect(existsSync(resolve(dist, 'blog/new-website-new-direction.md'))).toBe(true);
