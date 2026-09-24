@@ -41,13 +41,22 @@ describe('/llms.txt', () => {
     for (const title of enTitles) expect(text).toContain(title);
     for (const title of esTitles) expect(text).toContain(title);
 
-    expect(text).toContain('https://alvarotc.com/blog/new-website-new-direction/');
-    expect(text).toContain('https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo/');
+    expect(text).toContain('https://alvarotc.com/blog/new-website-new-direction.md');
+    expect(text).toContain('https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo.md');
     expect(text).toContain('https://alvarotc.com/projects/');
     expect(text).toContain('https://alvarotc.com/about/');
     expect(text).toContain('https://alvarotc.com/rss.xml');
     expect(text).toContain('https://alvarotc.com/llms-full.txt');
     expect(text).toContain('https://alvarotc.com/es/llms-full.txt');
+  });
+
+  it('keeps the canonical blank-line separators between the header and each section', async () => {
+    const res = await llmsTxt(context);
+    const text = await res.text();
+
+    expect(text.startsWith('# Álvaro Torres Carrasco\n\n> ')).toBe(true);
+    expect(text).toContain('\n\n## Articles\n\n');
+    expect(text).toContain('\n\n## Artículos (Español)\n\n');
   });
 });
 
@@ -61,6 +70,14 @@ describe('/llms-full.txt (English)', () => {
 
     expect(text).toContain('My personal website had been dead for over two years with Next.js 12');
     expect(text).toContain('URL: https://alvarotc.com/blog/new-website-new-direction/');
+  });
+
+  it('translates the Spanish-slugged tag to English', async () => {
+    const res = await llmsFullEn(context);
+    const text = await res.text();
+
+    expect(text).toContain('observability');
+    expect(text).not.toContain('observabilidad');
   });
 });
 
@@ -93,6 +110,18 @@ describe('/blog/<slug>.md', () => {
     expect(text).toContain('language: "en"');
     expect(text).toContain('alternate: "https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo/"');
     expect(text).toContain('## The previous website was dead');
+  });
+
+  it('translates the Spanish-slugged tag to English in the frontmatter', async () => {
+    const paths = await postMdEnPaths();
+    const target = paths.find((p) => p.params.slug === 'new-website-new-direction');
+    const res = await postMdEn({ props: target!.props, site } as unknown as Parameters<
+      typeof postMdEn
+    >[0]);
+    const text = await res.text();
+
+    expect(text).toContain('"projects"');
+    expect(text).not.toContain('"proyectos"');
   });
 });
 

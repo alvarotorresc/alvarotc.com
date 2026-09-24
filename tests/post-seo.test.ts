@@ -30,7 +30,7 @@ describe.skipIf(!built)('post JSON-LD (BlogPosting)', () => {
     expect(jsonLd.description.length).toBeGreaterThan(0);
     expect(jsonLd.datePublished).toBe('2026-02-16T00:00:00.000Z');
     expect(jsonLd.dateModified).toBe('2026-02-16T00:00:00.000Z');
-    expect(jsonLd.keywords).toBe('meta, web, astro, proyectos');
+    expect(jsonLd.keywords).toBe('meta, web, astro, projects');
     expect(jsonLd.inLanguage).toBe('en');
     expect(jsonLd.wordCount).toBeGreaterThan(0);
     expect(jsonLd.timeRequired).toMatch(/^PT\d+M$/);
@@ -117,9 +117,15 @@ describe.skipIf(!built)('post <head> metadata', () => {
     expect(html).toContain('article:published_time');
     expect(html).toContain('article:modified_time');
     expect(html).toContain('<meta property="article:author" content="Álvaro Torres Carrasco">');
-    for (const tag of ['meta', 'web', 'astro', 'proyectos']) {
+    for (const tag of ['meta', 'web', 'astro', 'projects']) {
       expect(html).toContain(`<meta property="article:tag" content="${tag}">`);
     }
+  });
+
+  it('translates the Spanish-slugged tag to English on the EN page', () => {
+    const html = enHtml();
+    expect(html).toContain('>projects<');
+    expect(html).not.toContain('>proyectos<');
   });
 
   it('renders a single article with a single h1 and a published <time datetime>', () => {
