@@ -1,0 +1,159 @@
+---
+interface Props {
+  size: 'hero' | 'thin' | 'play';
+  address: string;
+  src?: string;
+  alt?: string;
+}
+const { size, address, src, alt = '' } = Astro.props;
+---
+
+<div data-frame="browser" data-size={size} class:list={['browser', `browser-${size}`]}>
+  <div class="browser-bar" aria-hidden="true">
+    <span class="browser-dots"><span></span><span></span><span></span></span>
+    <span class="browser-address">{address}</span>
+    <span class="browser-spacer"></span>
+  </div>
+  <div class="browser-screen">
+    {
+      src ? (
+        <img
+          src={src}
+          alt={alt}
+          loading={size === 'play' ? 'lazy' : 'eager'}
+          decoding="async"
+          class="browser-img"
+        />
+      ) : (
+        <slot />
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .browser {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0b0d11;
+    border: 1px solid #2c313b;
+  }
+  .browser-hero {
+    max-width: 620px;
+    box-shadow:
+      0 48px 96px rgba(0, 0, 0, 0.55),
+      0 0 0 6px #161920;
+  }
+  .browser-thin {
+    max-width: 520px;
+    box-shadow: 0 32px 72px rgba(0, 0, 0, 0.5);
+  }
+  .browser-play {
+    height: 700px;
+  }
+  .browser-bar {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 16px;
+    height: 40px;
+    padding: 0 14px;
+    border-bottom: 1px solid #22262e;
+    background: #161920;
+  }
+  .browser-thin .browser-bar {
+    gap: 12px;
+    height: 32px;
+    padding: 0 12px;
+    background: transparent;
+  }
+  .browser-dots {
+    display: flex;
+    flex-shrink: 0;
+    gap: 7px;
+  }
+  .browser-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2c313b;
+  }
+  .browser-thin .browser-dots {
+    gap: 6px;
+  }
+  .browser-thin .browser-dots span {
+    width: 8px;
+    height: 8px;
+  }
+  .browser-address {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    height: 26px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #0f1115;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 26px;
+    color: #9aa3b2;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .browser-play .browser-address {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .browser-thin .browser-address {
+    height: 20px;
+    padding: 0 10px;
+    border-radius: 5px;
+    background: #161920;
+    font-size: 11px;
+    line-height: 20px;
+    color: #8a93a3;
+    text-align: left;
+  }
+  .browser-spacer {
+    flex-shrink: 0;
+    width: 51px;
+  }
+  .browser-thin .browser-spacer {
+    display: none;
+  }
+  .browser-screen {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-2);
+  }
+  .browser-hero .browser-screen,
+  .browser-thin .browser-screen {
+    aspect-ratio: 16 / 10;
+  }
+  .browser-play .browser-screen {
+    flex: 1;
+  }
+  .browser-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .browser-screen :global(iframe) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  @media (max-width: 767px) {
+    .browser-play {
+      height: 520px;
+    }
+  }
+</style>

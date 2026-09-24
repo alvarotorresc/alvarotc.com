@@ -1,0 +1,106 @@
+---
+import { parseTerminalLine } from '../../lib/project-view';
+
+interface Props {
+  title: string;
+  lines: string[];
+}
+const { title, lines } = Astro.props;
+const parsed = lines.map(parseTerminalLine);
+---
+
+<div data-frame="terminal" class="term">
+  <div class="term-bar">
+    <span class="term-dot" aria-hidden="true"></span>
+    <span class="term-dot" aria-hidden="true"></span>
+    <span class="term-dot" aria-hidden="true"></span>
+    <span class="term-title">{title}</span>
+  </div>
+  <div class="term-body">
+    {
+      parsed.map((line) =>
+        line.kind === 'blank' ? (
+          <div class="term-gap" aria-hidden="true" />
+        ) : line.kind === 'command' ? (
+          <div>
+            <span class="term-faint">$ </span>
+            {line.text}
+          </div>
+        ) : line.kind === 'answer' ? (
+          <div>
+            <span class="term-ok">✔</span> {line.label} <span class="term-faint">›</span>{' '}
+            <span class="term-value">{line.value}</span>
+          </div>
+        ) : (
+          <div class="term-out">{line.text}</div>
+        ),
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .term {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 620px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #0b0d11;
+    border: 1px solid #2c313b;
+    box-shadow: 0 48px 96px rgba(0, 0, 0, 0.55);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: #e7e9ee;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
+    border-bottom: 1px solid #22262e;
+    background: #12151b;
+  }
+  .term-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #2c313b;
+  }
+  .term-title {
+    margin-left: 12px;
+    font-size: 12px;
+    color: #8a93a3;
+  }
+  .term-body {
+    min-height: 364px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+  .term-gap {
+    height: 12px;
+  }
+  .term-faint {
+    color: #8a93a3;
+  }
+  .term-ok {
+    color: #5fd08a;
+  }
+  .term-value {
+    color: #8ab4ff;
+  }
+  .term-out {
+    padding-left: 2ch;
+    color: #9aa3b2;
+  }
+  @media (max-width: 767px) {
+    .term-body {
+      min-height: 0;
+      padding: 16px;
+      font-size: 13px;
+    }
+  }
+</style>
