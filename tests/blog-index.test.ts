@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import PostList from '../src/components/blog/PostList.astro';
+import { topicBasePath } from '../src/lib/pagination';
 
 interface FlatPost {
   slug: string;
@@ -10,25 +11,29 @@ interface FlatPost {
   date: Date;
   readingMinutes: number;
   tags: string[];
+  tagHref: (tag: string) => string;
 }
 
-function post(slug: string, date: string, tags: string[]): FlatPost {
+function post(lang: 'en' | 'es', slug: string, date: string, tags: string[]): FlatPost {
   return {
     slug,
-    href: `/blog/${slug}`,
+    href: lang === 'es' ? `/es/blog/${slug}` : `/blog/${slug}`,
     title: `Post ${slug}`,
     description: `Description ${slug}`,
     date: new Date(date),
     readingMinutes: 5,
     tags,
+    tagHref: (tag: string) => topicBasePath(lang, tag),
   };
 }
 
-const posts: FlatPost[] = [
-  post('recent', '2026-09-07', ['docker', 'foss']),
-  post('second', '2026-09-02', ['docker', 'vps']),
-  post('third', '2026-08-14', ['android']),
-];
+function postsFor(lang: 'en' | 'es'): FlatPost[] {
+  return [
+    post(lang, 'recent', '2026-09-07', ['docker', 'foss']),
+    post(lang, 'second', '2026-09-02', ['docker', 'vps']),
+    post(lang, 'third', '2026-08-14', ['android']),
+  ];
+}
 
 const tags = [
   { tag: 'docker', count: 2 },
@@ -43,10 +48,39 @@ function headerCountText(html: string): string {
   return match[1].replace(/<[^>]+>/g, '').trim();
 }
 
-async function renderList(lang: 'en' | 'es') {
+interface RenderOptions {
+  title?: string;
+  activeTag?: string;
+  scopeTotal?: number;
+  page?: number;
+  totalPages?: number;
+  prevHref?: string;
+  nextHref?: string;
+}
+
+async function renderList(lang: 'en' | 'es', options: RenderOptions = {}) {
+  const posts = postsFor(lang);
+  const allHref = lang === 'es' ? '/es/blog/' : '/blog/';
   const container = await AstroContainer.create();
   return container.renderToString(PostList, {
-    props: { lang, posts, tags, rssHref: lang === 'es' ? '/es/rss.xml' : '/rss.xml' },
+    props: {
+      lang,
+      posts,
+      tags,
+      rssHref: lang === 'es' ? '/es/rss.xml' : '/rss.xml',
+      title: options.title,
+      languageTotal: posts.length,
+      scopeTotal: options.scopeTotal ?? posts.length,
+      rangeStart: 1,
+      rangeEnd: options.scopeTotal ?? posts.length,
+      allHref,
+      topicHref: (tag: string) => topicBasePath(lang, tag),
+      activeTag: options.activeTag,
+      page: options.page ?? 1,
+      totalPages: options.totalPages ?? 1,
+      prevHref: options.prevHref,
+      nextHref: options.nextHref,
+    },
   });
 }
 
@@ -62,22 +96,26 @@ describe('PostList', () => {
 
   it('renders titles as h2 with a link inside', async () => {
     const html = await renderList('es');
-    expect(html).toMatch(/<h2[^>]*>\s*<a[^>]*href="\/blog\/recent"[^>]*>Post recent<\/a>\s*<\/h2>/);
+    expect(html).toMatch(
+      /<h2[^>]*>\s*<a[^>]*href="\/es\/blog\/recent"[^>]*>Post recent<\/a>\s*<\/h2>/,
+    );
   });
 
-  it('renders each post tag as a link', async () => {
-    const html = await renderList('es');
-    expect(html).toMatch(/<a[^>]*data-filter-tag="docker"[^>]*>docker<\/a>/);
+  it('renders each post tag as a link to its topic page', async () => {
+    const es = await renderList('es');
+    expect(es).toMatch(/<a[^>]*href="\/es\/blog\/tema\/docker\/"[^>]*>docker<\/a>/);
+    const en = await renderList('en');
+    expect(en).toMatch(/<a[^>]*href="\/blog\/topic\/docker\/"[^>]*>docker<\/a>/);
   });
 
-  it('lists every topic with its count and an "All" entry in the topics panel', async () => {
+  it('lists every topic with its count and an "All" entry linking to the blog root', async () => {
     const html = await renderList('es');
     expect(html).toContain('Temas');
-    expect(html).toMatch(/<button[^>]*data-tag=""[^>]*>[\s\S]*?Todos[\s\S]*?<\/button>/);
+    expect(html).toMatch(/<a href="\/es\/blog\/"[^>]*>[\s\S]*?Todos[\s\S]*?<\/a>/);
     for (const { tag, count } of tags) {
       expect(html).toMatch(
         new RegExp(
-          `<button[^>]*data-tag="${tag}"[^>]*>[\\s\\S]*?${tag}[\\s\\S]*?${count}[\\s\\S]*?</button>`,
+          `<a href="/es/blog/tema/${tag}/"[^>]*>[\\s\\S]*?${tag}[\\s\\S]*?${count}[\\s\\S]*?</a>`,
         ),
       );
     }
@@ -106,25 +144,56 @@ describe('PostList', () => {
     expect(html).toContain('3 of 3');
   });
 
-  it('keeps the space between the count and the word after the filter script rewrites the number (filtered state)', async () => {
-    const es = await renderList('es');
-    const esFiltered = es.replace(
-      '<span data-header-count>3</span>',
-      '<span data-header-count>2</span>',
-    );
-    expect(headerCountText(esFiltered)).toBe('2 artículos');
+  it('keeps the header count as the full language total even on a topic page', async () => {
+    const html = await renderList('es', {
+      title: 'Artículos sobre docker',
+      activeTag: 'docker',
+      scopeTotal: 2,
+    });
+    expect(headerCountText(html)).toBe('3 artículos');
+    expect(html).toContain('2 de 2');
+    expect(html).toContain('Artículos sobre docker');
+  });
 
-    const en = await renderList('en');
-    const enFiltered = en.replace(
-      '<span data-header-count>3</span>',
-      '<span data-header-count>2</span>',
-    );
-    expect(headerCountText(enFiltered)).toBe('2 articles');
+  it('shows the active topic label and a clear-filter link on a topic page', async () => {
+    const html = await renderList('es', { activeTag: 'docker', scopeTotal: 2 });
+    expect(html).toContain('Tema: docker');
+    expect(html).toMatch(/<a href="\/es\/blog\/"[^>]*>[\s\S]*?Quitar filtro/);
+  });
+
+  it('does not show a clear-filter link when there is no active topic', async () => {
+    const html = await renderList('es');
+    expect(html).not.toContain('Quitar filtro');
   });
 
   it('renders the topics panel closed by default', async () => {
     const html = await renderList('es');
     expect(html).toMatch(/<details[^>]*data-topics-filter[^>]*>/);
     expect(html).not.toMatch(/<details[^>]*data-topics-filter[^>]* open[^>]*>/);
+  });
+
+  it('shows a page count and prev/next links only when there is more than one page', async () => {
+    const single = await renderList('es');
+    expect(single).not.toContain('Página');
+
+    const multi = await renderList('es', {
+      page: 2,
+      totalPages: 3,
+      prevHref: '/es/blog/',
+      nextHref: '/es/blog/3/',
+    });
+    expect(multi).toContain('Página 2 de 3');
+    expect(multi).toMatch(/<a[^>]*href="\/es\/blog\/"[^>]*rel="prev"/);
+    expect(multi).toMatch(/<a[^>]*href="\/es\/blog\/3\/"[^>]*rel="next"/);
+  });
+
+  it('hides the previous link on the first page and the next link on the last page', async () => {
+    const first = await renderList('es', { page: 1, totalPages: 3, nextHref: '/es/blog/2/' });
+    expect(first).not.toMatch(/rel="prev"/);
+    expect(first).toMatch(/rel="next"/);
+
+    const last = await renderList('es', { page: 3, totalPages: 3, prevHref: '/es/blog/2/' });
+    expect(last).not.toMatch(/rel="next"/);
+    expect(last).toMatch(/rel="prev"/);
   });
 });
