@@ -1,43 +1,26 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import TagFilter from '../../../components/blog/TagFilter.astro';
+import PostList from '../../../components/blog/PostList.astro';
 import { t } from '../../../i18n/translations';
-import { formatDate, getReadingTime } from '../../../lib/utils';
+import { getReadingTime } from '../../../lib/utils';
 import { getPosts, tagCounts } from '../../../lib/posts';
 
 const lang = 'es';
 const posts = await getPosts(lang);
 const tags = tagCounts(posts);
+const flatPosts = posts.map((post) => ({
+  slug: post.id,
+  href: `/es/blog/${post.id}`,
+  title: post.data.title,
+  description: post.data.description,
+  date: post.data.date,
+  readingMinutes: getReadingTime(post.body ?? ''),
+  tags: post.data.tags,
+}));
 ---
 
 <BaseLayout title={t('writing.title', lang)} lang={lang}>
-  <div class="container-page flex flex-col gap-8 py-14">
-    <header class="flex flex-col gap-3">
-      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('writing.title', lang)}</h1>
-      <p class="text-muted">{posts.length} {t('writing.count', lang)}</p>
-    </header>
-    <TagFilter lang={lang} tags={tags} />
-    <ul class="flex flex-col">
-      {
-        posts.map((post) => (
-          <li data-tags={post.data.tags.join(' ')} class="border-t border-border last:border-b">
-            <a href={`/es/blog/${post.id}`} class="flex flex-col gap-2 py-6 md:flex-row md:gap-8">
-              <span class="shrink-0 font-mono text-[13px] text-faint md:w-[160px]">
-                <time datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date, lang)}
-                </time>
-                <span class="block">
-                  {getReadingTime(post.body ?? '')} {t('post.minRead', lang)}
-                </span>
-              </span>
-              <span class="flex flex-col gap-1">
-                <span class="text-lg font-bold">{post.data.title}</span>
-                <span class="text-sm leading-relaxed text-muted">{post.data.description}</span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
+  <div class="container-page py-14">
+    <PostList lang={lang} posts={flatPosts} tags={tags} rssHref="/es/rss.xml" />
   </div>
 </BaseLayout>

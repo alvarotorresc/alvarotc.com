@@ -1,0 +1,81 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  tags: { tag: string; count: number }[];
+  total: number;
+  class?: string;
+}
+const { lang, tags, total, class: className } = Astro.props;
+const itemBase =
+  'flex h-8 items-center justify-between gap-3 rounded-md px-2.5 text-sm font-medium text-muted hover:text-text aria-pressed:bg-surface-2 aria-pressed:font-bold aria-pressed:text-text';
+---
+
+<details data-topics-filter class:list={['group relative', className]}>
+  <summary
+    class="btn-secondary h-10 list-none gap-2 [&::-webkit-details-marker]:hidden group-open:border-accent group-open:bg-surface-2"
+    data-label-default={t('writing.filter', lang)}
+    data-label-active-template={t('writing.filterTag', lang)}
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 5h18l-7 8v6l-4 2v-8z"></path>
+    </svg>
+    <span data-label class="inline-block min-w-0 max-w-[38vw] truncate sm:max-w-none">
+      {t('writing.filter', lang)}
+    </span>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      class="text-faint motion-safe:transition-transform group-open:rotate-180"
+    >
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </summary>
+
+  <div
+    role="group"
+    aria-label={t('writing.topics', lang)}
+    class="mt-2 flex w-full flex-col gap-3 rounded-xl border border-border bg-surface p-3 md:absolute md:right-0 md:top-full md:z-10 md:w-[420px]"
+    data-tag-filter
+  >
+    <h2 class="px-1 text-sm font-bold">{t('writing.topics', lang)}</h2>
+    <div class="grid grid-cols-1 gap-1 md:grid-cols-2">
+      <button type="button" data-tag="" aria-pressed="true" class={itemBase}>
+        <span>{t('writing.filterAll', lang)}</span>
+        <span class="font-mono text-xs text-faint">{total}</span>
+      </button>
+      {
+        tags.map(({ tag, count }) => (
+          <button type="button" data-tag={tag} aria-pressed="false" class={itemBase}>
+            <span>{tag}</span>
+            <span class="font-mono text-xs text-faint">{count}</span>
+          </button>
+        ))
+      }
+    </div>
+    <div class="flex items-center justify-between border-t border-border px-1 pt-2 text-[13px]">
+      <span class="text-faint">{t('writing.filter', lang)}</span>
+      <button type="button" data-clear-filter hidden class="font-semibold text-accent">
+        {t('writing.clearFilter', lang)}
+      </button>
+    </div>
+  </div>
+</details>
