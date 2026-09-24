@@ -18,7 +18,7 @@ interface Props {
 const { lang, project, featured = false } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 const slug = projectSlug(project);
-const cover = featured ? homeImage(project) : undefined;
+const cover = homeImage(project);
 ---
 
 <div class="card flex flex-col gap-3 p-5">
@@ -29,7 +29,8 @@ const cover = featured ? homeImage(project) : undefined;
         alt={project.data.name}
         width={640}
         class:list={[
-          'aspect-video w-full rounded-[10px]',
+          'w-full rounded-[10px]',
+          featured ? 'aspect-video' : 'aspect-[16/10] max-h-[140px]',
           isVerticalImage(cover) ? 'bg-surface-2 object-contain' : 'object-cover',
         ]}
       />
