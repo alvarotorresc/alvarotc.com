@@ -27,3 +27,11 @@ export async function getFeaturedProjects(lang: Locale): Promise<ProjectEntry[]>
 export async function getLabProjects(lang: Locale): Promise<ProjectEntry[]> {
   return (await getProjects(lang)).filter((e) => e.data.tier === 'lab');
 }
+
+export type StatusTone = 'ok' | 'warn' | 'neutral';
+
+export function tone(status: string): StatusTone {
+  if (status === 'published') return 'ok';
+  if (status === 'publishing' || status === 'beta') return 'warn';
+  return 'neutral';
+}
