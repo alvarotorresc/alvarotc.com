@@ -12,37 +12,36 @@ license: MIT
 platform: 'Navegador, en escritorio y móvil'
 stack: [Local-first, TypeScript]
 githubRepo: alvarotorresc/basecero
-icon: '../../../assets/projects/basecero/icon.jpg'
-cover: '../../../assets/projects/basecero/cover.jpg'
-coverMobile: '../../../assets/projects/basecero/cover-mobile.jpg'
+icon: '../../../assets/projects/basecero/icon.png'
+cover: '../../../assets/projects/basecero/cover.png'
+coverMobile: '../../../assets/projects/basecero/home-es.webp'
+promo: '../../../assets/projects/basecero/cover.png'
 playground: { kind: pwa, src: 'https://basecero.alvarotc.com/app/' }
 facts:
   - { label: 'Se instala como app', value: 'PWA, sin conexión' }
   - { label: 'Datos', value: 'En tu dispositivo, sin servidor' }
 screenshots:
-  - src: '../../../assets/projects/basecero/home.jpg'
-    alt: 'Inicio, con el disponible del periodo'
+  - src: '../../../assets/projects/basecero/home-es.webp'
+    alt: 'Pantalla de inicio con el disponible del periodo'
     caption: 'Inicio'
-  - src: '../../../assets/projects/basecero/movements.jpg'
-    alt: 'Lista de movimientos'
+  - src: '../../../assets/projects/basecero/movements-es.webp'
+    alt: 'Lista de movimientos agrupados por día'
     caption: 'Movimientos'
-  - src: '../../../assets/projects/basecero/net-worth.jpg'
-    alt: 'Patrimonio con neto, cuentas y pasivos'
+  - src: '../../../assets/projects/basecero/net-worth-es.webp'
+    alt: 'Patrimonio neto, cuentas y objetivos'
     caption: 'Patrimonio'
-  - src: '../../../assets/projects/basecero/categories.jpg'
-    alt: 'Gasto por categoría con límites'
+  - src: '../../../assets/projects/basecero/categories-es.webp'
+    alt: 'Gasto por categoría, con una fila y un porcentaje por categoría, y Alimentación desplegada con sus subcategorías'
     caption: 'Gasto por categoría'
 featuresIntro: 'Cuentas que siguen tu nómina, no el calendario.'
 features:
   - title: 'De nómina a nómina'
     text: 'Los periodos van de una nómina a la siguiente, no del 1 al 30. Con los recurrentes, ves el disponible real hasta el próximo cobro.'
-    image: '../../../assets/projects/basecero/period.jpg'
   - title: 'Gastos compartidos'
     text: 'En las dos direcciones: lo que debes y lo que te deben. Cuando se salda, pulsas Liquidar.'
-    image: '../../../assets/projects/basecero/shared.jpg'
   - title: 'Patrimonio'
     text: 'El neto, tus cuentas, los pasivos y los objetivos, en una sola vista.'
-    image: '../../../assets/projects/basecero/net-worth.jpg'
+    image: '../../../assets/projects/basecero/net-worth-es.webp'
   - title: 'Registrar rápido'
     text: 'Una pantalla con cinco tipos de apunte.'
   - title: 'Categorías con límites'
@@ -51,7 +50,7 @@ features:
     text: 'El de N26 se reconoce solo.'
   - title: 'Español e inglés'
     text: 'Con la moneda y el formato que elijas.'
-illustration: '../../../assets/projects/basecero/icon.jpg'
+illustration: '../../../assets/projects/basecero/icon.png'
 built:
   - 'JavaScript, sin servidor.'
   - 'Local-first: todos los datos viven en tu dispositivo.'
@@ -60,7 +59,11 @@ built:
   - 'Exporta a un fichero plano que es tuyo.'
   - 'Software libre bajo MIT, código en [github.com/alvarotorresc/basecero](https://github.com/alvarotorresc/basecero).'
 changelog:
-  - { version: 'v1.0.0', date: 2026-09-02, note: '[DATO]' }
+  - {
+      version: 'v1.0.0',
+      date: 2026-09-02,
+      note: 'La primera versión para compartir. BaseCero ya se instala desde el navegador de cualquiera y funciona sin conexión, sin cuentas y sin nube.',
+    }
 ---
 
 Finanzas personales local-first. Sin servidor, sin cuenta, exportación a fichero plano.
