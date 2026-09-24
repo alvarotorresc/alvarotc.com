@@ -78,15 +78,23 @@ changelog:
       date: 2026-09-09,
       note: 'El rediseño completo. En producción para la beta.',
     }
-  - { version: 'v0.3.3', date: 2026-04-09, note: '[DATO]' }
-  - { version: 'v0.3.2', date: 2026-04-09, note: '[DATO]' }
+  - { version: 'v0.3.3', date: 2026-04-09, note: 'Mejora la UI y corrige la exportación a ICS.' }
+  - {
+      version: 'v0.3.2',
+      date: 2026-04-09,
+      note: 'Eventos en línea, fix de crash en producción y estabilidad de color de miembro.',
+    }
   - { version: 'v0.3.1', date: 2026-04-05, note: '[DATO]' }
   - { version: 'v0.3.0', date: 2026-04-05, note: '[DATO]' }
   - { version: 'v0.2.5', date: 2026-03-27, note: '[DATO]' }
-  - { version: 'v0.2.4', date: 2026-03-26, note: '[DATO]' }
+  - { version: 'v0.2.4', date: 2026-03-26, note: 'Hotfix de CSP/CORS y mejoras de observabilidad.' }
   - { version: 'v0.2.3', date: 2026-03-18, note: '[DATO]' }
   - { version: 'v0.2.2', date: 2026-03-17, note: '[DATO]' }
-  - { version: 'v0.2.1', date: 2026-03-12, note: '[DATO]' }
+  - {
+      version: 'v0.2.1',
+      date: 2026-03-12,
+      note: 'Auth con Supabase, i18n, calendario, grupos y toggle de tema.',
+    }
 mock: false
 ---
 
