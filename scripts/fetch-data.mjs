@@ -14,26 +14,26 @@ const env = process.env;
  * @param {string} name
  * @param {boolean} ready
  * @param {() => Promise<T>} run
- * @returns {Promise<T | null>}
+ * @returns {Promise<{ data: T | null; failed: boolean }>}
  */
 async function source(name, ready, run) {
   if (!ready) {
     console.log(`${name}: skipped, missing credentials`);
-    return null;
+    return { data: null, failed: false };
   }
   try {
     const data = await run();
     console.log(`${name}: ok`);
-    return data;
+    return { data, failed: false };
   } catch (error) {
     console.log(`${name}: failed, ${error instanceof Error ? error.message : error}`);
-    return null;
+    return { data: null, failed: true };
   }
 }
 
 const umamiWebsiteId = env.UMAMI_WEBSITE_ID || env.PUBLIC_UMAMI_WEBSITE_ID;
 
-const github = await source('github', Boolean(env.GITHUB_TOKEN), () =>
+const githubResult = await source('github', Boolean(env.GITHUB_TOKEN), () =>
   fetchGithub({
     token: env.GITHUB_TOKEN ?? '',
     login: githubLogin(readFileSync(join(root, 'site.config.ts'), 'utf8')),
@@ -41,7 +41,7 @@ const github = await source('github', Boolean(env.GITHUB_TOKEN), () =>
   }),
 );
 
-const umami = await source('umami', Boolean(env.UMAMI_API_KEY && umamiWebsiteId), () =>
+const umamiResult = await source('umami', Boolean(env.UMAMI_API_KEY && umamiWebsiteId), () =>
   fetchUmami({
     apiKey: env.UMAMI_API_KEY ?? '',
     websiteId: umamiWebsiteId ?? '',
@@ -52,7 +52,17 @@ const umami = await source('umami', Boolean(env.UMAMI_API_KEY && umamiWebsiteId)
 );
 
 try {
-  writeStats(output, buildStats({ github, umami, previous: readStats(output), now }));
+  writeStats(
+    output,
+    buildStats({
+      github: githubResult.data,
+      umami: umamiResult.data,
+      previous: readStats(output),
+      now,
+      githubFailed: githubResult.failed,
+      umamiFailed: umamiResult.failed,
+    }),
+  );
   console.log(`wrote ${output}`);
 } catch (error) {
   console.error(`could not write ${output}: ${error instanceof Error ? error.message : error}`);

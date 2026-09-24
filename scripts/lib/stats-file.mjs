@@ -33,16 +33,44 @@ function withoutDate(data) {
  *   umami: StatsFile['umami'];
  *   previous: StatsFile | null;
  *   now: Date;
+ *   githubFailed?: boolean;
+ *   umamiFailed?: boolean;
  * }} input
  * @returns {StatsFile}
  */
-export function buildStats({ github, umami, previous, now }) {
+export function buildStats({
+  github,
+  umami,
+  previous,
+  now,
+  githubFailed = false,
+  umamiFailed = false,
+}) {
+  let resolvedGithub = github;
+  let usedFallback = false;
+  if (resolvedGithub === null && githubFailed && previous?.github) {
+    console.log('kept previous github data');
+    resolvedGithub = previous.github;
+    usedFallback = true;
+  }
+  let resolvedUmami = umami;
+  if (resolvedUmami === null && umamiFailed && previous?.umami) {
+    console.log('kept previous umami data');
+    resolvedUmami = previous.umami;
+    usedFallback = true;
+  }
+
   const next = {
-    generatedAt: github || umami ? now.toISOString() : null,
-    github,
-    umami,
+    generatedAt: resolvedGithub || resolvedUmami ? now.toISOString() : null,
+    github: resolvedGithub,
+    umami: resolvedUmami,
   };
-  if (next.generatedAt && previous?.generatedAt && withoutDate(previous) === withoutDate(next)) {
+  if (
+    !usedFallback &&
+    next.generatedAt &&
+    previous?.generatedAt &&
+    withoutDate(previous) === withoutDate(next)
+  ) {
     return { ...next, generatedAt: previous.generatedAt };
   }
   return next;
