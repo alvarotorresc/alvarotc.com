@@ -6,8 +6,9 @@ interface Props {
   lang: Locale;
   currentPath: string;
   alternatePath?: string;
+  analytics: boolean;
 }
-const { lang, currentPath, alternatePath } = Astro.props;
+const { lang, currentPath, alternatePath, analytics } = Astro.props;
 const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 ---
 
@@ -15,7 +16,7 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
   <div
     class="container-page flex flex-col gap-3 py-6 pb-10 text-[13px] text-faint md:flex-row md:items-center md:justify-between"
   >
-    <span>{t('footer.privacy', lang)}</span>
+    <span>{t(analytics ? 'footer.privacy' : 'footer.privacyNoAnalytics', lang)}</span>
     <div class="flex gap-4">
       <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
       <a href={lang === 'es' ? '/es/rss.xml' : '/rss.xml'} class="hover:text-text">RSS</a>
