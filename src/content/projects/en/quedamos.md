@@ -74,15 +74,23 @@ built:
   - 'Web on [Vercel](https://vercel.com); API in Docker.'
 changelog:
   - { version: 'v1.0.0', date: 2026-09-09, note: 'The full redesign. In production for the beta.' }
-  - { version: 'v0.3.3', date: 2026-04-09, note: '[DATO]' }
-  - { version: 'v0.3.2', date: 2026-04-09, note: '[DATO]' }
+  - { version: 'v0.3.3', date: 2026-04-09, note: 'UI improvements and an ICS export fix.' }
+  - {
+      version: 'v0.3.2',
+      date: 2026-04-09,
+      note: 'Online events, a production crash fix, and member color stability.',
+    }
   - { version: 'v0.3.1', date: 2026-04-05, note: '[DATO]' }
   - { version: 'v0.3.0', date: 2026-04-05, note: '[DATO]' }
   - { version: 'v0.2.5', date: 2026-03-27, note: '[DATO]' }
-  - { version: 'v0.2.4', date: 2026-03-26, note: '[DATO]' }
+  - { version: 'v0.2.4', date: 2026-03-26, note: 'CSP/CORS hotfix and observability improvements.' }
   - { version: 'v0.2.3', date: 2026-03-18, note: '[DATO]' }
   - { version: 'v0.2.2', date: 2026-03-17, note: '[DATO]' }
-  - { version: 'v0.2.1', date: 2026-03-12, note: '[DATO]' }
+  - {
+      version: 'v0.2.1',
+      date: 2026-03-12,
+      note: 'Supabase auth, i18n, calendar, groups, and theme toggle.',
+    }
 mock: false
 ---
 
