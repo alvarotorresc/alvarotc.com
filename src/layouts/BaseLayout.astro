@@ -14,14 +14,24 @@ import { getExperience, hasMockExperience } from '../lib/experience';
 import { mirroredPath } from '../lib/i18n-paths';
 import { t, type Locale } from '../i18n/translations';
 
+interface HreflangLink {
+  lang: string;
+  href: string;
+}
+
 interface Props {
   title: string;
   description?: string;
   image?: string;
   type?: 'website' | 'article';
   publishedTime?: string;
+  modifiedTime?: string;
+  tags?: string[];
+  markdownAlternate?: string;
   lang?: Locale;
   alternatePath?: string;
+  hreflangLinks?: HreflangLink[];
+  ogLocaleAlternate?: string | null;
   jsonLd?: Record<string, unknown>;
 }
 
@@ -31,8 +41,12 @@ const {
   image = '/og-default.png',
   type = 'website',
   publishedTime,
+  modifiedTime,
+  tags,
+  markdownAlternate,
   lang = currentPath.startsWith('/es') ? 'es' : 'en',
   alternatePath,
+  hreflangLinks,
   jsonLd,
 } = Astro.props;
 const description = Astro.props.description ?? getDescription(lang);
@@ -47,6 +61,18 @@ const alternate = alternatePath ?? mirroredPath(lang, currentPath);
 const alternateURL = new URL(alternate, Astro.site);
 const experienceVisible = !hasMockExperience(await getExperience());
 
+const links: HreflangLink[] = hreflangLinks ?? [
+  { lang: lang === 'es' ? 'en' : 'es', href: alternateURL.toString() },
+];
+
+const ogLocale = lang === 'es' ? 'es_ES' : 'en_US';
+const ogLocaleAlternate =
+  'ogLocaleAlternate' in Astro.props
+    ? Astro.props.ogLocaleAlternate
+    : lang === 'es'
+      ? 'en_US'
+      : 'es_ES';
+
 const defaultJsonLd = {
   '@context': 'https://schema.org',
   '@type': type === 'article' ? 'BlogPosting' : 'WebSite',
@@ -54,7 +80,7 @@ const defaultJsonLd = {
   description,
   url: canonicalURL.toString(),
   image: ogImage.toString(),
-  author: { '@type': 'Person', name: author.name, url: 'https://alvarotc.com' },
+  author: { '@type': 'Person', name: author.name, url: new URL('/', Astro.site).toString() },
   ...(publishedTime && { datePublished: publishedTime }),
 };
 ---
@@ -69,7 +95,8 @@ const defaultJsonLd = {
     <link rel="manifest" href="/manifest.json" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href={manropeLatin} />
     <link rel="canonical" href={canonicalURL} />
-    <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={alternateURL} />
+    {links.map((l) => <link rel="alternate" hreflang={l.lang} href={l.href} />)}
+    {markdownAlternate && <link rel="alternate" type="text/markdown" href={markdownAlternate} />}
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -87,7 +114,12 @@ const defaultJsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={ogLocale} />
+    {ogLocaleAlternate && <meta property="og:locale:alternate" content={ogLocaleAlternate} />}
     {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {type === 'article' && <meta property="article:author" content={author.name} />}
+    {tags && tags.map((tag) => <meta property="article:tag" content={tag} />)}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

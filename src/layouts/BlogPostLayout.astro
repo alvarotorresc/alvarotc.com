@@ -7,7 +7,8 @@ import PostNav from '../components/blog/PostNav.astro';
 import Tag from '../components/ui/Tag.astro';
 import { t, type Locale } from '../i18n/translations';
 import { formatDate, getReadingTime } from '../lib/utils';
-import type { PostEntry } from '../lib/posts';
+import { markdownPath, type PostEntry } from '../lib/posts';
+import { blogPostingJsonLd } from '../lib/jsonld';
 
 interface Props {
   post: PostEntry;
@@ -21,10 +22,37 @@ interface Props {
 
 const { post, lang, alternatePath, hasTranslation, headings, prev, next } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
-const { title, description, date, tags } = post.data;
+const { title, description, date, updated, tags } = post.data;
 const image = post.data.image || `/og/${post.id}.png`;
 const readingTime = getReadingTime(post.body ?? '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(image, Astro.site).toString();
+const modifiedISO = (updated ?? date).toISOString();
+const wordCount = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const markdownURL = new URL(markdownPath(post, lang), Astro.site).toString();
+
+const alternateURL = new URL(alternatePath, Astro.site).toString();
+const otherLang = lang === 'es' ? 'en' : 'es';
+const hreflangLinks = hasTranslation
+  ? [
+      { lang, href: canonicalURL },
+      { lang: otherLang, href: alternateURL },
+      { lang: 'x-default', href: lang === 'en' ? canonicalURL : alternateURL },
+    ]
+  : [
+      { lang, href: canonicalURL },
+      { lang: 'x-default', href: canonicalURL },
+    ];
+const ogLocaleAlternate = hasTranslation ? (lang === 'es' ? 'en_US' : 'es_ES') : null;
+
+const jsonLd = blogPostingJsonLd({
+  post,
+  lang,
+  url: canonicalURL,
+  image: ogImageURL,
+  wordCount,
+  readingTimeMinutes: readingTime,
+});
 ---
 
 <BaseLayout
@@ -33,8 +61,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
   image={image}
   type="article"
   publishedTime={date.toISOString()}
+  modifiedTime={modifiedISO}
+  tags={tags}
+  markdownAlternate={markdownURL}
   lang={lang}
   alternatePath={alternatePath}
+  hreflangLinks={hreflangLinks}
+  ogLocaleAlternate={ogLocaleAlternate}
+  jsonLd={jsonLd}
 >
   <div class="container-page py-12 lg:grid lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-12">
     <article class="mx-auto flex w-full max-w-[720px] flex-col gap-8 lg:mx-0">
@@ -47,6 +81,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
         <p class="text-lg leading-relaxed text-muted">{description}</p>
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
           <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+          {
+            updated && (
+              <span>
+                {t('post.updated', lang)}{' '}
+                <time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time>
+              </span>
+            )
+          }
           <span>{readingTime} {t('post.minRead', lang)}</span>
           {
             hasTranslation && (
