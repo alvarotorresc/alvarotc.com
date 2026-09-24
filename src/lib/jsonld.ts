@@ -4,7 +4,7 @@ import type { PostEntry } from './posts';
 import { tagLabel } from './tags';
 
 function personUrl(lang: Locale): string {
-  return lang === 'es' ? `${getDomain()}/es/` : getDomain();
+  return lang === 'es' ? `${getDomain()}/es/` : `${getDomain()}/`;
 }
 
 function personSameAs(author: ReturnType<typeof getAuthor>): string[] {

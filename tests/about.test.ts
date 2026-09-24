@@ -68,6 +68,6 @@ describe('personJsonLd', () => {
   it('builds the Person schema for English', () => {
     const jsonLd = personJsonLd('en') as { jobTitle: string; url: string };
     expect(jsonLd.jobTitle).toBe('Software Engineer');
-    expect(jsonLd.url).toBe('https://alvarotc.com');
+    expect(jsonLd.url).toBe('https://alvarotc.com/');
   });
 });

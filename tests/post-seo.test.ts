@@ -40,7 +40,7 @@ describe.skipIf(!built)('post JSON-LD (BlogPosting)', () => {
       '@id': 'https://alvarotc.com/blog/new-website-new-direction/',
     });
     expect(jsonLd.image).toBe('https://alvarotc.com/og/new-website-new-direction.png');
-    expect(jsonLd.author.url).toBe('https://alvarotc.com');
+    expect(jsonLd.author.url).toBe('https://alvarotc.com/');
     expect(jsonLd.author.sameAs).toHaveLength(3);
     expect(jsonLd.publisher.name).toBe(jsonLd.author.name);
     expect(jsonLd.isPartOf).toEqual({ '@type': 'Blog', '@id': 'https://alvarotc.com/blog/' });
