@@ -1,0 +1,23 @@
+---
+import ProjectHeader from './ProjectHeader.astro';
+import ProjectScreens from './ProjectScreens.astro';
+import ProjectFeatures from './ProjectFeatures.astro';
+import ProjectWhy from './ProjectWhy.astro';
+import ProjectPlayground from './ProjectPlayground.astro';
+import ProjectHistory from './ProjectHistory.astro';
+import type { ProjectView } from '../../lib/project-view';
+
+interface Props {
+  view: ProjectView;
+}
+const { view } = Astro.props;
+---
+
+<div class="container-page" data-project={view.kind}>
+  <ProjectHeader view={view} />
+  <ProjectScreens view={view} />
+  <ProjectFeatures view={view} />
+  <ProjectWhy view={view}><slot /></ProjectWhy>
+  <ProjectPlayground view={view} />
+  <ProjectHistory view={view} />
+</div>
