@@ -2,6 +2,7 @@
 import TopicsFilter from './TopicsFilter.astro';
 import { t, type Locale } from '../../i18n/translations';
 import { formatShortDate } from '../../lib/utils';
+import { formatRange } from '../../lib/pagination';
 
 interface FlatPost {
   slug: string;
@@ -11,6 +12,7 @@ interface FlatPost {
   date: Date;
   readingMinutes: number;
   tags: string[];
+  tagHref: (tag: string) => string;
 }
 
 interface Props {
@@ -18,27 +20,65 @@ interface Props {
   posts: FlatPost[];
   tags: { tag: string; count: number }[];
   rssHref: string;
+  title?: string;
+  languageTotal: number;
+  scopeTotal: number;
+  rangeStart: number;
+  rangeEnd: number;
+  allHref: string;
+  topicHref: (tag: string) => string;
+  activeTag?: string;
+  page: number;
+  totalPages: number;
+  prevHref?: string;
+  nextHref?: string;
 }
 
-const { lang, posts, tags, rssHref } = Astro.props;
-const total = posts.length;
-const countOfTemplate = t('writing.countOf', lang);
-const initialCountOf = countOfTemplate
-  .replace('{shown}', String(total))
-  .replace('{total}', String(total));
+const {
+  lang,
+  posts,
+  tags,
+  rssHref,
+  title,
+  languageTotal,
+  scopeTotal,
+  rangeStart,
+  rangeEnd,
+  allHref,
+  topicHref,
+  activeTag,
+  page,
+  totalPages,
+  prevHref,
+  nextHref,
+} = Astro.props;
+
+const heading = title ?? t('writing.title', lang);
+const headerCount = t('writing.count', lang);
+const rangeLabel = t('writing.rangeOf', lang)
+  .replace('{range}', formatRange(rangeStart, rangeEnd))
+  .replace('{total}', String(scopeTotal));
+const pageOfLabel = t('writing.pageOf', lang)
+  .replace('{page}', String(page))
+  .replace('{total}', String(totalPages));
 ---
 
-<div class="flex flex-col gap-8" data-post-list>
+<div class="flex flex-col gap-8">
   <header class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
     <div class="flex items-baseline gap-3">
-      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('writing.title', lang)}</h1>
-      <p class="text-muted">
-        <span data-header-count>{total}</span>{' '}
-        {t('writing.count', lang)}
-      </p>
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{heading}</h1>
+      <p class="text-muted"><span class="font-mono">{languageTotal}</span> {headerCount}</p>
     </div>
     <div class="flex items-center gap-2">
-      <TopicsFilter lang={lang} tags={tags} total={total} class="flex-1 sm:flex-none" />
+      <TopicsFilter
+        lang={lang}
+        tags={tags}
+        total={languageTotal}
+        allHref={allHref}
+        topicHref={topicHref}
+        activeTag={activeTag}
+        class="flex-1 sm:flex-none"
+      />
       <a href={rssHref} class="btn-secondary h-10 shrink-0 gap-2">
         <svg
           width="16"
@@ -60,11 +100,10 @@ const initialCountOf = countOfTemplate
     </div>
   </header>
 
-  <section aria-label={t('writing.title', lang)} class="flex flex-col">
+  <section aria-label={heading} class="flex flex-col">
     {
       posts.map((post, i) => (
         <article
-          data-tags={post.tags.join(' ')}
           class:list={[
             'grid grid-cols-1 gap-2 border-t border-border md:grid-cols-[160px_minmax(0,1fr)] md:gap-8',
             i === 0 ? 'py-8' : 'py-6',
@@ -91,7 +130,7 @@ const initialCountOf = countOfTemplate
             {post.tags.length > 0 && (
               <div class="flex flex-wrap gap-x-3.5 gap-y-1 font-mono text-[13px] text-faint">
                 {post.tags.map((tag) => (
-                  <a href={`?tag=${tag}`} data-filter-tag={tag} class="hover:text-text">
+                  <a href={post.tagHref(tag)} class="hover:text-text">
                     {tag}
                   </a>
                 ))}
@@ -109,92 +148,53 @@ const initialCountOf = countOfTemplate
         </article>
       ))
     }
-    <div class="flex items-center justify-between pt-5 text-[13px]">
-      <span
-        class="font-mono text-faint"
-        data-footer-count
-        data-template={countOfTemplate}
-        data-total={total}
-      >
-        {initialCountOf}
-      </span>
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-5 text-[13px]">
+      <span class="font-mono text-faint">{rangeLabel}</span>
+      {
+        totalPages > 1 && (
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-faint">{pageOfLabel}</span>
+            <div class="flex items-center gap-2">
+              {prevHref && (
+                <a href={prevHref} rel="prev" class="btn-secondary h-9 gap-1.5 px-3">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                  <span>{t('writing.pagePrev', lang)}</span>
+                </a>
+              )}
+              {nextHref && (
+                <a href={nextHref} rel="next" class="btn-secondary h-9 gap-1.5 px-3">
+                  <span>{t('writing.pageNext', lang)}</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        )
+      }
     </div>
   </section>
 </div>
-
-<script>
-  function apply(tag: string) {
-    const root = document.querySelector<HTMLElement>('[data-post-list]');
-    if (!root) return;
-
-    const panelButtons = root.querySelectorAll<HTMLButtonElement>(
-      '[data-tag-filter] button[data-tag]',
-    );
-    const articles = root.querySelectorAll<HTMLElement>('article[data-tags]');
-    const summary = root.querySelector<HTMLElement>('[data-topics-filter] summary');
-    const label = summary?.querySelector<HTMLElement>('[data-label]');
-    const clearBtn = root.querySelector<HTMLButtonElement>('[data-clear-filter]');
-    const headerCount = root.querySelector<HTMLElement>('[data-header-count]');
-    const footerCount = root.querySelector<HTMLElement>('[data-footer-count]');
-
-    panelButtons.forEach((button) => {
-      button.setAttribute('aria-pressed', String((button.dataset.tag ?? '') === tag));
-    });
-
-    let shown = 0;
-    articles.forEach((article) => {
-      const tags = (article.dataset.tags ?? '').split(' ');
-      const hide = tag !== '' && !tags.includes(tag);
-      article.hidden = hide;
-      if (!hide) shown += 1;
-    });
-
-    if (headerCount) headerCount.textContent = String(shown);
-
-    if (footerCount) {
-      const template = footerCount.dataset.template ?? '{shown}/{total}';
-      const totalCount = footerCount.dataset.total ?? String(shown);
-      footerCount.textContent = template
-        .replace('{shown}', String(shown))
-        .replace('{total}', totalCount);
-    }
-
-    if (summary && label) {
-      const defaultLabel = summary.dataset.labelDefault ?? '';
-      const activeTemplate = summary.dataset.labelActiveTemplate ?? '{tag}';
-      label.textContent = tag ? activeTemplate.replace('{tag}', tag) : defaultLabel;
-    }
-
-    if (clearBtn) clearBtn.hidden = tag === '';
-  }
-
-  function bind() {
-    const root = document.querySelector<HTMLElement>('[data-post-list]');
-    if (!root || root.dataset.bound) return;
-    root.dataset.bound = 'true';
-
-    root
-      .querySelectorAll<HTMLButtonElement>('[data-tag-filter] button[data-tag]')
-      .forEach((button) => {
-        button.addEventListener('click', () => apply(button.dataset.tag ?? ''));
-      });
-
-    root.querySelectorAll<HTMLAnchorElement>('a[data-filter-tag]').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        apply(link.dataset.filterTag ?? '');
-      });
-    });
-
-    root
-      .querySelector<HTMLButtonElement>('[data-clear-filter]')
-      ?.addEventListener('click', () => apply(''));
-
-    const params = new URLSearchParams(window.location.search);
-    const initialTag = params.get('tag');
-    if (initialTag) apply(initialTag);
-  }
-
-  bind();
-  document.addEventListener('astro:after-swap', bind);
-</script>

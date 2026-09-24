@@ -109,3 +109,19 @@ describe.skipIf(!built)('built project pages', () => {
     expect(html).toContain('alt="Bito"');
   });
 });
+
+describe.skipIf(!built)('built blog topic and pagination routes', () => {
+  it('builds the docker topic page in both languages with its 2 articles', () => {
+    expect(existsSync(join(dist, 'blog/topic/docker/index.html'))).toBe(true);
+    expect(existsSync(join(dist, 'es/blog/tema/docker/index.html'))).toBe(true);
+    const en = page('blog/topic/docker/index.html');
+    const es = page('es/blog/tema/docker/index.html');
+    expect((en.match(/<article/g) ?? []).length).toBe(2);
+    expect((es.match(/<article/g) ?? []).length).toBe(2);
+  });
+
+  it('does not build a second page when there are not enough posts to fill it', () => {
+    expect(existsSync(join(dist, 'blog/2/index.html'))).toBe(false);
+    expect(existsSync(join(dist, 'es/blog/2/index.html'))).toBe(false);
+  });
+});
