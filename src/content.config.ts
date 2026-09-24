@@ -166,7 +166,15 @@ export const aboutSchema = ({ image }: SchemaContext) =>
   z.object({
     title: z.string(),
     intro: z.string(),
-    values: z.array(z.object({ icon: z.string(), title: z.string(), text: z.string() })).min(1),
+    values: z
+      .array(
+        z.object({
+          icon: z.enum(['tux', 'lock', 'cat', 'megaphone']),
+          title: z.string(),
+          text: z.string(),
+        }),
+      )
+      .min(1),
     stages: z.array(stageSchema(image)).min(1),
     mock: z.boolean().default(false),
   });

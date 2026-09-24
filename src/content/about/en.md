@@ -2,16 +2,16 @@
 title: 'Hi, I am Álvaro. I like software that respects the person using it.'
 intro: 'Software engineer in Seville. This is the long version: who I am, where I come from and what I do when I close the laptop.'
 values:
-  - icon: git-fork
+  - icon: tux
     title: 'Free software'
     text: 'Everything I publish is open source. You can read it, build it and fork it.'
-  - icon: shield-check
+  - icon: lock
     title: 'Privacy and security'
     text: 'No accounts when they are not needed, no trackers, and data protected by design.'
-  - icon: paw
+  - icon: cat
     title: 'Animals'
     text: 'Vegan and volunteer at cat shelters. Huellas comes from there.'
-  - icon: pen-line
+  - icon: megaphone
     title: 'Building in public'
     text: 'I document the process on the blog, on video and on social media. What worked, what broke, why.'
 stages:
