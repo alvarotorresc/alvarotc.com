@@ -1,0 +1,158 @@
+---
+import DeviceFrame from './DeviceFrame.astro';
+import BrowserFrame from './BrowserFrame.astro';
+import { t } from '../../i18n/translations';
+import {
+  displayUrl,
+  playgroundNotes,
+  type NotePart,
+  type ProjectView,
+} from '../../lib/project-view';
+
+interface Props {
+  view: ProjectView;
+}
+const { view } = Astro.props;
+const { lang, playground } = view;
+const notes = playgroundNotes(view);
+const phone = view.kind === 'mobile' || view.kind === 'hybrid';
+const web = view.kind === 'web';
+const play = '<path d="M7 4l13 8-13 8z"/>';
+const partClass = (part: NotePart) =>
+  [part.href && 'font-semibold text-accent', part.mono && 'font-mono text-[13px]']
+    .filter(Boolean)
+    .join(' ');
+---
+
+{
+  playground && phone && (
+    <section
+      data-section="playground"
+      class="grid grid-cols-1 gap-10 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
+    >
+      <div class="flex justify-center md:block">
+        <DeviceFrame size="play">
+          <button
+            type="button"
+            data-playground-load
+            data-src={playground.src}
+            data-title={view.name}
+            class="btn-primary gap-2"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={play}
+            />
+            <span>{t('project.loadApp', lang)}</span>
+          </button>
+        </DeviceFrame>
+      </div>
+      <div class="flex flex-col md:pt-2">
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
+        <p class="mb-8 mt-2 max-w-[520px] text-base leading-[1.6] text-muted">
+          {t('project.tryApp', lang)}
+        </p>
+        <ul class="flex max-w-[560px] flex-col">
+          {notes.map((note) => (
+            <li
+              data-note
+              class="flex flex-col gap-1.5 border-t border-border py-[18px] last:border-b"
+            >
+              {note.title && <span class="text-[15px] font-bold">{note.title}</span>}
+              <span class="text-sm leading-[1.6] text-muted">
+                {note.parts.map((part) =>
+                  part.href ? (
+                    <a href={part.href} rel="noopener" class={partClass(part)}>
+                      {part.text}
+                    </a>
+                  ) : part.mono ? (
+                    <span class={partClass(part)}>{part.text}</span>
+                  ) : (
+                    part.text
+                  ),
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+{
+  playground && web && (
+    <section data-section="playground" class="flex flex-col gap-8 border-t border-border py-14">
+      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
+          <p class="max-w-[620px] text-base leading-[1.6] text-muted">
+            {t('project.tryWeb', lang)}
+          </p>
+        </div>
+        {notes.map((note) => (
+          <p data-note class="max-w-[360px] text-sm leading-[1.6] text-muted md:text-right">
+            {note.parts.map((part) =>
+              part.href ? (
+                <a href={part.href} rel="noopener" class={partClass(part)}>
+                  {part.text}
+                </a>
+              ) : (
+                part.text
+              ),
+            )}
+          </p>
+        ))}
+      </div>
+      <BrowserFrame size="play" address={displayUrl(playground.src)}>
+        <button
+          type="button"
+          data-playground-load
+          data-src={playground.src}
+          data-title={view.name}
+          class="btn-primary gap-2"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            set:html={play}
+          />
+          <span>{t('project.loadWeb', lang)}</span>
+        </button>
+      </BrowserFrame>
+    </section>
+  )
+}
+
+<script>
+  function bindPlayground() {
+    document.querySelectorAll<HTMLButtonElement>('[data-playground-load]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = button.dataset.src ?? '';
+        iframe.title = button.dataset.title ?? '';
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms');
+        iframe.className = 'h-full w-full border-0';
+        button.replaceWith(iframe);
+      });
+    });
+  }
+  bindPlayground();
+  document.addEventListener('astro:after-swap', bindPlayground);
+</script>
