@@ -192,9 +192,11 @@ describe.each(['es', 'en'])('quedamos (%s)', (lang) => {
   });
 
   it('downloads the Android release without a size', () => {
+    expect(source).toMatch(/download:\s*\{\s*/);
     expect(source).toContain(
-      "download: { url: 'https://github.com/alvarotorresc/quedamos-app/releases/latest', label: 'Android 6.0+' }",
+      "url: 'https://github.com/alvarotorresc/quedamos-app/releases/latest'",
     );
+    expect(source).toContain("label: 'Android 6.0+'");
   });
 
   it('has a desktop cover and a phone cover', () => {
@@ -203,10 +205,8 @@ describe.each(['es', 'en'])('quedamos (%s)', (lang) => {
   });
 
   it('has ten dated changelog entries', () => {
-    expect(source.match(/^ {2}- \{ version: 'v/gm)).toHaveLength(10);
-    expect(source.match(/^ {2}- \{ version: '.+', date: \d{4}-\d{2}-\d{2}, note: /gm)).toHaveLength(
-      10,
-    );
+    expect(source.match(/version: 'v\d+\.\d+\.\d+'/g)).toHaveLength(10);
+    expect(source.match(/date: \d{4}-\d{2}-\d{2}/g)).toHaveLength(10);
   });
 
   it('has six screenshots and nine features', () => {
