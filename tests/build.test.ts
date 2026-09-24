@@ -81,11 +81,14 @@ describe.skipIf(!built)('built project pages', () => {
     expect(html).toContain('basecero.alvarotc.com/app/');
   });
 
-  it('renders Quedamos without a media block', () => {
+  it('renders Quedamos as a hybrid page with screens and features', () => {
     const html = page('projects/quedamos/index.html');
-    expect(html).not.toContain('data-media=');
+    expect(html).toContain('data-media="hybrid"');
     expect(html).toContain('data-section="why"');
-    ['screens', 'features', 'steps', 'playground'].forEach((section) =>
+    ['screens', 'features'].forEach((section) =>
+      expect(html).toContain(`data-section="${section}"`),
+    );
+    ['steps', 'playground'].forEach((section) =>
       expect(html).not.toContain(`data-section="${section}"`),
     );
   });

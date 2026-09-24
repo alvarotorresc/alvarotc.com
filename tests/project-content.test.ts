@@ -181,8 +181,47 @@ describe.each(['es', 'en'])('huellas (%s)', (lang) => {
   });
 });
 
+describe.each(['es', 'en'])('quedamos (%s)', (lang) => {
+  const source = read(lang, 'quedamos');
+
+  it('is a beta hybrid project under MIT', () => {
+    expect(field(source, 'kind')).toBe('hybrid');
+    expect(field(source, 'status')).toBe('beta');
+    expect(field(source, 'license')).toBe('MIT');
+    expect(field(source, 'url')).toBe('https://quedamos.alvarotc.com');
+  });
+
+  it('downloads the Android release without a size', () => {
+    expect(source).toContain(
+      "download: { url: 'https://github.com/alvarotorresc/quedamos-app/releases/latest', label: 'Android 6.0+' }",
+    );
+  });
+
+  it('has a desktop cover and a phone cover', () => {
+    expect(field(source, 'cover')).toContain('quedamos/calendario.jpg');
+    expect(field(source, 'coverMobile')).toContain('quedamos/grupo.jpg');
+  });
+
+  it('has ten dated changelog entries', () => {
+    expect(source.match(/^ {2}- \{ version: 'v/gm)).toHaveLength(10);
+    expect(source.match(/^ {2}- \{ version: '.+', date: \d{4}-\d{2}-\d{2}, note: /gm)).toHaveLength(
+      10,
+    );
+  });
+
+  it('has six screenshots and nine features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(6);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(9);
+  });
+
+  it('points only at images that exist', () => {
+    const refs = imageRefs(lang, 'quedamos');
+    expect(refs.length).toBeGreaterThan(0);
+    refs.forEach((ref) => expect(existsSync(ref), ref).toBe(true));
+  });
+});
+
 const kinds: [string, string][] = [
-  ['quedamos', 'mobile'],
   ['huellas', 'hybrid'],
   ['devtools', 'web'],
 ];
