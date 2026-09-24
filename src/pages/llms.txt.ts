@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getSiteName, getDescription, getDomain } from '../lib/config';
-import { getPosts, htmlPath } from '../lib/posts';
+import { getPosts, markdownPath } from '../lib/posts';
 import { getProjects, projectSlug } from '../lib/projects';
 import { formatLlmsTxt } from '../lib/llms';
 
@@ -17,12 +17,12 @@ export const GET: APIRoute = async (context) => {
     summary: getDescription('en'),
     articlesEn: postsEn.map((post) => ({
       title: post.data.title,
-      url: new URL(htmlPath(post, 'en'), site).toString(),
+      url: new URL(markdownPath(post, 'en'), site).toString(),
       description: post.data.description,
     })),
     articlesEs: postsEs.map((post) => ({
       title: post.data.title,
-      url: new URL(htmlPath(post, 'es'), site).toString(),
+      url: new URL(markdownPath(post, 'es'), site).toString(),
       description: post.data.description,
     })),
     projects: projectsEn.map((project) => ({

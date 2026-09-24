@@ -1,3 +1,5 @@
+import { tagLabel } from './tags';
+
 export type LlmsLink = { title: string; url: string; description?: string };
 
 export function isoDate(date: Date): string {
@@ -22,24 +24,20 @@ export function formatLlmsTxt(opts: {
           : `- [${link.title}](${link.url})`,
       )
       .join('\n');
-    return `## ${title}\n\n${items}\n`;
+    return `## ${title}\n\n${items}`;
   };
 
-  return [
+  const blocks = [
     `# ${opts.name}`,
-    '',
     `> ${opts.summary}`,
-    '',
     section('Articles', opts.articlesEn),
     section('Artículos (Español)', opts.articlesEs),
     section('Projects', opts.projects),
     section('Pages', opts.pages),
     section('Feeds', opts.feeds),
-  ]
-    .filter((line) => line !== '')
-    .join('\n')
-    .trimEnd()
-    .concat('\n');
+  ].filter((block) => block !== '');
+
+  return blocks.join('\n\n').concat('\n');
 }
 
 export type LlmsFullEntry = {
@@ -50,6 +48,7 @@ export type LlmsFullEntry = {
   tags: string[];
   description: string;
   body: string;
+  lang: 'en' | 'es';
 };
 
 function formatLlmsFullEntry(entry: LlmsFullEntry): string {
@@ -59,7 +58,7 @@ function formatLlmsFullEntry(entry: LlmsFullEntry): string {
     `URL: ${entry.url}`,
     `Date: ${isoDate(entry.date)}`,
     `Updated: ${isoDate(entry.updated ?? entry.date)}`,
-    `Tags: ${entry.tags.join(', ')}`,
+    `Tags: ${entry.tags.map((tag) => tagLabel(tag, entry.lang)).join(', ')}`,
     `Description: ${entry.description}`,
   ].join('\n');
   return `${header}\n\n${entry.body.trim()}\n`;
@@ -88,7 +87,7 @@ export function buildPostMarkdown(input: PostMarkdownInput): string {
     `description: ${JSON.stringify(input.description)}`,
     `date: ${JSON.stringify(isoDate(input.date))}`,
     `updated: ${JSON.stringify(isoDate(input.updated ?? input.date))}`,
-    `tags: [${input.tags.map((tag) => JSON.stringify(tag)).join(', ')}]`,
+    `tags: [${input.tags.map((tag) => JSON.stringify(tagLabel(tag, input.language))).join(', ')}]`,
     `canonical: ${JSON.stringify(input.canonical)}`,
     `language: ${JSON.stringify(input.language)}`,
   ];
