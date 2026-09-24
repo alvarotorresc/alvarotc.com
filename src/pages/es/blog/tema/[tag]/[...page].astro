@@ -3,7 +3,7 @@ import BaseLayout from '../../../../../layouts/BaseLayout.astro';
 import PostList from '../../../../../components/blog/PostList.astro';
 import { t } from '../../../../../i18n/translations';
 import { getReadingTime } from '../../../../../lib/utils';
-import { getPosts, tagCounts } from '../../../../../lib/posts';
+import { getPosts, htmlPath, tagCounts } from '../../../../../lib/posts';
 import {
   paginateItems,
   pagePath,
@@ -11,6 +11,8 @@ import {
   topicBasePath,
   otherLangPageNumber,
 } from '../../../../../lib/pagination';
+import { collectionPageJsonLd } from '../../../../../lib/jsonld';
+import { tagLabel } from '../../../../../lib/tags';
 
 const lang = 'es';
 const otherLang = 'en';
@@ -47,7 +49,7 @@ const otherBlogBase = blogBasePath(otherLang);
 
 const flatPosts = current.items.map((post) => ({
   slug: post.id,
-  href: `/es/blog/${post.id}`,
+  href: htmlPath(post, lang),
   title: post.data.title,
   description: post.data.description,
   date: post.data.date,
@@ -59,18 +61,41 @@ const flatPosts = current.items.map((post) => ({
 const prevHref = pageNum > 1 ? pagePath(base, pageNum - 1) : undefined;
 const nextHref = pageNum < totalPages ? pagePath(base, pageNum + 1) : undefined;
 
-const heading = t('writing.topicTitle', lang).replace('{tag}', tag);
+const label = tagLabel(tag, lang);
+const heading = t('writing.topicTitle', lang).replace('{tag}', label);
 const titleSuffix =
   pageNum > 1 ? t('writing.titlePageSuffix', lang).replace('{page}', String(pageNum)) : '';
 const pageTitle = `${heading}${titleSuffix}`;
+const description = t('writing.topicDescription', lang)
+  .replace('{n}', String(scoped.length))
+  .replace('{tag}', label);
 
 const otherHasTag = otherTags.some((ot) => ot.tag === tag);
 const alternatePath = otherHasTag
   ? pagePath(otherBase, otherLangPageNumber(pageNum, otherPages.length))
   : otherBlogBase;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const jsonLd = collectionPageJsonLd({
+  lang,
+  title: pageTitle,
+  description,
+  url: canonicalURL,
+  posts: current.items.map((post) => ({
+    headline: post.data.title,
+    url: new URL(htmlPath(post, lang), Astro.site).toString(),
+  })),
+});
 ---
 
-<BaseLayout title={pageTitle} lang={lang} alternatePath={alternatePath}>
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  lang={lang}
+  alternatePath={alternatePath}
+  prevHref={prevHref}
+  nextHref={nextHref}
+  jsonLd={jsonLd}
+>
   <div class="container-page py-14">
     <PostList
       lang={lang}
