@@ -45,6 +45,17 @@ const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
 
 <script>
   function bindPostSidebarScrollSpy() {
+    const win = window as unknown as {
+      __postSidebarObserver?: IntersectionObserver;
+      __postSidebarScrollHandler?: () => void;
+    };
+    win.__postSidebarObserver?.disconnect();
+    win.__postSidebarObserver = undefined;
+    if (win.__postSidebarScrollHandler) {
+      window.removeEventListener('scroll', win.__postSidebarScrollHandler);
+      win.__postSidebarScrollHandler = undefined;
+    }
+
     const nav = document.querySelector('[data-toc]');
     if (!nav) return;
     const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
@@ -79,15 +90,6 @@ const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
         }
       });
     };
-
-    const win = window as unknown as {
-      __postSidebarObserver?: IntersectionObserver;
-      __postSidebarScrollHandler?: () => void;
-    };
-    win.__postSidebarObserver?.disconnect();
-    if (win.__postSidebarScrollHandler) {
-      window.removeEventListener('scroll', win.__postSidebarScrollHandler);
-    }
 
     // The active heading is the last one (in document order) that has
     // already crossed the reading line near the top of the viewport,
