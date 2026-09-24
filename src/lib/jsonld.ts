@@ -1,6 +1,7 @@
 import { getAuthor, getDomain } from './config';
 import type { Locale } from '../i18n/translations';
 import type { PostEntry } from './posts';
+import { tagLabel } from './tags';
 
 function personUrl(lang: Locale): string {
   return lang === 'es' ? `${getDomain()}/es/` : getDomain();
@@ -61,7 +62,7 @@ export function blogPostingJsonLd({
     description,
     datePublished: date.toISOString(),
     dateModified: (updated ?? date).toISOString(),
-    keywords: tags.join(', '),
+    keywords: tags.map((tag) => tagLabel(tag, lang)).join(', '),
     inLanguage: lang,
     wordCount,
     timeRequired: `PT${readingTimeMinutes}M`,
@@ -73,6 +74,45 @@ export function blogPostingJsonLd({
     isPartOf: {
       '@type': 'Blog',
       '@id': `${domain}${lang === 'es' ? '/es' : ''}/blog/`,
+    },
+  };
+}
+
+interface CollectionPageArgs {
+  lang: Locale;
+  title: string;
+  description: string;
+  url: string;
+  posts: { headline: string; url: string }[];
+}
+
+export function collectionPageJsonLd({
+  lang,
+  title,
+  description,
+  url,
+  posts,
+}: CollectionPageArgs): Record<string, unknown> {
+  const domain = getDomain();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url,
+    inLanguage: lang,
+    isPartOf: {
+      '@type': 'Blog',
+      '@id': `${domain}${lang === 'es' ? '/es' : ''}/blog/`,
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: posts.map((post, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: post.url,
+        name: post.headline,
+      })),
     },
   };
 }
