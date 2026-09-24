@@ -18,13 +18,11 @@ describe('StackStats', () => {
         heatmapWeeks: heatmapWeeks(26),
       },
     });
-    expect(html).toContain('2,054');
-    expect(html).toContain('commits this year');
-    expect(html).toContain('5');
-    expect(html).toContain('posts published');
-    expect(html).toContain('2');
-    expect(html).toContain('apps in the wild');
+    expect(html).toMatch(/>2,054<\/span><span class="text-sm text-muted"[^>]*>commits this year</);
+    expect(html).toMatch(/>5<\/span><span class="text-sm text-muted"[^>]*>articles published</);
+    expect(html).toMatch(/>2<\/span><span class="text-sm text-muted"[^>]*>apps in the wild</);
     expect(html.match(/stack-stats-heatmap-cell/g)?.length).toBe(26 * 7);
+    expect(html).toContain('Contribution activity over the last 6 months');
   });
 
   it('formats numbers with Spanish grouping', async () => {
@@ -50,8 +48,8 @@ describe('StackStats', () => {
     });
     expect(html).not.toContain('stack-stats-heatmap-cell');
     expect(html).not.toContain('commits this year');
-    expect(html).toContain('posts published');
-    expect(html).toContain('apps in the wild');
+    expect(html).toMatch(/>5<\/span><span class="text-sm text-muted"[^>]*>articles published</);
+    expect(html).toMatch(/>2<\/span><span class="text-sm text-muted"[^>]*>apps in the wild</);
     expect(html.match(/class="[^"]*font-mono[^"]*"/g)?.length).toBe(2);
   });
 

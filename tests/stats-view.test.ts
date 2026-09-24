@@ -177,3 +177,102 @@ describe('StatsView, writing with no posts', () => {
     expect(html).not.toContain('[n]');
   });
 });
+
+describe('buildStatsView, languages', () => {
+  it('assigns 4 distinct tones to the real languages and isolates "other"', () => {
+    const view = buildStatsView({
+      stats: { generatedAt: null, github: githubBase, umami: umamiBase },
+      writing,
+      lang: 'es',
+      now,
+      githubUrl: 'https://github.com/alvarotorresc',
+      analytics: false,
+    });
+    const languages = view.code!.languages;
+    expect(languages.map((l) => l.isOther)).toEqual([false, false, false, true]);
+    expect(languages.map((l) => l.tone)).toEqual([0, 1, 2, 0]);
+    const toneSet = new Set(languages.filter((l) => !l.isOther).map((l) => l.tone));
+    expect(toneSet.size).toBe(3);
+  });
+});
+
+describe('buildStatsView, heatmap month labels', () => {
+  it('never places two labels closer than 3 columns apart', () => {
+    const view = buildStatsView({
+      stats: { generatedAt: null, github: githubBase, umami: umamiBase },
+      writing,
+      lang: 'es',
+      now,
+      githubUrl: 'https://github.com/alvarotorresc',
+      analytics: false,
+    });
+    const columns = view.code!.heatmap.monthLabels.map((m) => m.column);
+    for (let i = 1; i < columns.length; i++) {
+      expect(columns[i] - columns[i - 1]).toBeGreaterThanOrEqual(3);
+    }
+  });
+});
+
+describe('buildStatsView, topic sizes', () => {
+  it('scales topic size by count / maxCount into 3 tiers', () => {
+    const skewedWriting: WritingStats = {
+      posts: 4,
+      words: 1000,
+      topics: [
+        { tag: 'docker', count: 3 },
+        { tag: 'foss', count: 2 },
+        { tag: 'vps', count: 1 },
+      ],
+    };
+    const view = buildStatsView({
+      stats: { generatedAt: null, github: githubBase, umami: umamiBase },
+      writing: skewedWriting,
+      lang: 'es',
+      now,
+      githubUrl: 'https://github.com/alvarotorresc',
+      analytics: false,
+    });
+    // count === 1 is filtered out into "other topics", leaving [3, 2]
+    expect(view.writing.topics.map((t) => t.count)).toEqual([3, 2]);
+    const [big, small] = view.writing.topics;
+    expect(big.size).toBeGreaterThan(small.size);
+    expect(new Set(view.writing.topics.map((t) => t.size)).size).toBe(2);
+  });
+});
+
+describe('buildStatsView, bursty vs steady contributions copy', () => {
+  it('uses the bursty phrasing when active days are below 35% of the year', () => {
+    const view = buildStatsView({
+      stats: { generatedAt: null, github: githubBase, umami: umamiBase },
+      writing,
+      lang: 'es',
+      now,
+      githubUrl: 'https://github.com/alvarotorresc',
+      analytics: false,
+    });
+    const text = view.code!.contributionsIntro.map((p) => p.text).join('');
+    expect(text).toContain('a ráfagas');
+  });
+
+  it('uses the neutral phrasing when active days reach 35% of the year or more', () => {
+    const steadyContributions = Array.from({ length: 200 }, (_, i) => ({
+      date: new Date(Date.UTC(2026, 0, 1) + i * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+      count: 1,
+    }));
+    const view = buildStatsView({
+      stats: {
+        generatedAt: null,
+        github: { ...githubBase, contributions: steadyContributions },
+        umami: umamiBase,
+      },
+      writing,
+      lang: 'es',
+      now,
+      githubUrl: 'https://github.com/alvarotorresc',
+      analytics: false,
+    });
+    const text = view.code!.contributionsIntro.map((p) => p.text).join('');
+    expect(text).not.toContain('a ráfagas');
+    expect(text).not.toContain('solo');
+  });
+});
