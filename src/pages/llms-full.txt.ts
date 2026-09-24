@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getDomain } from '../lib/config';
+import { getDomain, getSiteName, getDescription } from '../lib/config';
 import { getPosts, htmlPath } from '../lib/posts';
 import { formatLlmsFull } from '../lib/llms';
 
@@ -18,6 +18,7 @@ export const GET: APIRoute = async (context) => {
       body: post.body ?? '',
       lang: 'en',
     })),
+    { name: getSiteName(), summary: getDescription('en'), lang: 'en' },
   );
 
   return new Response(text, { headers: { 'Content-Type': 'text/markdown; charset=utf-8' } });
