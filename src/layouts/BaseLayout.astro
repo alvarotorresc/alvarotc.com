@@ -56,6 +56,7 @@ const {
   noindex,
 } = Astro.props;
 const description = Astro.props.description ?? getDescription(lang);
+const umamiWebsiteId: string | undefined = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID || undefined;
 
 const canonicalURL = new URL(currentPath, Astro.site);
 const ogImage = new URL(image, Astro.site);
@@ -167,10 +168,16 @@ const defaultJsonLd = {
 
     <ClientRouter />
     <Analytics />
-    <script
-      defer
-      src="https://analytics.alvarotc.com/script.js"
-      data-website-id="4dc00bab-7da7-488d-b399-299d751b6801"></script>
+    {
+      umamiWebsiteId && (
+        <script
+          is:inline
+          defer
+          src="https://analytics.alvarotc.com/script.js"
+          data-website-id={umamiWebsiteId}
+        />
+      )
+    }
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
     <a
@@ -188,7 +195,12 @@ const defaultJsonLd = {
     <main id="main" class="flex-1">
       <slot />
     </main>
-    <Footer lang={lang} currentPath={currentPath} alternatePath={alternate} />
+    <Footer
+      lang={lang}
+      currentPath={currentPath}
+      alternatePath={alternate}
+      analytics={Boolean(umamiWebsiteId)}
+    />
     <CommandPalette client:idle lang={lang} />
   </body>
 </html>

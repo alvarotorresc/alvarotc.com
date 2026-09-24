@@ -24,6 +24,7 @@ export const translations = {
     'search.kind.post': 'Post',
     'footer.privacy':
       'No cookies, no trackers. Analytics self-hosted with Umami. Source under AGPL.',
+    'footer.privacyNoAnalytics': 'No cookies, no trackers. Source under AGPL.',
     'footer.lang': 'Español',
     'footer.source': 'Source',
     'hero.intro':
@@ -247,6 +248,7 @@ export const translations = {
     'search.kind.post': 'Post',
     'footer.privacy':
       'Sin cookies ni rastreadores. Analítica autoalojada con Umami. Código bajo AGPL.',
+    'footer.privacyNoAnalytics': 'Sin cookies ni rastreadores. Código bajo AGPL.',
     'footer.lang': 'English',
     'footer.source': 'Código',
     'hero.intro':
