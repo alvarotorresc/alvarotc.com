@@ -29,6 +29,11 @@ const routes = [
   'search.json',
   '404.html',
   'es/404/index.html',
+  'llms.txt',
+  'llms-full.txt',
+  'es/llms-full.txt',
+  'blog/new-website-new-direction.md',
+  'es/blog/nueva-web-nuevo-rumbo.md',
 ];
 
 const experienceDir = resolve('src/content/experience');
