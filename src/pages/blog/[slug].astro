@@ -1,20 +1,27 @@
 ---
 import { render } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
-import { getPosts } from '../../lib/posts';
+import { getPosts, findTranslation, htmlPath } from '../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = await getPosts('en');
-  return posts.map((post, i) => ({
-    params: { slug: post.id },
-    props: { post, prev: posts[i + 1], next: posts[i - 1] },
-  }));
+  const [posts, postsEs] = await Promise.all([getPosts('en'), getPosts('es')]);
+  return posts.map((post, i) => {
+    const translation = findTranslation(post, 'en', posts, postsEs);
+    return {
+      params: { slug: post.id },
+      props: {
+        post,
+        prev: posts[i + 1],
+        next: posts[i - 1],
+        alternatePath: translation ? htmlPath(translation, 'es') : '/es/blog/',
+        hasTranslation: Boolean(translation),
+      },
+    };
+  });
 }
 
-const { post, prev, next } = Astro.props;
+const { post, prev, next, alternatePath, hasTranslation } = Astro.props;
 const { Content, headings } = await render(post);
-const hasTranslation = Boolean(post.data.source);
-const alternatePath = hasTranslation ? `/es/blog/${post.data.source}/` : '/es/blog/';
 ---
 
 <BlogPostLayout
