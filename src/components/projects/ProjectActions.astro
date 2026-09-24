@@ -171,18 +171,18 @@ const openIcon = kind === 'web' ? icons.globe : icons.external;
     document.querySelectorAll<HTMLButtonElement>('[data-copy-command]').forEach((button) => {
       if (button.dataset.bound) return;
       button.dataset.bound = 'true';
-      button.addEventListener('click', async () => {
-        const label = button.querySelector<HTMLElement>('[data-copy-label]');
-        const original = label?.textContent ?? '';
-        try {
-          await navigator.clipboard.writeText(button.dataset.copyCommand ?? '');
-          if (label) label.textContent = button.dataset.copiedLabel ?? original;
-          setTimeout(() => {
-            if (label) label.textContent = original;
-          }, 2000);
-        } catch {
-          /* clipboard unavailable */
-        }
+      const label = button.querySelector<HTMLElement>('[data-copy-label]');
+      const original = label?.textContent ?? '';
+      button.addEventListener('click', () => {
+        navigator.clipboard
+          .writeText(button.dataset.copyCommand ?? '')
+          .then(() => {
+            if (label) label.textContent = button.dataset.copiedLabel ?? original;
+            setTimeout(() => {
+              if (label) label.textContent = original;
+            }, 2000);
+          })
+          .catch(() => undefined);
       });
     });
   }

@@ -150,6 +150,7 @@ const partClass = (part: NotePart) =>
         iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms');
         iframe.className = 'h-full w-full border-0';
         button.replaceWith(iframe);
+        iframe.focus();
       });
     });
   }
