@@ -1,0 +1,50 @@
+[
+  {
+    "url": "http://localhost:37581/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_01.report.html",
+    "jsonPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_01.report.json",
+    "summary": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://localhost:37581/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_14.report.html",
+    "jsonPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_14.report.json",
+    "summary": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://localhost:37581/",
+    "isRepresentativeRun": false,
+    "htmlPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_27.report.html",
+    "jsonPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_-2026_09_24_05_12_27.report.json",
+    "summary": {
+      "performance": 0.99,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  },
+  {
+    "url": "http://localhost:37581/es/",
+    "isRepresentativeRun": true,
+    "htmlPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_es_-2026_09_24_05_12_52.report.html",
+    "jsonPath": "/home/runner/work/alvarotc-web/alvarotc-web/lighthouse/mobile/localhost-_es_-2026_09_24_05_12_52.report.json",
+    "summary": {
+      "performance": 0.93,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    }
+  }
+]
