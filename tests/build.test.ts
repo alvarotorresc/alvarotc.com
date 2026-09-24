@@ -110,6 +110,91 @@ describe.skipIf(!built)('built project pages', () => {
   });
 });
 
+describe.skipIf(!built)('blog index and topic pages: hreflang, description and JSON-LD', () => {
+  it('declares self-referential en/es/x-default hreflang on /blog/', () => {
+    const html = page('blog/index.html');
+    expect(html).toContain(
+      '<link rel="alternate" hreflang="en" href="https://alvarotc.com/blog/">',
+    );
+    expect(html).toContain(
+      '<link rel="alternate" hreflang="x-default" href="https://alvarotc.com/blog/">',
+    );
+  });
+
+  it('declares self-referential en/es/x-default hreflang on /es/blog/', () => {
+    const html = page('es/blog/index.html');
+    expect(html).toContain(
+      '<link rel="alternate" hreflang="es" href="https://alvarotc.com/es/blog/">',
+    );
+    expect(html).toContain(
+      '<link rel="alternate" hreflang="x-default" href="https://alvarotc.com/blog/">',
+    );
+  });
+
+  it('gives /blog/topic/docker/ its own meta description, distinct from the site default', () => {
+    const html = page('blog/topic/docker/index.html');
+    const match = html.match(/<meta name="description" content="([^"]*)">/);
+    expect(match).not.toBeNull();
+    expect(match![1]).toContain('docker');
+    expect(match![1]).not.toBe(
+      'Software Engineer. I build robust, scalable software. A firm believer in free software and privacy. I also like writing about it.',
+    );
+  });
+
+  it('shows the English label for a Spanish-slugged tag on its EN topic page', () => {
+    const html = page('blog/topic/proceso/index.html');
+    expect(html).toContain('>process<');
+    expect(html).not.toContain('>proceso<');
+    expect(html).toContain('Articles about process');
+  });
+
+  it('keeps the Spanish label on the matching ES topic page', () => {
+    const html = page('es/blog/tema/proceso/index.html');
+    expect(html).toContain('>proceso<');
+  });
+
+  it('has no rel=prev/next in <head> when there is only one page', () => {
+    const html = page('blog/index.html');
+    const head = html.slice(0, html.indexOf('</head>'));
+    expect(head).not.toContain('rel="prev"');
+    expect(head).not.toContain('rel="next"');
+  });
+
+  it('emits a CollectionPage JSON-LD on the blog index', () => {
+    const html = page('blog/index.html');
+    const match = html.match(/<script type="application\/ld\+json">(.*?)<\/script>/s);
+    expect(match).not.toBeNull();
+    const jsonLd = JSON.parse(match![1]);
+    expect(jsonLd['@type']).toBe('CollectionPage');
+    expect(jsonLd.mainEntity['@type']).toBe('ItemList');
+  });
+
+  it('links to posts with a trailing slash from the listing', () => {
+    const html = page('blog/index.html');
+    expect(html).not.toMatch(/href="\/blog\/[a-z0-9-]+"[^/]/);
+  });
+});
+
+describe.skipIf(!built)('sitemap', () => {
+  it('pairs post and topic alternates with xhtml:link, and sets lastmod', () => {
+    const xml = readFileSync(join(dist, 'sitemap-0.xml'), 'utf8');
+    expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
+
+    const postEntry = xml.match(
+      /<url>\s*<loc>https:\/\/alvarotc\.com\/blog\/new-website-new-direction\/<\/loc>[\s\S]*?<\/url>/,
+    );
+    expect(postEntry).not.toBeNull();
+    expect((postEntry![0].match(/xhtml:link/g) ?? []).length).toBe(3);
+    expect(postEntry![0]).toContain('<lastmod>');
+
+    const topicEntry = xml.match(
+      /<url>\s*<loc>https:\/\/alvarotc\.com\/blog\/topic\/docker\/<\/loc>[\s\S]*?<\/url>/,
+    );
+    expect(topicEntry).not.toBeNull();
+    expect(topicEntry![0]).toContain('/es/blog/tema/docker/');
+  });
+});
+
 describe.skipIf(!built)('built blog topic and pagination routes', () => {
   it('builds the docker topic page in both languages with its 2 articles', () => {
     expect(existsSync(join(dist, 'blog/topic/docker/index.html'))).toBe(true);
