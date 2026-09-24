@@ -97,3 +97,38 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
     imageRefs(lang, 'pokeutils').forEach((ref) => expect(existsSync(ref), ref).toBe(true));
   });
 });
+
+describe.each(['es', 'en'])('basecero (%s)', (lang) => {
+  const source = read(lang, 'basecero');
+
+  it('is a published hybrid project under MIT', () => {
+    expect(field(source, 'kind')).toBe('hybrid');
+    expect(field(source, 'status')).toBe('published');
+    expect(field(source, 'license')).toBe('MIT');
+    expect(field(source, 'url')).toBe('https://basecero.alvarotc.com');
+  });
+
+  it('embeds the app as a pwa playground', () => {
+    expect(source).toContain(
+      "playground: { kind: pwa, src: 'https://basecero.alvarotc.com/app/' }",
+    );
+  });
+
+  it('has a desktop cover and a phone cover', () => {
+    expect(field(source, 'cover')).toContain('basecero/cover.jpg');
+    expect(field(source, 'coverMobile')).toContain('basecero/cover-mobile.jpg');
+  });
+
+  it('dates v1.0.0 and leaves its note as [DATO]', () => {
+    expect(source).toMatch(/version: 'v1\.0\.0', date: 2026-09-02, note: '\[DATO\]'/);
+  });
+
+  it('has four screenshots and seven features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(4);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+  });
+
+  it('points only at images that exist', () => {
+    imageRefs(lang, 'basecero').forEach((ref) => expect(existsSync(ref), ref).toBe(true));
+  });
+});
