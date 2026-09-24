@@ -15,7 +15,7 @@ githubRepo: alvarotorresc/quedamos-app
 download:
   { url: 'https://github.com/alvarotorresc/quedamos-app/releases/latest', label: 'Android 6.0+' }
 icon: '../../../assets/projects/quedamos/icon.jpg'
-cover: '../../../assets/projects/quedamos/calendario.jpg'
+cover: '../../../assets/projects/quedamos/promo.png'
 coverMobile: '../../../assets/projects/quedamos/grupo.jpg'
 promo: '../../../assets/projects/quedamos/promo.png'
 facts:

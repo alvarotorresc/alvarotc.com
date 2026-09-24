@@ -194,7 +194,7 @@ describe.each(['es', 'en'])('quedamos (%s)', (lang) => {
   });
 
   it('has a desktop cover and a phone cover', () => {
-    expect(field(source, 'cover')).toContain('quedamos/calendario.jpg');
+    expect(field(source, 'cover')).toContain('quedamos/promo.png');
     expect(field(source, 'coverMobile')).toContain('quedamos/grupo.jpg');
   });
 
