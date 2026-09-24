@@ -155,6 +155,32 @@ describe.each(['es', 'en'])('create-astro-blog (%s)', (lang) => {
   });
 });
 
+describe.each(['es', 'en'])('huellas (%s)', (lang) => {
+  const source = read(lang, 'huellas');
+
+  it('is a hybrid project in design', () => {
+    expect(field(source, 'kind')).toBe('hybrid');
+    expect(field(source, 'status')).toBe('design');
+  });
+
+  it('has no image fields', () => {
+    expect(imageRefs(lang, 'huellas')).toHaveLength(0);
+    expect(source).not.toMatch(
+      /^(icon|cover|coverMobile|promo|illustration|url|download|playground):/m,
+    );
+  });
+
+  it('has at least eight features and four built lines', () => {
+    expect(source.match(/^ {2}- title: /gm)?.length ?? 0).toBeGreaterThanOrEqual(8);
+    expect(source.match(/^ {2}- '/gm)?.length ?? 0).toBeGreaterThanOrEqual(4);
+  });
+
+  it('does not use Next.js, Expo or NestJS', () => {
+    const stack = field(source, 'stack') ?? '';
+    expect(stack).not.toMatch(/Next\.js|Expo|NestJS/);
+  });
+});
+
 const kinds: [string, string][] = [
   ['quedamos', 'mobile'],
   ['huellas', 'hybrid'],
