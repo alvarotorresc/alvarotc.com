@@ -148,13 +148,7 @@ const readingWide = tiles % 2 === 1;
                       data-dup={copy > 0 ? '' : undefined}
                     >
                       {tool.svg ? (
-                        <img
-                          src={tool.svg.src}
-                          alt={tool.name}
-                          width="32"
-                          height="32"
-                          class="h-8 w-8"
-                        />
+                        <img src={tool.svg.src} alt="" width="32" height="32" class="h-8 w-8" />
                       ) : tool.icon ? (
                         <BrandIcon slug={tool.icon} size={32} brand />
                       ) : null}

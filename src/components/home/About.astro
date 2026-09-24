@@ -36,14 +36,17 @@ const paragraphs = {
       <dl class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">
         {
           values.map((v) => (
-            <div class="flex gap-3">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-accent">
-                <Icon name={v.icon} size={18} />
-              </span>
-              <span class="flex flex-col gap-1">
-                <dt class="text-[15px] font-bold leading-snug">{v.title}</dt>
-                <dd class="text-[13px] leading-relaxed text-muted">{v.text}</dd>
-              </span>
+            <div class="flex flex-col gap-1">
+              <dt class="flex items-center gap-3 text-[15px] font-bold leading-snug">
+                <span
+                  class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-surface-2 text-accent"
+                  aria-hidden="true"
+                >
+                  <Icon name={v.icon} size={18} />
+                </span>
+                {v.title}
+              </dt>
+              <dd class="pl-12 text-[13px] leading-relaxed text-muted">{v.text}</dd>
             </div>
           ))
         }
