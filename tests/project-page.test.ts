@@ -47,6 +47,23 @@ describe('ProjectCard', () => {
     expect(html).toContain('text-amber-600');
     expect(html).not.toContain('<img');
   });
+
+  it('shows the cover on a lab card that has one', async () => {
+    const container = await AstroContainer.create();
+    const cover = { src: '/cover.jpg', width: 1280, height: 720, format: 'jpg' };
+    const html = await container.renderToString(ProjectCard, {
+      props: { lang: 'es', project: project({ tier: 'lab', cover }) },
+    });
+    expect(html).toContain('<img');
+  });
+
+  it('shows no image on a lab card without a cover', async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: { lang: 'es', project: project({ tier: 'lab' }) },
+    });
+    expect(html).not.toContain('<img');
+  });
 });
 
 const order = (html: string, sections: string[]) =>
