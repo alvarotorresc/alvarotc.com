@@ -1,0 +1,52 @@
+---
+import { t } from '../../i18n/translations';
+import type { ProjectView } from '../../lib/project-view';
+
+interface Props {
+  view: ProjectView;
+}
+const { view } = Astro.props;
+const { lang } = view;
+---
+
+<section
+  data-section="why"
+  class="grid grid-cols-1 gap-6 border-t border-border py-14 lg:grid-cols-12 lg:gap-x-6"
+>
+  <h2 class="text-[22px] font-bold tracking-[-0.02em] lg:col-span-3">{t('project.why', lang)}</h2>
+  <div class="flex flex-col gap-4 lg:col-span-7">
+    <div class="prose why-body"><slot /></div>
+    {
+      view.post && (
+        <a
+          data-post-link
+          href={view.post.href}
+          class="self-start text-sm font-semibold text-accent"
+        >
+          {t('project.readPost', lang).replace('{title}', view.post.label)}
+        </a>
+      )
+    }
+  </div>
+  {
+    view.illustration && (
+      <img
+        data-illustration
+        src={view.illustration}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="h-40 w-40 rounded-xl object-contain lg:col-span-2"
+      />
+    )
+  }
+</section>
+
+<style>
+  .why-body {
+    font-size: 17px;
+  }
+  .why-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+</style>
