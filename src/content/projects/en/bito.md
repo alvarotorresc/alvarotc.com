@@ -14,6 +14,7 @@ stack: [Kotlin, Offline-first, Privacy]
 githubRepo: alvarotorresc/bito
 icon: '../../../assets/projects/bito/icon.jpg'
 cover: '../../../assets/projects/bito/cover.jpg'
+promo: '../../../assets/projects/bito/promo.jpg'
 download:
   url: https://github.com/alvarotorresc/bito/releases/download/v1.0.0/app-release.apk
   label: '4.7 MB'

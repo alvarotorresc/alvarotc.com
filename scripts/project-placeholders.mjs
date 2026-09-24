@@ -4,11 +4,13 @@ import { mkdir } from 'node:fs/promises';
 const PHONE = [400, 844];
 const DESKTOP = [1280, 800];
 const ICON = [256, 256];
+const PROMO = [1280, 720];
 
 const images = {
   bito: {
     icon: ICON,
     cover: PHONE,
+    promo: PROMO,
     widget: PHONE,
     reminder: PHONE,
     review: PHONE,
