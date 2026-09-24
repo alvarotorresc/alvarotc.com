@@ -35,6 +35,7 @@ interface Props {
   jsonLd?: Record<string, unknown>;
   prevHref?: string;
   nextHref?: string;
+  noindex?: boolean;
 }
 
 const currentPath = Astro.url.pathname;
@@ -52,6 +53,7 @@ const {
   jsonLd,
   prevHref,
   nextHref,
+  noindex,
 } = Astro.props;
 const description = Astro.props.description ?? getDescription(lang);
 
@@ -104,6 +106,7 @@ const defaultJsonLd = {
     <link rel="manifest" href="/manifest.json" />
     <link rel="preload" as="font" type="font/woff2" crossorigin href={manropeLatin} />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     {prevHref && <link rel="prev" href={new URL(prevHref, Astro.site)} />}
     {nextHref && <link rel="next" href={new URL(nextHref, Astro.site)} />}
     {links.map((l) => <link rel="alternate" hreflang={l.lang} href={l.href} />)}

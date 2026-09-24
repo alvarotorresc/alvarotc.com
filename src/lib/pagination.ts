@@ -69,7 +69,7 @@ export function hreflangLinksFor(
   otherLang: Locale,
   alternateURL?: string,
 ): { lang: string; href: string }[] {
-  const links = [{ lang, href: canonicalURL }];
+  const links: { lang: string; href: string }[] = [{ lang, href: canonicalURL }];
   if (alternateURL) links.push({ lang: otherLang, href: alternateURL });
   links.push({
     lang: 'x-default',
