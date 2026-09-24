@@ -1,7 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Tag from '../ui/Tag.astro';
 import { t, statusLabel, type Locale } from '../../i18n/translations';
-import { projectSlug, type ProjectEntry } from '../../lib/projects';
+import { projectSlug, tone, type ProjectEntry } from '../../lib/projects';
 
 interface Props {
   lang: Locale;
@@ -11,16 +12,15 @@ interface Props {
 const { lang, project, featured = false } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 const slug = projectSlug(project);
-const tone = (status: string) =>
-  status === 'published' ? 'ok' : status === 'beta' ? 'warn' : 'neutral';
 ---
 
 <div class="card flex flex-col gap-3 p-5">
   {
-    featured && project.data.hero && (
-      <img
-        src={project.data.hero}
+    featured && project.data.cover && (
+      <Image
+        src={project.data.cover}
         alt={project.data.name}
+        width={640}
         class="aspect-video w-full rounded-[10px] object-cover"
       />
     )
