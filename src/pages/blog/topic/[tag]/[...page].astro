@@ -10,6 +10,7 @@ import {
   blogBasePath,
   topicBasePath,
   otherLangPageNumber,
+  hreflangLinksFor,
 } from '../../../../lib/pagination';
 import { collectionPageJsonLd } from '../../../../lib/jsonld';
 import { tagLabel } from '../../../../lib/tags';
@@ -75,6 +76,13 @@ const alternatePath = otherHasTag
   ? pagePath(otherBase, otherLangPageNumber(pageNum, otherPages.length))
   : otherBlogBase;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const otherPageExists = otherHasTag && pageNum <= otherPages.length;
+const hreflangLinks = hreflangLinksFor(
+  lang,
+  canonicalURL,
+  otherLang,
+  otherPageExists ? new URL(pagePath(otherBase, pageNum), Astro.site).toString() : undefined,
+);
 const jsonLd = collectionPageJsonLd({
   lang,
   title: pageTitle,
@@ -92,6 +100,7 @@ const jsonLd = collectionPageJsonLd({
   description={description}
   lang={lang}
   alternatePath={alternatePath}
+  hreflangLinks={hreflangLinks}
   prevHref={prevHref}
   nextHref={nextHref}
   jsonLd={jsonLd}

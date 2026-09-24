@@ -6,6 +6,7 @@ import {
   blogBasePath,
   topicBasePath,
   otherLangPageNumber,
+  hreflangLinksFor,
   POSTS_PER_PAGE,
 } from '../src/lib/pagination';
 
@@ -96,5 +97,37 @@ describe('otherLangPageNumber', () => {
 
   it('falls back to page 1 when the counterpart is shorter', () => {
     expect(otherLangPageNumber(2, 1)).toBe(1);
+  });
+});
+
+describe('hreflangLinksFor', () => {
+  it('emits self, the other language and x-default when a true equivalent exists', () => {
+    const links = hreflangLinksFor(
+      'en',
+      'https://alvarotc.com/blog/topic/docker/',
+      'es',
+      'https://alvarotc.com/es/blog/tema/docker/',
+    );
+    expect(links).toEqual([
+      { lang: 'en', href: 'https://alvarotc.com/blog/topic/docker/' },
+      { lang: 'es', href: 'https://alvarotc.com/es/blog/tema/docker/' },
+      { lang: 'x-default', href: 'https://alvarotc.com/blog/topic/docker/' },
+    ]);
+  });
+
+  it('never points hreflang at a URL that does not exist when there is no equivalent', () => {
+    const links = hreflangLinksFor('en', 'https://alvarotc.com/blog/topic/kotlin/', 'es');
+    expect(links).toEqual([
+      { lang: 'en', href: 'https://alvarotc.com/blog/topic/kotlin/' },
+      { lang: 'x-default', href: 'https://alvarotc.com/blog/topic/kotlin/' },
+    ]);
+  });
+
+  it('falls back x-default to its own canonical when the Spanish page has no English equivalent', () => {
+    const links = hreflangLinksFor('es', 'https://alvarotc.com/es/blog/tema/proceso/2/', 'en');
+    expect(links).toEqual([
+      { lang: 'es', href: 'https://alvarotc.com/es/blog/tema/proceso/2/' },
+      { lang: 'x-default', href: 'https://alvarotc.com/es/blog/tema/proceso/2/' },
+    ]);
   });
 });
