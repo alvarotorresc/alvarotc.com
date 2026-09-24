@@ -282,10 +282,6 @@ export function hasMedia(view: ProjectView): boolean {
   return view.kind === 'cli' ? view.terminal.length > 0 : Boolean(view.cover);
 }
 
-export function overhangs(view: ProjectView): boolean {
-  return view.kind !== 'cli' && Boolean(view.cover) && view.screenshots.length > 0;
-}
-
 export function toProjectView(
   fields: ProjectFields,
   images: ResolvedImages,
