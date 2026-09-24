@@ -125,7 +125,7 @@ const nowSchema = ({ image }: SchemaContext) =>
   });
 
 export const interestSchema = z.object({
-  icon: z.enum(['guitar', 'chess', 'boxing', 'book', 'music', 'paw']),
+  icon: z.enum(['guitar', 'chess', 'boxing', 'leaf']),
   order: z.number(),
   title: localized,
   text: localized,
