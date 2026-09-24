@@ -1,5 +1,6 @@
 ---
 import { t, type Locale } from '../../i18n/translations';
+import { tagLabel } from '../../lib/tags';
 
 interface Props {
   lang: Locale;
@@ -14,7 +15,7 @@ const { lang, tags, total, allHref, topicHref, activeTag, class: className } = A
 const itemBase =
   'flex h-8 items-center justify-between gap-3 rounded-md px-2.5 text-sm font-medium text-muted hover:text-text aria-[current=page]:bg-surface-2 aria-[current=page]:font-bold aria-[current=page]:text-text';
 const label = activeTag
-  ? t('writing.filterTag', lang).replace('{tag}', activeTag)
+  ? t('writing.filterTag', lang).replace('{tag}', tagLabel(activeTag, lang))
   : t('writing.filter', lang);
 ---
 
@@ -70,7 +71,7 @@ const label = activeTag
             aria-current={activeTag === tag ? 'page' : undefined}
             class={itemBase}
           >
-            <span>{tag}</span>
+            <span>{tagLabel(tag, lang)}</span>
             <span class="font-mono text-xs text-faint">{count}</span>
           </a>
         ))

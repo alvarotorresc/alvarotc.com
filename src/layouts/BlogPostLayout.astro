@@ -9,6 +9,7 @@ import { t, type Locale } from '../i18n/translations';
 import { formatDate, getReadingTime } from '../lib/utils';
 import { markdownPath, type PostEntry } from '../lib/posts';
 import { blogPostingJsonLd } from '../lib/jsonld';
+import { tagLabel } from '../lib/tags';
 
 interface Props {
   post: PostEntry;
@@ -29,6 +30,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImageURL = new URL(image, Astro.site).toString();
 const modifiedISO = (updated ?? date).toISOString();
 const wordCount = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const displayTags = tags.map((tag) => tagLabel(tag, lang));
 const markdownURL = new URL(markdownPath(post, lang), Astro.site).toString();
 
 const alternateURL = new URL(alternatePath, Astro.site).toString();
@@ -62,7 +64,7 @@ const jsonLd = blogPostingJsonLd({
   type="article"
   publishedTime={date.toISOString()}
   modifiedTime={modifiedISO}
-  tags={tags}
+  tags={displayTags}
   markdownAlternate={markdownURL}
   lang={lang}
   alternatePath={alternatePath}
@@ -75,7 +77,7 @@ const jsonLd = blogPostingJsonLd({
       <header class="flex flex-col gap-4">
         <div class="flex flex-wrap items-center gap-2 text-sm">
           <a href={`${prefix}/blog`} class="font-semibold text-accent">{t('writing.all', lang)}</a>
-          {tags.map((tag) => <Tag>{tag}</Tag>)}
+          {displayTags.map((tag) => <Tag>{tag}</Tag>)}
         </div>
         <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
         <p class="text-lg leading-relaxed text-muted">{description}</p>

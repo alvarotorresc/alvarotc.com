@@ -3,6 +3,7 @@ import TopicsFilter from './TopicsFilter.astro';
 import { t, type Locale } from '../../i18n/translations';
 import { formatShortDate } from '../../lib/utils';
 import { formatRange } from '../../lib/pagination';
+import { tagLabel } from '../../lib/tags';
 
 interface FlatPost {
   slug: string;
@@ -131,7 +132,7 @@ const pageOfLabel = t('writing.pageOf', lang)
               <div class="flex flex-wrap gap-x-3.5 gap-y-1 font-mono text-[13px] text-faint">
                 {post.tags.map((tag) => (
                   <a href={post.tagHref(tag)} class="hover:text-text">
-                    {tag}
+                    {tagLabel(tag, lang)}
                   </a>
                 ))}
               </div>
