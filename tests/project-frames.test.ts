@@ -84,5 +84,6 @@ describe('TerminalFrame', () => {
     expect(html).toContain('term-gap');
     expect(html).toMatch(/term-value[^>]*>My Blog</);
     expect(html).toMatch(/term-out[^>]*>Installing dependencies\.\.\.</);
+    expect(html).toMatch(/term-bar"[^>]*aria-hidden="true"/);
   });
 });

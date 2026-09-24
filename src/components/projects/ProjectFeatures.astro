@@ -27,16 +27,16 @@ const items = view.features.filter((feature) => !blocks.includes(feature));
           {blocks.map((feature) => (
             <div
               data-feature="block"
-              class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5"
+              class="flex flex-col gap-4 md:flex-row md:items-start md:gap-5"
             >
               <img
                 src={feature.image}
-                alt={feature.title}
+                alt=""
                 loading="lazy"
                 decoding="async"
                 class:list={['feature-img', wide ? 'feature-wide' : 'feature-tall']}
               />
-              <div class="flex flex-col gap-2 sm:pt-1">
+              <div class="flex flex-col gap-2 md:pt-1">
                 <h3 class="text-[17px] font-bold tracking-[-0.01em]">{feature.title}</h3>
                 <p class="text-sm leading-[1.6] text-muted">{feature.text}</p>
               </div>
