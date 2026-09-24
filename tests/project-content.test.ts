@@ -70,3 +70,30 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     refs.forEach((ref) => expect(existsSync(ref), ref).toBe(true));
   });
 });
+
+describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
+  const source = read(lang, 'pokeutils');
+
+  it('is a published web project', () => {
+    expect(field(source, 'kind')).toBe('web');
+    expect(field(source, 'status')).toBe('published');
+    expect(field(source, 'stack')).toBe('[JavaScript, SPA]');
+  });
+
+  it('has no license, no playground and no hero', () => {
+    expect(source).not.toMatch(/^(license|playground|hero|gallery):/m);
+  });
+
+  it('dates v1.0.0 and leaves its note as [DATO]', () => {
+    expect(source).toMatch(/version: 'v1\.0\.0', date: 2026-08-28, note: '\[DATO\]'/);
+  });
+
+  it('has three screenshots and seven features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(3);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+  });
+
+  it('points only at images that exist', () => {
+    imageRefs(lang, 'pokeutils').forEach((ref) => expect(existsSync(ref), ref).toBe(true));
+  });
+});
