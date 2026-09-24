@@ -10,32 +10,31 @@ repo: https://github.com/alvarotorresc/PokeUtils
 url: https://pokeutils.alvarotc.com
 stack: [JavaScript, SPA]
 githubRepo: alvarotorresc/PokeUtils
-icon: '../../../assets/projects/pokeutils/icon.jpg'
-cover: '../../../assets/projects/pokeutils/cover.jpg'
+icon: '../../../assets/projects/pokeutils/icon.png'
+cover: '../../../assets/projects/pokeutils/cover.png'
 facts:
   - { label: 'Languages', value: 'Spanish and English' }
   - { label: 'Accounts', value: 'No accounts, no ads' }
 screenshots:
-  - src: '../../../assets/projects/pokeutils/pokedex.jpg'
-    alt: 'Pokédex with filters'
+  - src: '../../../assets/projects/pokeutils/pokedex.png'
+    alt: 'The Pokédex list with the filter panel for type, generation and rarity'
     caption: 'Pokédex'
-  - src: '../../../assets/projects/pokeutils/compare.jpg'
-    alt: 'Comparison of four Pokémon'
-    caption: 'Comparison'
-  - src: '../../../assets/projects/pokeutils/egg-groups.jpg'
-    alt: 'Egg groups'
-    caption: 'Egg groups'
+  - src: '../../../assets/projects/pokeutils/dano.png'
+    alt: 'The damage calculator with attacker, defender, move and the resulting damage range'
+    caption: 'Damage calculator'
+  - src: '../../../assets/projects/pokeutils/sobrevive.png'
+    alt: 'The Does it survive tool: the verdict and the minimum EVs to take the hit'
+    caption: 'Does it survive'
 featuresIntro: 'Build a team, breed without guessing and check the dex.'
 features:
   - title: 'Your team'
     text: 'Up to six. You see which types threaten it and what coverage it lacks.'
-    image: '../../../assets/projects/pokeutils/team.jpg'
+    image: '../../../assets/projects/pokeutils/equipo.png'
   - title: 'Breeding'
     text: 'Who pairs with whom: 15 egg groups and the five real breeding rules.'
-    image: '../../../assets/projects/pokeutils/egg-groups.jpg'
   - title: 'The dex'
     text: 'Complete and in Spanish, with filters that stay in the URL. No friction.'
-    image: '../../../assets/projects/pokeutils/pokemon.jpg'
+    image: '../../../assets/projects/pokeutils/ficha.png'
   - title: 'Every Pokémon'
     text: '1025 Pokémon and 326 forms.'
   - title: 'One search for everything'
@@ -44,17 +43,21 @@ features:
     text: 'Up to four Pokémon, side by side.'
   - title: '16 tools'
     text: 'Pokédex, a page for each Pokémon, egg groups, moves and more.'
-illustration: '../../../assets/projects/pokeutils/icon.jpg'
+illustration: '../../../assets/projects/pokeutils/icon.png'
 built:
   - 'JavaScript with no framework.'
   - 'A SPA with #/ routes: every view and every filter has its URL.'
   - 'No accounts and no ads.'
   - 'In Spanish and English.'
-  - 'License [DATO], code at [github.com/alvarotorresc/PokeUtils](https://github.com/alvarotorresc/PokeUtils).'
+  - 'MIT license, code at [github.com/alvarotorresc/PokeUtils](https://github.com/alvarotorresc/PokeUtils).'
 changelog:
-  - { version: 'v1.0.0', date: 2026-08-28, note: '[DATO]' }
+  - {
+      version: 'v1.0.0',
+      date: 2026-08-28,
+      note: 'The first full release of PokeUtils: 16 tools and 21 routes to play, breed and compete, with a retro look and zero frameworks.',
+    }
 ---
 
 A vanilla JavaScript single-page app, no framework, built to learn the platform.
 
-[DATO: second paragraph]
+If you play competitive, here you find out whether your team survives that attack and who can tear it apart. If you breed, who pairs with whom. And if you just want to check the dex, it is complete, in Spanish, and it does not ask you for an account.
