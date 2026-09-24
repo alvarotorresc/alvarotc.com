@@ -85,6 +85,9 @@ describe.skipIf(!built)('built project pages', () => {
     const html = page('projects/quedamos/index.html');
     expect(html).not.toContain('data-media=');
     expect(html).toContain('data-section="why"');
+    ['screens', 'features', 'steps', 'playground'].forEach((section) =>
+      expect(html).not.toContain(`data-section="${section}"`),
+    );
   });
 
   it('does not build the hidden projects', () => {

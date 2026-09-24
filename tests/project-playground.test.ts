@@ -40,6 +40,13 @@ describe('ProjectPlayground', () => {
     expect(html).not.toContain('<iframe');
   });
 
+  it('omits the APK note entirely when the download is missing', async () => {
+    const html = await playground(makeView({ ...bitoFields, download: undefined }, bitoImages));
+    expect(html.match(/data-note/g)).toHaveLength(2);
+    expect(html).not.toContain('<span class="font-mono"></span>');
+    expect(html).not.toContain('En tu móvil, con el APK');
+  });
+
   it('links the hybrid install note to the app address', async () => {
     const html = await playground(makeView(baseceroFields, baseceroImages));
     expect(html).toContain('href="https://basecero.alvarotc.com/app/"');
