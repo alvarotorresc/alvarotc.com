@@ -33,3 +33,7 @@ SETUP.md
 # SDD scratch
 .superpowers/
 .playwright-mcp/
+
+# mock blog posts (scripts/mock-posts.mjs)
+src/content/posts/zz-mock-*
+src/content/posts-en/zz-mock-*
