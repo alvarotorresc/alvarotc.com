@@ -9,7 +9,7 @@ const SECTIONS: { id: string; slug: Record<Locale, string> }[] = [
   { id: 'about', slug: { en: 'about', es: 'sobre-mi' } },
   { id: 'projects', slug: { en: 'projects', es: 'proyectos' } },
   { id: 'experience', slug: { en: 'experience', es: 'experiencia' } },
-  { id: 'writing', slug: { en: 'writing', es: 'escritos' } },
+  { id: 'writing', slug: { en: 'writing', es: 'articulos' } },
   { id: 'stats', slug: { en: 'stack', es: 'stack' } },
   { id: 'offclock', slug: { en: 'off-the-clock', es: 'fuera-del-teclado' } },
   { id: 'contact', slug: { en: 'contact', es: 'contacto' } },
