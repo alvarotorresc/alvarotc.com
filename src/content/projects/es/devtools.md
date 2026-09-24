@@ -1,6 +1,7 @@
 ---
 name: DevTools
 tagline: Generador de UUID, calculadora de hash, decodificador de JWT y más.
+kind: web
 status: published
 tier: lab
 order: 7

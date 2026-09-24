@@ -154,3 +154,17 @@ describe.each(['es', 'en'])('create-astro-blog (%s)', (lang) => {
     expect(source.match(/^ {2}- title: /gm)).toHaveLength(14);
   });
 });
+
+const kinds: [string, string][] = [
+  ['quedamos', 'mobile'],
+  ['huellas', 'hybrid'],
+  ['devtools', 'web'],
+];
+
+describe.each(kinds)('%s (es)', (slug, kind) => {
+  it(`is a ${kind} project without hero`, () => {
+    const source = read('es', slug);
+    expect(field(source, 'kind')).toBe(kind);
+    expect(source).not.toMatch(/^(hero|gallery):/m);
+  });
+});

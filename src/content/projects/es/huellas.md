@@ -1,6 +1,7 @@
 ---
 name: Huellas
 tagline: Una plataforma para reunir mascotas perdidas con sus familias.
+kind: hybrid
 status: design
 tier: featured
 order: 3
