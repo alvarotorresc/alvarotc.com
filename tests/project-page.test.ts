@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest';
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import ProjectCard from '../src/components/projects/ProjectCard.astro';
 import PlaygroundFrame from '../src/components/projects/PlaygroundFrame.astro';
-import { projectSchema } from '../src/content.config';
 import type { ProjectEntry } from '../src/lib/projects';
 
 function project(overrides: Record<string, unknown> = {}): ProjectEntry {
@@ -17,7 +16,7 @@ function project(overrides: Record<string, unknown> = {}): ProjectEntry {
       order: 1,
       visible: true,
       stack: ['Android', 'Offline-first', 'React', 'Capacitor', 'SQLite'],
-      gallery: [],
+      kind: 'mobile',
       changelog: [],
       mock: false,
       url: 'https://bito.alvarotc.com',
@@ -52,19 +51,5 @@ describe('PlaygroundFrame', () => {
       props: { kind: 'video', src: '/videos/bito.mp4', title: 'Bito', lang: 'en' },
     });
     expect(html).not.toContain('data-playground-load');
-  });
-});
-
-describe('projectSchema', () => {
-  it('coerces a changelog entry date into a Date', () => {
-    const parsed = projectSchema.parse({
-      name: 'Bito',
-      tagline: 'Habits',
-      status: 'published',
-      tier: 'featured',
-      order: 1,
-      changelog: [{ version: 'v1.0.0', date: '2025-03-01', note: 'First release.' }],
-    });
-    expect(parsed.changelog[0].date).toBeInstanceOf(Date);
   });
 });

@@ -23,28 +23,51 @@ const postsEn = defineCollection({
   schema: postSchema,
 });
 
-export const projectSchema = z.object({
-  name: z.string(),
-  tagline: z.string(),
-  status: z.enum(['published', 'beta', 'development', 'design', 'archived']),
-  tier: z.enum(['featured', 'lab']),
-  order: z.number(),
-  visible: z.boolean().default(true),
-  repo: z.url().optional(),
-  url: z.url().optional(),
-  license: z.string().optional(),
-  stack: z.array(z.string()).default([]),
-  platform: z.string().optional(),
-  icon: z.string().optional(),
-  hero: z.string().optional(),
-  gallery: z.array(z.string()).default([]),
-  playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.url() }).optional(),
-  changelog: z
-    .array(z.object({ version: z.string(), date: z.coerce.date().optional(), note: z.string() }))
-    .default([]),
-  githubRepo: z.string().optional(),
-  mock: z.boolean().default(false),
-});
+export const projectSchema = ({ image }: SchemaContext) =>
+  z.object({
+    name: z.string(),
+    tagline: z.string(),
+    kind: z.enum(['mobile', 'web', 'hybrid', 'cli']),
+    status: z.enum(['published', 'publishing', 'beta', 'development', 'design', 'archived']),
+    tier: z.enum(['featured', 'lab']),
+    order: z.number(),
+    visible: z.boolean().default(true),
+    repo: z.url().optional(),
+    url: z.url().optional(),
+    license: z.string().optional(),
+    stack: z.array(z.string()).default([]),
+    platform: z.string().optional(),
+    intro: z.string().optional(),
+    icon: image().optional(),
+    cover: image().optional(),
+    coverMobile: image().optional(),
+    download: z.object({ url: z.url(), label: z.string() }).optional(),
+    command: z.string().optional(),
+    terminal: z.array(z.string()).default([]),
+    facts: z
+      .array(z.object({ label: z.string(), value: z.string(), mono: z.boolean().default(false) }))
+      .default([]),
+    screenshots: z
+      .array(z.object({ src: image(), alt: z.string(), caption: z.string() }))
+      .default([]),
+    screenshotsIntro: z.string().optional(),
+    featuresIntro: z.string().optional(),
+    features: z
+      .array(z.object({ title: z.string(), text: z.string(), image: image().optional() }))
+      .default([]),
+    steps: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+    stepsIntro: z.string().optional(),
+    after: z.string().optional(),
+    post: z.string().optional(),
+    illustration: image().optional(),
+    built: z.array(z.string()).default([]),
+    playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.url() }).optional(),
+    changelog: z
+      .array(z.object({ version: z.string(), date: z.coerce.date().optional(), note: z.string() }))
+      .default([]),
+    githubRepo: z.string().optional(),
+    mock: z.boolean().default(false),
+  });
 
 const projects = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
