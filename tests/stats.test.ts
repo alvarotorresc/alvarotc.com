@@ -6,6 +6,7 @@ import {
   loadStats,
   writingStats,
   heatmapWeeks,
+  heatmapColumnStarts,
   heatLevel,
   type StatsData,
   type Contribution,
@@ -89,6 +90,18 @@ describe('heatmapWeeks', () => {
     );
     const total = weeks.flat().reduce((sum, n) => sum + n, 0);
     expect(total).toBe(1);
+  });
+});
+
+describe('heatmapColumnStarts', () => {
+  it('returns 53 Sunday dates aligned with heatmapWeeks columns', () => {
+    const end = new Date('2026-09-19T00:00:00Z');
+    const starts = heatmapColumnStarts(end);
+    expect(starts).toHaveLength(53);
+    for (const start of starts) expect(start.getUTCDay()).toBe(0);
+    // last column starts on the Sunday of the week containing the Saturday end date.
+    expect(starts[52].toISOString().slice(0, 10)).toBe('2026-09-13');
+    expect(starts[51].toISOString().slice(0, 10)).toBe('2026-09-06');
   });
 });
 

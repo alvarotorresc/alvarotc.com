@@ -73,6 +73,16 @@ export function heatmapWeeks(contributions: Contribution[], end: Date): number[]
   return weeks;
 }
 
+export function heatmapColumnStarts(end: Date): Date[] {
+  const endUTC = atUTCMidnight(end);
+  const lastSaturday = new Date(endUTC.getTime() + (6 - endUTC.getUTCDay()) * DAY_MS);
+  const firstSunday = new Date(lastSaturday.getTime() - (WEEKS * 7 - 1) * DAY_MS);
+  return Array.from(
+    { length: WEEKS },
+    (_, week) => new Date(firstSunday.getTime() + week * 7 * DAY_MS),
+  );
+}
+
 export function heatLevel(count: number, max: number): 0 | 1 | 2 | 3 | 4 {
   if (count <= 0 || max <= 0) return 0;
   const level = Math.ceil((count / max) * 4);
