@@ -1,6 +1,7 @@
 ---
 name: Huellas
 tagline: A platform to reunite lost pets with their families.
+kind: hybrid
 status: design
 tier: featured
 order: 3

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 
 const file = (lang: string, slug: string) => `src/content/projects/${lang}/${slug}.md`;
@@ -166,5 +166,44 @@ describe.each(kinds)('%s (es)', (slug, kind) => {
     const source = read('es', slug);
     expect(field(source, 'kind')).toBe(kind);
     expect(source).not.toMatch(/^(hero|gallery):/m);
+  });
+});
+
+describe.each(kinds)('%s (en)', (slug, kind) => {
+  it(`is a ${kind} project without hero`, () => {
+    const source = read('en', slug);
+    expect(field(source, 'kind')).toBe(kind);
+    expect(source).not.toMatch(/^(hero|gallery):/m);
+  });
+});
+
+const allFiles = ['es', 'en'].flatMap((lang) =>
+  readdirSync(`src/content/projects/${lang}`).map((name) => `src/content/projects/${lang}/${name}`),
+);
+const visibleFiles = allFiles.filter(
+  (path) => !/^visible:\s*false\s*$/m.test(readFileSync(path, 'utf8')),
+);
+describe('every project file', () => {
+  it.each(allFiles)('%s has a kind and no hero or gallery', (path) => {
+    const source = readFileSync(path, 'utf8');
+    expect(source).toMatch(/^kind: (mobile|web|hybrid|cli)$/m);
+    expect(source).not.toMatch(/^(hero|gallery):/m);
+  });
+
+  it('leaves the hidden projects out of the release guard', () => {
+    expect(allFiles).toHaveLength(14);
+    expect(visibleFiles).toHaveLength(10);
+    expect(visibleFiles.some((path) => path.endsWith('create-astro-blog.md'))).toBe(false);
+    expect(visibleFiles.some((path) => path.endsWith('devtools.md'))).toBe(false);
+  });
+});
+
+describe.skipIf(!process.env.RELEASE_CHECK)('projects release guard', () => {
+  it.each(visibleFiles)('%s has no [DATO] left', (path) => {
+    expect(readFileSync(path, 'utf8')).not.toContain('[DATO]');
+  });
+
+  it.each(visibleFiles)('%s ships real images, not placeholders', (path) => {
+    refsOf(path).forEach((ref) => expect(statSync(ref).size, ref).toBeGreaterThan(20000));
   });
 });
