@@ -18,26 +18,6 @@ const images = {
     badges: PHONE,
     habi: ICON,
   },
-  pokeutils: {
-    icon: ICON,
-    cover: DESKTOP,
-    pokedex: DESKTOP,
-    compare: DESKTOP,
-    'egg-groups': DESKTOP,
-    team: DESKTOP,
-    pokemon: DESKTOP,
-  },
-  basecero: {
-    icon: ICON,
-    cover: DESKTOP,
-    'cover-mobile': PHONE,
-    home: PHONE,
-    movements: PHONE,
-    'net-worth': PHONE,
-    categories: PHONE,
-    period: PHONE,
-    shared: PHONE,
-  },
 };
 
 for (const [slug, files] of Object.entries(images)) {

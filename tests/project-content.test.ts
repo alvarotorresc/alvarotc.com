@@ -14,18 +14,6 @@ const imageRefs = (lang: string, slug: string) => refsOf(file(lang, slug));
 
 const placeholders: Record<string, string[]> = {
   bito: ['icon', 'cover', 'widget', 'reminder', 'review', 'stats', 'badges', 'habi'],
-  pokeutils: ['icon', 'cover', 'pokedex', 'compare', 'egg-groups', 'team', 'pokemon'],
-  basecero: [
-    'icon',
-    'cover',
-    'cover-mobile',
-    'home',
-    'movements',
-    'net-worth',
-    'categories',
-    'period',
-    'shared',
-  ],
 };
 
 describe('project placeholders', () => {
@@ -84,8 +72,9 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
     expect(source).not.toMatch(/^(license|playground|hero|gallery):/m);
   });
 
-  it('dates v1.0.0 and leaves its note as [DATO]', () => {
-    expect(source).toMatch(/version: 'v1\.0\.0', date: 2026-08-28, note: '\[DATO\]'/);
+  it('dates v1.0.0 with a real changelog note', () => {
+    expect(source).toMatch(/version: 'v1\.0\.0',\s*\n?\s*date: 2026-08-28,/);
+    expect(source).not.toContain('[DATO]');
   });
 
   it('has three screenshots and seven features', () => {
@@ -115,12 +104,13 @@ describe.each(['es', 'en'])('basecero (%s)', (lang) => {
   });
 
   it('has a desktop cover and a phone cover', () => {
-    expect(field(source, 'cover')).toContain('basecero/cover.jpg');
-    expect(field(source, 'coverMobile')).toContain('basecero/cover-mobile.jpg');
+    expect(field(source, 'cover')).toContain('basecero/cover.png');
+    expect(field(source, 'coverMobile')).toContain(`basecero/home-${lang}.webp`);
   });
 
-  it('dates v1.0.0 and leaves its note as [DATO]', () => {
-    expect(source).toMatch(/version: 'v1\.0\.0', date: 2026-09-02, note: '\[DATO\]'/);
+  it('dates v1.0.0 with a real changelog note', () => {
+    expect(source).toMatch(/version: 'v1\.0\.0',\s*\n?\s*date: 2026-09-02,/);
+    expect(source).not.toContain('[DATO]');
   });
 
   it('has four screenshots and seven features', () => {
@@ -143,9 +133,13 @@ describe.each(['es', 'en'])('create-astro-blog (%s)', (lang) => {
     expect(field(source, 'after')).toBe("'cd my-blog && npm run dev'");
   });
 
-  it('keeps version, license and Node as [DATO]', () => {
-    expect(source).toMatch(/value: '\[DATO\]', mono: true/);
-    expect(source).not.toMatch(/^(license|hero|gallery):/m);
+  it('has real version, license and Node facts', () => {
+    expect(field(source, 'license')).toBe('MIT');
+    expect(source).toMatch(/value: '1\.0\.0', mono: true/);
+    expect(source).toMatch(/value: '>=18\.0\.0', mono: true/);
+    expect(source).toMatch(/value: 'MIT', mono: true/);
+    expect(source).toMatch(/version: 'v1\.0\.0', note: '\[DATO\]'/);
+    expect(source).not.toMatch(/^(hero|gallery):/m);
   });
 
   it('has the terminal session, eight features and six steps', () => {
