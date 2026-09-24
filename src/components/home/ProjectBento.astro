@@ -30,9 +30,23 @@ const bandCover = band && homeImage(band);
 <section id="projects" class="section container-page flex flex-col gap-6">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('projects.title', lang)}</h2>
-    <a href={`${prefix}/projects`} class="text-sm font-semibold text-accent"
-      >{t('projects.all', lang)}</a
-    >
+    <a href={`${prefix}/projects`} class="btn-secondary gap-2">
+      {t('projects.all', lang)}
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3.5 8h9"></path>
+        <path d="M8.5 3.5 13 8l-4.5 4.5"></path>
+      </svg>
+    </a>
   </div>
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
@@ -134,17 +148,18 @@ const bandCover = band && homeImage(band);
 
   {
     lab.length > 0 && (
-      <p class="text-sm text-faint">
-        {t('projects.also', lang)}:{' '}
-        {lab.map((p, i) => (
-          <>
-            <a href={href(p)} rel="noopener" class="hover:text-text">
-              {p.data.name}
-            </a>
-            {i < lab.length - 1 && ', '}
-          </>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-sm text-muted">{t('projects.also', lang)}</span>
+        {lab.map((p) => (
+          <a
+            href={href(p)}
+            rel="noopener"
+            class="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-text"
+          >
+            {p.data.name}
+          </a>
         ))}
-      </p>
+      </div>
     )
   }
 </section>
