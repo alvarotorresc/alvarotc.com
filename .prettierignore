@@ -6,3 +6,5 @@ node_modules/
 reports/
 research_notes/
 package-lock.json
+.lighthouseci/
+lighthouse/
