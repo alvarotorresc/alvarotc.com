@@ -229,3 +229,14 @@ describe.skipIf(!built)('built blog topic and pagination routes', () => {
     expect(existsSync(join(dist, 'es/blog/2/index.html'))).toBe(false);
   });
 });
+
+describe.skipIf(!built)('built home accessibility', () => {
+  it('keeps dt and dd as direct children of the dl groups', () => {
+    expect(page('index.html')).not.toMatch(/<span[^>]*>\s*<dt/);
+    expect(page('es/index.html')).not.toMatch(/<span[^>]*>\s*<dt/);
+  });
+
+  it('does not repeat the tool name in the logo alt text', () => {
+    expect(page('index.html')).not.toContain('alt="Kitty"');
+  });
+});
