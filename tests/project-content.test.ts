@@ -132,3 +132,25 @@ describe.each(['es', 'en'])('basecero (%s)', (lang) => {
     imageRefs(lang, 'basecero').forEach((ref) => expect(existsSync(ref), ref).toBe(true));
   });
 });
+
+describe.each(['es', 'en'])('create-astro-blog (%s)', (lang) => {
+  const source = read(lang, 'create-astro-blog');
+
+  it('is a hidden cli project', () => {
+    expect(field(source, 'kind')).toBe('cli');
+    expect(field(source, 'visible')).toBe('false');
+    expect(field(source, 'command')).toBe('npx create-astro-blog my-blog');
+    expect(field(source, 'after')).toBe("'cd my-blog && npm run dev'");
+  });
+
+  it('keeps version, license and Node as [DATO]', () => {
+    expect(source).toMatch(/value: '\[DATO\]', mono: true/);
+    expect(source).not.toMatch(/^(license|hero|gallery):/m);
+  });
+
+  it('has the terminal session, eight features and six steps', () => {
+    expect(source.match(/^ {2}- '\$ /gm)).toHaveLength(2);
+    expect(source.match(/^ {2}- '✔ /gm)).toHaveLength(7);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(14);
+  });
+});
