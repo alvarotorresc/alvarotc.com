@@ -35,6 +35,48 @@ describe('buildStats', () => {
       '2026-09-23T05:00:00.000Z',
     );
   });
+
+  it('keeps the previous github block when the source fails and a previous block exists', () => {
+    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github, umami: null };
+    const result = buildStats({
+      github: null,
+      umami: null,
+      previous,
+      now,
+      githubFailed: true,
+    });
+    expect(result.github).toEqual(github);
+    expect(result.generatedAt).toBe('2026-09-24T05:00:00.000Z');
+  });
+
+  it('keeps the previous umami block when the source fails and a previous block exists', () => {
+    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github: null, umami };
+    const result = buildStats({
+      github: null,
+      umami: null,
+      previous,
+      now,
+      umamiFailed: true,
+    });
+    expect(result.umami).toEqual(umami);
+  });
+
+  it('does not fall back to previous data when a source is only skipped (missing credentials)', () => {
+    const previous = { generatedAt: '2026-09-23T05:00:00.000Z', github, umami: null };
+    const result = buildStats({ github: null, umami: null, previous, now });
+    expect(result.github).toBeNull();
+  });
+
+  it('does not fall back when the source failed but there is no previous block', () => {
+    const result = buildStats({
+      github: null,
+      umami: null,
+      previous: null,
+      now,
+      githubFailed: true,
+    });
+    expect(result.github).toBeNull();
+  });
 });
 
 describe('stats file on disk', () => {
