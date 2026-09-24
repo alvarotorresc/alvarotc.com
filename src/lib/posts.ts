@@ -24,3 +24,23 @@ export async function getPosts(lang: Locale): Promise<PostEntry[]> {
       : await getCollection('posts-en', (p) => !p.data.draft);
   return sortPostsByDate(entries);
 }
+
+export function markdownPath(post: PostEntry, lang: Locale): string {
+  return lang === 'es' ? `/es/blog/${post.id}.md` : `/blog/${post.id}.md`;
+}
+
+export function htmlPath(post: PostEntry, lang: Locale): string {
+  return lang === 'es' ? `/es/blog/${post.id}/` : `/blog/${post.id}/`;
+}
+
+export function findTranslation(
+  post: PostEntry,
+  lang: Locale,
+  enPosts: PostEntry[],
+  esPosts: PostEntry[],
+): PostEntry | undefined {
+  if (lang === 'en') {
+    return post.data.source ? esPosts.find((p) => p.id === post.data.source) : undefined;
+  }
+  return enPosts.find((p) => p.data.source === post.id);
+}
