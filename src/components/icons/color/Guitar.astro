@@ -1,0 +1,28 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 48, class: className = '' } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  aria-hidden="true"
+  focusable="false"
+  class={className}
+>
+  <g transform="rotate(40 24 24)">
+    <circle cx="24" cy="25" r="6.5" fill="#f08a4b"></circle>
+    <circle cx="24" cy="33" r="9" fill="#f08a4b"></circle>
+    <ellipse cx="24" cy="32" rx="5" ry="6" fill="#f4f2ec"></ellipse>
+    <rect x="22" y="6" width="4" height="22" fill="#c9cfd9"></rect>
+    <rect x="21" y="2" width="6" height="6" rx="1.5" fill="#c9cfd9"></rect>
+    <rect x="21" y="27" width="6" height="1.8" rx="0.9" fill="#0b0d11"></rect>
+    <rect x="21" y="31" width="6" height="1.8" rx="0.9" fill="#0b0d11"></rect>
+    <rect x="21" y="37" width="6" height="2" rx="1" fill="#0b0d11"></rect>
+  </g>
+</svg>
