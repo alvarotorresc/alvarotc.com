@@ -46,6 +46,12 @@ describe.skipIf(!built)('/rss.xml (English feed)', () => {
     expect(xml).toContain('https://alvarotc.com/blog/');
     expect(xml).not.toContain('/es/blog/');
   });
+
+  it('has its own title and a channel link pointing at /blog/', () => {
+    const xml = enFeed();
+    expect(xml).toContain('<title>Álvaro Torres Carrasco · Writing</title>');
+    expect(xml).toContain('<link>https://alvarotc.com/blog/</link>');
+  });
 });
 
 describe.skipIf(!built)('/es/rss.xml (Spanish feed)', () => {
@@ -69,6 +75,12 @@ describe.skipIf(!built)('/es/rss.xml (Spanish feed)', () => {
     const xml = esFeed();
     expect(xml).toContain('https://alvarotc.com/es/blog/');
   });
+
+  it('has its own title and a channel link pointing at /es/blog/', () => {
+    const xml = esFeed();
+    expect(xml).toContain('<title>Álvaro Torres Carrasco · Artículos</title>');
+    expect(xml).toContain('<link>https://alvarotc.com/es/blog/</link>');
+  });
 });
 
 describe.skipIf(!built)('both feeds', () => {
@@ -76,5 +88,10 @@ describe.skipIf(!built)('both feeds', () => {
     const enCount = [...enFeed().matchAll(/<item>/g)].length;
     const esCount = [...esFeed().matchAll(/<item>/g)].length;
     expect(enCount).toBe(esCount);
+  });
+
+  it('have distinct channel titles', () => {
+    expect(enFeed()).not.toContain('<title>Álvaro Torres Carrasco · Artículos</title>');
+    expect(esFeed()).not.toContain('<title>Álvaro Torres Carrasco · Writing</title>');
   });
 });

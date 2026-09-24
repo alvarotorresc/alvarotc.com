@@ -6,13 +6,14 @@ import type { APIRoute } from 'astro';
 export const GET: APIRoute = async (context) => {
   const posts = await getPosts('es');
   const site = context.site || getDomain();
+  const channelLink = new URL('/es/blog/', site);
 
   return rss({
-    title: getSiteName(),
+    title: `${getSiteName()} · Artículos`,
     description: getDescription('es'),
     site,
     xmlns: { atom: 'http://www.w3.org/2005/Atom' },
-    customData: `<language>es</language><atom:link href="${new URL('/es/rss.xml', site)}" rel="self" type="application/rss+xml"/>`,
+    customData: `<language>es</language><link>${channelLink}</link><atom:link href="${new URL('/es/rss.xml', site)}" rel="self" type="application/rss+xml"/>`,
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
