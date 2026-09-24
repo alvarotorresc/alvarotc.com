@@ -70,6 +70,12 @@ const defaultJsonLd = {
     <link rel="preload" as="font" type="font/woff2" crossorigin href={manropeLatin} />
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" hreflang={lang === 'es' ? 'en' : 'es'} href={alternateURL} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={siteName}
+      href={lang === 'es' ? '/es/rss.xml' : '/rss.xml'}
+    />
 
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
