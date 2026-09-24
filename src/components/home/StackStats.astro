@@ -58,11 +58,7 @@ const heatmapMax = heatmapCells.length > 0 ? Math.max(1, ...heatmapCells) : 0;
     {
       heatmapCells.length > 0 && (
         <div class="flex flex-shrink-0 flex-col gap-2 overflow-x-auto">
-          <div
-            class="stack-stats-heatmap"
-            role="img"
-            aria-label={t('stats.homeHeatmapCaption', lang)}
-          >
+          <div class="stack-stats-heatmap" role="img" aria-label={t('stats.homeHeatmapAria', lang)}>
             {heatmapCells.map((count) => (
               <div
                 class:list={['stack-stats-heatmap-cell', `lvl-${heatLevel(count, heatmapMax)}`]}
@@ -70,7 +66,9 @@ const heatmapMax = heatmapCells.length > 0 ? Math.max(1, ...heatmapCells) : 0;
               />
             ))}
           </div>
-          <span class="text-xs text-faint">{t('stats.homeHeatmapCaption', lang)}</span>
+          <span class="text-xs text-faint" aria-hidden="true">
+            {t('stats.homeHeatmapCaption', lang)}
+          </span>
         </div>
       )
     }
