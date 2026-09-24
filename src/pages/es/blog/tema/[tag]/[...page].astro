@@ -1,22 +1,7 @@
 ---
-import BaseLayout from '../../../../../layouts/BaseLayout.astro';
-import PostList from '../../../../../components/blog/PostList.astro';
-import { t } from '../../../../../i18n/translations';
-import { getReadingTime } from '../../../../../lib/utils';
-import { getPosts, htmlPath, tagCounts } from '../../../../../lib/posts';
-import {
-  paginateItems,
-  pagePath,
-  blogBasePath,
-  topicBasePath,
-  otherLangPageNumber,
-  hreflangLinksFor,
-} from '../../../../../lib/pagination';
-import { collectionPageJsonLd } from '../../../../../lib/jsonld';
-import { tagLabel } from '../../../../../lib/tags';
-
-const lang = 'es';
-const otherLang = 'en';
+import BlogListingPage from '../../../../../components/blog/BlogListingPage.astro';
+import { getPosts, tagCounts } from '../../../../../lib/posts';
+import { paginateItems } from '../../../../../lib/pagination';
 
 export async function getStaticPaths() {
   const posts = await getPosts('es');
@@ -26,104 +11,14 @@ export async function getStaticPaths() {
     const pages = paginateItems(scoped);
     return pages.map((p) => ({
       params: { tag, page: p.page === 1 ? undefined : String(p.page) },
-      props: { pageNum: p.page, totalPages: p.totalPages },
+      props: { pageNum: p.page },
     }));
   });
 }
 
 const { tag } = Astro.params as { tag: string };
-const { pageNum, totalPages } = Astro.props as { pageNum: number; totalPages: number };
-
-const posts = await getPosts(lang);
-const otherPosts = await getPosts(otherLang);
-const tags = tagCounts(posts);
-const otherTags = tagCounts(otherPosts);
-
-const scoped = posts.filter((post) => post.data.tags.includes(tag));
-const otherScoped = otherPosts.filter((post) => post.data.tags.includes(tag));
-const pages = paginateItems(scoped);
-const otherPages = paginateItems(otherScoped);
-const current = pages[pageNum - 1];
-const base = topicBasePath(lang, tag);
-const otherBase = topicBasePath(otherLang, tag);
-const otherBlogBase = blogBasePath(otherLang);
-
-const flatPosts = current.items.map((post) => ({
-  slug: post.id,
-  href: htmlPath(post, lang),
-  title: post.data.title,
-  description: post.data.description,
-  date: post.data.date,
-  readingMinutes: getReadingTime(post.body ?? ''),
-  tags: post.data.tags,
-  tagHref: (tg: string) => topicBasePath(lang, tg),
-}));
-
-const prevHref = pageNum > 1 ? pagePath(base, pageNum - 1) : undefined;
-const nextHref = pageNum < totalPages ? pagePath(base, pageNum + 1) : undefined;
-
-const label = tagLabel(tag, lang);
-const heading = t('writing.topicTitle', lang).replace('{tag}', label);
-const titleSuffix =
-  pageNum > 1 ? t('writing.titlePageSuffix', lang).replace('{page}', String(pageNum)) : '';
-const pageTitle = `${heading}${titleSuffix}`;
-const description = t('writing.topicDescription', lang)
-  .replace('{n}', String(scoped.length))
-  .replace('{tag}', label);
-
-const otherHasTag = otherTags.some((ot) => ot.tag === tag);
-const alternatePath = otherHasTag
-  ? pagePath(otherBase, otherLangPageNumber(pageNum, otherPages.length))
-  : otherBlogBase;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const otherPageExists = otherHasTag && pageNum <= otherPages.length;
-const hreflangLinks = hreflangLinksFor(
-  lang,
-  canonicalURL,
-  otherLang,
-  otherPageExists ? new URL(pagePath(otherBase, pageNum), Astro.site).toString() : undefined,
-);
-const jsonLd = collectionPageJsonLd({
-  lang,
-  title: pageTitle,
-  description,
-  url: canonicalURL,
-  posts: current.items.map((post) => ({
-    headline: post.data.title,
-    url: new URL(htmlPath(post, lang), Astro.site).toString(),
-  })),
-});
+const { pageNum } = Astro.props as { pageNum: number };
+const posts = await getPosts('es');
 ---
 
-<BaseLayout
-  title={pageTitle}
-  description={description}
-  lang={lang}
-  alternatePath={alternatePath}
-  hreflangLinks={hreflangLinks}
-  prevHref={prevHref}
-  nextHref={nextHref}
-  jsonLd={jsonLd}
-  noindex={scoped.length < 2}
->
-  <div class="container-page py-14">
-    <PostList
-      lang={lang}
-      posts={flatPosts}
-      tags={tags}
-      rssHref="/es/rss.xml"
-      title={heading}
-      languageTotal={posts.length}
-      scopeTotal={scoped.length}
-      rangeStart={current.start}
-      rangeEnd={current.end}
-      allHref={blogBasePath(lang)}
-      topicHref={(tg: string) => topicBasePath(lang, tg)}
-      activeTag={tag}
-      page={pageNum}
-      totalPages={totalPages}
-      prevHref={prevHref}
-      nextHref={nextHref}
-    />
-  </div>
-</BaseLayout>
+<BlogListingPage lang="es" posts={posts} page={pageNum} tag={tag} />
