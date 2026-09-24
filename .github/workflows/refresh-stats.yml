@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  actions: read
 
 concurrency:
   group: refresh-stats
@@ -32,20 +31,6 @@ jobs:
           UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
         run: node scripts/fetch-data.mjs
 
-      - name: Download the latest Lighthouse reports from main
-        id: reports
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          run_id=$(gh run list --workflow ci.yml --branch main --event push --status completed --limit 1 --json databaseId --jq '.[0].databaseId')
-          test -n "$run_id"
-          gh run download "$run_id" --name lighthouse --dir lighthouse
-
-      - name: Merge Lighthouse scores
-        if: ${{ steps.reports.outcome == 'success' }}
-        run: node scripts/merge-lighthouse.mjs lighthouse/mobile/manifest.json lighthouse/desktop/manifest.json
-
       - name: Commit the data if it changed
         run: |
           git config user.name 'github-actions[bot]'
@@ -56,4 +41,5 @@ jobs:
             exit 0
           fi
           git commit -m 'chore(stats): refresh data'
+          git pull --rebase
           git push

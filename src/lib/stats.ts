@@ -16,7 +16,6 @@ export type StatsData = {
     languages: { name: string; percent: number }[];
   } | null;
   umami: { views30d: number; mostRead: { path: string; title: string; views: number }[] } | null;
-  lighthouse: { performanceMobile: number; performanceDesktop: number } | null;
 };
 
 export function loadStats(root: string = process.cwd()): StatsData {

@@ -6,7 +6,6 @@ import { dirname } from 'node:path';
  *   generatedAt: string | null;
  *   github: Record<string, unknown> | null;
  *   umami: Record<string, unknown> | null;
- *   lighthouse: { performanceMobile: number; performanceDesktop: number } | null;
  * }} StatsFile
  */
 
@@ -38,37 +37,15 @@ function withoutDate(data) {
  * @returns {StatsFile}
  */
 export function buildStats({ github, umami, previous, now }) {
-  const lighthouse = previous?.lighthouse ?? null;
   const next = {
-    generatedAt: github || umami || lighthouse ? now.toISOString() : null,
+    generatedAt: github || umami ? now.toISOString() : null,
     github,
     umami,
-    lighthouse,
   };
   if (next.generatedAt && previous?.generatedAt && withoutDate(previous) === withoutDate(next)) {
     return { ...next, generatedAt: previous.generatedAt };
   }
   return next;
-}
-
-/**
- * @param {StatsFile | null} previous
- * @param {StatsFile['lighthouse']} lighthouse
- * @param {Date} now
- * @returns {StatsFile}
- */
-export function withLighthouse(previous, lighthouse, now) {
-  const base = previous ?? {
-    generatedAt: null,
-    github: null,
-    umami: null,
-    lighthouse: null,
-  };
-  return {
-    ...base,
-    generatedAt: base.generatedAt ?? now.toISOString(),
-    lighthouse,
-  };
 }
 
 /** @param {StatsFile} data */

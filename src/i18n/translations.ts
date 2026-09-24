@@ -189,7 +189,6 @@ export const translations = {
     'stats.mostRead': 'Most read',
     'stats.topics': 'Topics',
     'stats.site': 'This site',
-    'stats.lighthouse': 'Lighthouse performance, mobile',
     'stats.sources': 'Where the numbers come from',
     'stats.sourcesText':
       'GitHub GraphQL API and Umami API, fetched by a scheduled GitHub Action that rebuilds the site once a day. Lighthouse runs in CI on every deploy. Nothing runs in your browser to compute this page.',
@@ -414,7 +413,6 @@ export const translations = {
     'stats.mostRead': 'Más leídos',
     'stats.topics': 'Temas',
     'stats.site': 'Esta web',
-    'stats.lighthouse': 'Rendimiento Lighthouse, móvil',
     'stats.sources': 'De dónde salen los números',
     'stats.sourcesText':
       'API GraphQL de GitHub y API de Umami, consultadas por una GitHub Action programada que reconstruye la web una vez al día. Lighthouse corre en CI en cada despliegue. Nada se ejecuta en tu navegador para calcular esta página.',
