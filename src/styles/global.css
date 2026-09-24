@@ -39,6 +39,7 @@
     --lang-3: #60a5fa;
     --lang-4: #93c5fd;
     --lang-other: #6b7280;
+    --tux-body: #0b0d11;
     color-scheme: light;
   }
 
@@ -59,6 +60,7 @@
       --lang-3: #2d5aa8;
       --lang-4: #1d3f78;
       --lang-other: #6b7280;
+      --tux-body: #3d4452;
       color-scheme: dark;
     }
   }
@@ -79,6 +81,7 @@
     --lang-3: #2d5aa8;
     --lang-4: #1d3f78;
     --lang-other: #6b7280;
+    --tux-body: #3d4452;
     color-scheme: dark;
   }
 
