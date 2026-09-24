@@ -24,3 +24,32 @@ describe('Footer privacy line', () => {
     expect(es).not.toContain('Umami');
   });
 });
+
+describe('Footer social links', () => {
+  it('renders four social links, each with an aria-label', async () => {
+    const html = await render(true);
+    const labels = [...html.matchAll(/aria-label="([^"]+)"/g)].map((m) => m[1]);
+    expect(labels).toHaveLength(4);
+    expect(labels.some((l) => l.startsWith('GitHub,'))).toBe(true);
+    expect(labels.some((l) => l.startsWith('LinkedIn,'))).toBe(true);
+    expect(labels.some((l) => l.startsWith('X,'))).toBe(true);
+    expect(labels.some((l) => l.startsWith('Email,'))).toBe(true);
+  });
+
+  it('marks the identity links with rel="me" but not the mail link', async () => {
+    const html = await render(true);
+    expect(html).toContain('href="https://github.com/alvarotorresc" aria-label="GitHub,');
+    expect(html).toMatch(/href="https:\/\/github\.com\/alvarotorresc"[^>]*rel="me"/);
+    expect(html).toMatch(/href="mailto:hello@alvarotc\.com"/);
+    expect(html).not.toMatch(/href="mailto:hello@alvarotc\.com"[^>]*rel="me"/);
+  });
+});
+
+describe('Footer llms.txt link', () => {
+  it('links to /llms.txt in English and /es/llms.txt in Spanish', async () => {
+    const en = await render(true, 'en');
+    expect(en).toContain('href="/llms.txt"');
+    const es = await render(true, 'es');
+    expect(es).toContain('href="/es/llms.txt"');
+  });
+});

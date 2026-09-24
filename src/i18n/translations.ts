@@ -27,6 +27,11 @@ export const translations = {
     'footer.privacyNoAnalytics': 'No cookies, no trackers. Source under AGPL.',
     'footer.lang': 'Español',
     'footer.source': 'Source',
+    'footer.llms': 'llms.txt',
+    'footer.social.github': 'GitHub',
+    'footer.social.linkedin': 'LinkedIn',
+    'footer.social.x': 'X',
+    'footer.social.email': 'Email',
     'hero.intro':
       'Software Engineer. I build robust, scalable software. A firm believer in free software and privacy. I also like writing about it.',
     'hero.contact': 'Get in touch',
@@ -277,6 +282,11 @@ export const translations = {
     'footer.privacyNoAnalytics': 'Sin cookies ni rastreadores. Código bajo AGPL.',
     'footer.lang': 'English',
     'footer.source': 'Código',
+    'footer.llms': 'llms.txt',
+    'footer.social.github': 'GitHub',
+    'footer.social.linkedin': 'LinkedIn',
+    'footer.social.x': 'X',
+    'footer.social.email': 'Correo',
     'hero.intro':
       'Software Engineer. Construyo software robusto y escalable. Firme defensor del software libre y la privacidad. También me gusta escribir sobre ello.',
     'hero.contact': 'Contactar',
