@@ -1,10 +1,10 @@
-# Check if there are staged changes in src/content/posts/
-POSTS_CHANGED=$(git diff --cached --name-only --diff-filter=ACM | grep "^src/content/posts/.*\.md$" || true)
+# Translate only newly added Spanish posts; edits to existing posts never touch the English pair.
+POSTS_ADDED=$(git diff --cached --name-only --diff-filter=A -- 'src/content/posts/*.md')
 
-if [ -n "$POSTS_CHANGED" ]; then
-  echo "📝 Posts en español detectados, traduciendo solo los del commit..."
+if [ -n "$POSTS_ADDED" ]; then
+  echo "📝 Posts nuevos en español detectados, traduciendo..."
   # shellcheck disable=SC2086
-  npm run translate -- $POSTS_CHANGED
+  npm run translate -- $POSTS_ADDED
   git add src/content/posts-en/
   echo "✅ Traducciones añadidas al commit"
 fi

@@ -3,131 +3,121 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import * as deepl from 'deepl-node';
 import dotenv from 'dotenv';
+import { findEnglishPair, planTranslations } from './lib/translation-pairs.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load .env file
-dotenv.config({ path: path.join(__dirname, '../.env') });
-
-const DEEPL_API_KEY = process.env.DEEPL_API_KEY;
-
-if (!DEEPL_API_KEY) {
-  console.error('❌ DEEPL_API_KEY not found in environment variables');
-  console.log('Add it to .env file or export it:');
-  console.log('export DEEPL_API_KEY=your_key_here');
-  process.exit(1);
-}
-
-const translator = new deepl.Translator(DEEPL_API_KEY);
+dotenv.config({ path: path.join(__dirname, '../.env'), quiet: true });
 
 const postsDir = path.join(__dirname, '../src/content/posts');
 const postsEnDir = path.join(__dirname, '../src/content/posts-en');
 
-// Create posts-en directory if it doesn't exist
-if (!fs.existsSync(postsEnDir)) {
-  fs.mkdirSync(postsEnDir, { recursive: true });
-}
+const stripQuotes = (s) => s.replace(/^(['"])(.*)\1$/, '$2');
 
-async function translatePost(filename) {
-  const filePath = path.join(postsDir, filename);
-  const content = fs.readFileSync(filePath, 'utf-8');
+const slugify = (text) =>
+  text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
 
-  // Extract frontmatter and body
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
-  const match = content.match(frontmatterRegex);
+async function translatePost(translator, filename, { force }) {
+  const content = fs.readFileSync(path.join(postsDir, filename), 'utf-8');
+  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
 
   if (!match) {
-    console.log(`⚠️  Skipping ${filename} - no frontmatter found`);
+    console.error(`skip: ${filename} has no frontmatter`);
     return;
   }
 
   const [, frontmatter, body] = match;
-
-  // Parse frontmatter
-  const lines = frontmatter.split('\n');
   let title = '';
   let description = '';
-  let otherFrontmatter = [];
+  const otherFrontmatter = [];
 
-  // Strip surrounding quotes from YAML values
-  const stripQuotes = (s) => s.replace(/^(['"])(.*)\1$/, '$2');
-
-  for (const line of lines) {
-    if (line.startsWith('title:')) {
-      title = stripQuotes(line.replace('title:', '').trim());
-    } else if (line.startsWith('description:')) {
+  for (const line of frontmatter.split('\n')) {
+    if (line.startsWith('title:')) title = stripQuotes(line.replace('title:', '').trim());
+    else if (line.startsWith('description:'))
       description = stripQuotes(line.replace('description:', '').trim());
-    } else {
-      otherFrontmatter.push(line);
-    }
+    else if (!line.startsWith('source:')) otherFrontmatter.push(line);
   }
 
-  console.log(`📝 Translating: ${filename}`);
+  console.log(`Translating: ${filename}`);
 
-  // Translate title, description, and body from Spanish to English
   const [titleEn, descriptionEn, bodyEn] = await Promise.all([
     translator.translateText(title, 'es', 'en-US'),
     translator.translateText(description, 'es', 'en-US'),
     translator.translateText(body.trim(), 'es', 'en-US'),
   ]);
 
-  // Build translated frontmatter. Title and description go double-quoted
-  // (JSON.stringify escapes quotes and backslashes): an unquoted title with
-  // a colon ("Foo: bar") is invalid YAML and breaks the Astro build.
-  const translatedFrontmatterSafe = [
+  // Title and description go double-quoted: an unquoted "Foo: bar" is invalid YAML.
+  const translatedFrontmatter = [
     `title: ${JSON.stringify(titleEn.text)}`,
     `description: ${JSON.stringify(descriptionEn.text)}`,
-    `source: ${JSON.stringify(filename.replace(/\.md$/, ''))}`,
-    ...otherFrontmatter.filter((l) => !l.startsWith('description:') && !l.startsWith('source:')),
+    ...otherFrontmatter,
+    `source: ${filename.replace(/\.md$/, '')}`,
   ].join('\n');
 
-  const translatedContent = `---\n${translatedFrontmatterSafe}\n---\n\n${bodyEn.text}\n`;
-
-  // Generate English slug from translated title
-  const enSlug = titleEn.text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
-  const enFilename = `${enSlug}.md`;
-
+  const enFilename =
+    (force && findEnglishPair(filename, postsEnDir)) || `${slugify(titleEn.text)}.md`;
   const outputPath = path.join(postsEnDir, enFilename);
-  fs.writeFileSync(outputPath, translatedContent, 'utf-8');
 
-  console.log(`✅ Translated → ${enFilename}`);
+  if (!force && fs.existsSync(outputPath)) {
+    throw new Error(`${enFilename} already exists; use --force to overwrite it`);
+  }
+
+  fs.writeFileSync(outputPath, `---\n${translatedFrontmatter}\n---\n\n${bodyEn.text}\n`, 'utf-8');
+  console.log(`Translated → ${enFilename}`);
 }
 
 async function main() {
-  console.log('🌍 Starting translation process...\n');
+  const args = process.argv.slice(2);
+  const force = args.includes('--force');
 
-  // Sin argumentos: traduce todos los posts (uso manual).
-  // Con argumentos: solo esos ficheros (el hook de pre-commit pasa los staged).
-  const requested = process.argv.slice(2).map((f) => path.basename(f));
+  // Without file arguments, every Spanish post is considered (manual use).
+  const requested = args.filter((a) => a !== '--force').map((f) => path.basename(f));
   const files =
     requested.length > 0
       ? requested.filter((f) => {
           if (!f.endsWith('.md') || !fs.existsSync(path.join(postsDir, f))) {
-            console.log(`⚠️  Skipping ${f} - not a post in ${postsDir}`);
+            console.error(`skip: ${f} is not a post in ${postsDir}`);
             return false;
           }
           return true;
         })
       : fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'));
 
-  for (const file of files) {
-    try {
-      await translatePost(file);
-    } catch (error) {
-      console.error(`❌ Error translating ${file}:`, error.message);
-    }
+  const { toTranslate, skipped } = planTranslations(files, postsEnDir, { force });
+  for (const { file, pair } of skipped) {
+    console.error(`skip: ${file} ya tiene traducción en ${pair}`);
   }
 
-  console.log('\n✨ Translation complete!');
-  console.log(`Translated ${files.length} post(s) from Spanish to English`);
+  if (toTranslate.length === 0) return;
+
+  const apiKey = process.env.DEEPL_API_KEY;
+  if (!apiKey) {
+    console.error(
+      `DEEPL_API_KEY not found: cannot translate ${toTranslate.join(', ')}.\n` +
+        'Add it to .env or export DEEPL_API_KEY=your_key_here.',
+    );
+    process.exit(1);
+  }
+
+  fs.mkdirSync(postsEnDir, { recursive: true });
+  const translator = new deepl.Translator(apiKey);
+
+  for (const file of toTranslate) {
+    try {
+      await translatePost(translator, file, { force });
+    } catch (error) {
+      console.error(`Error translating ${file}: ${error.message}`);
+      process.exitCode = 1;
+    }
+  }
 }
 
 main();
