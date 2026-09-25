@@ -16,7 +16,11 @@ const lab = await getLabProjects(lang);
     <section class="flex flex-col gap-5">
       <h2 class="sr-only">{t('projects.featured', lang)}</h2>
       <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-        {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
+        {
+          featured.map((project, i) => (
+            <ProjectCard lang={lang} project={project} featured priority={i === 0} />
+          ))
+        }
       </div>
     </section>
 
@@ -25,8 +29,12 @@ const lab = await getLabProjects(lang);
         <div class="flex flex-col gap-5">
           <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
           <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {lab.map((project) => (
-              <ProjectCard lang={lang} project={project} />
+            {lab.map((project, i) => (
+              <ProjectCard
+                lang={lang}
+                project={project}
+                priority={featured.length === 0 && i === 0}
+              />
             ))}
           </div>
         </div>

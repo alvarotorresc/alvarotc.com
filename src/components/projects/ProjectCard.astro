@@ -14,8 +14,9 @@ interface Props {
   lang: Locale;
   project: ProjectEntry;
   featured?: boolean;
+  priority?: boolean;
 }
-const { lang, project, featured = false } = Astro.props;
+const { lang, project, featured = false, priority = false } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 const slug = projectSlug(project);
 const cover = homeImage(project);
@@ -28,6 +29,10 @@ const cover = homeImage(project);
         src={cover}
         alt={project.data.name}
         width={640}
+        widths={[320, 480, 640, 960]}
+        sizes="(min-width: 1280px) 320px, (min-width: 768px) calc((100vw - 240px) / 3), calc(100vw - 72px)"
+        format="webp"
+        priority={priority}
         class:list={[
           'w-full rounded-[10px]',
           featured ? 'aspect-video' : 'aspect-[16/10] max-h-[140px]',
