@@ -3,7 +3,7 @@
 > Mi espacio personal en internet. Portfolio, proyectos y blog sobre desarrollo de software.
 
 [![Deploy](https://img.shields.io/badge/deploy-vercel-black)](https://alvarotc.com)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)](LICENSE)
 
 ## 👋 Sobre esta web
 
@@ -67,4 +67,6 @@ npm run preview      # Preview del build
 
 ## Licencia
 
-MIT — ver [LICENSE](./LICENSE)
+El código fuente se publica bajo la [GNU AGPL-3.0-or-later](./LICENSE).
+
+Los textos, las imágenes y el contenido del blog son © Álvaro Torres Carrasco, todos los derechos reservados salvo indicación en contrario.
