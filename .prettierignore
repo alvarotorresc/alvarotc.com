@@ -8,3 +8,4 @@ research_notes/
 package-lock.json
 .lighthouseci/
 lighthouse/
+docs/superpowers/**/*.html
