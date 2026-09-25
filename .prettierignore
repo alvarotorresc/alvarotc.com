@@ -9,3 +9,4 @@ package-lock.json
 .lighthouseci/
 lighthouse/
 docs/superpowers/**/*.html
+launch-gate/
