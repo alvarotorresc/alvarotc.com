@@ -23,8 +23,8 @@ export const translations = {
     'search.kind.project': 'Project',
     'search.kind.post': 'Post',
     'footer.privacy':
-      'No cookies, no trackers. Analytics self-hosted with Umami. Source under AGPL.',
-    'footer.privacyNoAnalytics': 'No cookies, no trackers. Source under AGPL.',
+      'No cookies, no trackers. Analytics self-hosted with Umami. Source under MIT.',
+    'footer.privacyNoAnalytics': 'No cookies, no trackers. Source under MIT.',
     'footer.lang': 'Español',
     'footer.privacyPolicy': 'Privacy',
     'footer.legal': 'Legal notice',
@@ -293,8 +293,8 @@ export const translations = {
     'search.kind.project': 'Proyecto',
     'search.kind.post': 'Post',
     'footer.privacy':
-      'Sin cookies ni rastreadores. Analítica autoalojada con Umami. Código bajo AGPL.',
-    'footer.privacyNoAnalytics': 'Sin cookies ni rastreadores. Código bajo AGPL.',
+      'Sin cookies ni rastreadores. Analítica autoalojada con Umami. Código bajo MIT.',
+    'footer.privacyNoAnalytics': 'Sin cookies ni rastreadores. Código bajo MIT.',
     'footer.lang': 'English',
     'footer.privacyPolicy': 'Privacidad',
     'footer.legal': 'Aviso legal',

@@ -3,7 +3,7 @@
 Fecha: 2026-09-25 · Rama: `redesign/cv-web` · Base: `LAUNCH_GATE_REPORT.md` (24 sep)
 
 Lo que se podía resolver en código ya está en la rama: cabeceras de seguridad y CSP, aviso legal y
-política de privacidad, licencia AGPL coherente, pie con enlaces legales y estado, OG por defecto,
+política de privacidad, licencia MIT coherente, pie con enlaces legales y estado, OG por defecto,
 iconos y manifest, SEO de títulos y descripciones, LCP del listado de proyectos, dependencias,
 Dependabot, lint limpio, tests estables en checkout limpio, `security.txt`, barra final, runbook,
 continuidad y changelog.
@@ -146,9 +146,10 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 
 ## 6. Tres decisiones que he tomado y debes confirmar
 
-1. **Licencia AGPL-3.0-or-later** para el código. El pie ya lo decía; el README decía MIT y había un
-   LICENSE MIT del scaffold. Si prefieres MIT, se cambian `LICENSE`, `package.json`, README y las
-   dos claves `footer.privacy*` de `translations.ts`.
+1. **Licencia MIT** para el código, confirmada por el dueño el 25 sep 2026. `LICENSE`, `package.json`,
+   README y las dos claves `footer.privacy*` de `translations.ts` dicen MIT. Los textos, las
+   imágenes y el contenido del blog siguen siendo © Álvaro Torres Carrasco, todos los derechos
+   reservados salvo indicación.
 2. **Vercel Web Analytics**: retirado el 25 sep 2026 (`@vercel/analytics` fuera del layout y de
    `package.json`, párrafo borrado de las páginas de privacidad). Umami autoalojado es la única
    analítica.
