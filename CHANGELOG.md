@@ -21,7 +21,7 @@ Rediseño completo del sitio (rama `redesign/cv-web`, 150 commits sobre `main`).
 - Páginas de aviso legal y política de privacidad en ambos idiomas, enlazadas desde el pie junto con la página de estado y el copyright.
 - Cabeceras de seguridad y Content-Security-Policy por hash vía `vercel.json`, `security.txt` y barra final obligatoria.
 - Imagen OG por defecto, `apple-touch-icon` e iconos del manifest generados por script.
-- Licencia AGPL-3.0-or-later, Dependabot semanal, runbook y documento de continuidad.
+- Licencia MIT, Dependabot semanal, runbook y documento de continuidad.
 
 ### Cambiado
 

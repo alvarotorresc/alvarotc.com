@@ -17,10 +17,10 @@ describe('Footer privacy line', () => {
 
   it('drops the Umami sentence when there is no tracking', async () => {
     const en = await render(false);
-    expect(en).toContain('No cookies, no trackers. Source under AGPL.');
+    expect(en).toContain('No cookies, no trackers. Source under MIT.');
     expect(en).not.toContain('Umami');
     const es = await render(false, 'es');
-    expect(es).toContain('Sin cookies ni rastreadores. Código bajo AGPL.');
+    expect(es).toContain('Sin cookies ni rastreadores. Código bajo MIT.');
     expect(es).not.toContain('Umami');
   });
 });
