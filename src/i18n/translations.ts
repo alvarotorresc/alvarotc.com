@@ -26,6 +26,9 @@ export const translations = {
       'No cookies, no trackers. Analytics self-hosted with Umami. Source under AGPL.',
     'footer.privacyNoAnalytics': 'No cookies, no trackers. Source under AGPL.',
     'footer.lang': 'Español',
+    'footer.privacyPolicy': 'Privacy',
+    'footer.legal': 'Legal notice',
+    'footer.status': 'Status',
     'footer.source': 'Source',
     'footer.llms': 'llms.txt',
     'footer.social.github': 'GitHub',
@@ -253,6 +256,18 @@ export const translations = {
     'error.title': 'Page not found',
     'error.text': 'This page does not exist, or it has moved somewhere else.',
     'error.home': 'Back to the home page',
+    'error.description':
+      'This page does not exist or has moved. Go back to the home page or check whether the site is up.',
+    'error.status': 'Service status',
+    'stats.description':
+      'Public numbers from alvarotc.com: GitHub activity, published writing and site performance, refreshed daily.',
+    'legal.updated': 'Last updated',
+    'legal.privacy.title': 'Privacy policy',
+    'legal.privacy.description':
+      'What personal data alvarotc.com handles: only the contact form. No cookies, cookieless self-hosted analytics, and your GDPR rights.',
+    'legal.notice.title': 'Legal notice',
+    'legal.notice.description':
+      'Who runs alvarotc.com, how to get in touch, who owns the content, the code licence and the law that applies to this personal site.',
   },
   es: {
     'site.title': 'Álvaro Torres Carrasco',
@@ -281,6 +296,9 @@ export const translations = {
       'Sin cookies ni rastreadores. Analítica autoalojada con Umami. Código bajo AGPL.',
     'footer.privacyNoAnalytics': 'Sin cookies ni rastreadores. Código bajo AGPL.',
     'footer.lang': 'English',
+    'footer.privacyPolicy': 'Privacidad',
+    'footer.legal': 'Aviso legal',
+    'footer.status': 'Estado',
     'footer.source': 'Código',
     'footer.llms': 'llms.txt',
     'footer.social.github': 'GitHub',
@@ -509,6 +527,18 @@ export const translations = {
     'error.title': 'Página no encontrada',
     'error.text': 'Esta página no existe o se ha movido a otro sitio.',
     'error.home': 'Volver a la portada',
+    'error.description':
+      'Esta página no existe o se ha movido. Vuelve a la portada o comprueba si la web está en marcha.',
+    'error.status': 'Estado de los servicios',
+    'stats.description':
+      'Cifras públicas de alvarotc.com: actividad en GitHub, artículos publicados y rendimiento de la web, actualizadas a diario.',
+    'legal.updated': 'Última actualización',
+    'legal.privacy.title': 'Política de privacidad',
+    'legal.privacy.description':
+      'Qué datos personales trata alvarotc.com: solo los del formulario de contacto. Sin cookies, analítica autoalojada y tus derechos RGPD.',
+    'legal.notice.title': 'Aviso legal',
+    'legal.notice.description':
+      'Quién está detrás de alvarotc.com, cómo contactar, de quién es el contenido, la licencia del código y la ley aplicable.',
   },
 };
 
