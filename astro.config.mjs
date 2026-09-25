@@ -62,8 +62,16 @@ for (const p of es) lastmod.set(`${SITE}/es/blog/${p.id}/`, p.date);
 
 const alternatesFor = (url) => {
   if (pairs.has(url)) return pairs.get(url);
-  const t = url.match(/^https:\/\/alvarotc\.com\/(?:blog\/topic|es\/blog\/tema)\/([^/]+)\/(\d+\/)?$/);
-  if (t) return { en: `${SITE}/blog/topic/${t[1]}/${t[2] ?? ''}`, es: `${SITE}/es/blog/tema/${t[1]}/${t[2] ?? ''}` };
+  const legal = url.match(/^https:\/\/alvarotc\.com\/(?:es\/)?(privacy|legal)\/$/);
+  if (legal) return { en: `${SITE}/${legal[1]}/`, es: `${SITE}/es/${legal[1]}/` };
+  const t = url.match(
+    /^https:\/\/alvarotc\.com\/(?:blog\/topic|es\/blog\/tema)\/([^/]+)\/(\d+\/)?$/,
+  );
+  if (t)
+    return {
+      en: `${SITE}/blog/topic/${t[1]}/${t[2] ?? ''}`,
+      es: `${SITE}/es/blog/tema/${t[1]}/${t[2] ?? ''}`,
+    };
   return null;
 };
 
