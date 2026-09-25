@@ -34,10 +34,10 @@ screenshots:
     alt: 'Drink water habit detail, with a 130-day streak'
     caption: 'Habit detail'
   - src: '../../../assets/projects/bito/shot-02-recordatorio-en.png'
-    alt: 'Notification shade with a Bito reminder and its button to log without opening the app'
+    alt: 'Notification shade with a Bito reminder and its buttons to log without opening the app'
     caption: 'Reminder'
   - src: '../../../assets/projects/bito/shot-03-estadisticas-en.png'
-    alt: 'Stats'
+    alt: "Stats with the year's perfect days and each habit's week"
     caption: 'Stats'
   - src: '../../../assets/projects/bito/shot-04-widget-en.png'
     alt: "Bito widget on the home screen with today's habits"
@@ -46,8 +46,8 @@ screenshots:
     alt: 'Badges screen with the ones earned, including the perfect week'
     caption: 'Badges'
   - src: '../../../assets/projects/bito/shot-06-revision-en.png'
-    alt: 'Daily review with the pending habits and the Seal the day button'
-    caption: 'Daily review'
+    alt: 'Day review with the pending habits and the Seal the day button'
+    caption: 'Day review'
 featuresIntro: "Three ways to log it. Two of them don't even ask you to open the app."
 features:
   - title: 'From the home screen'
