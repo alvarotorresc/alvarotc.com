@@ -4,7 +4,6 @@ import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
-import Analytics from '@vercel/analytics/astro';
 import Nav from '../components/site/Nav.astro';
 import Footer from '../components/site/Footer.astro';
 import CommandPalette from '../components/islands/CommandPalette';
@@ -166,7 +165,6 @@ const defaultJsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? defaultJsonLd)} />
 
     <ClientRouter />
-    <Analytics />
     {
       umamiWebsiteId && (
         <script

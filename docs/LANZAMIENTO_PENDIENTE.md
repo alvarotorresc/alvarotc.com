@@ -149,9 +149,9 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 1. **Licencia AGPL-3.0-or-later** para el código. El pie ya lo decía; el README decía MIT y había un
    LICENSE MIT del scaffold. Si prefieres MIT, se cambian `LICENSE`, `package.json`, README y las
    dos claves `footer.privacy*` de `translations.ts`.
-2. **Vercel Web Analytics**: el layout carga `@vercel/analytics` y la política de privacidad lo
-   menciona. Si no lo tienes activado en Vercel, o lo quitas, hay que borrar ese párrafo en las cuatro
-   páginas legales.
+2. **Vercel Web Analytics**: retirado el 25 sep 2026 (`@vercel/analytics` fuera del layout y de
+   `package.json`, párrafo borrado de las páginas de privacidad). Umami autoalojado es la única
+   analítica.
 3. **Hook de pre-commit que traduce con DeepL**: cualquier edición de un post en español retraduce
    y sobreescribe el post en inglés emparejado. Hoy ha estado a punto de destrozar cuatro posts; se
    evitó porque el worktree no tenía `DEEPL_API_KEY`. Recomiendo que el hook solo traduzca cuando
