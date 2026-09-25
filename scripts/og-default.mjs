@@ -8,9 +8,9 @@ register(new URL('./lib/ts-loader.mjs', import.meta.url));
 
 const { generateOGImage } = await import(new URL('../src/lib/og.ts', import.meta.url).href);
 
-const TITLE = 'Álvaro Torres Carrasco';
+const TITLE = 'Software Engineer';
 const SUBTITLE =
-  'Software Engineer · Backend developer. Offline-first apps, self-hosted infrastructure, free software.';
+  'Backend developer. Offline-first apps, self-hosted infrastructure, free software.';
 const DOMAIN = 'alvarotc.com';
 const OUTPUT = resolve(process.cwd(), 'public/og-default.png');
 
