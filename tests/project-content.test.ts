@@ -202,7 +202,7 @@ describe('bito copy follows the glossary', () => {
     const en = withoutPaths('en');
     expect(en).not.toMatch(/Statistics|Quantity|Sergeant|Nightly review/);
     expect(en).toContain("caption: 'Badges'");
-    expect(en).toContain("caption: 'Daily review'");
+    expect(en).toContain("caption: 'Day review'");
   });
 });
 
