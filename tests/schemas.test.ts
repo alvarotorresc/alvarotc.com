@@ -93,7 +93,7 @@ describe('projectSchema', () => {
       after: 'cd my-blog && npm run dev',
       download: { url: 'https://example.com/app.apk', label: '4,7 MB' },
       screenshots: [
-        { src: '../../../assets/projects/bito/widget.jpg', alt: 'Widget', caption: 'Widget' },
+        { src: '../../../assets/projects/bito/widget.png', alt: 'Widget', caption: 'Widget' },
       ],
       features: [{ title: 'Widget', text: 'Un toque.' }],
     });
@@ -105,9 +105,9 @@ describe('projectSchema', () => {
   it('accepts an optional promo image for the home', () => {
     const p = project.parse({
       ...minimal,
-      promo: '../../../assets/projects/bito/promo.jpg',
+      promo: '../../../assets/projects/bito/promo.png',
     });
-    expect(p.promo).toBe('../../../assets/projects/bito/promo.jpg');
+    expect(p.promo).toBe('../../../assets/projects/bito/promo.png');
   });
 
   it('drops the removed hero and gallery fields', () => {

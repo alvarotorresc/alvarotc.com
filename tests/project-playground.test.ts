@@ -137,7 +137,7 @@ describe('ProjectPlayground with a video', () => {
 
   it('speaks English', async () => {
     const html = await playground(makeView({ ...bitoFields, playground: video }, withPoster, 'en'));
-    expect(html).toContain('Watch on YouTube');
+    expect(html).toContain('See on YouTube');
     expect(html).toContain('This page loads nothing from YouTube.');
   });
 
