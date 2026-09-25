@@ -148,3 +148,42 @@ describe('ProjectPlayground with a video', () => {
     expect(html).not.toContain('data-section=');
   });
 });
+
+describe('ProjectPlayground with a local video file', () => {
+  const file = { kind: 'file' as const, src: '/video/bito-promo-es.mp4' };
+  const withPoster = { ...bitoImages, promo: '/_astro/promo.webp' };
+
+  it('plays the video in the page from this site', async () => {
+    const html = await playground(makeView({ ...bitoFields, playground: file }, withPoster));
+    expect(html).toContain('data-section="video"');
+    expect(html).toMatch(/<video[^>]*\scontrols/);
+    expect(html).toMatch(/<video[^>]*\splaysinline/);
+    expect(html).toContain('preload="metadata"');
+    expect(html).toContain('poster="/_astro/promo.webp"');
+    expect(html).toContain('width="1920"');
+    expect(html).toContain('height="1080"');
+    expect(html).toContain('<source src="/video/bito-promo-es.mp4" type="video/mp4">');
+    expect(html).toContain('href="/video/bito-promo-es.mp4"');
+    expect(html).toContain('Míralo');
+    expect(html).toContain('Se sirve desde esta web. Nada de terceros.');
+    expect(html).not.toContain('autoplay');
+    expect(html).not.toMatch(/youtu/i);
+    expect(html).not.toContain('data-video-link');
+    expect(html).not.toContain('data-playground-load');
+    expect(html).not.toContain('<iframe');
+  });
+
+  it('works without a poster', async () => {
+    const html = await playground(makeView({ ...bitoFields, playground: file }, bitoImages));
+    expect(html).toContain('data-video-file');
+    expect(html).not.toContain('poster=');
+  });
+
+  it('speaks English', async () => {
+    const en = { kind: 'file' as const, src: '/video/bito-promo-en.mp4' };
+    const html = await playground(makeView({ ...bitoFields, playground: en }, withPoster, 'en'));
+    expect(html).toContain('<source src="/video/bito-promo-en.mp4" type="video/mp4">');
+    expect(html).toContain('Served from this site. Nothing from third parties.');
+    expect(html).toContain('Download the video');
+  });
+});
