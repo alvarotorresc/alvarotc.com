@@ -137,6 +137,25 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     }
   });
 
+  it('has six screenshots of its language, in order', () => {
+    const shots = [...source.matchAll(/^ {2}- src: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
+    expect(shots).toEqual(
+      [
+        '01-habitos',
+        '02-recordatorio',
+        '03-estadisticas',
+        '04-widget',
+        '05-insignias',
+        '06-revision',
+      ].map((shot) => `shot-${shot}-${lang}`),
+    );
+    expect(source).not.toMatch(/\.jpg'/);
+  });
+
+  it('introduces the screenshots itself', () => {
+    expect(source).toMatch(/^screenshotsIntro: /m);
+  });
+
   it('has no emoji', () => {
     expect(source).not.toMatch(/\p{Extended_Pictographic}/u);
   });
@@ -167,6 +186,23 @@ describe('bito copy in both languages', () => {
         expect(en[key][i].length, `${key}[${i}]: ${en[key][i]}`).toBeLessThanOrEqual(text.length),
       ),
     );
+  });
+});
+describe('bito copy follows the glossary', () => {
+  const withoutPaths = (lang: string) => read(lang, 'bito').replace(/'\.\.\/[^']+'/g, '');
+
+  it('says logro and copia de seguridad in Spanish', () => {
+    const es = withoutPaths('es');
+    expect(es).not.toMatch(/insignia|backup/i);
+    expect(es).toContain("caption: 'Logros'");
+    expect(es).toContain("caption: 'Repaso del día'");
+  });
+
+  it('uses the app words in English', () => {
+    const en = withoutPaths('en');
+    expect(en).not.toMatch(/Statistics|Quantity|Sergeant|Nightly review/);
+    expect(en).toContain("caption: 'Badges'");
+    expect(en).toContain("caption: 'Daily review'");
   });
 });
 
