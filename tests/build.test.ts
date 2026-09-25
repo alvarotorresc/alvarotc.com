@@ -67,6 +67,27 @@ describe.skipIf(!built)('built home page', () => {
 const page = (route: string) => readFileSync(join(dist, route), 'utf8');
 
 describe.skipIf(!built)('built project pages', () => {
+  it('renders the Bito page with the 1.1.0 copy and six screens', () => {
+    const html = page('es/projects/bito/index.html');
+    expect(html).toContain('Android 8.0+');
+    expect(html).toContain('GPL-3.0-or-later');
+    expect(html).toContain('Repaso del día');
+    expect(html).not.toContain('v2.0.0');
+    expect(html.match(/<img[^>]+class="[^"]*shot-img/g)).toHaveLength(6);
+  });
+
+  it('shows the horizontal Bito promo on each home', () => {
+    expect(page('es/index.html')).toMatch(/\/_astro\/promo-es\.[\w-]+\.webp/);
+    expect(page('index.html')).toMatch(/\/_astro\/promo-en\.[\w-]+\.webp/);
+  });
+
+  it('keeps every emitted asset at 400 KB or less', () => {
+    const heavy = readdirSync(join(dist, '_astro')).filter(
+      (file) => readFileSync(join(dist, '_astro', file)).length > 400 * 1024,
+    );
+    expect(heavy).toEqual([]);
+  });
+
   it('renders Bito as a mobile page with webp images', () => {
     const html = page('es/projects/bito/index.html');
     expect(html).toContain('data-project="mobile"');
