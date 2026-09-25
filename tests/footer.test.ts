@@ -53,3 +53,24 @@ describe('Footer llms.txt link', () => {
     expect(es).toContain('href="/es/llms.txt"');
   });
 });
+
+describe('Footer site links', () => {
+  it('points the source link at the real repository', async () => {
+    expect(await render(true)).toContain('href="https://github.com/alvarotorresc/alvarotc.com"');
+  });
+
+  it('links to the privacy and legal pages in the current language', async () => {
+    const en = await render(true, 'en');
+    expect(en).toContain('href="/privacy/"');
+    expect(en).toContain('href="/legal/"');
+    const es = await render(true, 'es');
+    expect(es).toContain('href="/es/privacy/"');
+    expect(es).toContain('href="/es/legal/"');
+  });
+
+  it('links to the status page and shows the copyright line', async () => {
+    const html = await render(true);
+    expect(html).toContain('href="https://status.alvarotc.com"');
+    expect(html).toContain(`© ${new Date().getFullYear()} Álvaro Torres Carrasco`);
+  });
+});
