@@ -11,6 +11,7 @@ import {
   releaseLabel,
   releasesLink,
   shotsIntro,
+  youtubeWatchUrl,
 } from '../src/lib/project-view';
 import {
   baseceroFields,
@@ -23,6 +24,8 @@ import {
   pokeImages,
   sparseFields,
 } from './fixtures/project-view';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+import ProjectMedia from '../src/components/projects/ProjectMedia.astro';
 
 const originalTz = process.env.TZ;
 
@@ -268,7 +271,18 @@ describe('toProjectView', () => {
     expect(makeView(bitoFields, bitoImages, 'en').allProjects).toBe('/projects/');
   });
 
-  it('drops a video playground', () => {
+  it('keeps a YouTube video as a clean watch link', () => {
+    const view = makeView({
+      ...bitoFields,
+      playground: { kind: 'video', src: 'https://youtu.be/dQw4w9WgXcQ?si=Tr4ck3rT0k3n' },
+    });
+    expect(view.playground).toEqual({
+      kind: 'video',
+      src: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    });
+  });
+
+  it('drops a video that is not on YouTube', () => {
     const view = makeView({
       ...bitoFields,
       playground: { kind: 'video', src: 'https://x.dev/a.mp4' },
@@ -276,10 +290,60 @@ describe('toProjectView', () => {
     expect(view.playground).toBeUndefined();
   });
 
+  it('passes the promo through as the video poster', () => {
+    const view = makeView(bitoFields, { ...bitoImages, promo: '/_astro/promo.webp' });
+    expect(view.poster).toBe('/_astro/promo.webp');
+    expect(makeView(bitoFields, bitoImages).poster).toBeUndefined();
+  });
+
   it('keeps an empty project empty', () => {
     const view = makeView(sparseFields);
     expect(view.release).toBeUndefined();
     expect(view.changelog).toEqual([]);
     expect(view.screenshotsIntro).toBeUndefined();
+  });
+});
+
+describe('youtubeWatchUrl', () => {
+  const clean = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+
+  it.each([
+    'https://youtu.be/dQw4w9WgXcQ',
+    'https://youtu.be/dQw4w9WgXcQ?si=abc123',
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=5s',
+    'https://youtube.com/watch?v=dQw4w9WgXcQ',
+    'https://m.youtube.com/watch?v=dQw4w9WgXcQ',
+    'https://www.youtube.com/shorts/dQw4w9WgXcQ',
+    'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ',
+  ])('normalizes %s', (url) => {
+    expect(youtubeWatchUrl(url)).toBe(clean);
+  });
+
+  it.each([
+    'https://youtu.be/',
+    'https://www.youtube.com/watch?v=short',
+    'https://www.youtube.com/playlist?list=PL123',
+    'https://evil.com/watch?v=dQw4w9WgXcQ',
+    'https://youtube.com.evil.com/watch?v=dQw4w9WgXcQ',
+    'not a url',
+  ])('rejects %s', (url) => {
+    expect(youtubeWatchUrl(url)).toBeUndefined();
+  });
+});
+
+describe('video playground side effects', () => {
+  const video = { kind: 'video' as const, src: 'https://youtu.be/dQw4w9WgXcQ' };
+
+  it('gives a video no playground notes', () => {
+    expect(playgroundNotes(makeView({ ...bitoFields, playground: video }, bitoImages))).toEqual([]);
+  });
+
+  it('keeps the app address in the hybrid browser frame', async () => {
+    const container = await AstroContainer.create();
+    const view = makeView({ ...baseceroFields, playground: video }, baseceroImages);
+    const html = await container.renderToString(ProjectMedia, { props: { view } });
+    expect(html).toContain('data-media="hybrid"');
+    expect(html).toContain('basecero.alvarotc.com');
+    expect(html).not.toContain('youtube.com');
   });
 });
