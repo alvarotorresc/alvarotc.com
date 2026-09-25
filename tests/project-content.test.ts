@@ -51,15 +51,9 @@ const pngSize = (path: string) => {
 };
 const BITO = '../../../assets/projects/bito';
 
-const placeholders: Record<string, string[]> = {
-  bito: ['icon', 'cover', 'widget', 'reminder', 'review', 'stats', 'badges', 'habi'],
-};
-
-describe('project placeholders', () => {
-  it.each(Object.entries(placeholders))('%s has its placeholder images', (slug, names) => {
-    names.forEach((name) =>
-      expect(existsSync(`src/assets/projects/${slug}/${name}.jpg`), name).toBe(true),
-    );
+describe('bito media', () => {
+  it('keeps no placeholder JPEG', () => {
+    expect(readdirSync('src/assets/projects/bito').filter((f) => f.endsWith('.jpg'))).toEqual([]);
   });
 });
 
