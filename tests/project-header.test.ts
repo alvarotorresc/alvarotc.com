@@ -27,7 +27,7 @@ describe('ProjectHeader, mobile', () => {
     expect(html).toContain('La app de hábitos que no te roba tiempo.');
     expect(html).toContain('En publicación');
     expect(html).toContain('v1.0.0, 26 ago 2026');
-    expect(html).toContain('href="/es/projects"');
+    expect(html).toContain('href="/es/projects/"');
   });
 
   it('shows the cover in a phone frame', async () => {
@@ -76,7 +76,7 @@ describe('ProjectHeader, mobile', () => {
     expect(html).toContain('Download APK');
     expect(html).toContain('Source on GitHub');
     expect(html).toContain('Aug 26, 2026');
-    expect(html).toContain('href="/projects"');
+    expect(html).toContain('href="/projects/"');
   });
 });
 

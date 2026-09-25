@@ -41,7 +41,7 @@ const cover = homeImage(project);
       />
     )
   }
-  <a href={`${prefix}/projects/${slug}`} class="flex items-center gap-2.5">
+  <a href={`${prefix}/projects/${slug}/`} class="flex items-center gap-2.5">
     <h3 class="text-lg font-extrabold tracking-tight">{project.data.name}</h3>
     <Tag tone={tone(project.data.status)}>{statusLabel(project.data.status, lang)}</Tag>
   </a>
