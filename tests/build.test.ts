@@ -97,6 +97,21 @@ describe.skipIf(!built)('built project pages', () => {
     expect(html).toContain('application/ld+json');
   });
 
+  it('plays the Bito video natively from this site in each language', () => {
+    [
+      ['es/projects/bito/index.html', 'es'],
+      ['projects/bito/index.html', 'en'],
+    ].forEach(([route, lang]) => {
+      const html = page(route);
+      expect(html, route).toMatch(/<video[^>]*\scontrols/);
+      expect(html, route).toContain(
+        `<source src="/video/bito-promo-${lang}.mp4" type="video/mp4">`,
+      );
+      expect(html, route).not.toContain('data-video-link');
+      expect(existsSync(join(dist, `video/bito-promo-${lang}.mp4`)), lang).toBe(true);
+    });
+  });
+
   it('renders PokeUtils as a web page', () => {
     const html = page('projects/pokeutils/index.html');
     expect(html).toContain('data-media="web"');

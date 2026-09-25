@@ -63,7 +63,12 @@ export const projectSchema = ({ image }: SchemaContext) =>
     post: z.string().optional(),
     illustration: image().optional(),
     built: z.array(z.string()).default([]),
-    playground: z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.url() }).optional(),
+    playground: z
+      .discriminatedUnion('kind', [
+        z.object({ kind: z.enum(['pwa', 'iframe', 'video']), src: z.url() }),
+        z.object({ kind: z.literal('file'), src: z.string().regex(/^\/video\/[\w-]+\.mp4$/) }),
+      ])
+      .optional(),
     changelog: z
       .array(z.object({ version: z.string(), date: z.coerce.date().optional(), note: z.string() }))
       .default([]),
