@@ -98,14 +98,13 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(field(source, 'illustration')).toBe(`'${BITO}/illustration.png'`);
   });
 
-  it('has nine features, the first four with a screen of its language', () => {
+  it('has nine features, the first three with a screen of its language', () => {
     expect(source.match(/^ {2}- title: /gm)).toHaveLength(9);
     const images = [...source.matchAll(/^ {4}image: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
     expect(images).toEqual([
       `shot-04-widget-${lang}`,
       `shot-02-recordatorio-${lang}`,
       `shot-06-revision-${lang}`,
-      `feat-tareas-${lang}`,
     ]);
   });
 
@@ -123,11 +122,14 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
   });
 
   it('points the video, when there is one, at YouTube', () => {
-    const line = /^playground: (.+)$/m.exec(source)?.[1];
-    if (line) {
-      const src = /^\{ kind: video, src: '([^']+)' \}$/.exec(line)?.[1];
-      expect(src, line).toBeDefined();
-      expect(youtubeWatchUrl(src ?? ''), line).toBeDefined();
+    const block = /^playground:(?: \{.*\}|\n(?: {2}.+\n?)+)/m.exec(source)?.[0];
+    if (block) {
+      const kind = /kind: (\w+)/.exec(block)?.[1];
+      const src = /src: '([^']+)'/.exec(block)?.[1];
+      if (kind === 'video') {
+        expect(src, block).toBeDefined();
+        expect(youtubeWatchUrl(src ?? ''), block).toBeDefined();
+      }
     }
   });
 

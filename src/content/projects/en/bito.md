@@ -61,7 +61,6 @@ features:
     image: '../../../assets/projects/bito/shot-06-revision-en.png'
   - title: 'Tasks, deadlines, focus'
     text: 'The call, the paperwork, the email. Each task gets a deadline, a first step if it helps, and a 5, 10 or 25 minute timer with Habi beside you.'
-    image: '../../../assets/projects/bito/feat-tareas-en.png'
   - title: 'Backups that are yours'
     text: "Every backup carries everything and goes to the folder you pick. Plain, it's a JSON you open in Notepad; with a password, nobody opens it, not even Bito."
   - title: "Streaks that don't punish"
