@@ -61,7 +61,6 @@ features:
     image: '../../../assets/projects/bito/shot-06-revision-es.png'
   - title: 'Tareas con plazo y foco'
     text: 'La llamada, el papeleo, el correo. Cada tarea con su plazo, un primer paso si te ayuda a arrancar y un temporizador de 5, 10 o 25 minutos con Habi al lado.'
-    image: '../../../assets/projects/bito/feat-tareas-es.png'
   - title: 'Copias de seguridad que son tuyas'
     text: 'Cada copia lleva todo y va a la carpeta que tú elijas. En claro es un JSON que abres con el bloc de notas; con contraseña, no la abre nadie, ni siquiera Bito.'
   - title: 'Rachas que no te castigan'
