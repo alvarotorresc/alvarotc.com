@@ -115,4 +115,17 @@ describe('projectSchema', () => {
     expect(p).not.toHaveProperty('hero');
     expect(p).not.toHaveProperty('gallery');
   });
+
+  it('accepts a local video file as a site path and keeps urls for the rest', () => {
+    const src = '/video/bito-promo-es.mp4';
+    expect(project.parse({ ...minimal, playground: { kind: 'file', src } }).playground).toEqual({
+      kind: 'file',
+      src,
+    });
+    expect(() =>
+      project.parse({ ...minimal, playground: { kind: 'file', src: 'https://x.dev/a.mp4' } }),
+    ).toThrow();
+    expect(() => project.parse({ ...minimal, playground: { kind: 'video', src } })).toThrow();
+    expect(() => project.parse({ ...minimal, playground: { kind: 'pwa', src } })).toThrow();
+  });
 });

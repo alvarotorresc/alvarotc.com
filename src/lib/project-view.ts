@@ -55,8 +55,10 @@ export interface ReleaseEntry {
   note: string;
 }
 
+export type PlaygroundKind = 'pwa' | 'iframe' | 'video' | 'file';
+
 export interface ViewPlayground {
-  kind: 'pwa' | 'iframe' | 'video';
+  kind: PlaygroundKind;
   src: string;
 }
 
@@ -81,7 +83,7 @@ export interface ProjectFields {
   steps: Step[];
   stepsIntro?: string;
   after?: string;
-  playground?: { kind: 'pwa' | 'iframe' | 'video'; src: string };
+  playground?: { kind: PlaygroundKind; src: string };
   built: string[];
   changelog: ReleaseEntry[];
 }
@@ -272,7 +274,7 @@ export function fillParts(
 
 export function playgroundNotes(view: ProjectView): Note[] {
   const { lang, playground } = view;
-  if (!playground || playground.kind === 'video') return [];
+  if (!playground || playground.kind === 'video' || playground.kind === 'file') return [];
   if (view.kind === 'web') {
     const parts = fillParts(t('project.note.web', lang), {
       link: view.url ? { text: t('project.note.webLink', lang), href: view.url } : undefined,

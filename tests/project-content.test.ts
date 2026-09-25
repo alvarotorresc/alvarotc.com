@@ -121,7 +121,7 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     );
   });
 
-  it('points the video, when there is one, at YouTube', () => {
+  it('points the video, when there is one, at YouTube or a file under public/video', () => {
     const block = /^playground:(?: \{.*\}|\n(?: {2}.+\n?)+)/m.exec(source)?.[0];
     if (block) {
       const kind = /kind: (\w+)/.exec(block)?.[1];
@@ -130,7 +130,19 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
         expect(src, block).toBeDefined();
         expect(youtubeWatchUrl(src ?? ''), block).toBeDefined();
       }
+      if (kind === 'file') {
+        expect(src, block).toMatch(/^\/video\/[\w-]+\.mp4$/);
+        expect(existsSync(`public${src}`), block).toBe(true);
+      }
     }
+  });
+
+  it('plays its own video from this site', () => {
+    expect(field(source, 'playground')).toBe(
+      `{ kind: file, src: '/video/bito-promo-${lang}.mp4' }`,
+    );
+    expect(statSync(`public/video/bito-promo-${lang}.mp4`).size).toBeLessThanOrEqual(5 * 1024 ** 2);
+    expect(source).not.toMatch(/^playground:.*youtu/m);
   });
 
   it('has six screenshots of its language, in order', () => {

@@ -97,6 +97,8 @@ export const translations = {
     'project.watchText': 'The app in under a minute.',
     'project.watchLink': 'See on YouTube',
     'project.watchNote': 'It opens youtube.com in a new tab. This page loads nothing from YouTube.',
+    'project.watchFileNote': 'Served from this site. Nothing from third parties.',
+    'project.watchFileLink': 'Download the video',
     'project.note.loads.title': 'It loads when you ask',
     'project.note.loads.text': 'Until you press the button, the page does not download the app.',
     'project.note.mobile.tap.title': 'Tap a habit to log it',
@@ -373,6 +375,8 @@ export const translations = {
     'project.watchLink': 'Ver en YouTube',
     'project.watchNote':
       'Se abre youtube.com en otra pestaña. Esta página no carga nada de YouTube.',
+    'project.watchFileNote': 'Se sirve desde esta web. Nada de terceros.',
+    'project.watchFileLink': 'Descargar el vídeo',
     'project.note.loads.title': 'Se carga cuando tú lo pides',
     'project.note.loads.text': 'Hasta que pulsas el botón, la página no descarga la app.',
     'project.note.mobile.tap.title': 'Toca un hábito para registrarlo',

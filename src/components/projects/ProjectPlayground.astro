@@ -16,8 +16,9 @@ const { view } = Astro.props;
 const { lang, playground } = view;
 const notes = playgroundNotes(view);
 const video = playground?.kind === 'video';
-const phone = !video && (view.kind === 'mobile' || view.kind === 'hybrid');
-const web = !video && view.kind === 'web';
+const file = playground?.kind === 'file';
+const phone = !video && !file && (view.kind === 'mobile' || view.kind === 'hybrid');
+const web = !video && !file && view.kind === 'web';
 const play = '<path d="M7 4l13 8-13 8z"/>';
 const partClass = (part: NotePart) =>
   [part.href && 'font-semibold text-accent', part.mono && 'font-mono text-[13px]']
@@ -181,6 +182,36 @@ const partClass = (part: NotePart) =>
       </a>
       <p data-note class="max-w-[620px] text-sm leading-[1.6] text-muted">
         {t('project.watchNote', lang)}
+      </p>
+    </section>
+  )
+}
+{
+  playground && file && (
+    <section data-section="video" class="flex flex-col gap-6 border-t border-border py-14">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.watch', lang)}</h2>
+        <p class="max-w-[620px] text-base leading-[1.6] text-muted">
+          {t('project.watchText', lang)}
+        </p>
+      </div>
+      <video
+        data-video-file
+        controls
+        playsinline
+        preload="metadata"
+        poster={view.poster}
+        width="1920"
+        height="1080"
+        class="aspect-video h-auto w-full max-w-[960px] overflow-hidden rounded-xl border border-border bg-surface-2"
+      >
+        <source src={playground.src} type="video/mp4" />
+        <a href={playground.src} class="font-semibold text-accent">
+          {t('project.watchFileLink', lang)}
+        </a>
+      </video>
+      <p data-note class="max-w-[620px] text-sm leading-[1.6] text-muted">
+        {t('project.watchFileNote', lang)}
       </p>
     </section>
   )
