@@ -290,6 +290,13 @@ describe('toProjectView', () => {
     expect(view.playground).toBeUndefined();
   });
 
+  it('passes a local video file through with no notes', () => {
+    const playground = { kind: 'file' as const, src: '/video/bito-promo-es.mp4' };
+    const view = makeView({ ...bitoFields, playground });
+    expect(view.playground).toEqual(playground);
+    expect(playgroundNotes(view)).toEqual([]);
+  });
+
   it('passes the promo through as the video poster', () => {
     const view = makeView(bitoFields, { ...bitoImages, promo: '/_astro/promo.webp' });
     expect(view.poster).toBe('/_astro/promo.webp');

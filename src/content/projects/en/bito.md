@@ -15,7 +15,7 @@ githubRepo: alvarotorresc/bito
 icon: '../../../assets/projects/bito/icon.png'
 cover: '../../../assets/projects/bito/cover-en.png'
 promo: '../../../assets/projects/bito/promo-en.png'
-playground: { kind: video, src: 'https://youtu.be/jNTllqu9f5c' }
+playground: { kind: file, src: '/video/bito-promo-en.mp4' }
 download:
   url: https://github.com/alvarotorresc/bito/releases/download/v1.0.0/app-release.apk
   label: '4.7 MB'
