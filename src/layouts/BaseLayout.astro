@@ -2,7 +2,6 @@
 import '@fontsource-variable/manrope';
 import '@fontsource/jetbrains-mono/400.css';
 import '@fontsource/jetbrains-mono/500.css';
-import manropeLatin from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import Analytics from '@vercel/analytics/astro';
@@ -104,8 +103,8 @@ const defaultJsonLd = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0f1115" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href={manropeLatin} />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, follow" />}
     {prevHref && <link rel="prev" href={new URL(prevHref, Astro.site)} />}
