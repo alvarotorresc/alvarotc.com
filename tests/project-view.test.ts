@@ -261,11 +261,11 @@ describe('toProjectView', () => {
       caption: 'Widget',
     });
     expect(view.features[3].image).toBeUndefined();
-    expect(view.allProjects).toBe('/es/projects');
+    expect(view.allProjects).toBe('/es/projects/');
   });
 
   it('links to the English project list', () => {
-    expect(makeView(bitoFields, bitoImages, 'en').allProjects).toBe('/projects');
+    expect(makeView(bitoFields, bitoImages, 'en').allProjects).toBe('/projects/');
   });
 
   it('drops a video playground', () => {

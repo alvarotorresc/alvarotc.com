@@ -46,7 +46,7 @@ async function findPost(id: string): Promise<LinkRef> {
   if (!entry || entry.data.draft) {
     throw new Error(`Project ${project.id} points to a missing post: ${id}`);
   }
-  return { href: `${prefix}/blog/${entry.id}`, label: entry.data.title };
+  return { href: `${prefix}/blog/${entry.id}/`, label: entry.data.title };
 }
 
 const post = data.post ? await findPost(data.post) : undefined;

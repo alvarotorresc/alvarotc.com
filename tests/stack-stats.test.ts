@@ -58,7 +58,7 @@ describe('StackStats', () => {
     const html = await container.renderToString(StackStats, {
       props: { lang: 'en', stats: { posts: 5, apps: 2 } },
     });
-    expect(html).toMatch(/<a href="\/stats" class="btn-secondary[^"]*"/);
+    expect(html).toMatch(/<a href="\/stats\/" class="btn-secondary[^"]*"/);
     expect(html).toContain('Full stats page');
     expect(html).toContain('<svg');
   });
@@ -68,7 +68,7 @@ describe('StackStats', () => {
     const html = await container.renderToString(StackStats, {
       props: { lang: 'es', stats: { posts: 5, apps: 2 } },
     });
-    expect(html).toMatch(/<a href="\/es\/stats" class="btn-secondary[^"]*"/);
+    expect(html).toMatch(/<a href="\/es\/stats\/" class="btn-secondary[^"]*"/);
     expect(html).toContain('Página de stats');
     expect(html).toContain('Stack y stats');
   });
