@@ -99,7 +99,7 @@ describe('ProjectHistory', () => {
     expect(html).toContain('data-section="history"');
     expect(html).not.toContain('<h2');
     expect(html).not.toContain('data-releases');
-    expect(html).toContain('href="/es/projects"');
+    expect(html).toContain('href="/es/projects/"');
     expect(html).toContain('Todos los proyectos');
   });
 });

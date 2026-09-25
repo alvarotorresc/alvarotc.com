@@ -35,7 +35,7 @@ describe('ProjectCard', () => {
     const html = await container.renderToString(ProjectCard, {
       props: { lang: 'es', project: project() },
     });
-    expect(html).toContain('href="/es/projects/bito"');
+    expect(html).toContain('href="/es/projects/bito/"');
   });
 
   it('shows the publishing status in the warn tone and no image without a cover', async () => {

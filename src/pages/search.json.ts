@@ -8,11 +8,11 @@ import type { SearchItem } from '../lib/search';
 const locales: Locale[] = ['en', 'es'];
 
 const pages = [
-  { key: 'nav.about', path: '/about' },
-  { key: 'nav.projects', path: '/projects' },
-  { key: 'nav.writing', path: '/blog' },
-  { key: 'nav.stats', path: '/stats' },
-  { key: 'nav.cv', path: '/cv' },
+  { key: 'nav.about', path: '/about/' },
+  { key: 'nav.projects', path: '/projects/' },
+  { key: 'nav.writing', path: '/blog/' },
+  { key: 'nav.stats', path: '/stats/' },
+  { key: 'nav.cv', path: '/cv/' },
   { key: 'contact.title', path: '/#contact' },
 ] as const;
 
@@ -38,7 +38,7 @@ export const GET: APIRoute = async () => {
         lang,
         title: project.data.name,
         text: `${project.data.tagline} ${project.data.stack.join(' ')}`,
-        url: `${prefix}/projects/${projectSlug(project)}`,
+        url: `${prefix}/projects/${projectSlug(project)}/`,
       });
     }
 
@@ -48,7 +48,7 @@ export const GET: APIRoute = async () => {
         lang,
         title: post.data.title,
         text: `${post.data.description} ${post.data.tags.join(' ')}`,
-        url: `${prefix}/blog/${post.id}`,
+        url: `${prefix}/blog/${post.id}/`,
       });
     }
   }

@@ -12,19 +12,19 @@ describe('escapeHtml', () => {
 describe('inlineLinks', () => {
   it('turns [text](url) into an anchor', () => {
     expect(inlineLinks('See [Bito](/projects/bito) now.')).toBe(
-      'See <a href="/projects/bito">Bito</a> now.',
+      'See <a href="/projects/bito/">Bito</a> now.',
     );
   });
 
   it('handles several links in one paragraph', () => {
     expect(inlineLinks('[a](/a) and [b](https://b.dev)')).toBe(
-      '<a href="/a">a</a> and <a href="https://b.dev">b</a>',
+      '<a href="/a/">a</a> and <a href="https://b.dev">b</a>',
     );
   });
 
   it('escapes the text around and inside links', () => {
     expect(inlineLinks('1 < 2 [x<y](/x) & done')).toBe(
-      '1 &lt; 2 <a href="/x">x&lt;y</a> &amp; done',
+      '1 &lt; 2 <a href="/x/">x&lt;y</a> &amp; done',
     );
   });
 

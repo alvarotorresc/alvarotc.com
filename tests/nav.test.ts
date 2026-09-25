@@ -8,11 +8,11 @@ describe('Nav', () => {
     const html = await container.renderToString(Nav, {
       props: { lang: 'en', currentPath: '/' },
     });
-    expect(html).toContain('href="/about"');
+    expect(html).toContain('href="/about/"');
     expect(html).toContain('href="/#projects"');
-    expect(html).toContain('href="/blog"');
-    expect(html).toContain('href="/stats"');
-    expect(html).toContain('href="/cv"');
+    expect(html).toContain('href="/blog/"');
+    expect(html).toContain('href="/stats/"');
+    expect(html).toContain('href="/cv/"');
     expect(html).toContain('href="/es/"');
     expect(html).toContain('aria-label="Toggle theme"');
   });
@@ -56,9 +56,9 @@ describe('Nav', () => {
     const html = await container.renderToString(Nav, {
       props: { lang: 'es', currentPath: '/es/' },
     });
-    expect(html).toContain('href="/es/about"');
+    expect(html).toContain('href="/es/about/"');
     expect(html).toContain('href="/es/#projects"');
-    expect(html).toContain('href="/es/cv"');
+    expect(html).toContain('href="/es/cv/"');
     expect(html).toContain('href="/"');
     expect(html).toContain('Sobre mí');
   });

@@ -75,12 +75,12 @@ describe('AboutStory', () => {
 
   it('turns inline links into anchors and escapes the rest', async () => {
     const html = await render(false);
-    expect(html).toContain('<a href="/es/projects/bito">Bito</a> y 1 &lt; 2.');
+    expect(html).toContain('<a href="/es/projects/bito/">Bito</a> y 1 &lt; 2.');
   });
 
   it('lists the proof links in mono without a heading', async () => {
     const html = await render(false);
-    expect(html).toContain('href="/es/stats"');
+    expect(html).toContain('href="/es/stats/"');
   });
 
   it('carries the polaroid data on stages that have a photo', async () => {
@@ -98,7 +98,7 @@ describe('AboutStory', () => {
   it('links the closing buttons to contact and the CV', async () => {
     const html = await render(false);
     expect(html).toContain('href="/es/#contact"');
-    expect(html).toContain('href="/es/cv"');
+    expect(html).toContain('href="/es/cv/"');
   });
 });
 

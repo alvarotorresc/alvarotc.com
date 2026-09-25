@@ -117,11 +117,11 @@ export default function HeroTerminal({ lang, email }: { lang: Locale; email: str
         }
         return [err(s.noFile(arg))];
       case 'cv':
-        void navigate(lang === 'es' ? '/es/cv' : '/cv');
+        void navigate(lang === 'es' ? '/es/cv/' : '/cv/');
         return [];
       case 'lang':
         if (arg === 'en' || arg === 'es') {
-          void navigate(arg === 'es' ? '/es' : '/');
+          void navigate(arg === 'es' ? '/es/' : '/');
           return [];
         }
         return [out(lang)];

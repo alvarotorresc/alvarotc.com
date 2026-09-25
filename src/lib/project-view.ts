@@ -334,6 +334,6 @@ export function toProjectView(
     built: fields.built,
     changelog: changelogRows(fields.changelog, lang),
     releases: releasesLink(fields, lang),
-    allProjects: `${prefix}/projects`,
+    allProjects: `${prefix}/projects/`,
   };
 }
