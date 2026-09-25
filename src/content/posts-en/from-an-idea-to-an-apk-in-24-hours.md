@@ -1,6 +1,6 @@
 ---
 title: 'From an idea to an APK in 24 hours'
-description: "Four design documents before writing a single line of code. That's how Bito, my FOSS habit-tracking app for Android, went from an idea to an APK installed on my phone."
+description: "Four design documents before writing a line of code. That's how Bito, my FOSS habit-tracking app for Android, went from idea to an APK on my phone."
 date: 2026-08-14
 draft: false
 tags: ['android', 'kotlin', 'compose', 'foss', 'proceso', 'ia-engineering']

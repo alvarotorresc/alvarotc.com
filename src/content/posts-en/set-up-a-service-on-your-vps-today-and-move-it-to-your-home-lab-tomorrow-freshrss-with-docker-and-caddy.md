@@ -1,6 +1,7 @@
 ---
 title: 'Set up a service on your VPS today and move it to your homelab tomorrow: FreshRSS with Docker and Caddy'
-description: 'How to set up a self-hosted RSS reader so that migrating it later requires only an rsync command and a DNS change. Subdomain or path, CLI inside the container, WebSub, and a backup that has actually been restored.'
+seoTitle: 'FreshRSS: VPS to homelab'
+description: 'Set up a self-hosted RSS reader so migrating it takes just an rsync and a DNS change: subdomain or path, built-in CLI, WebSub, and tested backups.'
 date: 2026-09-02
 draft: false
 tags: ['self-hosted', 'docker', 'caddy', 'vps', 'homelab', 'rss']

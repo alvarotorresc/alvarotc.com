@@ -4,6 +4,7 @@ import { z } from 'astro/zod';
 
 export const postSchema = z.object({
   title: z.string(),
+  seoTitle: z.string().optional(),
   description: z.string(),
   date: z.coerce.date(),
   updated: z.coerce.date().optional(),

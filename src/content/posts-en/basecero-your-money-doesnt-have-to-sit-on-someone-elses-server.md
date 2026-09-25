@@ -1,6 +1,7 @@
 ---
 title: "BaseCero: Your money doesn't have to sit on someone else's server"
-description: 'Why did I create a serverless, accountless, open-source personal finance app when there are already thousands out there? What it stands for, what you give up in exchange, and how to install it.'
+seoTitle: 'BaseCero: finance without a server'
+description: 'Why I built a serverless, accountless, open-source finance app when thousands already exist. What it stands for, the trade-offs, and how to install it.'
 date: 2026-09-07
 draft: false
 tags: ['foss', 'privacidad', 'local-first', 'pwa', 'finanzas', 'producto']

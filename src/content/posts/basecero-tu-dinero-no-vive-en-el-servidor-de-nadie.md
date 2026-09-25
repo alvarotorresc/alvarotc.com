@@ -1,6 +1,7 @@
 ---
 title: 'BaseCero: tu dinero no tiene por qué vivir en el servidor de nadie'
-description: 'Por qué he hecho una app de finanzas personales sin servidor, sin cuentas y de código abierto, cuando ya existen miles. Qué defiende, a qué renuncias a cambio y cómo instalarla.'
+seoTitle: 'BaseCero: finanzas sin servidor'
+description: 'Por qué construí una app de finanzas sin servidor, sin cuentas y de código abierto habiendo ya miles. Qué defiende, qué cedes a cambio y cómo instalarla.'
 date: 2026-09-07
 draft: false
 tags: ['foss', 'privacidad', 'local-first', 'pwa', 'finanzas', 'producto']
