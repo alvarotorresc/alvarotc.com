@@ -12,7 +12,10 @@ const { view } = Astro.props;
 const { lang, name } = view;
 const coverAlt = t('project.coverAlt', lang).replace('{name}', name);
 const phoneAlt = t('project.coverMobileAlt', lang).replace('{name}', name);
-const appAddress = view.playground ? displayUrl(view.playground.src) : (view.address ?? '');
+const appAddress =
+  view.playground && view.playground.kind !== 'video'
+    ? displayUrl(view.playground.src)
+    : (view.address ?? '');
 ---
 
 {

@@ -56,7 +56,7 @@ export interface ReleaseEntry {
 }
 
 export interface ViewPlayground {
-  kind: 'pwa' | 'iframe';
+  kind: 'pwa' | 'iframe' | 'video';
   src: string;
 }
 
@@ -91,6 +91,7 @@ export interface ResolvedImages {
   cover?: string;
   coverMobile?: string;
   illustration?: string;
+  promo?: string;
   screenshots: string[];
   features: (string | undefined)[];
 }
@@ -108,6 +109,7 @@ export interface ProjectView {
   cover?: string;
   coverMobile?: string;
   illustration?: string;
+  poster?: string;
   url?: string;
   address?: string;
   repo?: string;
@@ -145,6 +147,39 @@ export function displayUrl(url: string): string {
     .replace(/^https?:\/\//, '')
     .replace(/^www\./, '')
     .replace(/^([^/]+)\/$/, '$1');
+}
+
+const YOUTUBE_ID = /^[\w-]{11}$/;
+const YOUTUBE_PATH = /^\/(?:embed|shorts|live)\/([^/]+)/;
+
+function parseUrl(url: string): URL | undefined {
+  try {
+    return new URL(url);
+  } catch {
+    return undefined;
+  }
+}
+
+export function youtubeWatchUrl(url: string): string | undefined {
+  const parsed = parseUrl(url);
+  if (!parsed) return undefined;
+  const host = parsed.hostname.replace(/^(?:www|m)\./, '');
+  let id: string | null | undefined;
+  if (host === 'youtu.be') id = parsed.pathname.slice(1);
+  else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+    id =
+      parsed.pathname === '/watch'
+        ? parsed.searchParams.get('v')
+        : YOUTUBE_PATH.exec(parsed.pathname)?.[1];
+  }
+  return id && YOUTUBE_ID.test(id) ? `https://www.youtube.com/watch?v=${id}` : undefined;
+}
+
+function viewPlayground(playground: ProjectFields['playground']): ViewPlayground | undefined {
+  if (!playground) return undefined;
+  if (playground.kind !== 'video') return { kind: playground.kind, src: playground.src };
+  const src = youtubeWatchUrl(playground.src);
+  return src ? { kind: 'video', src } : undefined;
 }
 
 function latestRelease(changelog: ReleaseEntry[]): ReleaseEntry | undefined {
@@ -237,7 +272,7 @@ export function fillParts(
 
 export function playgroundNotes(view: ProjectView): Note[] {
   const { lang, playground } = view;
-  if (!playground) return [];
+  if (!playground || playground.kind === 'video') return [];
   if (view.kind === 'web') {
     const parts = fillParts(t('project.note.web', lang), {
       link: view.url ? { text: t('project.note.webLink', lang), href: view.url } : undefined,
@@ -289,10 +324,6 @@ export function toProjectView(
   post?: LinkRef,
 ): ProjectView {
   const prefix = lang === 'es' ? '/es' : '';
-  const playground =
-    fields.playground && fields.playground.kind !== 'video'
-      ? { kind: fields.playground.kind, src: fields.playground.src }
-      : undefined;
   return {
     lang,
     kind: fields.kind,
@@ -306,6 +337,7 @@ export function toProjectView(
     cover: images.cover,
     coverMobile: images.coverMobile,
     illustration: images.illustration,
+    poster: images.promo,
     url: fields.url,
     address: fields.url ? displayUrl(fields.url) : undefined,
     repo: fields.repo,
@@ -330,7 +362,7 @@ export function toProjectView(
     stepsIntro: fields.stepsIntro,
     after: fields.after,
     post,
-    playground,
+    playground: viewPlayground(fields.playground),
     built: fields.built,
     changelog: changelogRows(fields.changelog, lang),
     releases: releasesLink(fields, lang),

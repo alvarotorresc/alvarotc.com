@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { youtubeWatchUrl } from '../src/lib/project-view';
 
 const file = (lang: string, slug: string) => `src/content/projects/${lang}/${slug}.md`;
 const read = (lang: string, slug: string) => readFileSync(file(lang, slug), 'utf8');
@@ -11,16 +12,48 @@ const refsOf = (path: string) =>
     resolve(dirname(path), m[1]),
   );
 const imageRefs = (lang: string, slug: string) => refsOf(file(lang, slug));
-
-const placeholders: Record<string, string[]> = {
-  bito: ['icon', 'cover', 'widget', 'reminder', 'review', 'stats', 'badges', 'habi'],
+const COPY_KEYS = [
+  'tagline',
+  'intro',
+  'featuresIntro',
+  'screenshotsIntro',
+  'label',
+  'value',
+  'title',
+  'text',
+  'alt',
+  'caption',
+  'note',
+];
+const QUOTED = String.raw`'((?:[^']|'')*)'|"((?:[^"\\]|\\.)*)"`;
+const unquote = (single?: string, double?: string) =>
+  single !== undefined ? single.replace(/''/g, "'") : (double ?? '').replace(/\\"/g, '"');
+const copyOf = (source: string) => {
+  const [, front, ...rest] = source.split(/^---$/m);
+  const copy: Record<string, string[]> = {};
+  for (const m of front.matchAll(
+    new RegExp(String.raw`^\s*(?:- )?(\w+): (?:${QUOTED})\s*$`, 'gm'),
+  )) {
+    if (COPY_KEYS.includes(m[1])) (copy[m[1]] ??= []).push(unquote(m[2], m[3]));
+  }
+  copy.built = [...front.matchAll(new RegExp(String.raw`^ {2}- (?:${QUOTED})\s*$`, 'gm'))].map(
+    (m) => unquote(m[1], m[2]),
+  );
+  copy.body = rest
+    .join('---')
+    .trim()
+    .split(/\n\s*\n/);
+  return copy;
 };
+const pngSize = (path: string) => {
+  const bytes = readFileSync(path);
+  return { width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) };
+};
+const BITO = '../../../assets/projects/bito';
 
-describe('project placeholders', () => {
-  it.each(Object.entries(placeholders))('%s has its placeholder images', (slug, names) => {
-    names.forEach((name) =>
-      expect(existsSync(`src/assets/projects/${slug}/${name}.jpg`), name).toBe(true),
-    );
+describe('bito media', () => {
+  it('keeps no placeholder JPEG', () => {
+    expect(readdirSync('src/assets/projects/bito').filter((f) => f.endsWith('.jpg'))).toEqual([]);
   });
 });
 
@@ -32,20 +65,95 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(field(source, 'status')).toBe('publishing');
   });
 
-  it('keeps the data confirmed by the user', () => {
-    expect(field(source, 'platform')).toBe('Android 10+');
-    expect(field(source, 'license')).toBe('GPL-3.0');
+  it('carries the facts checked against the Bito repo', () => {
+    expect(field(source, 'platform')).toBe('Android 8.0+');
+    expect(field(source, 'license')).toBe('GPL-3.0-or-later');
     expect(field(source, 'url')).toBe('https://bito.alvarotc.com');
     expect(field(source, 'stack')).toBe('[Kotlin, Offline-first, Privacy]');
-    expect(source).toContain(
-      'https://github.com/alvarotorresc/bito/releases/download/v1.0.0/app-release.apk',
+    expect(source).toMatch(
+      /https:\/\/github\.com\/alvarotorresc\/bito\/releases\/download\/v1\.\d+\.\d+\/app-release\.apk/,
     );
-    expect(source).toMatch(/date: 2026-08-26/);
+    expect(source).not.toMatch(/v2\.0\.0|v0\.1\.0|Android 10/);
   });
 
-  it('has five screenshots and seven features', () => {
-    expect(source.match(/^ {2}- src: /gm)).toHaveLength(5);
-    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+  it('lists only the real releases', () => {
+    expect([...source.matchAll(/version: '(v[\d.]+)'/g)].map((m) => m[1])).toEqual([
+      'v1.1.0',
+      'v1.0.0',
+    ]);
+    expect(source).toMatch(/version: 'v1\.0\.0'\n\s+date: 2026-08-26\n/);
+  });
+
+  it('dates as latest the release the download serves', () => {
+    const dated = [...source.matchAll(/version: '(v[\d.]+)'\n\s+date: /g)].map((m) => m[1]);
+    const served = /releases\/download\/(v[\d.]+)\//.exec(source)?.[1];
+    expect(served).toBeDefined();
+    expect(dated[0]).toBe(served);
+  });
+
+  it('uses the final media for its language', () => {
+    expect(field(source, 'icon')).toBe(`'${BITO}/icon.png'`);
+    expect(field(source, 'cover')).toBe(`'${BITO}/cover-${lang}.png'`);
+    expect(field(source, 'promo')).toBe(`'${BITO}/promo-${lang}.png'`);
+    expect(field(source, 'illustration')).toBe(`'${BITO}/illustration.png'`);
+  });
+
+  it('has nine features, the first three with a screen of its language', () => {
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(9);
+    const images = [...source.matchAll(/^ {4}image: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
+    expect(images).toEqual([
+      `shot-04-widget-${lang}`,
+      `shot-02-recordatorio-${lang}`,
+      `shot-06-revision-${lang}`,
+    ]);
+  });
+
+  it('has a horizontal promo', () => {
+    const promo = imageRefs(lang, 'bito').find((ref) => ref.endsWith(`promo-${lang}.png`));
+    expect(promo).toBeDefined();
+    const { width, height } = pngSize(promo ?? '');
+    expect(width).toBeGreaterThan(height);
+  });
+
+  it('keeps every Bito image at 400 KB or less', () => {
+    imageRefs(lang, 'bito').forEach((ref) =>
+      expect(statSync(ref).size, ref).toBeLessThanOrEqual(400 * 1024),
+    );
+  });
+
+  it('points the video, when there is one, at YouTube', () => {
+    const block = /^playground:(?: \{.*\}|\n(?: {2}.+\n?)+)/m.exec(source)?.[0];
+    if (block) {
+      const kind = /kind: (\w+)/.exec(block)?.[1];
+      const src = /src: '([^']+)'/.exec(block)?.[1];
+      if (kind === 'video') {
+        expect(src, block).toBeDefined();
+        expect(youtubeWatchUrl(src ?? ''), block).toBeDefined();
+      }
+    }
+  });
+
+  it('has six screenshots of its language, in order', () => {
+    const shots = [...source.matchAll(/^ {2}- src: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
+    expect(shots).toEqual(
+      [
+        '01-habitos',
+        '02-recordatorio',
+        '03-estadisticas',
+        '04-widget',
+        '05-insignias',
+        '06-revision',
+      ].map((shot) => `shot-${shot}-${lang}`),
+    );
+    expect(source).not.toMatch(/\.jpg'/);
+  });
+
+  it('introduces the screenshots itself', () => {
+    expect(source).toMatch(/^screenshotsIntro: /m);
+  });
+
+  it('has no emoji', () => {
+    expect(source).not.toMatch(/\p{Extended_Pictographic}/u);
   });
 
   it('drops hero and gallery and has no post yet', () => {
@@ -56,6 +164,41 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     const refs = imageRefs(lang, 'bito');
     expect(refs.length).toBeGreaterThan(0);
     refs.forEach((ref) => expect(existsSync(ref), ref).toBe(true));
+  });
+});
+
+describe('bito copy in both languages', () => {
+  const es = copyOf(read('es', 'bito'));
+  const en = copyOf(read('en', 'bito'));
+
+  it('pairs every text', () => {
+    expect(Object.keys(en).sort()).toEqual(Object.keys(es).sort());
+    Object.keys(es).forEach((key) => expect(en[key].length, key).toBe(es[key].length));
+  });
+
+  it('keeps every English text as short as or shorter than its Spanish pair', () => {
+    Object.keys(es).forEach((key) =>
+      es[key].forEach((text, i) =>
+        expect(en[key][i].length, `${key}[${i}]: ${en[key][i]}`).toBeLessThanOrEqual(text.length),
+      ),
+    );
+  });
+});
+describe('bito copy follows the glossary', () => {
+  const withoutPaths = (lang: string) => read(lang, 'bito').replace(/'\.\.\/[^']+'/g, '');
+
+  it('says logro and copia de seguridad in Spanish', () => {
+    const es = withoutPaths('es');
+    expect(es).not.toMatch(/insignia|backup/i);
+    expect(es).toContain("caption: 'Logros'");
+    expect(es).toContain("caption: 'Repaso del día'");
+  });
+
+  it('uses the app words in English', () => {
+    const en = withoutPaths('en');
+    expect(en).not.toMatch(/Statistics|Quantity|Sergeant|Nightly review/);
+    expect(en).toContain("caption: 'Badges'");
+    expect(en).toContain("caption: 'Day review'");
   });
 });
 

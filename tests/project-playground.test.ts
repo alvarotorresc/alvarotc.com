@@ -109,3 +109,42 @@ describe('PlaygroundFrame', () => {
     expect(existsSync('src/components/projects/PlaygroundFrame.astro')).toBe(false);
   });
 });
+
+describe('ProjectPlayground with a video', () => {
+  const video = { kind: 'video' as const, src: 'https://youtu.be/dQw4w9WgXcQ?si=abc' };
+  const withPoster = { ...bitoImages, promo: '/_astro/promo.webp' };
+
+  it('links out to YouTube instead of loading the app', async () => {
+    const html = await playground(makeView({ ...bitoFields, playground: video }, withPoster));
+    expect(html).toContain('data-section="video"');
+    expect(html).toContain('href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"');
+    expect(html).toContain('target="_blank"');
+    expect(html).toContain('rel="noopener noreferrer"');
+    expect(html).toContain('src="/_astro/promo.webp"');
+    expect(html).toContain('Ver en YouTube');
+    expect(html).toContain('Esta página no carga nada de YouTube.');
+    expect(html).not.toContain('data-section="playground"');
+    expect(html).not.toContain('data-playground-load');
+    expect(html).not.toContain('Cargar la app');
+    expect(html).not.toContain('<iframe');
+  });
+
+  it('works without a poster', async () => {
+    const html = await playground(makeView({ ...bitoFields, playground: video }, bitoImages));
+    expect(html).toContain('data-video-link');
+    expect(html).not.toContain('<img');
+  });
+
+  it('speaks English', async () => {
+    const html = await playground(makeView({ ...bitoFields, playground: video }, withPoster, 'en'));
+    expect(html).toContain('See on YouTube');
+    expect(html).toContain('This page loads nothing from YouTube.');
+  });
+
+  it('shows nothing for a video that is not on YouTube', async () => {
+    const html = await playground(
+      makeView({ ...bitoFields, playground: { kind: 'video', src: 'https://x.dev/a.mp4' } }),
+    );
+    expect(html).not.toContain('data-section=');
+  });
+});
