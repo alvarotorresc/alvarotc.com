@@ -1,6 +1,7 @@
 ---
 title: 'Monta un servicio en tu VPS hoy y múdalo a tu homelab mañana: FreshRSS con Docker y Caddy'
-description: 'Cómo desplegar un lector RSS autoalojado de forma que migrarlo después cueste un rsync y un cambio de DNS. Subdominio o ruta, CLI dentro del contenedor, WebSub y un backup que sí se ha restaurado.'
+seoTitle: 'FreshRSS: de VPS a tu homelab'
+description: 'Despliega un lector RSS autoalojado para que migrarlo cueste un rsync y un cambio de DNS: subdominio o ruta, CLI integrada, WebSub y backups probados.'
 date: 2026-09-02
 draft: false
 tags: ['self-hosted', 'docker', 'caddy', 'vps', 'homelab', 'rss']
