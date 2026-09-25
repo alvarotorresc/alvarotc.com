@@ -77,7 +77,7 @@ Por confirmar: si se quiere algo más permanente, añadir un `vercel.json` con u
 
 ## Logs
 
-- **Vercel**: dashboard → proyecto `alvarotc.com` → cada despliegue tiene sus **Build Logs**; el sitio es estático (`output: 'static'` en `astro.config.mjs`), así que no hay logs de funciones serverless en tiempo real más allá de esos logs de build y los de Vercel Analytics / Speed Insights (paneles separados del proyecto).
+- **Vercel**: dashboard → proyecto `alvarotc.com` → cada despliegue tiene sus **Build Logs**; el sitio es estático (`output: 'static'` en `astro.config.mjs`), así que no hay logs de funciones serverless en tiempo real más allá de esos logs de build.
 - **Caddy (VPS)**: `docker logs caddy` o, desde el directorio donde vive el compose de Caddy en el VPS (ruta por confirmar, no está en ninguno de los repos consultados), `docker compose logs caddy`.
 - **Servicio de contacto (VPS)**:
   ```bash
@@ -151,7 +151,7 @@ No inventar cifras; rellenar cuando se tengan las facturas o los paneles de fact
 
 | Proveedor          | Servicio                                     | Coste mensual estimado |
 | ------------------ | -------------------------------------------- | ---------------------- |
-| Vercel             | Hosting + Analytics                          | pendiente              |
+| Vercel             | Hosting                                      | pendiente              |
 | Hetzner            | VPS (Umami + servicio de contacto)           | pendiente              |
 | Cloudflare         | Registro del dominio + DNS                   | pendiente              |
 | DeepL              | API (plan Free)                              | pendiente              |
