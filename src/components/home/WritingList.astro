@@ -22,7 +22,7 @@ const allLabel =
 <section id="writing" class="section container-page flex flex-col gap-5">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('writing.title', lang)}</h2>
-    <a href={`${prefix}/blog`} class="btn-secondary gap-2">
+    <a href={`${prefix}/blog/`} class="btn-secondary gap-2">
       {allLabel}
       <svg
         width="16"
@@ -44,7 +44,7 @@ const allLabel =
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
     {
       latest && (
-        <a href={`${prefix}/blog/${latest.id}`} class="card flex flex-col gap-3 p-6 md:col-span-7">
+        <a href={`${prefix}/blog/${latest.id}/`} class="card flex flex-col gap-3 p-6 md:col-span-7">
           {latest.data.image ? (
             <img
               src={latest.data.image}
@@ -72,7 +72,7 @@ const allLabel =
       {
         rest.slice(0, 3).map((p, i) => (
           <li class:list={['border-t border-border', i === 2 && 'border-b']}>
-            <a href={`${prefix}/blog/${p.id}`} class="flex flex-col gap-1.5 py-4">
+            <a href={`${prefix}/blog/${p.id}/`} class="flex flex-col gap-1.5 py-4">
               <span class="font-mono text-xs text-faint">
                 {formatDate(p.data.date, lang)}, {minutes(p)} {t('writing.minRead', lang)}
               </span>

@@ -21,7 +21,7 @@ const prefix = lang === 'es' ? '/es' : '';
 const [big, mid, band] = await getFeaturedProjects(lang);
 const lab = await getLabProjects(lang);
 
-const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
+const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}/`;
 const bigCover = big && homeImage(big);
 const midCover = mid && homeImage(mid);
 const bandCover = band && homeImage(band);
@@ -30,7 +30,7 @@ const bandCover = band && homeImage(band);
 <section id="projects" class="section container-page flex flex-col gap-6">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('projects.title', lang)}</h2>
-    <a href={`${prefix}/projects`} class="btn-secondary gap-2">
+    <a href={`${prefix}/projects/`} class="btn-secondary gap-2">
       {t('projects.all', lang)}
       <svg
         width="16"

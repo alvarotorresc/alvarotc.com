@@ -1,3 +1,5 @@
+import { pagePath } from './i18n-paths';
+
 const ESCAPES: Record<string, string> = {
   '&': '&amp;',
   '<': '&lt;',
@@ -19,7 +21,7 @@ export function inlineLinks(text: string): string {
   for (const match of text.matchAll(LINK)) {
     const [whole, label, href] = match;
     html += escapeHtml(text.slice(last, match.index));
-    const safe = SAFE_HREF.test(href) ? href : '#';
+    const safe = SAFE_HREF.test(href) ? pagePath(href) : '#';
     html += `<a href="${escapeHtml(safe)}">${escapeHtml(label)}</a>`;
     last = match.index + whole.length;
   }
