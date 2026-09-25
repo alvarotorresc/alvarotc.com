@@ -14,6 +14,8 @@
     "test": "vitest run",
     "translate": "node scripts/translate.js",
     "stats": "node --env-file-if-exists=.env scripts/fetch-data.mjs",
+    "og:default": "node --experimental-strip-types scripts/og-default.mjs",
+    "icons": "node scripts/icons.mjs",
     "prepare": "husky"
   },
   "dependencies": {
