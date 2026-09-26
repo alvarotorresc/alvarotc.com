@@ -12,7 +12,7 @@ Lo que sigue no se puede hacer desde el repo. Está ordenado por lo que bloquea 
 
 ---
 
-## 1. Vercel: poner `alvarotc.com` como dominio principal
+## 1. Vercel: poner `alvarotc.com` como dominio principal: HECHO el 26 sep
 
 Hoy Vercel redirige el apex a `www`, pero todo el sitio (canonicals, sitemap, hreflang, OG, feeds)
 está generado con `https://alvarotc.com`. Cada URL que compartas o indexe Google pasa por un 308.
@@ -30,7 +30,14 @@ curl -sI https://www.alvarotc.com/ | grep -i location   # https://alvarotc.com/
 No hace falta tocar DNS en Cloudflare para esto: los registros que ya apuntan a Vercel siguen
 valiendo.
 
-## 2. Desplegar el servicio del formulario de contacto
+## 2. Desplegar el servicio del formulario de contacto: HECHO el 26 sep
+
+Repo `alvarotorresc/alvarotc-contact` público, imagen en GHCR, secretos `VPS_*` en Actions (la
+huella es la ECDSA del host, que es la que negocia el cliente Go del action), servicio en
+`/opt/services/alvarotc-contact` tras Caddy, Bridge logueado, `health` con `smtp:true`, envío de
+prueba entregado y Upptime vigilando `/health`. Aviso: Bridge se autoactualiza a una versión que
+la imagen 3.19.0 no puede ejecutar; el compose monta `updates` como tmpfs de solo lectura para
+evitarlo. Lo que sigue queda como referencia.
 
 El formulario envía a `https://contact.alvarotc.com/send` y ese host no existe. El servicio ya está
 programado y probado en `~/Documents/apps/alvarotc-contact` (commit `bf67fc4`), pero no tiene repo
@@ -119,7 +126,7 @@ Tres registros TXT/CAA, en Cloudflare → DNS → Records:
 Vercel emite con Let's Encrypt. Antes de guardar el CAA mira en la documentación de Vercel si
 menciona otra CA (Google Trust Services, por ejemplo) y añádela con otro registro `issue`.
 
-## 4. GitHub: secretos y ajustes del repo de la web
+## 4. GitHub: secretos y ajustes del repo de la web: secretos de Umami y variable de Vercel HECHOS el 26 sep
 
 En `alvarotorresc/alvarotc.com`:
 
@@ -228,8 +235,7 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 
 ## 12. Añadidos el 26 sep
 
-- **Supabase (Quedamos)**: reactivar el captcha en Authentication → Attack Protection; la
-  sesión de material lo desactivó para sembrar el grupo de demo. Las cinco cuentas `demo-*` y el
+- **Supabase (Quedamos)**: captcha reactivado el 26 sep. Las cinco cuentas `demo-*` y el
   grupo «Ruta 2026» siguen en producción; `media/seed` tiene el script `clean`.
 - **Vídeo de Quedamos**: dura 37 s, no los 30 acordados; decidir si se recorta.
 - **Contenido de texto**: `[DATO]` en Sobre mí (24 por idioma), Quedamos («Por qué existe») y
