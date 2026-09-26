@@ -232,8 +232,8 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
     expect(source).not.toContain('[DATO]');
   });
 
-  it('has three screenshots and seven features', () => {
-    expect(source.match(/^ {2}- src: /gm)).toHaveLength(3);
+  it('has four screenshots and seven features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(4);
     expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
   });
 
