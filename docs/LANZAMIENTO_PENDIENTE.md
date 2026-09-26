@@ -214,14 +214,23 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 - Home y formulario con Orca o VoiceOver sin mirar la pantalla.
 - DevTools con "Slow 3G" y CPU 4x: el texto debe aparecer antes que las islas.
 
-## 11. Pendientes de código no bloqueantes (los hago cuando quieras)
+## 11. Pendientes de código no bloqueantes (estado 26 sep)
 
+- Hecho el 26 sep: 404 única y bilingüe en la raíz (la de `es/` nunca la servía Vercel),
+  `public/screenshot.png` vacío retirado, carpetas de trabajo ignoradas, ningún PNG original
+  huérfano en `dist/_astro` en el build actual.
 - Paleta de comandos con `client:idle` carga 43 KB de React en la home; pasarla a carga bajo
-  demanda (PERF-05).
-- Cinco PNG/JPG originales quedan huérfanos en `dist/_astro` (379 KB el de BaseCero) porque
-  `isVerticalImage` lee `.height` del asset; nadie los enlaza, solo pesan en el deploy.
-- `src/pages/es/404.astro` se compila a `es/404/index.html` y Vercel nunca lo sirve como 404.
-- `public/screenshot.png` pesa 0 bytes.
+  demanda (PERF-05). Se queda para después del lanzamiento.
 - Pasar ZAP baseline contra una preview y guardar el informe (SEC-20).
 - Siete avisos altos de `npm audit` quedan en `@lhci/cli`, solo CI; se pueden ignorar o mover a
   `npx @lhci/cli` en el workflow.
+
+## 12. Añadidos el 26 sep
+
+- **Supabase (Quedamos)**: reactivar el captcha en Authentication → Attack Protection; la
+  sesión de material lo desactivó para sembrar el grupo de demo. Las cinco cuentas `demo-*` y el
+  grupo «Ruta 2026» siguen en producción; `media/seed` tiene el script `clean`.
+- **Vídeo de Quedamos**: dura 37 s, no los 30 acordados; decidir si se recorta.
+- **Hook de DeepL**: sigue pendiente la decisión del punto 6.3.
+- **Contenido de texto**: `[DATO]` en Sobre mí (24 por idioma), Quedamos (changelog y «Por qué
+  existe») y Huellas; lo rellena el dueño. La guarda `RELEASE_CHECK` falla mientras existan.
