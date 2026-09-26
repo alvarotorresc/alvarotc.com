@@ -23,6 +23,9 @@ Fecha: 2026-09-25. Esquema de referencia: `src/content.config.ts` (`projectSchem
   nadie. Sin lorem ipsum.
 - **Formatos de entrega.** PNG para lo que tenga texto o bordes nítidos; JPEG calidad 85 para
   fotografías. La web convierte todo a webp en el build; la store no acepta webp.
+- **Todo se ve a tamaño completo.** En la ficha, cada captura, imagen de característica y
+  miniatura de herramienta se abre en un visor a pantalla completa (hasta 1600 px de ancho). Nada
+  de texto ilegible: lo que se lea mal ampliado no vale.
 - **Nombres de fichero.** Minúsculas, sin espacios ni tildes, con sufijo de idioma si aplica:
   `icon.png`, `promo.png`, `cover.png`, `cover-mobile.png`, `shot-01-calendario.png`,
   `feat-recordatorios.png`, `illustration.png`.
@@ -41,6 +44,7 @@ Cada campo del frontmatter, dónde se ve y qué medida debe tener el fichero fue
 | `coverMobile`                      | Móvil pequeño de las fichas híbridas (`DeviceFrame small`, 200×420) | 9:19.5                  | 1080×2340 PNG         | Misma pantalla que `cover` pero en el layout móvil.                                                                                                   |
 | `screenshots[].src`                | Galería con pie (`ProjectScreens`)                                  | 9:19.5 apps, 16:10 web  | 1080×2340 o 1600×1000 | De 4 a 6. Cada una lleva `alt` y `caption` en ambos idiomas.                                                                                          |
 | `features[].image`                 | Miniatura junto a cada característica                               | 100:217 apps, 16:10 web | 1080×2340 o 1600×1000 | Opcional. Vale la misma captura de la galería recortada.                                                                                              |
+| `tools[].image`                    | Tarjeta de cada herramienta (`ProjectTools`, 480 px)                | 16:10                   | 1600×1000 PNG         | Opcional. Se abre en el visor; sin imagen, la tarjeta muestra el nombre en mono.                                                                      |
 | `illustration`                     | Columna del "Por qué" (320 px)                                      | 1:1 o libre             | 800 px de lado        | Hoy los proyectos usan el icono; puede ser un detalle de pantalla o una ilustración.                                                                  |
 | `playground.src` con `kind: video` | Reproductor embebido en la ficha                                    | 16:9                    | No es un fichero      | URL embebible (YouTube o PeerTube). Con `kind: pwa` o `iframe` se embebe la app en vivo.                                                              |
 
@@ -67,6 +71,11 @@ menos dos tercios del lienzo y un titular corto arriba.
 
 Estado actual de cada carpeta en `src/assets/projects/` y lo que falta.
 
+Quedamos y PokeUtils tienen su spec en su propio repo
+(`docs/superpowers/specs/2026-09-26-media-web-design.md` en cada uno). Lo decidido: capturas con
+Playwright, galería mitad en tema oscuro y mitad en claro, vídeo de Quedamos de 29 s en MP4 nativo
+servido desde esta web, y PokeUtils sin vídeo y con 16 capturas de herramientas (`tools[].image`).
+
 ### Bito (`kind: mobile`, Android 10+, en publicación)
 
 Tiene: icono 256, portada 400×844, promo 1280×720, seis capturas JPEG de baja calidad (4 a 10 KB).
@@ -80,19 +89,6 @@ Falta todo en calidad final.
 - `illustration.png`: hoy usa `habi.jpg`; pedir la mascota a 800×800 con fondo transparente o
   sólido.
 - Vídeo 1080p 16:9 de 45 a 60 s: crear hábito, marcar el día, ver racha, widget.
-
-### Quedamos (`kind: hybrid`, web y Android 6+, beta)
-
-Tiene: icono 256, promo 1280×720, cinco capturas 390×844 en dos temas. Faltan capturas del layout
-de escritorio y calidad final.
-
-- `icon.png` 1024×1024.
-- `cover.png` 1600×1000: calendario del grupo en escritorio.
-- `cover-mobile.png` 1080×2340: misma vista en móvil.
-- `promo.png` 1920×1080 y `feature-graphic.png` 1024×500.
-- Capturas móvil 1080×2340: calendario, preguntar al grupo, quedadas, grupo, perfil. Las mismas
-  1080×1920 con titular para Play.
-- Vídeo 1080p 16:9 de 45 a 60 s: crear grupo, proponer día, todos responden, quedada fijada.
 
 ### Huellas (`kind: hybrid`, en diseño)
 
@@ -108,11 +104,6 @@ Tiene: icono 512, portada 1600×900 PNG, ocho capturas webp en dos idiomas. Solo
   composición de marketing (hoy `promo` reutiliza `cover`).
 - Capturas móvil 1080×2340 en ambos idiomas para `coverMobile` y la galería.
 - No está en Play: sin feature graphic ni capturas de store.
-
-### PokeUtils (`kind: web`, publicado)
-
-Tiene: icono 512, portada 1280×800, cinco capturas PNG. Falta `promo.png` 1920×1080 y subir la
-portada a 1600×1000. No está en Play.
 
 ### DevTools (`kind: web`, publicado)
 

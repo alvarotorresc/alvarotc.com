@@ -41,6 +41,8 @@ const images = {
   featuresFull: await Promise.all(
     data.features.map((feature) => optional(feature.image, fullWidth)),
   ),
+  tools: await Promise.all(data.tools.map((tool) => optional(tool.image, 480))),
+  toolsFull: await Promise.all(data.tools.map((tool) => optional(tool.image, 1600))),
 };
 
 const coverIsVertical = Boolean(data.cover && data.cover.height > data.cover.width);
