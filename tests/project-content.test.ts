@@ -266,6 +266,20 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
       ].map((route) => `https://pokeutils.alvarotc.com/${route}`),
     );
   });
+
+  it('sorts the sixteen tools into the four sections of the app', () => {
+    const names =
+      lang === 'es'
+        ? ['Pokédex', 'Datos', 'Competitivo', 'Calculadora']
+        : ['Pokédex', 'Data', 'Competitive', 'Calculator'];
+    const groups = [...source.matchAll(/^ {4}group: '([^']+)'$/gm)].map((m) => m[1]);
+    expect(groups).toEqual([3, 5, 5, 3].flatMap((count, i) => Array(count).fill(names[i])));
+    expect(field(source, 'toolsIntro')).toBe(
+      lang === 'es'
+        ? "'Dieciséis vistas y cada una con su propia dirección. Elige una.'"
+        : "'Sixteen views, each with its own address. Pick one.'",
+    );
+  });
 });
 
 describe.each(['es', 'en'])('basecero (%s)', (lang) => {

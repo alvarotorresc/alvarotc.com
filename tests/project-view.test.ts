@@ -12,7 +12,9 @@ import {
   releaseLabel,
   releasesLink,
   shotsIntro,
+  toolGroups,
   youtubeWatchUrl,
+  type Tool,
 } from '../src/lib/project-view';
 import {
   baseceroFields,
@@ -301,6 +303,7 @@ describe('toProjectView', () => {
     expect(view.tools).toEqual([
       {
         name: 'Tabla de tipos',
+        group: 'Datos',
         text: 'Efectividad por tipo.',
         image: '/_astro/types.webp',
         full: '/_astro/types-full.webp',
@@ -308,6 +311,7 @@ describe('toProjectView', () => {
       },
       {
         name: 'Pokédex',
+        group: 'Pokédex',
         text: 'Los 1025 Pokémon.',
         image: undefined,
         full: undefined,
@@ -402,5 +406,41 @@ describe('video playground side effects', () => {
     expect(html).toContain('data-media="hybrid"');
     expect(html).toContain('basecero.alvarotc.com');
     expect(html).not.toContain('youtube.com');
+  });
+});
+
+describe('toolGroups', () => {
+  const tool = (name: string, group?: string): Tool => ({ name, text: '', group });
+
+  it('groups consecutive tools that share a group, keeping their order', () => {
+    const groups = toolGroups([
+      tool('Pokédex', 'Pokédex'),
+      tool('Comparador', 'Pokédex'),
+      tool('Movimientos', 'Datos'),
+      tool('Objetos', 'Datos'),
+      tool('Velocidad', 'Competitivo'),
+    ]);
+    expect(groups.map((g) => g.name)).toEqual(['Pokédex', 'Datos', 'Competitivo']);
+    expect(groups.map((g) => g.tools.map((t) => t.name))).toEqual([
+      ['Pokédex', 'Comparador'],
+      ['Movimientos', 'Objetos'],
+      ['Velocidad'],
+    ]);
+  });
+
+  it('starts a new group when a name comes back after another one', () => {
+    const groups = toolGroups([tool('a', 'X'), tool('b', 'Y'), tool('c', 'X')]);
+    expect(groups.map((g) => g.name)).toEqual(['X', 'Y', 'X']);
+  });
+
+  it('returns a single unnamed group when no tool has a group', () => {
+    const groups = toolGroups([tool('a'), tool('b'), tool('c')]);
+    expect(groups).toHaveLength(1);
+    expect(groups[0].name).toBeUndefined();
+    expect(groups[0].tools.map((t) => t.name)).toEqual(['a', 'b', 'c']);
+  });
+
+  it('returns no groups without tools', () => {
+    expect(toolGroups([])).toEqual([]);
   });
 });
