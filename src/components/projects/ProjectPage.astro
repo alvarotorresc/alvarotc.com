@@ -28,6 +28,7 @@ async function optional(src: ImageMetadata | undefined, width: number) {
 }
 
 const shotWidth = data.kind === 'web' ? 800 : 400;
+const fullWidth = data.kind === 'web' ? 1600 : 1080;
 const images = {
   icon: await optional(data.icon, 144),
   cover: await optional(data.cover, data.kind === 'mobile' ? 780 : 1240),
@@ -35,7 +36,11 @@ const images = {
   illustration: await optional(data.illustration, 320),
   promo: await optional(data.promo, 1240),
   screenshots: await Promise.all(data.screenshots.map((shot) => webp(shot.src, shotWidth))),
+  screenshotsFull: await Promise.all(data.screenshots.map((shot) => webp(shot.src, fullWidth))),
   features: await Promise.all(data.features.map((feature) => optional(feature.image, 288))),
+  featuresFull: await Promise.all(
+    data.features.map((feature) => optional(feature.image, fullWidth)),
+  ),
 };
 
 const coverIsVertical = Boolean(data.cover && data.cover.height > data.cover.width);

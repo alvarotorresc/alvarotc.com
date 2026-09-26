@@ -7,7 +7,12 @@ import {
 } from '../../src/lib/project-view';
 import type { Locale } from '../../src/i18n/translations';
 
-export const noImages: ResolvedImages = { screenshots: [], features: [] };
+export const noImages: ResolvedImages = {
+  screenshots: [],
+  screenshotsFull: [],
+  features: [],
+  featuresFull: [],
+};
 
 export const bitoFields: ProjectFields = {
   kind: 'mobile',
@@ -57,7 +62,14 @@ export const bitoImages: ResolvedImages = {
   cover: '/_astro/bito-cover.webp',
   illustration: '/_astro/habi.webp',
   screenshots: ['/_astro/widget.webp', '/_astro/reminder.webp'],
+  screenshotsFull: ['/_astro/widget-full.webp', '/_astro/reminder-full.webp'],
   features: ['/_astro/widget.webp', '/_astro/reminder.webp', '/_astro/review.webp', undefined],
+  featuresFull: [
+    '/_astro/widget-full.webp',
+    '/_astro/reminder-full.webp',
+    '/_astro/review-full.webp',
+    undefined,
+  ],
 };
 
 export const pokeFields: ProjectFields = {
@@ -81,7 +93,9 @@ export const pokeImages: ResolvedImages = {
   icon: '/_astro/poke-icon.webp',
   cover: '/_astro/poke-cover.webp',
   screenshots: ['/_astro/pokedex.webp'],
+  screenshotsFull: ['/_astro/pokedex-full.webp'],
   features: ['/_astro/team.webp'],
+  featuresFull: ['/_astro/team-full.webp'],
 };
 
 export const baseceroFields: ProjectFields = {
@@ -107,7 +121,9 @@ export const baseceroImages: ResolvedImages = {
   cover: '/_astro/basecero-desktop.webp',
   coverMobile: '/_astro/basecero-phone.webp',
   screenshots: ['/_astro/movements.webp'],
+  screenshotsFull: ['/_astro/movements-full.webp'],
   features: ['/_astro/net-worth.webp'],
+  featuresFull: ['/_astro/net-worth-full.webp'],
 };
 
 export const cliFields: ProjectFields = {
