@@ -240,6 +240,32 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
   it('points only at images that exist', () => {
     imageRefs(lang, 'pokeutils').forEach((ref) => expect(existsSync(ref), ref).toBe(true));
   });
+
+  it('lists the sixteen tools, each linked to its route in the app', () => {
+    expect(field(source, 'toolsIntro')).toBeTruthy();
+    const hrefs = [...source.matchAll(/^ {4}href: '([^']+)'$/gm)].map((m) => m[1]);
+    expect(source.match(/^ {2}- name: /gm)).toHaveLength(16);
+    expect(hrefs).toEqual(
+      [
+        '#/pokedex',
+        '#/compare',
+        '#/egg',
+        '#/moves',
+        '#/abilities',
+        '#/items',
+        '#/natures',
+        '#/types',
+        '#/team',
+        '#/counter',
+        '#/speed',
+        '#/survive',
+        '#/meta',
+        '#/calculator',
+        '#/calculator?tab=damage',
+        '#/calculator?tab=catch',
+      ].map((route) => `https://pokeutils.alvarotc.com/${route}`),
+    );
+  });
 });
 
 describe.each(['es', 'en'])('basecero (%s)', (lang) => {

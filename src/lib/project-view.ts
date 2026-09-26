@@ -17,6 +17,7 @@ export interface Step {
 
 export interface Shot {
   src: string;
+  full: string;
   alt: string;
   caption: string;
 }
@@ -25,6 +26,15 @@ export interface Feature {
   title: string;
   text: string;
   image?: string;
+  full?: string;
+}
+
+export interface Tool {
+  name: string;
+  text: string;
+  image?: string;
+  full?: string;
+  href?: string;
 }
 
 export interface ChangelogRow {
@@ -80,6 +90,8 @@ export interface ProjectFields {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: { title: string; text: string }[];
+  toolsIntro?: string;
+  tools: { name: string; text: string; href?: string }[];
   steps: Step[];
   stepsIntro?: string;
   after?: string;
@@ -95,7 +107,11 @@ export interface ResolvedImages {
   illustration?: string;
   promo?: string;
   screenshots: string[];
+  screenshotsFull: string[];
   features: (string | undefined)[];
+  featuresFull: (string | undefined)[];
+  tools: (string | undefined)[];
+  toolsFull: (string | undefined)[];
 }
 
 export interface ProjectView {
@@ -124,6 +140,8 @@ export interface ProjectView {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: Feature[];
+  toolsIntro?: string;
+  tools: Tool[];
   steps: Step[];
   stepsIntro?: string;
   after?: string;
@@ -319,6 +337,22 @@ export function hasMedia(view: ProjectView): boolean {
   return view.kind === 'cli' ? view.terminal.length > 0 : Boolean(view.cover);
 }
 
+export function featureBlocks<T extends { image?: unknown }>(
+  kind: ProjectKind,
+  features: T[],
+): T[] {
+  if (kind === 'cli') return [];
+  return features.filter((feature) => feature.image).slice(0, 3);
+}
+
+export function hasLightbox(view: ProjectView): boolean {
+  return (
+    view.screenshots.length > 0 ||
+    featureBlocks(view.kind, view.features).length > 0 ||
+    view.tools.some((tool) => tool.image)
+  );
+}
+
 export function toProjectView(
   fields: ProjectFields,
   images: ResolvedImages,
@@ -350,6 +384,7 @@ export function toProjectView(
     facts: factRows(fields, lang),
     screenshots: fields.screenshots.map((shot, i) => ({
       src: images.screenshots[i] ?? '',
+      full: images.screenshotsFull[i] ?? '',
       alt: shot.alt,
       caption: shot.caption,
     })),
@@ -359,6 +394,15 @@ export function toProjectView(
       title: feature.title,
       text: feature.text,
       image: images.features[i],
+      full: images.featuresFull[i],
+    })),
+    toolsIntro: fields.toolsIntro,
+    tools: fields.tools.map((tool, i) => ({
+      name: tool.name,
+      text: tool.text,
+      image: images.tools[i],
+      full: images.toolsFull[i],
+      href: tool.href,
     })),
     steps: fields.steps,
     stepsIntro: fields.stepsIntro,

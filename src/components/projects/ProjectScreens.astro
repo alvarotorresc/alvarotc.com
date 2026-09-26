@@ -1,6 +1,7 @@
 ---
 import { t } from '../../i18n/translations';
 import type { ProjectView } from '../../lib/project-view';
+import LightboxTrigger from './LightboxTrigger.astro';
 
 interface Props {
   view: ProjectView;
@@ -25,13 +26,22 @@ const wide = view.kind === 'web';
           {view.screenshots.map((shot) => (
             <li class="shot">
               <figure class="flex flex-col gap-2.5">
-                <img
-                  src={shot.src}
+                <LightboxTrigger
+                  lang={view.lang}
+                  group="screens"
+                  full={shot.full}
                   alt={shot.alt}
-                  loading="lazy"
-                  decoding="async"
-                  class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
-                />
+                  caption={shot.caption}
+                  class={wide ? 'rounded-xl' : 'rounded-3xl'}
+                >
+                  <img
+                    src={shot.src}
+                    alt={shot.alt}
+                    loading="lazy"
+                    decoding="async"
+                    class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
+                  />
+                </LightboxTrigger>
                 <figcaption class="text-[13px] text-muted">{shot.caption}</figcaption>
               </figure>
             </li>

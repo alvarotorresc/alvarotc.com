@@ -57,6 +57,17 @@ export const projectSchema = ({ image }: SchemaContext) =>
     features: z
       .array(z.object({ title: z.string(), text: z.string(), image: image().optional() }))
       .default([]),
+    toolsIntro: z.string().optional(),
+    tools: z
+      .array(
+        z.object({
+          name: z.string(),
+          text: z.string(),
+          image: image().optional(),
+          href: z.url().optional(),
+        }),
+      )
+      .default([]),
     steps: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
     stepsIntro: z.string().optional(),
     after: z.string().optional(),

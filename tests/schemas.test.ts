@@ -53,6 +53,26 @@ describe('projectSchema', () => {
     expect(p.features).toEqual([]);
     expect(p.steps).toEqual([]);
     expect(p.built).toEqual([]);
+    expect(p.tools).toEqual([]);
+    expect(p.toolsIntro).toBeUndefined();
+  });
+
+  it('accepts tools with an optional image and link', () => {
+    const p = project.parse({
+      ...minimal,
+      toolsIntro: 'Cada herramienta en su dirección.',
+      tools: [
+        { name: 'Pokédex', text: 'Los 1025.', href: 'https://pokeutils.alvarotc.com/#/pokedex' },
+        { name: 'Tipos', text: 'La tabla.', image: '../../../assets/projects/pokeutils/tipos.png' },
+      ],
+    });
+    expect(p.toolsIntro).toBe('Cada herramienta en su dirección.');
+    expect(p.tools).toHaveLength(2);
+    expect(p.tools[0].image).toBeUndefined();
+    expect(p.tools[1].href).toBeUndefined();
+    expect(() =>
+      project.parse({ ...minimal, tools: [{ name: 'X', text: 'Y', href: 'not a url' }] }),
+    ).toThrow();
   });
 
   it('requires a kind', () => {
