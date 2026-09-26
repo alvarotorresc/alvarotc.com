@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import clientInteraction from './src/integrations/client-interaction.ts';
 
 const SITE = 'https://alvarotc.com';
 
@@ -81,6 +82,7 @@ export default defineConfig({
   site: 'https://alvarotc.com',
   integrations: [
     react(),
+    clientInteraction(),
     sitemap({
       i18n: {
         defaultLocale: 'en',

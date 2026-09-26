@@ -58,6 +58,10 @@ export default function CommandPalette({ lang }: { lang: Locale }) {
   }, [open, closeAndRestore]);
 
   useEffect(() => {
+    document.dispatchEvent(new CustomEvent('command-palette:ready'));
+  }, []);
+
+  useEffect(() => {
     if (!open) {
       document.body.style.overflow = '';
       return;
