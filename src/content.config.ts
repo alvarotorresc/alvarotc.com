@@ -62,6 +62,7 @@ export const projectSchema = ({ image }: SchemaContext) =>
       .array(
         z.object({
           name: z.string(),
+          group: z.string().optional(),
           text: z.string(),
           image: image().optional(),
           href: z.url().optional(),

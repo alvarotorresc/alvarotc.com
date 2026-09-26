@@ -92,9 +92,10 @@ export const pokeFields: ProjectFields = {
   playground: { kind: 'iframe', src: 'https://pokeutils.alvarotc.com' },
   toolsIntro: 'Cada herramienta en su dirección.',
   tools: [
-    { name: 'Tabla de tipos', text: 'Efectividad por tipo.' },
+    { name: 'Tabla de tipos', group: 'Datos', text: 'Efectividad por tipo.' },
     {
       name: 'Pokédex',
+      group: 'Pokédex',
       text: 'Los 1025 Pokémon.',
       href: 'https://pokeutils.alvarotc.com/#/pokedex',
     },
