@@ -17,6 +17,7 @@ export interface Step {
 
 export interface Shot {
   src: string;
+  full: string;
   alt: string;
   caption: string;
 }
@@ -25,6 +26,7 @@ export interface Feature {
   title: string;
   text: string;
   image?: string;
+  full?: string;
 }
 
 export interface ChangelogRow {
@@ -95,7 +97,9 @@ export interface ResolvedImages {
   illustration?: string;
   promo?: string;
   screenshots: string[];
+  screenshotsFull: string[];
   features: (string | undefined)[];
+  featuresFull: (string | undefined)[];
 }
 
 export interface ProjectView {
@@ -319,6 +323,15 @@ export function hasMedia(view: ProjectView): boolean {
   return view.kind === 'cli' ? view.terminal.length > 0 : Boolean(view.cover);
 }
 
+export function featureBlocks(view: ProjectView): Feature[] {
+  if (view.kind === 'cli') return [];
+  return view.features.filter((feature) => feature.image).slice(0, 3);
+}
+
+export function hasLightbox(view: ProjectView): boolean {
+  return view.screenshots.length > 0 || featureBlocks(view).length > 0;
+}
+
 export function toProjectView(
   fields: ProjectFields,
   images: ResolvedImages,
@@ -350,6 +363,7 @@ export function toProjectView(
     facts: factRows(fields, lang),
     screenshots: fields.screenshots.map((shot, i) => ({
       src: images.screenshots[i] ?? '',
+      full: images.screenshotsFull[i] ?? '',
       alt: shot.alt,
       caption: shot.caption,
     })),
@@ -359,6 +373,7 @@ export function toProjectView(
       title: feature.title,
       text: feature.text,
       image: images.features[i],
+      full: images.featuresFull[i],
     })),
     steps: fields.steps,
     stepsIntro: fields.stepsIntro,

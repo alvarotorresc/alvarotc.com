@@ -5,6 +5,7 @@ import {
   displayUrl,
   factRows,
   fillParts,
+  hasLightbox,
   hasMedia,
   parseTerminalLine,
   playgroundNotes,
@@ -251,6 +252,22 @@ describe('hasMedia', () => {
   });
 });
 
+describe('hasLightbox', () => {
+  it('is true when screenshots or feature images are painted', () => {
+    expect(hasLightbox(makeView(bitoFields, bitoImages))).toBe(true);
+    const featuresOnly = makeView(
+      { ...bitoFields, screenshots: [] },
+      { ...bitoImages, screenshots: [], screenshotsFull: [] },
+    );
+    expect(hasLightbox(featuresOnly)).toBe(true);
+  });
+
+  it('is false for a sparse project and for a cli, whose features have no images', () => {
+    expect(hasLightbox(makeView(sparseFields))).toBe(false);
+    expect(hasLightbox(makeView(cliFields))).toBe(false);
+  });
+});
+
 describe('toProjectView', () => {
   it('flattens a project into plain data', () => {
     const view = makeView(bitoFields, bitoImages);
@@ -260,10 +277,13 @@ describe('toProjectView', () => {
     expect(view.address).toBe('bito.alvarotc.com');
     expect(view.screenshots[0]).toEqual({
       src: '/_astro/widget.webp',
+      full: '/_astro/widget-full.webp',
       alt: 'Widget en la pantalla de inicio',
       caption: 'Widget',
     });
+    expect(view.features[2].full).toBe('/_astro/review-full.webp');
     expect(view.features[3].image).toBeUndefined();
+    expect(view.features[3].full).toBeUndefined();
     expect(view.allProjects).toBe('/es/projects/');
   });
 
