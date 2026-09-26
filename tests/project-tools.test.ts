@@ -85,6 +85,43 @@ describe('ProjectTools', () => {
     expect(openLink(html)).toMatch(/\shidden[\s>=]/);
   });
 
+  it('keeps the tablist to tabs, describing the first tab of each group by its name', async () => {
+    const html = await render(ProjectTools, makeView(pokeFields, pokeImages));
+    const names = [...html.matchAll(/<span[^>]*class="tools-group-name[^"]*"[^>]*>/g)].map(
+      ([tag]) => tag,
+    );
+    expect(names).toHaveLength(2);
+    names.forEach((tag) => expect(tag).toContain('aria-hidden="true"'));
+    const [first, second] = tabs(html);
+    expect(attr(first, 'aria-describedby')).toBe(attr(names[0], 'id'));
+    expect(attr(second, 'aria-describedby')).toBe(attr(names[1], 'id'));
+  });
+
+  it('loads the showcase image lazily', async () => {
+    const html = showcase(await render(ProjectTools, makeView(pokeFields, pokeImages)));
+    expect(/<img[^>]*>/.exec(html)?.[0]).toContain('loading="lazy"');
+  });
+
+  it('hides the image, the enlarge button and the open link when the first tool has neither', async () => {
+    const view = makeView(
+      {
+        ...pokeFields,
+        tools: [{ name: 'Sin nada', group: 'Datos', text: 'Nada.' }, pokeFields.tools[0]],
+      },
+      {
+        ...pokeImages,
+        tools: [undefined, '/_astro/types.webp'],
+        toolsFull: [undefined, '/_astro/types-full.webp'],
+      },
+    );
+    const html = showcase(await render(ProjectTools, view));
+    expect(/<img[^>]*>/.exec(html)?.[0]).toMatch(/\shidden[\s>=]/);
+    expect(/<button[^>]*data-lightbox="tools"[^>]*>/.exec(html)?.[0]).toMatch(/\shidden[\s>=]/);
+    const open = openLink(html);
+    expect(open).toMatch(/\shidden[\s>=]/);
+    expect(open).not.toMatch(/\shref/);
+  });
+
   it('is labelled in English on the English page', async () => {
     const html = await render(ProjectTools, makeView(pokeFields, pokeImages, 'en'));
     expect(html).toContain('>Tools</h2>');
