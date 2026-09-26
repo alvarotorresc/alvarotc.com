@@ -44,7 +44,7 @@ describe('ProjectCard', () => {
       props: { lang: 'es', project: project({ status: 'publishing' }), featured: true },
     });
     expect(html).toContain('En publicación');
-    expect(html).toContain('text-amber-600');
+    expect(html).toContain('text-amber-800');
     expect(html).not.toContain('<img');
   });
 
