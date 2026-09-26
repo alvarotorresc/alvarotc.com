@@ -1,6 +1,7 @@
 ---
 import { t } from '../../i18n/translations';
-import type { ProjectView } from '../../lib/project-view';
+import { displayUrl, toolGroups, type ProjectView } from '../../lib/project-view';
+import BrowserFrame from './BrowserFrame.astro';
 import LightboxTrigger from './LightboxTrigger.astro';
 
 interface Props {
@@ -8,57 +9,332 @@ interface Props {
 }
 const { view } = Astro.props;
 const { lang } = view;
+const groups = toolGroups(view.tools);
+const first = view.tools[0];
+const addressOf = (href?: string) => (href ? displayUrl(href) : (view.address ?? ''));
+const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
 ---
 
 {
-  view.tools.length > 0 && (
-    <section data-section="tools" class="flex flex-col gap-8 border-t border-border py-14">
-      <div class="flex flex-col gap-2">
+  first && (
+    <section data-section="tools" class="flex flex-col gap-7 border-t border-border py-14">
+      <div class="flex flex-col gap-1.5">
         <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.tools', lang)}</h2>
-        {view.toolsIntro && <p class="text-base text-muted">{view.toolsIntro}</p>}
+        {view.toolsIntro && <p class="text-[15px] text-muted">{view.toolsIntro}</p>}
       </div>
-      <ul class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {view.tools.map((tool) => (
-          <li data-tool class="flex flex-col gap-3">
-            {tool.image && (
-              <LightboxTrigger
-                lang={lang}
-                group="tools"
-                full={tool.full ?? tool.image}
-                alt=""
-                caption={tool.name}
-                class="rounded-xl"
-              >
-                <img src={tool.image} alt="" loading="lazy" decoding="async" class="tool-img" />
-              </LightboxTrigger>
-            )}
-            <div class="flex flex-col gap-1">
-              <h3 class="text-[15px] font-semibold">
-                {tool.href ? (
-                  <a href={tool.href} class="hover:text-accent">
+      <div class="tools" data-tools data-enlarge={t('lightbox.open', lang)}>
+        <div
+          class="tools-list"
+          role="tablist"
+          aria-label={t('project.toolsList', lang).replace('{name}', view.name)}
+        >
+          {groups.map((group) => (
+            <div class="tools-group" role="presentation">
+              {group.name && <span class="tools-group-name">{group.name}</span>}
+              {group.tools.map((tool) => {
+                const i = indexOf.get(tool) ?? 0;
+                return (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`tools-tab-${i}`}
+                    class="tools-tab"
+                    aria-selected={i === 0 ? 'true' : 'false'}
+                    aria-controls="tools-panel"
+                    tabindex={i === 0 ? 0 : -1}
+                    data-image={tool.image ?? ''}
+                    data-full={tool.full ?? tool.image ?? ''}
+                    data-alt={tool.name}
+                    data-address={addressOf(tool.href)}
+                    data-name={tool.name}
+                    data-text={tool.text}
+                    data-href={tool.href ?? ''}
+                  >
                     {tool.name}
-                  </a>
-                ) : (
-                  tool.name
-                )}
-              </h3>
-              <p class="text-sm leading-[1.6] text-faint">{tool.text}</p>
+                  </button>
+                );
+              })}
             </div>
-          </li>
-        ))}
-      </ul>
+          ))}
+        </div>
+        <div
+          id="tools-panel"
+          class="tools-panel"
+          role="tabpanel"
+          aria-labelledby="tools-tab-0"
+          data-tools-panel
+        >
+          <BrowserFrame size="wide" address={addressOf(first.href)}>
+            <LightboxTrigger
+              lang={lang}
+              group="tools"
+              full={first.full ?? first.image ?? ''}
+              alt={first.name}
+              caption={first.name}
+              class="tools-trigger"
+            >
+              <img
+                src={first.image}
+                alt={first.name}
+                decoding="async"
+                class="tools-img"
+                hidden={!first.image}
+                data-tools-img
+              />
+            </LightboxTrigger>
+          </BrowserFrame>
+          <div class="tools-detail">
+            <div class="flex flex-col gap-1.5">
+              <h3 class="text-lg font-bold tracking-[-0.01em]" data-tools-name>
+                {first.name}
+              </h3>
+              <p class="max-w-[62ch] text-[15px] leading-[1.55] text-muted" data-tools-text>
+                {first.text}
+              </p>
+            </div>
+            <a
+              href={first.href ?? ''}
+              class="btn-secondary h-9 gap-1.5 self-start px-3 whitespace-nowrap"
+              hidden={!first.href}
+              data-tools-open
+            >
+              <span>{t('project.openTool', lang).replace('{name}', view.name)}</span>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
   )
 }
 
+<script>
+  const KEYS: Record<string, (i: number, n: number) => number> = {
+    ArrowDown: (i, n) => (i + 1) % n,
+    ArrowRight: (i, n) => (i + 1) % n,
+    ArrowUp: (i, n) => (i - 1 + n) % n,
+    ArrowLeft: (i, n) => (i - 1 + n) % n,
+    Home: () => 0,
+    End: (_, n) => n - 1,
+  };
+
+  function bindTools() {
+    document.querySelectorAll<HTMLElement>('[data-tools]').forEach((root) => {
+      if (root.dataset.bound) return;
+      root.dataset.bound = 'true';
+      const list = root.querySelector<HTMLElement>('[role="tablist"]');
+      const panel = root.querySelector<HTMLElement>('[data-tools-panel]');
+      const img = root.querySelector<HTMLImageElement>('[data-tools-img]');
+      const address = root.querySelector<HTMLElement>('.browser-address');
+      const trigger = root.querySelector<HTMLButtonElement>('button[data-lightbox]');
+      const name = root.querySelector<HTMLElement>('[data-tools-name]');
+      const text = root.querySelector<HTMLElement>('[data-tools-text]');
+      const open = root.querySelector<HTMLAnchorElement>('[data-tools-open]');
+      const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+      if (!list || !panel || !img || !address || !trigger || !name || !text || !open) return;
+
+      const enlarge = root.dataset.enlarge ?? '{alt}';
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let timer: number | undefined;
+
+      const reveal = (tab: HTMLElement) => {
+        const box = list.getBoundingClientRect();
+        const rect = tab.getBoundingClientRect();
+        if (rect.left < box.left) list.scrollLeft -= box.left - rect.left;
+        else if (rect.right > box.right) list.scrollLeft += rect.right - box.right;
+      };
+
+      const showImage = (src: string, alt: string) => {
+        img.src = src;
+        img.alt = alt;
+        img.hidden = !src;
+        trigger.hidden = !src;
+      };
+
+      const select = (index: number, focus: boolean) => {
+        tabs.forEach((tab, i) => {
+          tab.setAttribute('aria-selected', String(i === index));
+          tab.tabIndex = i === index ? 0 : -1;
+        });
+        const tab = tabs[index];
+        const data = tab.dataset;
+        if (focus) tab.focus();
+        reveal(tab);
+        panel.setAttribute('aria-labelledby', tab.id);
+        address.textContent = data.address ?? '';
+        name.textContent = data.name ?? '';
+        text.textContent = data.text ?? '';
+        open.href = data.href ?? '';
+        open.hidden = !data.href;
+        trigger.dataset.full = data.full ?? '';
+        trigger.dataset.alt = data.alt ?? '';
+        trigger.dataset.caption = data.name ?? '';
+        trigger.setAttribute('aria-label', enlarge.replace('{alt}', data.alt ?? ''));
+
+        const src = data.image ?? '';
+        window.clearTimeout(timer);
+        if (img.getAttribute('src') === src) {
+          img.classList.remove('is-fading');
+          return;
+        }
+        if (reduced.matches || !src) {
+          showImage(src, data.alt ?? '');
+          return;
+        }
+        img.classList.add('is-fading');
+        timer = window.setTimeout(() => showImage(src, data.alt ?? ''), 150);
+      };
+
+      const unfade = () => img.classList.remove('is-fading');
+      img.addEventListener('load', unfade);
+      img.addEventListener('error', unfade);
+
+      list.addEventListener('click', (event) => {
+        const tab = (event.target as Element).closest<HTMLButtonElement>('[role="tab"]');
+        if (tab) select(tabs.indexOf(tab), false);
+      });
+      list.addEventListener('keydown', (event) => {
+        const tab = (event.target as Element).closest<HTMLButtonElement>('[role="tab"]');
+        const move = KEYS[event.key];
+        if (!tab || !move) return;
+        event.preventDefault();
+        select(move(tabs.indexOf(tab), tabs.length), true);
+      });
+
+      const active = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
+      if (active) reveal(active);
+    });
+  }
+  bindTools();
+  document.addEventListener('astro:after-swap', bindTools);
+</script>
+
 <style>
-  .tool-img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    border-radius: 12px;
+  .tools {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+  .tools-list {
+    display: flex;
+    gap: 8px;
+    min-width: 0;
+    padding: 2px 2px 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tools-group {
+    display: flex;
+    gap: 8px;
+  }
+  .tools-group-name {
+    display: none;
+  }
+  .tools-tab {
+    padding: 7px 14px;
     border: 1px solid var(--border);
-    background: var(--surface-2);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .tools-tab[aria-selected='true'] {
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .tools-panel {
+    min-width: 0;
+  }
+  .tools-panel :global(.tools-trigger) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .tools-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 150ms ease;
+  }
+  .tools-img.is-fading {
+    opacity: 0;
+  }
+  .tools-detail {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+    padding: 22px 4px 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tools-img {
+      transition: none;
+    }
+  }
+  @media (min-width: 768px) {
+    .tools {
+      grid-template-columns: 232px minmax(0, 1fr);
+      gap: 40px;
+    }
+    .tools-list {
+      position: sticky;
+      top: 24px;
+      flex-direction: column;
+      gap: 18px;
+      padding: 0;
+      overflow: visible;
+    }
+    .tools-group {
+      flex-direction: column;
+      gap: 0;
+    }
+    .tools-group-name {
+      display: block;
+      padding: 0 0 6px 14px;
+      font-size: 13px;
+      color: var(--text-faint);
+    }
+    .tools-tab {
+      padding: 7px 12px;
+      border: 0;
+      border-left: 2px solid transparent;
+      border-radius: 0 6px 6px 0;
+      background: none;
+      font-size: 15px;
+      white-space: normal;
+    }
+    .tools-tab:hover {
+      color: var(--text);
+      background: var(--surface);
+    }
+    .tools-tab[aria-selected='true'] {
+      border-left-color: var(--accent);
+      color: var(--text);
+    }
+    .tools-detail {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+    }
   }
 </style>
