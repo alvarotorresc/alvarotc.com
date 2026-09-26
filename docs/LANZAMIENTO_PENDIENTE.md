@@ -153,10 +153,8 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 2. **Vercel Web Analytics**: retirado el 25 sep 2026 (`@vercel/analytics` fuera del layout y de
    `package.json`, párrafo borrado de las páginas de privacidad). Umami autoalojado es la única
    analítica.
-3. **Hook de pre-commit que traduce con DeepL**: cualquier edición de un post en español retraduce
-   y sobreescribe el post en inglés emparejado. Hoy ha estado a punto de destrozar cuatro posts; se
-   evitó porque el worktree no tenía `DEEPL_API_KEY`. Recomiendo que el hook solo traduzca cuando
-   el fichero inglés no exista. Dime si lo cambio.
+3. **Hook de pre-commit que traduce con DeepL**: cambiado el 25 sep (94c60b9). Solo traduce un
+   post en español cuando no existe su pareja en inglés; nunca sobreescribe una traducción.
 
 ## 7. Antes de mergear a `main`
 
@@ -231,6 +229,5 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
   sesión de material lo desactivó para sembrar el grupo de demo. Las cinco cuentas `demo-*` y el
   grupo «Ruta 2026» siguen en producción; `media/seed` tiene el script `clean`.
 - **Vídeo de Quedamos**: dura 37 s, no los 30 acordados; decidir si se recorta.
-- **Hook de DeepL**: sigue pendiente la decisión del punto 6.3.
 - **Contenido de texto**: `[DATO]` en Sobre mí (24 por idioma), Quedamos (changelog y «Por qué
   existe») y Huellas; lo rellena el dueño. La guarda `RELEASE_CHECK` falla mientras existan.
