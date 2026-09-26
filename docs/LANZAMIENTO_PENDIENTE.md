@@ -212,16 +212,19 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 - Home y formulario con Orca o VoiceOver sin mirar la pantalla.
 - DevTools con "Slow 3G" y CPU 4x: el texto debe aparecer antes que las islas.
 
-## 11. Pendientes de código no bloqueantes (estado 26 sep)
+## 11. Pendientes de código no bloqueantes: cerrados el 26 sep
 
-- Hecho el 26 sep: 404 única y bilingüe en la raíz (la de `es/` nunca la servía Vercel),
-  `public/screenshot.png` vacío retirado, carpetas de trabajo ignoradas, ningún PNG original
-  huérfano en `dist/_astro` en el build actual.
-- Paleta de comandos con `client:idle` carga 43 KB de React en la home; pasarla a carga bajo
-  demanda (PERF-05). Se queda para después del lanzamiento.
-- Pasar ZAP baseline contra una preview y guardar el informe (SEC-20).
-- Siete avisos altos de `npm audit` quedan en `@lhci/cli`, solo CI; se pueden ignorar o mover a
-  `npx @lhci/cli` en el workflow.
+- 404 única y bilingüe en la raíz (la de `es/` nunca la servía Vercel).
+- `public/screenshot.png` vacío retirado; carpetas de trabajo ignoradas; sin PNG originales
+  huérfanos en `dist/_astro`.
+- Paleta de comandos con directiva `client:interaction`: React solo se descarga al pulsar ⌘K o el
+  botón del nav. En la home sigue cargando React por el terminal del hero, que sí se usa.
+- Lighthouse CI vía `npx @lhci/cli` fijado; `npm audit` sin vulnerabilidades.
+- ZAP baseline contra la build estática: 0 fallos, 58 reglas superadas. Los avisos de cabeceras
+  vienen de la preview local, que no aplica `vercel.json`. El único hallazgo real, el mensaje del
+  formulario en la URL si se envía antes de hidratar, está corregido (`method="post"` y
+  `action`). Informe en `launch-gate/zap-report.html` (carpeta local, no versionada).
+- Notas de changelog de Quedamos v0.2.2 a v0.3.1 rellenadas desde el historial del repo.
 
 ## 12. Añadidos el 26 sep
 
@@ -229,5 +232,6 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
   sesión de material lo desactivó para sembrar el grupo de demo. Las cinco cuentas `demo-*` y el
   grupo «Ruta 2026» siguen en producción; `media/seed` tiene el script `clean`.
 - **Vídeo de Quedamos**: dura 37 s, no los 30 acordados; decidir si se recorta.
-- **Contenido de texto**: `[DATO]` en Sobre mí (24 por idioma), Quedamos (changelog y «Por qué
-  existe») y Huellas; lo rellena el dueño. La guarda `RELEASE_CHECK` falla mientras existan.
+- **Contenido de texto**: `[DATO]` en Sobre mí (24 por idioma), Quedamos («Por qué existe») y
+  Huellas; lo rellena el dueño. La guarda `RELEASE_CHECK` falla mientras existan.
+- **PR abierto en borrador** `redesign/cv-web` → `main` para que CI corra la primera pasada.
