@@ -5,15 +5,7 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import ProjectView from '../src/components/projects/ProjectView.astro';
 import ProjectScreens from '../src/components/projects/ProjectScreens.astro';
 import ProjectFeatures from '../src/components/projects/ProjectFeatures.astro';
-import {
-  bitoFields,
-  bitoImages,
-  cliFields,
-  makeView,
-  pokeFields,
-  pokeImages,
-  sparseFields,
-} from './fixtures/project-view';
+import { bitoFields, bitoImages, cliFields, makeView, sparseFields } from './fixtures/project-view';
 
 const triggers = (html: string) => [
   ...html.matchAll(/<button[^>]*class="lightbox-trigger[^"]*"[^>]*>/g),
@@ -43,7 +35,7 @@ describe('lightbox triggers', () => {
     });
     expect(buttons[0]).toContain('data-alt="Widget en la pantalla de inicio"');
     expect(buttons[0]).toContain('data-caption="Widget"');
-    expect(buttons[0]).toContain('aria-label="Ampliar: Widget"');
+    expect(buttons[0]).toContain('aria-label="Ampliar: Widget en la pantalla de inicio"');
   });
 
   it('wraps the feature block images in the features group', async () => {
@@ -56,16 +48,16 @@ describe('lightbox triggers', () => {
     buttons.forEach((tag) => {
       expect(attr(tag, 'data-lightbox')).toBe('features');
       expect(attr(tag, 'data-full')).toMatch(/-full\.webp$/);
-      expect(attr(tag, 'aria-label')).toMatch(/^Enlarge: /);
+      expect(tag).toMatch(/\sdata-alt(?:="")?[\s>]/);
     });
+    expect(attr(buttons[0], 'aria-label')).toBe('Enlarge: Desde la pantalla de inicio');
   });
 
   it('draws the expand icon on every trigger', async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(ProjectScreens, {
-      props: { view: makeView(pokeFields, pokeImages) },
-    });
-    expect(html.match(/class="lightbox-badge"/g)).toHaveLength(1);
+    const html = await renderView(makeView(bitoFields, bitoImages));
+    const count = triggers(html).length;
+    expect(count).toBe(5);
+    expect(html.match(/class="lightbox-badge"/g)).toHaveLength(count);
   });
 });
 

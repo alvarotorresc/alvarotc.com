@@ -42,12 +42,15 @@ describe('ProjectTools', () => {
     expect(html).toContain('src="/_astro/types.webp"');
   });
 
-  it('shows the name in mono when a tool has no image, and links it when it has an href', async () => {
+  it('keeps a tool without image to name and text, and links the name when it has an href', async () => {
     const html = await render(ProjectTools, makeView(pokeFields, pokeImages));
-    expect(html).toMatch(/class="tool-empty[^"]*font-mono[^"]*"[^>]*>Pokédex</);
+    expect(html).not.toContain('tool-empty');
+    expect(html.match(/<img/g)).toHaveLength(1);
     expect(html).toMatch(
-      /<a href="https:\/\/pokeutils\.alvarotc\.com\/#\/pokedex" rel="noopener"[^>]*>Pokédex<\/a>/,
+      /<a href="https:\/\/pokeutils\.alvarotc\.com\/#\/pokedex"[^>]*>Pokédex<\/a>/,
     );
+    expect(html).not.toContain('rel="noopener"');
+    expect(html).toMatch(/<button[^>]*data-lightbox="tools"[^>]*\sdata-alt(?:="")?[\s>]/);
     expect(html).not.toMatch(/<a [^>]*>Tabla de tipos<\/a>/);
   });
 
@@ -82,9 +85,7 @@ describe.each(['es', 'en'] as Locale[])('project pages from content (%s)', (lang
   it('renders sixteen PokeUtils tool cards linked to the app', async () => {
     const html = await render(ProjectView, await viewOf('pokeutils'));
     expect(html.match(/data-tool(?=[\s>])/g)).toHaveLength(16);
-    expect(
-      html.match(/href="https:\/\/pokeutils\.alvarotc\.com\/#\/[^"]+" rel="noopener"/g),
-    ).toHaveLength(16);
+    expect(html.match(/href="https:\/\/pokeutils\.alvarotc\.com\/#\/[^"]+"/g)).toHaveLength(16);
   });
 
   it('renders no tools section for Bito', async () => {

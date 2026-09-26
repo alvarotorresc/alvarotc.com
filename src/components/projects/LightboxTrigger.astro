@@ -10,7 +10,7 @@ interface Props {
   class?: string;
 }
 const { lang, group, full, alt, caption, class: className } = Astro.props;
-const label = t('lightbox.open', lang).replace('{caption}', caption);
+const label = t('lightbox.open', lang).replace('{alt}', alt || caption);
 ---
 
 <button

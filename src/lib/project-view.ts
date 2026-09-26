@@ -337,15 +337,18 @@ export function hasMedia(view: ProjectView): boolean {
   return view.kind === 'cli' ? view.terminal.length > 0 : Boolean(view.cover);
 }
 
-export function featureBlocks(view: ProjectView): Feature[] {
-  if (view.kind === 'cli') return [];
-  return view.features.filter((feature) => feature.image).slice(0, 3);
+export function featureBlocks<T extends { image?: unknown }>(
+  kind: ProjectKind,
+  features: T[],
+): T[] {
+  if (kind === 'cli') return [];
+  return features.filter((feature) => feature.image).slice(0, 3);
 }
 
 export function hasLightbox(view: ProjectView): boolean {
   return (
     view.screenshots.length > 0 ||
-    featureBlocks(view).length > 0 ||
+    featureBlocks(view.kind, view.features).length > 0 ||
     view.tools.some((tool) => tool.image)
   );
 }

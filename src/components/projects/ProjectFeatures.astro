@@ -10,7 +10,7 @@ const { view } = Astro.props;
 const { lang } = view;
 const cli = view.kind === 'cli';
 const wide = view.kind === 'web';
-const blocks = featureBlocks(view);
+const blocks = featureBlocks(view.kind, view.features);
 const items = view.features.filter((feature) => !blocks.includes(feature));
 ---
 
@@ -34,7 +34,7 @@ const items = view.features.filter((feature) => !blocks.includes(feature));
                 lang={lang}
                 group="features"
                 full={feature.full ?? feature.image ?? ''}
-                alt={feature.title}
+                alt=""
                 caption={feature.title}
                 class:list={['shrink-0 self-start', wide ? 'rounded-lg' : 'rounded-2xl']}
               >
