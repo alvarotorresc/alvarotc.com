@@ -9,20 +9,12 @@ import StackStats from '../components/home/StackStats.astro';
 import OffClock from '../components/home/OffClock.astro';
 import ContactSection from '../components/home/ContactSection.astro';
 import { getSiteName, getDescription } from '../lib/config';
-import { getProjects } from '../lib/projects';
 import { getPosts } from '../lib/posts';
 import { reportMockContent } from '../lib/mock-report';
 import { personJsonLd } from '../lib/jsonld';
-import { loadStats, heatmapWeeks } from '../lib/stats';
 
 const lang = 'en';
 const posts = await getPosts(lang);
-const apps = (await getProjects(lang)).filter((p) => p.data.status === 'published').length;
-const homeStats = loadStats();
-const commits = homeStats.github?.commitsThisYear;
-const homeHeatmap = homeStats.github
-  ? heatmapWeeks(homeStats.github.contributions, new Date()).slice(-26)
-  : undefined;
 
 await reportMockContent();
 
@@ -35,12 +27,7 @@ const jsonLd = personJsonLd(lang);
   <ProjectBento lang={lang} />
   <ExperienceTimeline lang={lang} />
   <WritingList lang={lang} posts={posts} />
-  <StackStats
-    lang={lang}
-    stats={{ posts: posts.length, apps }}
-    commits={commits}
-    heatmapWeeks={homeHeatmap}
-  />
+  <StackStats lang={lang} />
   <OffClock lang={lang} />
   <ContactSection lang={lang} />
 </BaseLayout>
