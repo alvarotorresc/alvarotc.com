@@ -28,9 +28,13 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
           role="tablist"
           aria-label={t('project.toolsList', lang).replace('{name}', view.name)}
         >
-          {groups.map((group) => (
+          {groups.map((group, g) => (
             <div class="tools-group" role="presentation">
-              {group.name && <span class="tools-group-name">{group.name}</span>}
+              {group.name && (
+                <span id={`tools-group-${g}`} class="tools-group-name" aria-hidden="true">
+                  {group.name}
+                </span>
+              )}
               {group.tools.map((tool) => {
                 const i = indexOf.get(tool) ?? 0;
                 return (
@@ -41,6 +45,9 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
                     class="tools-tab"
                     aria-selected={i === 0 ? 'true' : 'false'}
                     aria-controls="tools-panel"
+                    aria-describedby={
+                      group.name && tool === group.tools[0] ? `tools-group-${g}` : undefined
+                    }
                     tabindex={i === 0 ? 0 : -1}
                     data-image={tool.image ?? ''}
                     data-full={tool.full ?? tool.image ?? ''}
@@ -72,10 +79,12 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
               alt={first.name}
               caption={first.name}
               class="tools-trigger"
+              hidden={!first.image}
             >
               <img
                 src={first.image}
                 alt={first.name}
+                loading="lazy"
                 decoding="async"
                 class="tools-img"
                 hidden={!first.image}
@@ -93,7 +102,7 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
               </p>
             </div>
             <a
-              href={first.href ?? ''}
+              href={first.href}
               class="btn-secondary h-9 gap-1.5 self-start px-3 whitespace-nowrap"
               hidden={!first.href}
               data-tools-open
@@ -176,7 +185,8 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
         address.textContent = data.address ?? '';
         name.textContent = data.name ?? '';
         text.textContent = data.text ?? '';
-        open.href = data.href ?? '';
+        if (data.href) open.href = data.href;
+        else open.removeAttribute('href');
         open.hidden = !data.href;
         trigger.dataset.full = data.full ?? '';
         trigger.dataset.alt = data.alt ?? '';
@@ -232,7 +242,7 @@ const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
     display: flex;
     gap: 8px;
     min-width: 0;
-    padding: 2px 2px 8px;
+    padding: 4px 4px 8px;
     overflow-x: auto;
     scrollbar-width: none;
   }
