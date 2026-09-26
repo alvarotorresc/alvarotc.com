@@ -29,42 +29,49 @@ const columns: Record<number, string> = {
 
 const heatmapCells = heatmapWeeks?.flat() ?? [];
 const heatmapMax = heatmapCells.length > 0 ? Math.max(1, ...heatmapCells) : 0;
+const hasStats = counters.length > 0 || heatmapCells.length > 0;
 ---
 
 <section id="stats" class="section container-page flex flex-col gap-8">
-  <h2 class="text-[22px] font-bold tracking-tight">{t('home.stackStats', lang)}</h2>
+  <h2 class="text-[22px] font-bold tracking-tight">
+    {t(hasStats ? 'home.stackStats' : 'home.stack', lang)}
+  </h2>
 
-  <div class="card flex flex-col gap-8 p-6 md:flex-row md:items-center md:gap-12">
-    {
-      heatmapCells.length > 0 && (
-        <div class="flex flex-shrink-0 flex-col gap-2 overflow-x-auto">
-          <div class="stack-stats-heatmap" role="img" aria-label={t('stats.homeHeatmapAria', lang)}>
-            {heatmapCells.map((count) => (
-              <div
-                class:list={['stack-stats-heatmap-cell', `lvl-${heatLevel(count, heatmapMax)}`]}
-                title={String(count)}
-              />
-            ))}
-          </div>
-          <span class="text-xs text-faint" aria-hidden="true">
-            {t('stats.homeHeatmapCaption', lang)}
-          </span>
-        </div>
-      )
-    }
-    <ul class:list={['grid flex-1 gap-6', columns[counters.length] ?? 'grid-cols-3']}>
-      {
-        counters.map((c, i) => (
-          <li class:list={['flex flex-col gap-1.5', i > 0 && 'border-l border-border pl-6']}>
-            <span class="font-mono text-2xl font-medium tracking-tight md:text-4xl">
-              {num(c.value)}
+  {
+    hasStats && (
+      <div class="card flex flex-col gap-8 p-6 md:flex-row md:items-center md:gap-12">
+        {heatmapCells.length > 0 && (
+          <div class="flex flex-shrink-0 flex-col gap-2 overflow-x-auto">
+            <div
+              class="stack-stats-heatmap"
+              role="img"
+              aria-label={t('stats.homeHeatmapAria', lang)}
+            >
+              {heatmapCells.map((count) => (
+                <div
+                  class:list={['stack-stats-heatmap-cell', `lvl-${heatLevel(count, heatmapMax)}`]}
+                  title={String(count)}
+                />
+              ))}
+            </div>
+            <span class="text-xs text-faint" aria-hidden="true">
+              {t('stats.homeHeatmapCaption', lang)}
             </span>
-            <span class="text-sm text-muted">{c.label}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
+          </div>
+        )}
+        <ul class:list={['grid flex-1 gap-6', columns[counters.length] ?? 'grid-cols-3']}>
+          {counters.map((c, i) => (
+            <li class:list={['flex flex-col gap-1.5', i > 0 && 'border-l border-border pl-6']}>
+              <span class="font-mono text-2xl font-medium tracking-tight md:text-4xl">
+                {num(c.value)}
+              </span>
+              <span class="text-sm text-muted">{c.label}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
 
   <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
     {

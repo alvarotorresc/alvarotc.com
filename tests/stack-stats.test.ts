@@ -65,6 +65,19 @@ describe('StackStats', () => {
     }
   });
 
+  it('renders only the stack, titled Stack, when no stats are passed', async () => {
+    const container = await AstroContainer.create();
+    for (const lang of ['en', 'es'] as const) {
+      const html = await container.renderToString(StackStats, { props: { lang } });
+      expect(html).not.toContain('class="card');
+      expect(html).not.toContain('font-mono');
+      expect(html).not.toContain('stack-stats-heatmap');
+      expect(html).toMatch(/<h2[^>]*>\s*Stack\s*<\/h2>/);
+      expect(html).not.toContain('Stack & stats');
+      expect(html).not.toContain('Stack y stats');
+    }
+  });
+
   it('keeps the Spanish section title', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(StackStats, {
