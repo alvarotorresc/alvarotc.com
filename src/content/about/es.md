@@ -94,8 +94,6 @@ stages:
     links:
       - label: 'github.com/alvarotorresc'
         href: 'https://github.com/alvarotorresc'
-      - label: '/stats'
-        href: '/es/stats'
       - label: '/projects/bito'
         href: '/es/projects/bito'
     photo: ../../assets/about/linux.jpg

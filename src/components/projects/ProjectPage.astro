@@ -7,7 +7,7 @@ import ProjectView from './ProjectView.astro';
 import type { Locale } from '../../i18n/translations';
 import { getAuthor } from '../../lib/config';
 import { projectSlug, type ProjectEntry } from '../../lib/projects';
-import { toProjectView, type LinkRef } from '../../lib/project-view';
+import { featureBlocks, toProjectView, type LinkRef } from '../../lib/project-view';
 
 interface Props {
   lang: Locale;
@@ -28,6 +28,8 @@ async function optional(src: ImageMetadata | undefined, width: number) {
 }
 
 const shotWidth = data.kind === 'web' ? 800 : 400;
+const fullWidth = data.kind === 'web' ? 1600 : 1080;
+const blocks = featureBlocks(data.kind, data.features);
 const images = {
   icon: await optional(data.icon, 144),
   cover: await optional(data.cover, data.kind === 'mobile' ? 780 : 1240),
@@ -35,7 +37,15 @@ const images = {
   illustration: await optional(data.illustration, 320),
   promo: await optional(data.promo, 1240),
   screenshots: await Promise.all(data.screenshots.map((shot) => webp(shot.src, shotWidth))),
+  screenshotsFull: await Promise.all(data.screenshots.map((shot) => webp(shot.src, fullWidth))),
   features: await Promise.all(data.features.map((feature) => optional(feature.image, 288))),
+  featuresFull: await Promise.all(
+    data.features.map((feature) =>
+      blocks.includes(feature) ? optional(feature.image, fullWidth) : undefined,
+    ),
+  ),
+  tools: await Promise.all(data.tools.map((tool) => optional(tool.image, 480))),
+  toolsFull: await Promise.all(data.tools.map((tool) => optional(tool.image, 1600))),
 };
 
 const coverIsVertical = Boolean(data.cover && data.cover.height > data.cover.width);

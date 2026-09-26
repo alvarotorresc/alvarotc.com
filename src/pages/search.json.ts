@@ -11,7 +11,6 @@ const pages = [
   { key: 'nav.about', path: '/about/' },
   { key: 'nav.projects', path: '/projects/' },
   { key: 'nav.writing', path: '/blog/' },
-  { key: 'nav.stats', path: '/stats/' },
   { key: 'nav.cv', path: '/cv/' },
   { key: 'contact.title', path: '/#contact' },
 ] as const;

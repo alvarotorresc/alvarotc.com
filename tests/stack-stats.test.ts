@@ -53,23 +53,23 @@ describe('StackStats', () => {
     expect(html.match(/class="[^"]*font-mono[^"]*"/g)?.length).toBe(2);
   });
 
-  it('links to /stats as a btn-secondary with an arrow, in English', async () => {
+  it('does not link to the stats page, in either language', async () => {
     const container = await AstroContainer.create();
-    const html = await container.renderToString(StackStats, {
-      props: { lang: 'en', stats: { posts: 5, apps: 2 } },
-    });
-    expect(html).toMatch(/<a href="\/stats\/" class="btn-secondary[^"]*"/);
-    expect(html).toContain('Full stats page');
-    expect(html).toContain('<svg');
+    for (const lang of ['en', 'es'] as const) {
+      const html = await container.renderToString(StackStats, {
+        props: { lang, stats: { posts: 5, apps: 2 } },
+      });
+      expect(html).not.toContain('/stats/');
+      expect(html).not.toContain('Full stats page');
+      expect(html).not.toContain('Página de stats');
+    }
   });
 
-  it('links to /es/stats in Spanish, with Spanish copy', async () => {
+  it('keeps the Spanish section title', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(StackStats, {
       props: { lang: 'es', stats: { posts: 5, apps: 2 } },
     });
-    expect(html).toMatch(/<a href="\/es\/stats\/" class="btn-secondary[^"]*"/);
-    expect(html).toContain('Página de stats');
     expect(html).toContain('Stack y stats');
   });
 });
