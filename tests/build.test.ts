@@ -32,7 +32,6 @@ const routes = [
   'es/blog/index.html',
   'search.json',
   '404.html',
-  'es/404/index.html',
   'llms.txt',
   'llms-full.txt',
   'es/llms-full.txt',
@@ -278,5 +277,16 @@ describe.skipIf(!built)('built home accessibility', () => {
 
   it('does not repeat the tool name in the logo alt text', () => {
     expect(page('index.html')).not.toContain('alt="Kitty"');
+  });
+});
+
+describe.skipIf(!built)('404 page', () => {
+  it('is a single root page that carries both languages, since Vercel only serves /404.html', () => {
+    expect(existsSync(join(dist, 'es/404/index.html'))).toBe(false);
+    const html = readFileSync(join(dist, '404.html'), 'utf8');
+    expect(html).toContain('Page not found');
+    expect(html).toContain('Página no encontrada');
+    expect(html).toMatch(/data-404-lang="es"[^>]*hidden/);
+    expect(html).toContain('noindex');
   });
 });
