@@ -81,12 +81,28 @@ changelog:
       date: 2026-04-09,
       note: 'Online events, a production crash fix, and member color stability.',
     }
-  - { version: 'v0.3.1', date: 2026-04-05, note: '[DATO]' }
-  - { version: 'v0.3.0', date: 2026-04-05, note: '[DATO]' }
-  - { version: 'v0.2.5', date: 2026-03-27, note: '[DATO]' }
+  - { version: 'v0.3.1', date: 2026-04-05, note: 'Fixes an API startup crash in production.' }
+  - {
+      version: 'v0.3.0',
+      date: 2026-04-05,
+      note: 'Custom time slots, manual confirmation of plans, ICS download and a hardened API.',
+    }
+  - {
+      version: 'v0.2.5',
+      date: 2026-03-27,
+      note: 'Visual rework of every screen, with empty states and loading skeletons.',
+    }
   - { version: 'v0.2.4', date: 2026-03-26, note: 'CSP/CORS hotfix and observability improvements.' }
-  - { version: 'v0.2.3', date: 2026-03-18, note: '[DATO]' }
-  - { version: 'v0.2.2', date: 2026-03-17, note: '[DATO]' }
+  - {
+      version: 'v0.2.3',
+      date: 2026-03-18,
+      note: 'API validations, a memory leak fixed in push notifications and dependencies brought up to date.',
+    }
+  - {
+      version: 'v0.2.2',
+      date: 2026-03-17,
+      note: 'Plans for part of the group, weather on proposals, plans on the calendar and a Docker health check.',
+    }
   - {
       version: 'v0.2.1',
       date: 2026-03-12,
