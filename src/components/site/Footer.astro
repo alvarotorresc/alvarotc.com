@@ -53,7 +53,6 @@ const socialLinks = [
   },
 ].filter((s): s is Exclude<typeof s, false | undefined> => Boolean(s));
 
-const llmsHref = lang === 'es' ? '/es/llms.txt' : '/llms.txt';
 const prefix = lang === 'es' ? '/es' : '';
 const sourceHref = `https://github.com/${author.github}/alvarotc.com`;
 const year = new Date().getFullYear();
@@ -68,7 +67,6 @@ const year = new Date().getFullYear();
       <div class="flex flex-wrap gap-4 font-medium">
         <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
         <a href={lang === 'es' ? '/es/rss.xml' : '/rss.xml'} class="hover:text-text">RSS</a>
-        <a href={llmsHref} class="hover:text-text">{t('footer.llms', lang)}</a>
         <a href={sourceHref} class="hover:text-text">{t('footer.source', lang)}</a>
         <a href={`${prefix}/privacy/`} class="hover:text-text">{t('footer.privacyPolicy', lang)}</a>
         <a href={`${prefix}/legal/`} class="hover:text-text">{t('footer.legal', lang)}</a>
