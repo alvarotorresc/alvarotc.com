@@ -388,9 +388,11 @@ describe.each(['es', 'en'])('quedamos (%s)', (lang) => {
     expect(source).toContain("label: 'Android 6.0+'");
   });
 
-  it('has a desktop cover and a phone cover', () => {
-    expect(field(source, 'cover')).toContain('quedamos/promo.png');
-    expect(field(source, 'coverMobile')).toContain('quedamos/grupo.jpg');
+  it('has a desktop cover, a phone cover, a promo and the native video per language', () => {
+    expect(field(source, 'cover')).toContain(`quedamos/cover-${lang}.jpg`);
+    expect(field(source, 'coverMobile')).toContain(`quedamos/cover-mobile-${lang}.png`);
+    expect(field(source, 'promo')).toContain(`quedamos/promo-${lang}.png`);
+    expect(source).toContain(`src: '/video/quedamos-promo-${lang}.mp4'`);
   });
 
   it('has ten dated changelog entries', () => {
