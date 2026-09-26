@@ -44,7 +44,7 @@ const images = {
       blocks.includes(feature) ? optional(feature.image, fullWidth) : undefined,
     ),
   ),
-  tools: await Promise.all(data.tools.map((tool) => optional(tool.image, 480))),
+  tools: await Promise.all(data.tools.map((tool) => optional(tool.image, 880))),
   toolsFull: await Promise.all(data.tools.map((tool) => optional(tool.image, 1600))),
 };
 
