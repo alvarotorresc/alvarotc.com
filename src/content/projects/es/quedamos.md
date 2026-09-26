@@ -85,12 +85,32 @@ changelog:
       date: 2026-04-09,
       note: 'Eventos en línea, fix de crash en producción y estabilidad de color de miembro.',
     }
-  - { version: 'v0.3.1', date: 2026-04-05, note: '[DATO]' }
-  - { version: 'v0.3.0', date: 2026-04-05, note: '[DATO]' }
-  - { version: 'v0.2.5', date: 2026-03-27, note: '[DATO]' }
+  - {
+      version: 'v0.3.1',
+      date: 2026-04-05,
+      note: 'Corrige un fallo de arranque de la API en producción.',
+    }
+  - {
+      version: 'v0.3.0',
+      date: 2026-04-05,
+      note: 'Franjas horarias personalizables, confirmación manual de quedadas, descarga en ICS y API más endurecida.',
+    }
+  - {
+      version: 'v0.2.5',
+      date: 2026-03-27,
+      note: 'Rediseño visual de todas las pantallas, con estados vacíos y esqueletos de carga.',
+    }
   - { version: 'v0.2.4', date: 2026-03-26, note: 'Hotfix de CSP/CORS y mejoras de observabilidad.' }
-  - { version: 'v0.2.3', date: 2026-03-18, note: '[DATO]' }
-  - { version: 'v0.2.2', date: 2026-03-17, note: '[DATO]' }
+  - {
+      version: 'v0.2.3',
+      date: 2026-03-18,
+      note: 'Validaciones en la API, una fuga de memoria corregida en las notificaciones push y dependencias al día.',
+    }
+  - {
+      version: 'v0.2.2',
+      date: 2026-03-17,
+      note: 'Quedadas para parte del grupo, el tiempo en las propuestas, quedadas en el calendario y salud del servicio en Docker.',
+    }
   - {
       version: 'v0.2.1',
       date: 2026-03-12,
