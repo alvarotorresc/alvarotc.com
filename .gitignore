@@ -37,3 +37,9 @@ SETUP.md
 # mock blog posts (scripts/mock-posts.mjs)
 src/content/posts/zz-mock-*
 src/content/posts-en/zz-mock-*
+
+# local working folders
+launch-gate/
+reports/
+research_notes/
+.playwright-mcp/
