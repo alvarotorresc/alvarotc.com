@@ -64,18 +64,18 @@ jobs:
 
       - name: Lighthouse mobile
         run: |
-          npx lhci collect --config=lighthouserc.cjs
-          npx lhci upload --config=lighthouserc.cjs
-          npx lhci assert --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 collect --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 upload --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 assert --config=lighthouserc.cjs
 
       - name: Lighthouse desktop
         if: ${{ !cancelled() }}
         env:
           LH_FORM_FACTOR: desktop
         run: |
-          npx lhci collect --config=lighthouserc.cjs
-          npx lhci upload --config=lighthouserc.cjs
-          npx lhci assert --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 collect --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 upload --config=lighthouserc.cjs
+          npx --yes @lhci/cli@0.15.1 assert --config=lighthouserc.cjs
 
       - name: Keep the Lighthouse reports
         if: ${{ !cancelled() }}
