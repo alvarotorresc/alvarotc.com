@@ -20,26 +20,22 @@ const { lang } = view;
       <ul class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {view.tools.map((tool) => (
           <li data-tool class="flex flex-col gap-3">
-            {tool.image ? (
+            {tool.image && (
               <LightboxTrigger
                 lang={lang}
                 group="tools"
                 full={tool.full ?? tool.image}
-                alt={tool.name}
+                alt=""
                 caption={tool.name}
                 class="rounded-xl"
               >
                 <img src={tool.image} alt="" loading="lazy" decoding="async" class="tool-img" />
               </LightboxTrigger>
-            ) : (
-              <div class="tool-empty font-mono text-sm text-muted" aria-hidden="true">
-                {tool.name}
-              </div>
             )}
             <div class="flex flex-col gap-1">
               <h3 class="text-[15px] font-semibold">
                 {tool.href ? (
-                  <a href={tool.href} rel="noopener" class="hover:text-accent">
+                  <a href={tool.href} class="hover:text-accent">
                     {tool.name}
                   </a>
                 ) : (
@@ -56,23 +52,13 @@ const { lang } = view;
 }
 
 <style>
-  .tool-img,
-  .tool-empty {
+  .tool-img {
     display: block;
     width: 100%;
     aspect-ratio: 16 / 10;
+    object-fit: cover;
     border-radius: 12px;
     border: 1px solid var(--border);
-  }
-  .tool-img {
-    object-fit: cover;
     background: var(--surface-2);
-  }
-  .tool-empty {
-    display: grid;
-    place-items: center;
-    padding: 16px;
-    text-align: center;
-    background: var(--surface);
   }
 </style>
