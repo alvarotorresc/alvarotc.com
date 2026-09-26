@@ -65,7 +65,6 @@ export async function buildLlmsTxt(lang: Locale, site: string | URL): Promise<st
   const pages: LlmsLink[] = [
     { title: t('nav.about', lang), url: new URL(`${prefix}/about/`, site).toString() },
     { title: t('nav.cv', lang), url: new URL(`${prefix}/cv/`, site).toString() },
-    { title: t('nav.stats', lang), url: new URL(`${prefix}/stats/`, site).toString() },
     { title: t('nav.projects', lang), url: new URL(`${prefix}/projects/`, site).toString() },
   ];
 

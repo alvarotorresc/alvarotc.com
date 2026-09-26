@@ -12,7 +12,6 @@ interface Props {
 const { lang, stats, commits, heatmapWeeks } = Astro.props;
 
 const groups = getStackGroups(lang);
-const prefix = lang === 'es' ? '/es' : '';
 const locale = lang === 'es' ? 'es-ES' : 'en-US';
 const num = (n: number) => n.toLocaleString(locale, { useGrouping: 'always' });
 
@@ -33,26 +32,7 @@ const heatmapMax = heatmapCells.length > 0 ? Math.max(1, ...heatmapCells) : 0;
 ---
 
 <section id="stats" class="section container-page flex flex-col gap-8">
-  <div class="flex items-baseline justify-between">
-    <h2 class="text-[22px] font-bold tracking-tight">{t('home.stackStats', lang)}</h2>
-    <a href={`${prefix}/stats/`} class="btn-secondary gap-2">
-      {t('stats.full', lang)}
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 16 16"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M3.5 8h9"></path>
-        <path d="M8.5 3.5 13 8l-4.5 4.5"></path>
-      </svg>
-    </a>
-  </div>
+  <h2 class="text-[22px] font-bold tracking-tight">{t('home.stackStats', lang)}</h2>
 
   <div class="card flex flex-col gap-8 p-6 md:flex-row md:items-center md:gap-12">
     {
