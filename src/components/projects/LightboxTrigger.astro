@@ -8,8 +8,9 @@ interface Props {
   alt: string;
   caption: string;
   class?: string;
+  hidden?: boolean;
 }
-const { lang, group, full, alt, caption, class: className } = Astro.props;
+const { lang, group, full, alt, caption, class: className, hidden } = Astro.props;
 const label = t('lightbox.open', lang).replace('{alt}', alt || caption);
 ---
 
@@ -21,6 +22,7 @@ const label = t('lightbox.open', lang).replace('{alt}', alt || caption);
   data-alt={alt}
   data-caption={caption}
   aria-label={label}
+  hidden={hidden}
 >
   <slot />
   <span class="lightbox-badge" aria-hidden="true">

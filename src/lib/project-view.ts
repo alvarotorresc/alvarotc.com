@@ -31,6 +31,7 @@ export interface Feature {
 
 export interface Tool {
   name: string;
+  group?: string;
   text: string;
   image?: string;
   full?: string;
@@ -91,7 +92,7 @@ export interface ProjectFields {
   featuresIntro?: string;
   features: { title: string; text: string }[];
   toolsIntro?: string;
-  tools: { name: string; text: string; href?: string }[];
+  tools: { name: string; group?: string; text: string; href?: string }[];
   steps: Step[];
   stepsIntro?: string;
   after?: string;
@@ -345,6 +346,21 @@ export function featureBlocks<T extends { image?: unknown }>(
   return features.filter((feature) => feature.image).slice(0, 3);
 }
 
+export interface ToolGroup {
+  name?: string;
+  tools: Tool[];
+}
+
+export function toolGroups(tools: Tool[]): ToolGroup[] {
+  const groups: ToolGroup[] = [];
+  for (const tool of tools) {
+    const last = groups.at(-1);
+    if (last && last.name === tool.group) last.tools.push(tool);
+    else groups.push({ name: tool.group, tools: [tool] });
+  }
+  return groups;
+}
+
 export function hasLightbox(view: ProjectView): boolean {
   return (
     view.screenshots.length > 0 ||
@@ -399,6 +415,7 @@ export function toProjectView(
     toolsIntro: fields.toolsIntro,
     tools: fields.tools.map((tool, i) => ({
       name: tool.name,
+      group: tool.group,
       text: tool.text,
       image: images.tools[i],
       full: images.toolsFull[i],

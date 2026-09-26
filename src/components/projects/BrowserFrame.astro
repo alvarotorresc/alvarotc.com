@@ -1,6 +1,6 @@
 ---
 interface Props {
-  size: 'hero' | 'thin' | 'play';
+  size: 'hero' | 'thin' | 'play' | 'wide';
   address: string;
   src?: string;
   alt?: string;
@@ -46,6 +46,11 @@ const { size, address, src, alt = '' } = Astro.props;
     max-width: 620px;
     box-shadow:
       0 48px 96px rgba(0, 0, 0, 0.55),
+      0 0 0 6px #161920;
+  }
+  .browser-wide {
+    box-shadow:
+      0 32px 72px rgba(0, 0, 0, 0.35),
       0 0 0 6px #161920;
   }
   .browser-thin {
@@ -134,6 +139,7 @@ const { size, address, src, alt = '' } = Astro.props;
     background: var(--surface-2);
   }
   .browser-hero .browser-screen,
+  .browser-wide .browser-screen,
   .browser-thin .browser-screen {
     aspect-ratio: 16 / 10;
   }
@@ -154,6 +160,9 @@ const { size, address, src, alt = '' } = Astro.props;
   @media (max-width: 767px) {
     .browser-play {
       height: 520px;
+    }
+    .browser-wide {
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
     }
   }
 </style>
