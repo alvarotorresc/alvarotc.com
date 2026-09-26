@@ -262,6 +262,14 @@ describe('hasLightbox', () => {
     expect(hasLightbox(featuresOnly)).toBe(true);
   });
 
+  it('is true when only a tool has an image', () => {
+    const toolsOnly = makeView(
+      { ...pokeFields, screenshots: [], features: [] },
+      { ...pokeImages, screenshots: [], screenshotsFull: [], features: [], featuresFull: [] },
+    );
+    expect(hasLightbox(toolsOnly)).toBe(true);
+  });
+
   it('is false for a sparse project and for a cli, whose features have no images', () => {
     expect(hasLightbox(makeView(sparseFields))).toBe(false);
     expect(hasLightbox(makeView(cliFields))).toBe(false);
@@ -285,6 +293,28 @@ describe('toProjectView', () => {
     expect(view.features[3].image).toBeUndefined();
     expect(view.features[3].full).toBeUndefined();
     expect(view.allProjects).toBe('/es/projects/');
+  });
+
+  it('carries the tools with their images, links and intro', () => {
+    const view = makeView(pokeFields, pokeImages);
+    expect(view.toolsIntro).toBe('Cada herramienta en su dirección.');
+    expect(view.tools).toEqual([
+      {
+        name: 'Tabla de tipos',
+        text: 'Efectividad por tipo.',
+        image: '/_astro/types.webp',
+        full: '/_astro/types-full.webp',
+        href: undefined,
+      },
+      {
+        name: 'Pokédex',
+        text: 'Los 1025 Pokémon.',
+        image: undefined,
+        full: undefined,
+        href: 'https://pokeutils.alvarotc.com/#/pokedex',
+      },
+    ]);
+    expect(makeView(bitoFields, bitoImages).tools).toEqual([]);
   });
 
   it('links to the English project list', () => {

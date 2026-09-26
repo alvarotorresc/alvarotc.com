@@ -1,0 +1,78 @@
+---
+import { t } from '../../i18n/translations';
+import type { ProjectView } from '../../lib/project-view';
+import LightboxTrigger from './LightboxTrigger.astro';
+
+interface Props {
+  view: ProjectView;
+}
+const { view } = Astro.props;
+const { lang } = view;
+---
+
+{
+  view.tools.length > 0 && (
+    <section data-section="tools" class="flex flex-col gap-8 border-t border-border py-14">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.tools', lang)}</h2>
+        {view.toolsIntro && <p class="text-base text-muted">{view.toolsIntro}</p>}
+      </div>
+      <ul class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {view.tools.map((tool) => (
+          <li data-tool class="flex flex-col gap-3">
+            {tool.image ? (
+              <LightboxTrigger
+                lang={lang}
+                group="tools"
+                full={tool.full ?? tool.image}
+                alt={tool.name}
+                caption={tool.name}
+                class="rounded-xl"
+              >
+                <img src={tool.image} alt="" loading="lazy" decoding="async" class="tool-img" />
+              </LightboxTrigger>
+            ) : (
+              <div class="tool-empty font-mono text-sm text-muted" aria-hidden="true">
+                {tool.name}
+              </div>
+            )}
+            <div class="flex flex-col gap-1">
+              <h3 class="text-[15px] font-semibold">
+                {tool.href ? (
+                  <a href={tool.href} rel="noopener" class="hover:text-accent">
+                    {tool.name}
+                  </a>
+                ) : (
+                  tool.name
+                )}
+              </h3>
+              <p class="text-sm leading-[1.6] text-faint">{tool.text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+<style>
+  .tool-img,
+  .tool-empty {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .tool-img {
+    object-fit: cover;
+    background: var(--surface-2);
+  }
+  .tool-empty {
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    text-align: center;
+    background: var(--surface);
+  }
+</style>

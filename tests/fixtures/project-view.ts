@@ -12,6 +12,8 @@ export const noImages: ResolvedImages = {
   screenshotsFull: [],
   features: [],
   featuresFull: [],
+  tools: [],
+  toolsFull: [],
 };
 
 export const bitoFields: ProjectFields = {
@@ -46,6 +48,7 @@ export const bitoFields: ProjectFields = {
   ],
   steps: [],
   playground: { kind: 'pwa', src: 'https://bito.alvarotc.com' },
+  tools: [],
   built: [
     'Kotlin, para Android 10+.',
     'Código en [github.com/alvarotorresc/bito](https://github.com/alvarotorresc/bito).',
@@ -70,6 +73,8 @@ export const bitoImages: ResolvedImages = {
     '/_astro/review-full.webp',
     undefined,
   ],
+  tools: [],
+  toolsFull: [],
 };
 
 export const pokeFields: ProjectFields = {
@@ -85,6 +90,15 @@ export const pokeFields: ProjectFields = {
   features: [{ title: 'Tu equipo', text: 'Hasta seis.' }],
   steps: [],
   playground: { kind: 'iframe', src: 'https://pokeutils.alvarotc.com' },
+  toolsIntro: 'Cada herramienta en su dirección.',
+  tools: [
+    { name: 'Tabla de tipos', text: 'Efectividad por tipo.' },
+    {
+      name: 'Pokédex',
+      text: 'Los 1025 Pokémon.',
+      href: 'https://pokeutils.alvarotc.com/#/pokedex',
+    },
+  ],
   built: [],
   changelog: [{ version: 'v1.0.0', date: new Date('2026-08-28'), note: '[DATO]' }],
 };
@@ -96,6 +110,8 @@ export const pokeImages: ResolvedImages = {
   screenshotsFull: ['/_astro/pokedex-full.webp'],
   features: ['/_astro/team.webp'],
   featuresFull: ['/_astro/team-full.webp'],
+  tools: ['/_astro/types.webp', undefined],
+  toolsFull: ['/_astro/types-full.webp', undefined],
 };
 
 export const baseceroFields: ProjectFields = {
@@ -113,6 +129,7 @@ export const baseceroFields: ProjectFields = {
   features: [{ title: 'Patrimonio', text: 'El neto en una sola vista.' }],
   steps: [],
   playground: { kind: 'pwa', src: 'https://basecero.alvarotc.com/app/' },
+  tools: [],
   built: [],
   changelog: [{ version: 'v1.0.0', date: new Date('2026-09-02'), note: '[DATO]' }],
 };
@@ -124,6 +141,8 @@ export const baseceroImages: ResolvedImages = {
   screenshotsFull: ['/_astro/movements-full.webp'],
   features: ['/_astro/net-worth.webp'],
   featuresFull: ['/_astro/net-worth-full.webp'],
+  tools: [],
+  toolsFull: [],
 };
 
 export const cliFields: ProjectFields = {
@@ -153,6 +172,7 @@ export const cliFields: ProjectFields = {
   ],
   stepsIntro: 'El CLI hace seis preguntas.',
   after: 'cd my-blog && npm run dev',
+  tools: [],
   built: [],
   changelog: [{ version: '[DATO]', note: '[DATO]' }],
 };
@@ -170,6 +190,7 @@ export const sparseFields: ProjectFields = {
   screenshots: [],
   features: [],
   steps: [],
+  tools: [],
   built: [],
   changelog: [],
 };

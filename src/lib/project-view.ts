@@ -29,6 +29,14 @@ export interface Feature {
   full?: string;
 }
 
+export interface Tool {
+  name: string;
+  text: string;
+  image?: string;
+  full?: string;
+  href?: string;
+}
+
 export interface ChangelogRow {
   version: string;
   when?: string;
@@ -82,6 +90,8 @@ export interface ProjectFields {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: { title: string; text: string }[];
+  toolsIntro?: string;
+  tools: { name: string; text: string; href?: string }[];
   steps: Step[];
   stepsIntro?: string;
   after?: string;
@@ -100,6 +110,8 @@ export interface ResolvedImages {
   screenshotsFull: string[];
   features: (string | undefined)[];
   featuresFull: (string | undefined)[];
+  tools: (string | undefined)[];
+  toolsFull: (string | undefined)[];
 }
 
 export interface ProjectView {
@@ -128,6 +140,8 @@ export interface ProjectView {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: Feature[];
+  toolsIntro?: string;
+  tools: Tool[];
   steps: Step[];
   stepsIntro?: string;
   after?: string;
@@ -329,7 +343,11 @@ export function featureBlocks(view: ProjectView): Feature[] {
 }
 
 export function hasLightbox(view: ProjectView): boolean {
-  return view.screenshots.length > 0 || featureBlocks(view).length > 0;
+  return (
+    view.screenshots.length > 0 ||
+    featureBlocks(view).length > 0 ||
+    view.tools.some((tool) => tool.image)
+  );
 }
 
 export function toProjectView(
@@ -374,6 +392,14 @@ export function toProjectView(
       text: feature.text,
       image: images.features[i],
       full: images.featuresFull[i],
+    })),
+    toolsIntro: fields.toolsIntro,
+    tools: fields.tools.map((tool, i) => ({
+      name: tool.name,
+      text: tool.text,
+      image: images.tools[i],
+      full: images.toolsFull[i],
+      href: tool.href,
     })),
     steps: fields.steps,
     stepsIntro: fields.stepsIntro,
