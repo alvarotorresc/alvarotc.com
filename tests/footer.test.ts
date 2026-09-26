@@ -46,11 +46,9 @@ describe('Footer social links', () => {
 });
 
 describe('Footer llms.txt link', () => {
-  it('links to /llms.txt in English and /es/llms.txt in Spanish', async () => {
-    const en = await render(true, 'en');
-    expect(en).toContain('href="/llms.txt"');
-    const es = await render(true, 'es');
-    expect(es).toContain('href="/es/llms.txt"');
+  it('no longer links to llms.txt, which stays discoverable at its fixed path', async () => {
+    expect(await render(true, 'en')).not.toContain('llms.txt');
+    expect(await render(true, 'es')).not.toContain('llms.txt');
   });
 });
 
