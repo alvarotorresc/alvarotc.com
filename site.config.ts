@@ -25,7 +25,6 @@ export const siteConfig = {
     { key: 'nav.projects', href: '/#projects' },
     { key: 'nav.experience', href: '/#experience', requires: 'experience' },
     { key: 'nav.writing', href: '/blog/' },
-    { key: 'nav.stats', href: '/stats/' },
     { key: 'nav.cv', href: '/cv/' },
   ] as NavItem[],
 
