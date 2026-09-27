@@ -34,7 +34,7 @@ screenshots:
     alt: 'Drink water habit detail, with a 130-day streak'
     caption: 'Habit detail'
   - src: '../../../assets/projects/bito/shot-02-recordatorio-en.png'
-    alt: 'Notification shade with a Bito reminder and its buttons to log without opening the app'
+    alt: 'Notification shade with a Bito reminder and its button to log without opening the app'
     caption: 'Reminder'
   - src: '../../../assets/projects/bito/shot-03-estadisticas-en.png'
     alt: "Stats with the year's perfect days and each habit's week"
