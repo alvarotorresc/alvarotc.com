@@ -17,18 +17,18 @@ cover: '../../../assets/projects/bito/cover-en.png'
 promo: '../../../assets/projects/bito/promo-en.png'
 playground: { kind: file, src: '/video/bito-promo-en.mp4' }
 download:
-  url: https://github.com/alvarotorresc/bito/releases/download/v1.0.0/app-release.apk
-  label: '4.7 MB'
+  url: https://github.com/alvarotorresc/bito/releases/download/v1.3.0/app-release.apk
+  label: '6.4 MB'
 facts:
   - label: 'APK size'
-    value: '4.7 MB'
+    value: '6.4 MB'
     mono: true
   - label: 'Permissions'
-    value: '4, none for internet'
+    value: '4 of its own, no internet'
   - label: 'Google dependencies'
     value: '0'
     mono: true
-screenshotsIntro: "1.1.0 on Android, with a demo user's data."
+screenshotsIntro: "1.3.0 on Android, with a demo user's data."
 screenshots:
   - src: '../../../assets/projects/bito/shot-01-habitos-en.png'
     alt: 'Drink water habit detail, with a 130-day streak'
@@ -48,7 +48,8 @@ screenshots:
   - src: '../../../assets/projects/bito/shot-06-revision-en.png'
     alt: 'Day review with the pending habits and the Seal the day button'
     caption: 'Day review'
-featuresIntro: "Three ways to log it. Two of them don't even ask you to open the app."
+featuresIntro: 'Three ways to log a habit, tasks with a timer to start them, and a moment to breathe with Habi.'
+featureBlockLimit: 5
 features:
   - title: 'From the home screen'
     text: "The widget shows today and logs with one tap, no need to go anywhere. Care about just one habit? There's a small widget just for it."
@@ -61,6 +62,10 @@ features:
     image: '../../../assets/projects/bito/shot-06-revision-en.png'
   - title: 'Tasks, deadlines, focus'
     text: 'The call, the paperwork, the email. Each task gets a deadline, a first step if it helps, and a 5, 10 or 25 minute timer with Habi beside you.'
+    image: '../../../assets/projects/bito/feat-tareas-en.png'
+  - title: 'Breathe with Habi'
+    text: "About two minutes following Habi's breath when the day piles up. Three modes, nothing else to pick. No points, no streaks."
+    image: '../../../assets/projects/bito/feat-respiracion-en.png'
   - title: 'Backups that are yours'
     text: "Every backup carries everything and goes to the folder you pick. Plain, it's a JSON you open in Notepad; with a password, nobody opens it, not even Bito."
   - title: "Streaks that don't punish"
@@ -75,12 +80,19 @@ illustration: '../../../assets/projects/bito/illustration.png'
 built:
   - 'Kotlin 2.1 and Jetpack Compose, for Android 8.0 or later.'
   - 'Offline-first: all data lives on the phone.'
-  - '4 permissions, none for internet. The app cannot phone home.'
+  - '4 permissions of its own, none for internet. The app cannot phone home.'
   - '0 Google Play Services dependencies. Works the same on GrapheneOS.'
   - 'Backups encrypted with Argon2id and AES-256-GCM with a password.'
   - 'Free software under GPL-3.0-or-later, code at [github.com/alvarotorresc/bito](https://github.com/alvarotorresc/bito).'
 changelog:
+  - version: 'v1.3.0'
+    date: 2026-09-27
+    note: 'Polish for Today, the single-habit widget, the timer, Breathe and Settings.'
+  - version: 'v1.2.0'
+    date: 2026-09-27
+    note: 'Breathe with Habi: three modes, an honest counter and an optional daily reminder.'
   - version: 'v1.1.0'
+    date: 2026-09-26
     note: 'Tasks with deadlines, a focus timer and midday task reminders.'
   - version: 'v1.0.0'
     date: 2026-08-26
@@ -89,4 +101,4 @@ changelog:
 
 Every habit tracker I tried asked for an account, then a subscription, then my data. Bito asks for one tap. It keeps everything on the phone, backs up to the folder you pick, and does not phone home.
 
-I built the first prototype in a day to prove the idea, and wrote about it. Along the way came Habi, a companion who nudges without nagging. 1.1.0 adds tasks and a timer to start them, and is the one going to Google Play.
+I built the first prototype in a day to prove the idea, and wrote about it. Along the way came Habi, a companion who nudges without nagging. Then came tasks, with a timer to start them, and a moment to breathe when the day gets heavy.

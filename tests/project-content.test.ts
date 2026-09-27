@@ -76,12 +76,29 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(source).not.toMatch(/v2\.0\.0|v0\.1\.0|Android 10/);
   });
 
-  it('lists only the real releases', () => {
+  it('lists only the real releases, all of them dated', () => {
     expect([...source.matchAll(/version: '(v[\d.]+)'/g)].map((m) => m[1])).toEqual([
+      'v1.3.0',
+      'v1.2.0',
       'v1.1.0',
       'v1.0.0',
     ]);
+    expect(source).toMatch(/version: 'v1\.2\.0'\n\s+date: 2026-09-27\n/);
+    expect(source).toMatch(/version: 'v1\.1\.0'\n\s+date: 2026-09-26\n/);
     expect(source).toMatch(/version: 'v1\.0\.0'\n\s+date: 2026-08-26\n/);
+    expect(source).toMatch(/version: 'v1\.3\.0'\n\s+date: \d{4}-\d{2}-\d{2}\n/);
+  });
+
+  it('downloads the 1.3.0 APK and gives its size', () => {
+    expect(source).toContain(
+      'url: https://github.com/alvarotorresc/bito/releases/download/v1.3.0/app-release.apk',
+    );
+    expect(source).toMatch(lang === 'es' ? /label: '\d+,\d MB'/ : /label: '\d+\.\d MB'/);
+    expect(source).not.toMatch(/4[,.]7 MB/);
+  });
+
+  it('never says four permissions without saying they are its own', () => {
+    expect(source).not.toMatch(/'4, |4 permisos, |4 permissions, /);
   });
 
   it('dates as latest the release the download serves', () => {
@@ -98,14 +115,23 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(field(source, 'illustration')).toBe(`'${BITO}/illustration.png'`);
   });
 
-  it('has nine features, the first three with a screen of its language', () => {
-    expect(source.match(/^ {2}- title: /gm)).toHaveLength(9);
+  it('has ten features, the first five with a screen of its language', () => {
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(10);
+    expect(field(source, 'featureBlockLimit')).toBe('5');
     const images = [...source.matchAll(/^ {4}image: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
     expect(images).toEqual([
       `shot-04-widget-${lang}`,
       `shot-02-recordatorio-${lang}`,
       `shot-06-revision-${lang}`,
+      `feat-tareas-${lang}`,
+      `feat-respiracion-${lang}`,
     ]);
+  });
+
+  it('no longer says an older version is the one going to Google Play', () => {
+    expect(source).not.toMatch(
+      /es la que va a Google Play|is the one going to Google Play|La 1\.1\.0|^1\.1\.0 /m,
+    );
   });
 
   it('has a horizontal promo', () => {
