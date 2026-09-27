@@ -10,7 +10,7 @@ const { view } = Astro.props;
 const { lang } = view;
 const cli = view.kind === 'cli';
 const wide = view.kind === 'web';
-const blocks = featureBlocks(view.kind, view.features);
+const blocks = featureBlocks(view.kind, view.features, view.featureBlockLimit);
 const items = view.features.filter((feature) => !blocks.includes(feature));
 ---
 

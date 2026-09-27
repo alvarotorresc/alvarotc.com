@@ -29,7 +29,7 @@ async function optional(src: ImageMetadata | undefined, width: number) {
 
 const shotWidth = data.kind === 'web' ? 800 : 400;
 const fullWidth = data.kind === 'web' ? 1600 : 1080;
-const blocks = featureBlocks(data.kind, data.features);
+const blocks = featureBlocks(data.kind, data.features, data.featureBlockLimit);
 const images = {
   icon: await optional(data.icon, 144),
   cover: await optional(data.cover, data.kind === 'mobile' ? 780 : 1240),
