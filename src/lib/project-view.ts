@@ -91,6 +91,7 @@ export interface ProjectFields {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: { title: string; text: string }[];
+  featureBlockLimit?: number;
   toolsIntro?: string;
   tools: { name: string; group?: string; text: string; href?: string }[];
   steps: Step[];
@@ -141,6 +142,7 @@ export interface ProjectView {
   screenshotsIntro?: string;
   featuresIntro?: string;
   features: Feature[];
+  featureBlockLimit: number;
   toolsIntro?: string;
   tools: Tool[];
   steps: Step[];
@@ -338,12 +340,15 @@ export function hasMedia(view: ProjectView): boolean {
   return view.kind === 'cli' ? view.terminal.length > 0 : Boolean(view.cover);
 }
 
+export const FEATURE_BLOCK_LIMIT = 3;
+
 export function featureBlocks<T extends { image?: unknown }>(
   kind: ProjectKind,
   features: T[],
+  limit: number = FEATURE_BLOCK_LIMIT,
 ): T[] {
   if (kind === 'cli') return [];
-  return features.filter((feature) => feature.image).slice(0, 3);
+  return features.filter((feature) => feature.image).slice(0, limit);
 }
 
 export interface ToolGroup {
@@ -364,7 +369,7 @@ export function toolGroups(tools: Tool[]): ToolGroup[] {
 export function hasLightbox(view: ProjectView): boolean {
   return (
     view.screenshots.length > 0 ||
-    featureBlocks(view.kind, view.features).length > 0 ||
+    featureBlocks(view.kind, view.features, view.featureBlockLimit).length > 0 ||
     view.tools.some((tool) => tool.image)
   );
 }
@@ -412,6 +417,7 @@ export function toProjectView(
       image: images.features[i],
       full: images.featuresFull[i],
     })),
+    featureBlockLimit: fields.featureBlockLimit ?? FEATURE_BLOCK_LIMIT,
     toolsIntro: fields.toolsIntro,
     tools: fields.tools.map((tool, i) => ({
       name: tool.name,
