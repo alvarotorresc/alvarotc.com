@@ -101,4 +101,4 @@ changelog:
 
 Every habit tracker I tried asked for an account, then a subscription, then my data. Bito asks for one tap. It keeps everything on the phone, backs up to the folder you pick, and does not phone home.
 
-I built the first prototype in a day to prove the idea, and wrote about it. Along the way came Habi, a companion who nudges without nagging. Then came tasks, with a timer to start them, and a moment to breathe when the day gets heavy.
+I built the first prototype in a day to prove the idea, and wrote about it. Along the way came Habi, who nudges without nagging. Then came tasks, with a timer to start them, and a moment to breathe when the day gets heavy.
