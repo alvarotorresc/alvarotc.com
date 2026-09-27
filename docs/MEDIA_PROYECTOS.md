@@ -76,19 +76,28 @@ Quedamos y PokeUtils tienen su spec en su propio repo
 Playwright, galería mitad en tema oscuro y mitad en claro, vídeo de Quedamos de 29 s en MP4 nativo
 servido desde esta web, y PokeUtils sin vídeo y con 16 capturas de herramientas (`tools[].image`).
 
-### Bito (`kind: mobile`, Android 10+, en publicación)
+### Bito (`kind: mobile`, Android 8.0+, en publicación)
 
-Tiene: icono 256, portada 400×844, promo 1280×720, seis capturas JPEG de baja calidad (4 a 10 KB).
-Falta todo en calidad final.
+Al día con la 1.3.0. Todo sale del repo de Bito; aquí no se edita a mano ninguna imagen.
 
-- `icon.png` 1024×1024 (fondo sólido).
-- `cover.png` 1080×2340: pantalla principal.
-- `promo.png` 1920×1080 y `feature-graphic.png` 1024×500 de la misma composición.
-- Capturas 1080×2340: hábitos, recordatorio, estadísticas, widget, insignias, revisión. Las
-  mismas recortadas a 1080×1920 con titular para Play.
-- `illustration.png`: hoy usa `habi.jpg`; pedir la mascota a 800×800 con fondo transparente o
-  sólido.
-- Vídeo 1080p 16:9 de 45 a 60 s: crear hábito, marcar el día, ver racha, widget.
+| Fichero                                               | Medida          | De dónde sale                                                                                |
+| ----------------------------------------------------- | --------------- | -------------------------------------------------------------------------------------------- |
+| `icon.png`                                            | 1024×1024       | `bito/video/out/stills/icon-1024.png` (`npm run final`)                                      |
+| `illustration.png`                                    | 800×800         | `bito/video/out/stills/illustration.png` (`npm run final`)                                   |
+| `promo-{es,en}.png`                                   | 1920×1080       | `bito/video/out/stills/promo-{es,en}.png`, recomprimido con `sharp` a 400 KB o menos         |
+| `cover-{es,en}.png`                                   | 1080×2340       | Hoy, con `bito/video/shots/to_web.py`                                                        |
+| `shot-01-habitos` … `shot-06-revision` `-{es,en}.png` | 1080×2340       | Detalle, recordatorio, estadísticas, widget, logros y repaso, con `to_web.py`                |
+| `feat-tareas-{es,en}.png`                             | 1080×2340       | El temporizador de una tarea, con `to_web.py`                                                |
+| `feat-respiracion-{es,en}.png`                        | 1080×2340       | Respirar, con `to_web.py`                                                                    |
+| `public/video/bito-promo-{es,en}.mp4`                 | 1920×1080, 69 s | `bito/video/out/bito-promo-{es,en}.mp4`, recodificado a H.264 con `faststart`, 5 MiB o menos |
+
+La ficha usa `featureBlockLimit: 5`: widget, recordatorio, repaso, tareas y respiración van como bloques con imagen. Las capturas de Play (1080×1920 con titular, ocho por idioma) y el feature graphic salen en `bito/video/out/store/` y no se copian aquí.
+
+Cómo se regenera, después de una pasada de capturas (`npm run shots`) y de `npm run final` en `bito/video/`:
+
+1. `python3 /home/alvarotc/Documents/apps/bito/video/shots/to_web.py` escribe las 18 capturas en `src/assets/projects/bito/`, cada una de 400 KB o menos (pasa a PNG de paleta si hace falta).
+2. Copiar `promo-{es,en}.png` de `bito/video/out/stills/` y recomprimirlos con `sharp` (`png({ palette: true, quality: 90 })`, bajando a 80 y 70 si pasan de 400 KB).
+3. Recodificar los vídeos: `ffmpeg -i bito-promo-es.mp4 -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart public/video/bito-promo-es.mp4` (y lo mismo en inglés).
 
 ### Huellas (`kind: hybrid`, en diseño)
 
