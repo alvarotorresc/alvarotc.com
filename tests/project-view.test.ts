@@ -4,6 +4,7 @@ import {
   changelogRows,
   displayUrl,
   factRows,
+  featureBlocks,
   fillParts,
   hasLightbox,
   hasMedia,
@@ -110,7 +111,7 @@ describe('factRows', () => {
 describe('changelogRows', () => {
   it('marks undated entries newer than the last release as coming', () => {
     expect(changelogRows(bitoFields.changelog, 'es')).toEqual([
-      { version: 'v2.0.0', when: 'en camino', note: 'Habi como compañera.' },
+      { version: 'v2.0.0', when: 'en camino', note: 'Llegada de Habi.' },
       { version: 'v1.0.0', when: '26 ago 2026', note: 'Primera versión pública.' },
       { version: 'v0.1.0', when: undefined, note: 'El prototipo de 24 horas.' },
     ]);
@@ -442,5 +443,51 @@ describe('toolGroups', () => {
 
   it('returns no groups without tools', () => {
     expect(toolGroups([])).toEqual([]);
+  });
+});
+
+describe('featureBlocks', () => {
+  const six = Array.from({ length: 6 }, (_, i) => ({
+    title: `f${i}`,
+    image: `/_astro/f${i}.webp`,
+  }));
+
+  it('keeps three blocks when the project sets no limit', () => {
+    expect(featureBlocks('mobile', six).map((f) => f.title)).toEqual(['f0', 'f1', 'f2']);
+  });
+
+  it('keeps up to the limit a project declares', () => {
+    expect(featureBlocks('mobile', six, 5).map((f) => f.title)).toEqual([
+      'f0',
+      'f1',
+      'f2',
+      'f3',
+      'f4',
+    ]);
+  });
+
+  it('skips features without an image before counting', () => {
+    const mixed: { title: string; image?: string }[] = [{ title: 'a' }, ...six];
+    expect(featureBlocks('mobile', mixed, 5).map((f) => f.title)).toEqual([
+      'f0',
+      'f1',
+      'f2',
+      'f3',
+      'f4',
+    ]);
+  });
+
+  it('never makes blocks for a cli, whatever the limit', () => {
+    expect(featureBlocks('cli', six, 5)).toEqual([]);
+  });
+});
+
+describe('featureBlockLimit in the view', () => {
+  it('defaults to three when the project does not declare it', () => {
+    expect(makeView(bitoFields, bitoImages).featureBlockLimit).toBe(3);
+  });
+
+  it('passes the project limit through', () => {
+    expect(makeView({ ...bitoFields, featureBlockLimit: 5 }, bitoImages).featureBlockLimit).toBe(5);
   });
 });

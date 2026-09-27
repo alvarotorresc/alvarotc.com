@@ -57,6 +57,7 @@ export const projectSchema = ({ image }: SchemaContext) =>
     features: z
       .array(z.object({ title: z.string(), text: z.string(), image: image().optional() }))
       .default([]),
+    featureBlockLimit: z.number().int().min(1).max(6).default(3),
     toolsIntro: z.string().optional(),
     tools: z
       .array(
