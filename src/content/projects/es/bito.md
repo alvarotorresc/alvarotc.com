@@ -101,4 +101,4 @@ changelog:
 
 Todas las apps de hábitos que probé pedían una cuenta, luego una suscripción, luego mis datos. Bito pide un toque. Guarda todo en el móvil, hace copias de seguridad en la carpeta que tú elijas y no llama a casa.
 
-Hice el primer prototipo en un día para probar la idea, y lo conté. Por el camino llegó Habi, una compañera que anima sin dar la lata. Después llegaron las tareas, con un temporizador para empezarlas, y un rato para respirar cuando el día aprieta.
+Hice el primer prototipo en un día para probar la idea, y lo conté. Por el camino llegó Habi, que anima sin dar la lata. Después llegaron las tareas, con un temporizador para empezarlas, y un rato para respirar cuando el día aprieta.

@@ -111,7 +111,7 @@ describe('factRows', () => {
 describe('changelogRows', () => {
   it('marks undated entries newer than the last release as coming', () => {
     expect(changelogRows(bitoFields.changelog, 'es')).toEqual([
-      { version: 'v2.0.0', when: 'en camino', note: 'Habi como compañera.' },
+      { version: 'v2.0.0', when: 'en camino', note: 'Llegada de Habi.' },
       { version: 'v1.0.0', when: '26 ago 2026', note: 'Primera versión pública.' },
       { version: 'v0.1.0', when: undefined, note: 'El prototipo de 24 horas.' },
     ]);

@@ -54,7 +54,7 @@ export const bitoFields: ProjectFields = {
     'Código en [github.com/alvarotorresc/bito](https://github.com/alvarotorresc/bito).',
   ],
   changelog: [
-    { version: 'v2.0.0', note: 'Habi como compañera.' },
+    { version: 'v2.0.0', note: 'Llegada de Habi.' },
     { version: 'v1.0.0', date: new Date('2026-08-26'), note: 'Primera versión pública.' },
     { version: 'v0.1.0', note: 'El prototipo de 24 horas.' },
   ],
