@@ -95,7 +95,7 @@ La ficha usa `featureBlockLimit: 5`: widget, recordatorio, repaso, tareas y resp
 
 Cómo se regenera, después de una pasada de capturas (`npm run shots`) y de `npm run final` en `bito/video/`:
 
-1. `python3 /home/alvarotc/Documents/apps/bito/video/shots/to_web.py` escribe las 18 capturas en `src/assets/projects/bito/`, cada una de 400 KB o menos (pasa a PNG de paleta si hace falta).
+1. `python3 bito/video/shots/to_web.py` escribe las 18 capturas en `src/assets/projects/bito/`, cada una de 400 KB o menos (pasa a PNG de paleta si hace falta).
 2. Copiar `promo-{es,en}.png` de `bito/video/out/stills/` y recomprimirlos con `sharp` (`png({ palette: true, quality: 90 })`, bajando a 80 y 70 si pasan de 400 KB).
 3. Recodificar los vídeos: `ffmpeg -i bito-promo-es.mp4 -c:v libx264 -preset slow -crf 30 -pix_fmt yuv420p -c:a aac -b:a 96k -movflags +faststart public/video/bito-promo-es.mp4` (y lo mismo en inglés).
 
