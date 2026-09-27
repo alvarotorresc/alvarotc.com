@@ -148,4 +148,18 @@ describe('projectSchema', () => {
     expect(() => project.parse({ ...minimal, playground: { kind: 'video', src } })).toThrow();
     expect(() => project.parse({ ...minimal, playground: { kind: 'pwa', src } })).toThrow();
   });
+
+  it('defaults featureBlockLimit to three and accepts one to six', () => {
+    expect(project.parse(minimal).featureBlockLimit).toBe(3);
+    expect(project.parse({ ...minimal, featureBlockLimit: 5 }).featureBlockLimit).toBe(5);
+  });
+
+  it('rejects a featureBlockLimit that is not a whole number from one to six', () => {
+    [0, 7, 2.5, '5'].forEach((featureBlockLimit) =>
+      expect(
+        () => project.parse({ ...minimal, featureBlockLimit }),
+        String(featureBlockLimit),
+      ).toThrow(),
+    );
+  });
 });

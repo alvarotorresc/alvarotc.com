@@ -59,6 +59,25 @@ describe('ProjectFeatures', () => {
     expect(html).not.toContain('data-section="steps"');
   });
 
+  it('shows as many image blocks as the project allows', async () => {
+    const container = await AstroContainer.create();
+    const features = Array.from({ length: 6 }, (_, i) => ({
+      title: `Función ${i}`,
+      text: `Texto ${i}.`,
+    }));
+    const images = features.map((_, i) => `/_astro/f${i}.webp`);
+    const html = await container.renderToString(ProjectFeatures, {
+      props: {
+        view: makeView(
+          { ...bitoFields, features, featureBlockLimit: 5 },
+          { ...bitoImages, features: images, featuresFull: images },
+        ),
+      },
+    });
+    expect(html.match(/data-feature="block"/g)).toHaveLength(5);
+    expect(html.match(/data-feature="item"/g)).toHaveLength(1);
+  });
+
   it('lists every cli feature under "Qué te da" and numbers the steps', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectFeatures, {

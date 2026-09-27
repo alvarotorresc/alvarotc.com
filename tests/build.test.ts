@@ -68,13 +68,30 @@ describe.skipIf(!built)('built home page', () => {
 const page = (route: string) => readFileSync(join(dist, route), 'utf8');
 
 describe.skipIf(!built)('built project pages', () => {
-  it('renders the Bito page with the 1.1.0 copy and six screens', () => {
+  it('renders the Bito page with the 1.3.0 copy and six screens', () => {
     const html = page('es/projects/bito/index.html');
     expect(html).toContain('Android 8.0+');
     expect(html).toContain('GPL-3.0-or-later');
     expect(html).toContain('Repaso del día');
     expect(html).not.toContain('v2.0.0');
     expect(html.match(/<img[^>]+class="[^"]*shot-img/g)).toHaveLength(6);
+  });
+
+  it('renders the 1.3.0 Bito page with five image blocks and four dated releases', () => {
+    for (const [route, size] of [
+      ['es/projects/bito/index.html', /\d+,\d MB/],
+      ['projects/bito/index.html', /\d+\.\d MB/],
+    ] as const) {
+      const html = page(route);
+      expect(html.match(/data-feature="block"/g), route).toHaveLength(5);
+      expect(html.match(/data-feature="item"/g), route).toHaveLength(5);
+      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(4);
+      ['v1.3.0, ', 'v1.2.0, ', 'v1.1.0, ', 'v1.0.0, '].forEach((row) =>
+        expect(html, route).toContain(row),
+      );
+      expect(html, route).toMatch(size);
+      expect(html, route).toContain('releases/download/v1.3.0/app-release.apk');
+    }
   });
 
   it('shows the horizontal Bito promo on each home', () => {
