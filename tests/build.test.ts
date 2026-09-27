@@ -24,6 +24,8 @@ const routes = [
   'es/projects/bito/index.html',
   'projects/pokeutils/index.html',
   'es/projects/pokeutils/index.html',
+  'projects/devtools/index.html',
+  'es/projects/devtools/index.html',
   'projects/basecero/index.html',
   'es/projects/basecero/index.html',
   'projects/quedamos/index.html',
@@ -118,6 +120,18 @@ describe.skipIf(!built)('built project pages', () => {
     expect(html).not.toContain('data-section="playground"');
   });
 
+  it('renders DevTools as a web page with its 52 tools', () => {
+    [
+      ['projects/devtools/index.html', 'Open the site'],
+      ['es/projects/devtools/index.html', 'data-media="web"'],
+    ].forEach(([route, text]) => {
+      const html = page(route);
+      expect(html, route).toContain('data-media="web"');
+      expect(html, route).toContain(text);
+      expect(html.match(/role="tab"/g), route).toHaveLength(52);
+    });
+  });
+
   it('renders BaseCero as a hybrid page with its playground', () => {
     const html = page('es/projects/basecero/index.html');
     expect(html).toContain('data-media="hybrid"');
@@ -139,7 +153,6 @@ describe.skipIf(!built)('built project pages', () => {
 
   it('does not build the hidden projects', () => {
     expect(existsSync(join(dist, 'projects/create-astro-blog/index.html'))).toBe(false);
-    expect(existsSync(join(dist, 'es/projects/devtools/index.html'))).toBe(false);
   });
 
   it('shows the Bito cover on the home without the old PNGs', () => {
