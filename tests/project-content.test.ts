@@ -299,8 +299,8 @@ describe.each(['es', 'en'])('basecero (%s)', (lang) => {
   });
 
   it('has a desktop cover and a phone cover', () => {
-    expect(field(source, 'cover')).toContain('basecero/cover.png');
-    expect(field(source, 'coverMobile')).toContain(`basecero/home-${lang}.webp`);
+    expect(field(source, 'cover')).toContain(`basecero/cover-${lang}.png`);
+    expect(field(source, 'coverMobile')).toContain(`basecero/cover-mobile-${lang}.png`);
   });
 
   it('dates v1.0.0 with a real changelog note', () => {
@@ -308,9 +308,9 @@ describe.each(['es', 'en'])('basecero (%s)', (lang) => {
     expect(source).not.toContain('[DATO]');
   });
 
-  it('has four screenshots and seven features', () => {
-    expect(source.match(/^ {2}- src: /gm)).toHaveLength(4);
-    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+  it('has six screenshots and eight features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(6);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(8);
   });
 
   it('points only at images that exist', () => {

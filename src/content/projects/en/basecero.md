@@ -1,7 +1,7 @@
 ---
 name: BaseCero
-tagline: Your money, from scratch. Personal finance that lives entirely on your device.
-intro: 'A website that installs as an app on your phone and works offline. No server, no accounts, no telemetry.'
+tagline: Your money, from zero. Personal finance that lives entirely on your device.
+intro: 'A website that installs as an app on your phone and works offline. It tells you what is really left until your next payday. No server, no accounts, no telemetry.'
 kind: hybrid
 status: published
 tier: lab
@@ -10,55 +10,70 @@ repo: https://github.com/alvarotorresc/basecero
 url: https://basecero.alvarotc.com
 license: MIT
 platform: 'Browser, on desktop and mobile'
-stack: [Local-first, TypeScript]
+stack: [Local-first, JavaScript]
 githubRepo: alvarotorresc/basecero
 icon: '../../../assets/projects/basecero/icon.png'
-cover: '../../../assets/projects/basecero/cover.png'
-coverMobile: '../../../assets/projects/basecero/home-en.webp'
-promo: '../../../assets/projects/basecero/cover.png'
+cover: '../../../assets/projects/basecero/cover-en.png'
+coverMobile: '../../../assets/projects/basecero/cover-mobile-en.png'
+promo: '../../../assets/projects/basecero/promo-en.png'
 playground: { kind: pwa, src: 'https://basecero.alvarotc.com/app/' }
 facts:
   - { label: 'Installs as an app', value: 'PWA, works offline' }
   - { label: 'Data', value: 'On your device, no server' }
+  - { label: 'Themes', value: 'Light and dark' }
+screenshotsIntro: 'Every category has its colour and carries it across the app. Aluminium background in light, graphite in dark.'
 screenshots:
-  - src: '../../../assets/projects/basecero/home-en.webp'
-    alt: "Home screen showing what's available in the period"
+  - src: '../../../assets/projects/basecero/01-inicio-en.png'
+    alt: "BaseCero Home screen in light theme: you can spend €40.78 today, €530.17 left of €2,000.00 in the September period, current account balance, what Marta owes you, this week's spending and a 30% savings rate"
     caption: 'Home'
-  - src: '../../../assets/projects/basecero/movements-en.webp'
-    alt: 'Transactions grouped by day'
+  - src: '../../../assets/projects/basecero/02-registro-en.png'
+    alt: 'Logging a €3.40 expense under Eating out › Bars & cafés, with the colour-coded category grid and a note of what is left of the Eating out limit'
+    caption: 'Log transaction'
+  - src: '../../../assets/projects/basecero/03-movimientos-en.png'
+    alt: 'September transactions in dark theme: €1,469.83 spent of €2,000.00, search, category filters and the list grouped by day'
     caption: 'Transactions'
-  - src: '../../../assets/projects/basecero/net-worth-en.webp'
-    alt: 'Net worth, accounts and goals'
-    caption: 'Net worth'
-  - src: '../../../assets/projects/basecero/categories-en.webp'
-    alt: 'Spending by category, with a row and a percentage per category, and Groceries expanded with its subcategories'
+  - src: '../../../assets/projects/basecero/04-gasto-categoria-en.png'
+    alt: 'September spending by category: each category with its colour, bar and limit; Home and Car flag that they have used over 95% of their limit'
     caption: 'Spending by category'
+  - src: '../../../assets/projects/basecero/05-patrimonio-en.png'
+    alt: 'Net worth in dark theme: €3,906.36 in total, €606.17 up this period, what you have against what you owe, and the current, savings and holiday jar accounts'
+    caption: 'Net worth'
+  - src: '../../../assets/projects/basecero/06-informe-en.png'
+    alt: 'Period report: you save 30% of what you earn, €2,100.00 earned against €1,469.83 spent, the comparison with August and the button to download the PDF'
+    caption: 'Report'
 featuresIntro: 'Accounts that follow your payslip, not the calendar.'
 features:
   - title: 'Payslip to payslip'
     text: 'Periods run from one payslip to the next, not from the 1st to the 30th. With recurring items, you see what is really left until the next payday.'
-  - title: 'Shared expenses'
-    text: 'Both ways: what you owe and what you are owed. When it is settled, you tap Settle.'
-  - title: 'Net worth'
-    text: 'Your total, your accounts, liabilities and goals, in a single view.'
-    image: '../../../assets/projects/basecero/net-worth-en.webp'
   - title: 'Quick entry'
-    text: 'One screen with five kinds of entry.'
+    text: 'The amount on the phone keypad and the category from a grid of colours. Or type "12.50 at the bar with Marta" and the app pulls out the amount, the shop and who you split it with.'
+  - title: 'Shared expenses'
+    text: 'Both ways: what you owe and what you are owed. Settle up shows the net figure and closes it in one go.'
+  - title: 'Net worth'
+    text: 'Your total, your accounts, liabilities and savings goals, in a single view.'
+    image: '../../../assets/projects/basecero/05-patrimonio-en.png'
   - title: 'Categories with limits'
-    text: '41 categories on two levels, all editable, and the spending of each one against its limit.'
+    text: '41 categories on two levels, all editable, each with its colour, and the spending of each one against its limit.'
+  - title: 'PDF report'
+    text: 'Income, spending and savings against the previous period. The PDF is generated on your phone.'
   - title: 'Imports your bank CSV'
-    text: 'The N26 one is recognised automatically.'
-  - title: 'Spanish and English'
-    text: 'With the currency and format you choose.'
+    text: 'The N26 one is recognised automatically; for any other bank, an assistant asks what each column is.'
+  - title: 'Light, dark and two languages'
+    text: 'Pick a theme or follow your system. In Spanish and English, with the currency and format you choose.'
 illustration: '../../../assets/projects/basecero/icon.png'
 built:
-  - 'JavaScript, no server.'
+  - 'JavaScript with no framework and no bundler. SQLite in WebAssembly, no server.'
   - 'Local-first: all data lives on your device.'
   - 'Installable PWA, works offline.'
-  - 'No accounts and no telemetry.'
-  - 'Exports to a plain file that is yours.'
+  - 'No accounts and no telemetry. Dictation is optional and done by the browser; typed, everything stays on the phone.'
+  - 'Exports to an .xlsx spreadsheet that is yours, plus password-encrypted backups.'
+  - 'More than 1500 tests with the native Node runner.'
   - 'Free software under MIT, code at [github.com/alvarotorresc/basecero](https://github.com/alvarotorresc/basecero).'
 changelog:
+  - {
+      version: 'PENDING',
+      note: 'A full redesign: aluminium background in light and graphite in dark, with a theme switch; one colour per category across the app; PDF report; logging by sentence or dictation; review before importing, payday setting and pages for each account and goal.',
+    }
   - {
       version: 'v1.0.0',
       date: 2026-09-02,
