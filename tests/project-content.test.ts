@@ -282,6 +282,74 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
   });
 });
 
+describe.each(['es', 'en'])('devtools (%s)', (lang) => {
+  const source = read(lang, 'devtools');
+  const labels = JSON.parse(readFileSync('tests/fixtures/devtools-tools.json', 'utf8'))[lang] as {
+    name: string;
+    group: string;
+    href: string;
+  }[];
+
+  it('is a visible, published web project', () => {
+    expect(field(source, 'kind')).toBe('web');
+    expect(field(source, 'status')).toBe('published');
+    expect(field(source, 'visible')).toBeUndefined();
+    expect(field(source, 'url')).toBe('https://devtools.alvarotc.com');
+    expect(field(source, 'stack')).toBe('[Astro, Svelte, TypeScript]');
+  });
+
+  it('uses the media of its language', () => {
+    const DEVTOOLS = '../../../assets/projects/devtools';
+    expect(field(source, 'icon')).toBe(`'${DEVTOOLS}/icon.png'`);
+    expect(field(source, 'cover')).toBe(`'${DEVTOOLS}/cover-${lang}.png'`);
+    expect(field(source, 'promo')).toBe(`'${DEVTOOLS}/promo-${lang}.png'`);
+    const other = lang === 'es' ? '-en.png' : '-es.png';
+    expect(source).not.toContain(other);
+  });
+
+  it('dates both releases, newest first', () => {
+    expect([...source.matchAll(/version: '(v[\d.]+)'/g)].map((m) => m[1])).toEqual([
+      'v2.1.0',
+      'v2.0.0',
+    ]);
+    expect(source).toMatch(/version: 'v2\.1\.0'\n\s+date: 2026-09-27\n/);
+    expect(source).toMatch(/version: 'v2\.0\.0'\n\s+date: 2026-09-26\n/);
+  });
+
+  it('has four screenshots and seven features', () => {
+    expect(source.match(/^ {2}- src: /gm)).toHaveLength(4);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+  });
+
+  it('lists the 52 tools in the order and groups of the app, each linked to its page', () => {
+    const names = [...source.matchAll(/^ {2}- name: '([^']+)'$/gm)].map((m) => m[1]);
+    const groups = [...source.matchAll(/^ {4}group: '([^']+)'$/gm)].map((m) => m[1]);
+    const hrefs = [...source.matchAll(/^ {4}href: '([^']+)'$/gm)].map((m) => m[1]);
+    expect(names).toEqual(labels.map((tool) => tool.name));
+    expect(groups).toEqual(labels.map((tool) => tool.group));
+    expect(hrefs).toEqual(labels.map((tool) => tool.href));
+    expect(new Set(groups).size).toBe(8);
+    hrefs.forEach((href) => expect(href).toMatch(`https://devtools.alvarotc.com/${lang}/`));
+  });
+
+  it('gives every tool a screenshot', () => {
+    expect(source.match(/^ {4}image: '[^']*\/tool-\d{2}-[\w-]+\.png'$/gm)).toHaveLength(52 + 3);
+  });
+
+  it('has no emoji', () => {
+    expect(source).not.toMatch(/\p{Extended_Pictographic}/u);
+  });
+
+  it('points only at images that exist, at 400 KB or less', () => {
+    const refs = imageRefs(lang, 'devtools');
+    expect(refs.length).toBeGreaterThan(52);
+    refs.forEach((ref) => {
+      expect(existsSync(ref), ref).toBe(true);
+      expect(statSync(ref).size, ref).toBeLessThanOrEqual(400 * 1024);
+    });
+  });
+});
+
 describe.each(['es', 'en'])('basecero (%s)', (lang) => {
   const source = read(lang, 'basecero');
 
@@ -448,9 +516,8 @@ describe('every project file', () => {
 
   it('leaves the hidden projects out of the release guard', () => {
     expect(allFiles).toHaveLength(14);
-    expect(visibleFiles).toHaveLength(10);
+    expect(visibleFiles).toHaveLength(12);
     expect(visibleFiles.some((path) => path.endsWith('create-astro-blog.md'))).toBe(false);
-    expect(visibleFiles.some((path) => path.endsWith('devtools.md'))).toBe(false);
   });
 });
 
