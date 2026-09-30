@@ -376,6 +376,115 @@ describe.each(['es', 'en'])('devtools (%s)', (lang) => {
   });
 });
 
+describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
+  const source = read(lang, 'cheesy');
+  const CHEESY = '../../../assets/projects/cheesy';
+
+  it('is a visible, published web project under GPL-3.0', () => {
+    expect(field(source, 'kind')).toBe('web');
+    expect(field(source, 'status')).toBe('published');
+    expect(field(source, 'tier')).toBe('lab');
+    expect(field(source, 'visible')).toBeUndefined();
+    expect(field(source, 'license')).toBe('GPL-3.0');
+    expect(field(source, 'url')).toBe('https://cheesy.alvarotc.com');
+    expect(field(source, 'repo')).toBe('https://github.com/alvarotorresc/cheesy');
+    expect(field(source, 'stack')).toBe('[Angular, TypeScript, Stockfish]');
+  });
+
+  it('uses the media of its language', () => {
+    expect(field(source, 'icon')).toBe(`'${CHEESY}/icon.png'`);
+    expect(field(source, 'cover')).toBe(`'${CHEESY}/cover-${lang}.png'`);
+    expect(field(source, 'coverMobile')).toBe(`'${CHEESY}/cover-mobile-${lang}.png'`);
+    expect(field(source, 'promo')).toBe(`'${CHEESY}/promo-${lang}.png'`);
+    expect(field(source, 'illustration')).toBe(`'${CHEESY}/icon.png'`);
+    const other = lang === 'es' ? '-en.png' : '-es.png';
+    expect(source).not.toContain(other);
+  });
+
+  it('has a horizontal promo', () => {
+    const promo = imageRefs(lang, 'cheesy').find((ref) => ref.endsWith(`promo-${lang}.png`));
+    expect(promo).toBeDefined();
+    const { width, height } = pngSize(promo ?? '');
+    expect(width).toBeGreaterThan(height);
+  });
+
+  it('has six screenshots of its language, in order, and introduces them', () => {
+    const shots = [...source.matchAll(/^ {2}- src: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
+    expect(shots).toEqual(
+      ['01-aperturas', '02-jugar', '03-practicar', '05-final', '07-posicion', '08-analisis'].map(
+        (shot) => `screen-${shot}-${lang}`,
+      ),
+    );
+    expect(source).toMatch(/^screenshotsIntro: /m);
+  });
+
+  it('has eight features, the first four with a screen of its language', () => {
+    const features = source.slice(source.indexOf('\nfeatures:'), source.indexOf('\nillustration:'));
+    expect(features.match(/^ {2}- title: /gm)).toHaveLength(8);
+    expect(field(source, 'featureBlockLimit')).toBe('4');
+    const withImage = features
+      .split(/^ {2}- title: /m)
+      .slice(1)
+      .map((feature) => /^ {4}image: '[^']*\/([\w-]+)\.png'$/m.exec(feature)?.[1]);
+    expect(withImage).toEqual([
+      `screen-02-jugar-${lang}`,
+      `screen-04-finales-${lang}`,
+      `screen-06-posiciones-${lang}`,
+      `screen-08-analisis-${lang}`,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+    ]);
+  });
+
+  it('lists no tools, no changelog and no playground', () => {
+    expect(source).not.toMatch(/^(tools|toolsIntro|changelog|playground|download):/m);
+  });
+
+  it('carries the content counts of the app', () => {
+    expect(source).toMatch(
+      lang === 'es'
+        ? /21 aperturas, 14 finales y 13 posiciones/
+        : /21 openings, 14 endgames, 13 positions/,
+    );
+  });
+
+  it('has no emoji and no exclamation mark', () => {
+    expect(source).not.toMatch(/\p{Extended_Pictographic}/u);
+    expect(source).not.toMatch(/[!¡]/);
+  });
+
+  it('points only at images that exist, at 400 KB or less', () => {
+    const refs = imageRefs(lang, 'cheesy');
+    expect(refs).toHaveLength(15);
+    refs.forEach((ref) => {
+      expect(existsSync(ref), ref).toBe(true);
+      expect(statSync(ref).size, ref).toBeLessThanOrEqual(400 * 1024);
+    });
+  });
+});
+
+describe('cheesy media', () => {
+  it('keeps every file of the folder at 400 KB or less', () => {
+    const dir = 'src/assets/projects/cheesy';
+    const files = readdirSync(dir);
+    expect(files).toHaveLength(23);
+    files.forEach((name) =>
+      expect(statSync(`${dir}/${name}`).size, name).toBeLessThanOrEqual(400 * 1024),
+    );
+  });
+});
+
+describe('cheesy copy in both languages', () => {
+  it('pairs every text', () => {
+    const es = copyOf(read('es', 'cheesy'));
+    const en = copyOf(read('en', 'cheesy'));
+    expect(Object.keys(en).sort()).toEqual(Object.keys(es).sort());
+    Object.keys(es).forEach((key) => expect(en[key].length, key).toBe(es[key].length));
+  });
+});
+
 describe.each(['es', 'en'])('basecero (%s)', (lang) => {
   const source = read(lang, 'basecero');
 
