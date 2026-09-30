@@ -121,4 +121,4 @@ mock: false
 
 Quedar con seis personas es una cadena de mensajes que nadie quiere leer. Quedamos la sustituye por tres pasos.
 
-[DATO]
+Lo hice para mi grupo de amigos: cada plan acababa en cien mensajes y nadie sabía quién podía. Ahora preguntamos una vez y la app nos dice cuándo estamos todos.
