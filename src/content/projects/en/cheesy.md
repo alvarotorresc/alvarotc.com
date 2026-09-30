@@ -78,6 +78,6 @@ changelog:
     note: 'The first version: 21 openings to play and practise, 14 endgames against the Lichess tablebase, 13 tactical positions and an analysis board with an engine, in Spanish and English.'
 ---
 
-I play chess and wanted one place to practise openings, endgames and tactics against the computer, without creating an account.
+I play chess every week with my brother and wanted one place to practise openings, endgames and tactics against the computer, without creating an account.
 
 I also wanted a board that never blocks you: except in Practise, which is strict on purpose, you can play any legal move and the app reacts to it.
