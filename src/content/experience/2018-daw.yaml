@@ -7,6 +7,6 @@ location: Sevilla
 start: '2018-09'
 end: '2020-06'
 summary:
-  en: Two-year vocational degree in web development. In parallel, the freeCodeCamp JavaScript Algorithms and Data Structures certification (2020) and Codefest 2019 at Everis Sevilla.
-  es: Ciclo formativo de grado superior en desarrollo web. En paralelo, la certificación JavaScript Algorithms and Data Structures de freeCodeCamp (2020) y el Codefest 2019 de Everis Sevilla.
+  en: "I learned to program for real: Java, JavaScript and databases, and found out I liked the server more than the screen. I earned freeCodeCamp's JavaScript Algorithms and Data Structures certification, competed in Codefest 2019 at Everis and went to many meetups and code fests."
+  es: 'Aprendí a programar en serio: Java, JavaScript y bases de datos, y descubrí que me tiraba más el servidor que la pantalla. Saqué la certificación de algoritmos y estructuras de datos de freeCodeCamp, competí en el Codefest 2019 de Everis y fui a múltiples meetups y code fests.'
 mock: false
