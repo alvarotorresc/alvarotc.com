@@ -39,16 +39,21 @@ listening:
   - title: Indoctrinate
     artist: Angelus Apatrida
     art: ../../assets/art/angelus-apatrida.jpg
+  - title: Sashimi
+    artist: Leiva
+    art: ../../assets/art/sashimi.jpg
 tools:
   - { name: OpenCode, icon: opencode }
   - { name: Claude, icon: claude }
-  - { name: Fedora Linux, icon: fedora }
+  - { name: Nobara, svg: ../../assets/tools/nobara.png }
   - { name: Kitty, svg: ../../assets/tools/kitty.svg }
   - { name: DaVinci Resolve, icon: davinciresolve }
   - { name: DuckDuckGo, icon: duckduckgo }
   - { name: GrapheneOS, icon: grapheneos }
   - { name: Docker, icon: docker }
   - { name: GitHub, icon: github }
+  - { name: Astro, icon: astro }
+  - { name: Go, icon: go }
   - { name: Python, icon: python }
   - { name: Django, icon: django }
   - { name: NestJS, icon: nestjs }

@@ -5,8 +5,8 @@ export const siteConfig = {
   tagline: 'Software Engineer',
   domain: 'https://alvarotc.com',
   description: {
-    en: 'Backend developer. Offline-first apps, self-hosted infrastructure, free software.',
-    es: 'Desarrollador backend. Apps offline-first, infraestructura autoalojada, software libre.',
+    en: 'Software Engineer in Seville. Backend, offline-first apps, self-hosted infrastructure and free software.',
+    es: 'Software Engineer en Sevilla. Backend, apps offline-first, infraestructura autoalojada y software libre.',
   },
 
   contactEndpoint: 'https://contact.alvarotc.com/send',
