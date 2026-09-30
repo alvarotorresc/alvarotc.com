@@ -214,24 +214,24 @@ Ficheros: `src/content/posts/` (español) y `src/content/posts-en/` (inglés, tr
 
 **Aviso legal** · `src/pages/es/legal.astro` y `src/pages/legal.astro`
 
-- [ ] Titular: persona física, sin actividad comercial, sin NIF ni dirección postal
-- [ ] Propiedad intelectual: textos e imágenes con todos los derechos reservados
-- [ ] Código bajo MIT
-- [ ] Enlaces externos y ley española
-- [ ] Versión en inglés
+- [x] Titular: persona física, sin actividad comercial, sin NIF ni dirección postal
+- [x] Propiedad intelectual: textos e imágenes con todos los derechos reservados
+- [x] Código bajo MIT
+- [x] Enlaces externos y ley española
+- [x] Versión en inglés
 
 **Privacidad** · `src/pages/es/privacy.astro` y `src/pages/privacy.astro`
 
 Confirma que cada afirmación es cierta.
 
-- [ ] El servicio de contacto está en Hetzner (Alemania)
-- [ ] El buzón está en Proton Mail
-- [ ] «Guardo la conversación mientras dure y la borro después»
-- [ ] El servicio solo registra fecha, resultado y un hash de la IP
-- [ ] Umami autoalojado, sin cookies y con la IP anonimizada
-- [ ] Vercel guarda registros técnicos de acceso
-- [ ] Derechos RGPD y reclamación ante la AEPD
-- [ ] Versión en inglés
+- [x] El servicio de contacto está en Hetzner (Alemania)
+- [x] El buzón está en Proton Mail
+- [x] «Guardo la conversación mientras dure y la borro después»
+- [x] El servicio solo registra fecha, resultado y un hash de la IP
+- [x] Umami autoalojado, sin cookies y con la IP anonimizada
+- [x] Vercel guarda registros técnicos de acceso
+- [x] Derechos RGPD y reclamación ante la AEPD
+- [x] Versión en inglés
 
 ### B7. CV
 
