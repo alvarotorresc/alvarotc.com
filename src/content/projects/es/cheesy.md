@@ -78,6 +78,6 @@ changelog:
     note: 'La primera versión: 21 aperturas para jugar y practicar, 14 finales contra la tablebase de Lichess, 13 posiciones tácticas y un tablero de análisis con motor, en español e inglés.'
 ---
 
-Juego al ajedrez y quería un solo sitio donde practicar aperturas, finales y táctica contra el ordenador, sin crear una cuenta.
+Juego al ajedrez cada semana con mi hermano y quería un solo sitio donde practicar aperturas, finales y táctica contra el ordenador, sin crear una cuenta.
 
 También quería un tablero que no te bloquee: salvo en Practicar, que es estricto a propósito, puedes hacer cualquier jugada legal y la app responde a lo que has jugado.
