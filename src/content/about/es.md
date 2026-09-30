@@ -23,8 +23,8 @@ stages:
       - 'Dos años de ciclo superior en el IES Velázquez de Sevilla. Java, JavaScript y bases de datos, y la primera vez que vi claro que lo que más me tiraba era lo que pasa en el servidor, no lo que se ve en la pantalla.'
       - 'Fuera de clase saqué la certificación de algoritmos y estructuras de datos de freeCodeCamp, competí en el Codefest 2019 de Everis y fui a todos los meetups y code fests que pude. En este oficio se aprende tanto de la gente como de la documentación.'
     photo: ../../assets/about/ies-2018.jpg
-    photoAlt: 'Placeholder: IES Velázquez, Sevilla'
-    caption: '2018 · IES Velázquez, Sevilla'
+    photoAlt: 'Mi escritorio en 2018: un monitor encendido, el teclado retroiluminado en rojo y un libro de Java sobre la mesa.'
+    caption: '2018 · Mi mesa, estudiando DAW'
     facts:
       year: '2018'
       place: 'Sevilla'

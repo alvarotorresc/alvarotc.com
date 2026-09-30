@@ -23,8 +23,8 @@ stages:
       - 'Two years of a vocational degree at IES Velázquez in Seville. Java, JavaScript and databases, and the first time I saw clearly that what drew me in was what happens on the server, not what you see on the screen.'
       - 'Outside class I earned the freeCodeCamp algorithms and data structures certification, competed in Codefest 2019 at Everis and went to every meetup and code fest I could. In this trade you learn as much from people as from the docs.'
     photo: ../../assets/about/ies-2018.jpg
-    photoAlt: 'Placeholder: IES Velázquez, Seville'
-    caption: '2018 · IES Velázquez, Seville'
+    photoAlt: 'My desk in 2018: a monitor switched on, a red backlit keyboard and a Java book on the table.'
+    caption: '2018 · My desk, studying web development'
     facts:
       year: '2018'
       place: 'Seville'

@@ -75,7 +75,7 @@ Son 25 huecos `[DATO]` por idioma.
 Las diez fotos de `src/assets/about/` son de relleno. Hacen falta fotos reales en 4:5 y reescribir
 cada `photoAlt`, que hoy dice «Placeholder: …».
 
-- [ ] `ies-2018.jpg` y su texto alternativo
+- [x] `ies-2018.jpg` y su texto alternativo
 - [ ] `z1-2020.jpg` y su texto alternativo
 - [ ] `therapyside-2022.jpg` y su texto alternativo
 - [ ] `soltel-2025.jpg` y su texto alternativo
