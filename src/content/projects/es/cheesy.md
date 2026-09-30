@@ -72,6 +72,10 @@ built:
   - 'Unos 1560 tests de la app y 225 del contenido.'
   - 'Alojada en Netlify. Las visitas se cuentan con un Umami propio, sin cookies.'
   - 'Software libre bajo GPL-3.0, código en [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
+changelog:
+  - version: 'v0.1.0'
+    date: 2026-09-30
+    note: 'La primera versión: 21 aperturas para jugar y practicar, 14 finales contra la tablebase de Lichess, 13 posiciones tácticas y un tablero de análisis con motor, en español e inglés.'
 ---
 
 Juego al ajedrez y quería un solo sitio donde practicar aperturas, finales y táctica contra el ordenador, sin crear una cuenta.
