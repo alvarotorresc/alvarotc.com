@@ -1,0 +1,88 @@
+---
+import type { Polaroid } from '../../lib/about-stages';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  polaroid: Polaroid;
+  lang: Locale;
+  variant: 'sticky' | 'mobile';
+}
+const { polaroid, lang, variant } = Astro.props;
+const keys = ['year', 'place', 'os', 'stack'] as const;
+---
+
+<figure data-polaroid={variant} class="polaroid-figure">
+  <div class="relative">
+    <div class="polaroid-back" aria-hidden="true"></div>
+    <div class="polaroid-front">
+      <img
+        data-polaroid-img
+        src={polaroid.src}
+        alt={polaroid.alt}
+        width="400"
+        height="500"
+        loading={variant === 'sticky' ? 'eager' : 'lazy'}
+        decoding="async"
+        class="polaroid-img"
+      />
+      <p data-polaroid-caption class="polaroid-caption">{polaroid.caption}</p>
+    </div>
+  </div>
+  <dl class="polaroid-facts">
+    {
+      keys.map((key) => (
+        <div class="flex">
+          <dt class="w-14 shrink-0">{t(`about.facts.${key}` as const, lang)}</dt>
+          <dd data-fact={key}>{polaroid.facts[key]}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</figure>
+
+<style>
+  .polaroid-figure {
+    margin: 0;
+    width: 100%;
+  }
+  .polaroid-back {
+    position: absolute;
+    inset: 0;
+    background: #e6e3da;
+    transform: translateY(6px) rotate(3deg);
+  }
+  .polaroid-front {
+    position: relative;
+    background: #f4f2ec;
+    padding: 16px 16px 64px;
+    border: 1px solid #d8d5cc;
+    transform: rotate(-2deg);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.35);
+  }
+  .polaroid-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+  .polaroid-caption {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 22px;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: #3a3a3a;
+  }
+  .polaroid-facts {
+    margin: 40px 0 0;
+    padding-left: 12px;
+    border-left: 2px solid var(--accent);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+</style>

@@ -1,0 +1,22 @@
+kind: work
+company: Z1 Digital Studio
+role: { en: Software Engineer, es: Software Engineer }
+location: Sevilla (remote)
+start: '2020-03'
+end: '2022-03'
+summary:
+  en: I learned to deliver as a team with real clients, with Scrum or Kanban depending on the project, and that tests are not optional. I helped build products for clients in the US and Canada, such as [Waking Up](https://www.wakingup.com/) and [Storytelling with Data](https://www.storytellingwithdata.com/), with Python, Django, Node and TypeScript.
+  es: Aprendí a entregar en equipo con clientes reales, con Scrum o Kanban según el proyecto, y que los tests no son opcionales. Ayudé a construir productos para clientes de Estados Unidos y Canadá, como [Waking Up](https://www.wakingup.com/) y [Storytelling with Data](https://www.storytellingwithdata.com/), con Python, Django, Node y TypeScript.
+highlights:
+  en:
+    - REST and GraphQL APIs with Apollo and Graphene for projects in energy, security and social networks.
+    - Internal tools built and maintained with Node, NestJS, TypeScript, MongoDB and AWS.
+    - OAuth and other login flows integrated across several projects.
+    - Design patterns (Abstract Factory, Bridge, Singleton) and Scrum or Kanban depending on the client.
+  es:
+    - APIs REST y GraphQL con Apollo y Graphene para proyectos de energía, seguridad y redes sociales.
+    - Herramientas internas construidas y mantenidas con Node, NestJS, TypeScript, MongoDB y AWS.
+    - Integración de OAuth y otros métodos de login en varios proyectos.
+    - Patrones de diseño (Abstract Factory, Bridge, Singleton) y Scrum o Kanban según el cliente.
+stack: [Python, Django, Node, NestJS, TypeScript, GraphQL, MongoDB, Docker, AWS]
+mock: false

@@ -2,6 +2,8 @@
 dist/
 # generated types
 .astro/
+# generated stats data
+src/data/generated/
 
 # dependencies
 node_modules/
@@ -27,3 +29,17 @@ pnpm-debug.log*
 CLAUDE.md
 SETUP.md
 .claude/
+
+# SDD scratch
+.superpowers/
+.playwright-mcp/
+
+# mock blog posts (scripts/mock-posts.mjs)
+src/content/posts/zz-mock-*
+src/content/posts-en/zz-mock-*
+
+# local working folders
+launch-gate/
+reports/
+research_notes/
+.playwright-mcp/

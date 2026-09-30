@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CvSheet from './CvSheet.astro';
+import Icon from '../icons/Icon.astro';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const alternatePath = lang === 'es' ? '/cv/' : '/es/cv/';
+---
+
+<BaseLayout
+  title={t('cv.title', lang)}
+  description={t('cv.subtitle', lang)}
+  lang={lang}
+  alternatePath={alternatePath}
+>
+  <div class="container-page flex flex-col gap-8 py-14">
+    <div class="no-print flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      <div class="flex flex-col gap-2">
+        <p class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('cv.title', lang)}</p>
+        <p class="max-w-[560px] text-muted">{t('cv.subtitle', lang)}</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href={alternatePath} class="btn-secondary">
+          {t('cv.otherLang', lang)}
+        </a>
+        <button type="button" data-print class="btn-primary gap-2">
+          <Icon name="print" size={16} />
+          {t('cv.print', lang)}
+        </button>
+      </div>
+    </div>
+
+    <CvSheet lang={lang} />
+  </div>
+</BaseLayout>
+
+<script>
+  function bind() {
+    document.querySelectorAll<HTMLButtonElement>('[data-print]').forEach((button) => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => window.print());
+    });
+  }
+  bind();
+  document.addEventListener('astro:after-swap', bind);
+</script>

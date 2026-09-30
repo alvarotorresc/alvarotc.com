@@ -1,0 +1,21 @@
+kind: work
+company: Soltel
+role: { en: Software Engineer, es: Software Engineer }
+location: Sevilla (remote)
+start: '2025-01'
+summary:
+  en: 'I learned to design microservices in Java and Node that talk to each other and to external agents. I built a case-scoring system from scratch with Drools. I am now migrating several public grant and scholarship systems into a single robust system that talks to external systems and works with Kafka queues.'
+  es: 'Aprendí a diseñar microservicios en Java y Node que hablan entre sí y con agentes externos. Construí desde cero un sistema de baremación de expedientes con Drools. Ahora estoy migrando varios sistemas públicos de ayudas y becas a un único sistema robusto que se comunica con sistemas externos y trabaja con colas de Kafka.'
+highlights:
+  en:
+    - Built from scratch a case-scoring system with Drools.
+    - Migrating several public grant and scholarship systems into a single system that talks to external systems through Kafka queues.
+    - Designed and developed the databases in Oracle and MongoDB.
+    - Unit tests with JUnit; pipelines on GitLab and Jenkins.
+  es:
+    - Sistema de baremación de expedientes construido desde cero con Drools.
+    - Migración de varios sistemas públicos de ayudas y becas a un único sistema que se comunica con sistemas externos mediante colas de Kafka.
+    - Diseño y desarrollo de las bases de datos en Oracle y MongoDB.
+    - Tests unitarios con JUnit; pipelines en GitLab y Jenkins.
+stack: [Java, Node, TypeScript, Angular, Oracle, MongoDB, Drools, Kafka]
+mock: false

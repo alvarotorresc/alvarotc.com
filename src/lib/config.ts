@@ -1,4 +1,5 @@
-import { siteConfig } from '../../site.config';
+import { siteConfig, type NavItem } from '../../site.config';
+import type { Locale } from '../i18n/translations';
 
 export function getSiteName(): string {
   return siteConfig.name;
@@ -12,8 +13,12 @@ export function getDomain(): string {
   return siteConfig.domain;
 }
 
-export function getDescription(): string {
-  return siteConfig.description;
+export function getDescription(lang: Locale = 'en'): string {
+  return siteConfig.description[lang];
+}
+
+export function getContactEndpoint(): string {
+  return siteConfig.contactEndpoint;
 }
 
 export function getAuthor() {
@@ -24,7 +29,7 @@ export function getSocialLinks() {
   return siteConfig.social;
 }
 
-export function getNav() {
+export function getNav(): NavItem[] {
   return siteConfig.nav;
 }
 

@@ -1,0 +1,69 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  group: 'screens' | 'features' | 'tools';
+  full: string;
+  alt: string;
+  caption: string;
+  class?: string;
+  hidden?: boolean;
+}
+const { lang, group, full, alt, caption, class: className, hidden } = Astro.props;
+const label = t('lightbox.open', lang).replace('{alt}', alt || caption);
+---
+
+<button
+  type="button"
+  class:list={['lightbox-trigger', className]}
+  data-lightbox={group}
+  data-full={full}
+  data-alt={alt}
+  data-caption={caption}
+  aria-label={label}
+  hidden={hidden}
+>
+  <slot />
+  <span class="lightbox-badge" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M9.5 2.5h4v4"></path>
+      <path d="m13.5 2.5-4.5 4.5"></path>
+      <path d="M6.5 13.5h-4v-4"></path>
+      <path d="m2.5 13.5 4.5-4.5"></path>
+    </svg>
+  </span>
+</button>
+
+<style>
+  .lightbox-trigger {
+    position: relative;
+    display: block;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text);
+    cursor: zoom-in;
+  }
+  .lightbox-badge {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    border: 1px solid var(--border);
+  }
+</style>

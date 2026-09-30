@@ -1,6 +1,6 @@
 ---
 title: 'De una idea a una APK en 24h'
-description: 'Cuatro documentos de diseño antes de escribir una sola línea de código. Así pasó Bito, mi app de hábitos FOSS para Android, de idea a APK instalada en el móvil.'
+description: 'Cuatro documentos de diseño antes de escribir código. Así pasó Bito, mi app de hábitos FOSS para Android, de idea a APK instalada en el móvil.'
 date: 2026-08-14
 draft: false
 tags: ['android', 'kotlin', 'compose', 'foss', 'proceso', 'ia-engineering']
@@ -30,7 +30,7 @@ El usuario no lo ve jamás: elige entre cinco presets que lo rellenan por él. U
 
 La decisión que más define el producto es otra: **anti-sargento**. La app no castiga ni impide corregir. Registro retroactivo sin límite, pausas por vacaciones o lesión que no rompen la racha, y congeladores que se compran con los puntos que ya has ganado. La disciplina es la única moneda, pero siempre hay una válvula.
 
-Habi, además, es obligatoria, sin toggle para desactivarla. La válvula para quien no quiera teatro no es un interruptor: es elegir la personalidad Neutra en vez del sargento o la animadora.
+Habi, además, no se puede desactivar: no hay toggle para eso. La válvula para quien no quiera teatro no es un interruptor: es elegir la personalidad Neutra en vez del sargento o la animadora.
 
 ### Fase 2 — Cómo se construye
 

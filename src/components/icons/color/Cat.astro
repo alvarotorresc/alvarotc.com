@@ -1,0 +1,27 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 48, class: className = '' } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  aria-hidden="true"
+  focusable="false"
+  class={className}
+>
+  <path d="M11 22 L12 5 L23 14 Z" fill="#f08a4b"></path>
+  <path d="M37 22 L36 5 L25 14 Z" fill="#f08a4b"></path>
+  <path d="M14 17 L14.5 10 L19 14 Z" fill="#e5645a"></path>
+  <path d="M34 17 L33.5 10 L29 14 Z" fill="#e5645a"></path>
+  <circle cx="24" cy="28" r="15" fill="#f08a4b"></circle>
+  <ellipse cx="24" cy="34.5" rx="7" ry="5" fill="#f4f2ec"></ellipse>
+  <ellipse cx="18" cy="26" rx="2.2" ry="3.2" fill="#0b0d11"></ellipse>
+  <ellipse cx="30" cy="26" rx="2.2" ry="3.2" fill="#0b0d11"></ellipse>
+  <path d="M21.5 31.5 H26.5 L24 34.5 Z" fill="#e5645a"></path>
+</svg>

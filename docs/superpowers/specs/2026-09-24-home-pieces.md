@@ -1,0 +1,19 @@
+# Spec: cuatro piezas de la home con iconos de color (opción 4 "Tinte por afición")
+
+Fecha: 2026-09-24. Rama `redesign/cv-web`. Elegida por el usuario "exactamente" la opción 4: `docs/superpowers/specs/2026-09-24-home-pieces-mockups/tint.dc.html`. Es la fuente de verdad visual (medidas, colores, iconos, jerarquía).
+
+## Piezas
+
+1. **Sobre mí, fila de valores** (`src/components/home/About.astro`, contenido en `src/content/about/{es,en}.md` campo `values[].icon`): 2x2 como ahora; cada valor con su icono de color a 36px dentro de un círculo de 44px cuyo fondo es el color principal del icono al 10 % sobre el fondo (hex sólidos de la maqueta: Tux #26221b, candado #151e2c, gato #261d1a, megáfono #1e1d2c en oscuro; en modo claro, el mismo 10 % sobre #f7f8fa, calculado). Iconos: Tux (software libre), candado (privacidad), gato (animales), megáfono (construir en público).
+2. **Tarjeta "Construyendo"** del mosaico Ahora (`src/components/home/NowCards.astro`): franja superior de 4px a rayas amarillas y negras (patrón SVG o `repeating-linear-gradient` es aceptable aquí porque es una valla, no decoración; sigue la maqueta) y la señal de obras a 40px junto al nombre del proyecto. Sustituye el icono de trazo `hard-hat` cuando el proyecto no tiene `icon`; si el proyecto tiene `icon`, la señal va igualmente como icono de la tarjeta y el logo del proyecto se muestra al lado del nombre a 24px. (Decisión: la señal manda, es lo que pidió el usuario.)
+3. **Fuera del teclado** (`src/components/home/OffClock.astro`, contenido en `src/content/interests/*.yaml` campo `icon`): 4 tarjetas sin borde, radio 16px, fondo = color del icono al 10 % (guitarra naranja #261d1a, ajedrez morado #1e1d2c, boxeo rojo #24191c, vegano verde #172421 en oscuro; equivalentes calculados en claro), icono a 48px arriba, título 17px/700, texto 14px muted. Iconos: guitarra, caballo de ajedrez, guante de boxeo, hoja (vegano).
+4. **Pie** (`src/components/site/Footer.astro`): izquierda, la frase de privacidad y en una segunda línea los enlaces English/Español, RSS, llms.txt, Código; derecha, 4 iconos (GitHub, LinkedIn, X, email) de 20px dentro de círculos de 36px con borde `border`, cada uno un `<a>` con `aria-label` y `rel="me"` en las redes. Logos con `BrandIcon` (simple-icons: `github`, `linkedin`, `x`); email con el icono de trazo `mail` de `Icon.astro` (añadirlo si no existe). URLs de `site.config.ts` (`social` y `email`). Añadir el enlace a `llms.txt` (`/llms.txt`; en español `/es/llms.txt`).
+
+## Iconos de color
+
+- Se implementan como componentes Astro en `src/components/icons/color/` (`Tux.astro`, `Lock.astro`, `Cat.astro`, `Megaphone.astro`, `Construction.astro`, `Guitar.astro`, `Chess.astro`, `Boxing.astro`, `Leaf.astro`), copiando los `<svg viewBox="0 0 48 48">` de la maqueta tal cual (mismos paths y colores), con `aria-hidden="true"`, `focusable="false"` y prop `size`. Un componente `ColorIcon.astro` que recibe `name` y despacha. Colores fijos (no dependen del tema) salvo el cuerpo de Tux, que en modo claro puede ser #0b0d11 y en oscuro #3d4452: usar una variable CSS `--tux-body` definida en `global.css` para ambos temas.
+- Contenido: `values[].icon` y `interests/*.yaml` `icon` pasan a los nombres nuevos (`tux`, `lock`, `cat`, `megaphone`, `guitar`, `chess`, `boxing`, `leaf`); el esquema de `about` e `interests` en `content.config.ts` valida con un enum de esos nombres.
+
+## Reglas
+
+- Bilingüe (pie y textos). Sin animaciones. Contraste AA en textos (los tintes al 10 % no afectan al texto, que sigue en `text`/`muted`). Sin `console.log`. Tests con la Container API para las 4 piezas (iconos presentes, tintes por afición, pie con 4 enlaces y aria-label, llms.txt por idioma) y `tests/build.test.ts` ajustado. Móvil: valores en 1 columna, Fuera del teclado en 1 columna a < 640 y 2 a < 1024, pie apilado.

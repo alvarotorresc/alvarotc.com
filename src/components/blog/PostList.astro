@@ -1,0 +1,201 @@
+---
+import TopicsFilter from './TopicsFilter.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { formatShortDate } from '../../lib/utils';
+import { formatRange } from '../../lib/pagination';
+import { tagLabel } from '../../lib/tags';
+
+interface FlatPost {
+  slug: string;
+  href: string;
+  title: string;
+  description: string;
+  date: Date;
+  readingMinutes: number;
+  tags: string[];
+  tagHref: (tag: string) => string;
+}
+
+interface Props {
+  lang: Locale;
+  posts: FlatPost[];
+  tags: { tag: string; count: number }[];
+  rssHref: string;
+  title?: string;
+  languageTotal: number;
+  scopeTotal: number;
+  rangeStart: number;
+  rangeEnd: number;
+  allHref: string;
+  topicHref: (tag: string) => string;
+  activeTag?: string;
+  page: number;
+  totalPages: number;
+  prevHref?: string;
+  nextHref?: string;
+}
+
+const {
+  lang,
+  posts,
+  tags,
+  rssHref,
+  title,
+  languageTotal,
+  scopeTotal,
+  rangeStart,
+  rangeEnd,
+  allHref,
+  topicHref,
+  activeTag,
+  page,
+  totalPages,
+  prevHref,
+  nextHref,
+} = Astro.props;
+
+const heading = title ?? t('writing.title', lang);
+const headerCount = t('writing.count', lang);
+const rangeLabel = t('writing.rangeOf', lang)
+  .replace('{range}', formatRange(rangeStart, rangeEnd))
+  .replace('{total}', String(scopeTotal));
+const pageOfLabel = t('writing.pageOf', lang)
+  .replace('{page}', String(page))
+  .replace('{total}', String(totalPages));
+---
+
+<div class="flex flex-col gap-8">
+  <header class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div class="flex items-baseline gap-3">
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{heading}</h1>
+      <p class="text-muted"><span class="font-mono">{languageTotal}</span> {headerCount}</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <TopicsFilter
+        lang={lang}
+        tags={tags}
+        total={languageTotal}
+        allHref={allHref}
+        topicHref={topicHref}
+        activeTag={activeTag}
+        class="flex-1 sm:flex-none"
+      />
+      <a href={rssHref} class="btn-secondary h-10 shrink-0 gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <circle cx="5" cy="19" r="1"></circle>
+        </svg>
+        <span>{t('writing.rss', lang)}</span>
+      </a>
+    </div>
+  </header>
+
+  <section aria-label={heading} class="flex flex-col">
+    {
+      posts.map((post, i) => (
+        <article
+          class:list={[
+            'grid grid-cols-1 gap-2 border-t border-border md:grid-cols-[160px_minmax(0,1fr)] md:gap-8',
+            i === 0 ? 'py-8' : 'py-6',
+            i === posts.length - 1 && 'border-b',
+          ]}
+        >
+          <div class="flex gap-3 font-mono text-[13px] text-faint md:flex-col md:gap-1.5">
+            <time datetime={post.date.toISOString()}>{formatShortDate(post.date, lang)}</time>
+            <span>
+              {post.readingMinutes} {t('post.minRead', lang)}
+            </span>
+          </div>
+          <div class="flex flex-col gap-2">
+            <h2
+              class:list={[
+                'font-extrabold tracking-tight leading-tight',
+                i === 0 ? 'text-[34px]' : 'text-2xl font-bold',
+              ]}
+            >
+              <a href={post.href} class="hover:text-accent">
+                {post.title}
+              </a>
+            </h2>
+            {post.tags.length > 0 && (
+              <div class="flex flex-wrap gap-x-3.5 gap-y-1 font-mono text-[13px] text-faint">
+                {post.tags.map((tag) => (
+                  <a href={post.tagHref(tag)} class="hover:text-text">
+                    {tagLabel(tag, lang)}
+                  </a>
+                ))}
+              </div>
+            )}
+            <p
+              class:list={[
+                'leading-relaxed',
+                i === 0 ? 'text-lg text-muted' : 'text-base text-muted',
+              ]}
+            >
+              {post.description}
+            </p>
+          </div>
+        </article>
+      ))
+    }
+    <div class="flex flex-wrap items-center justify-between gap-3 pt-5 text-[13px]">
+      <span class="font-mono text-faint">{rangeLabel}</span>
+      {
+        totalPages > 1 && (
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-faint">{pageOfLabel}</span>
+            <div class="flex items-center gap-2">
+              {prevHref && (
+                <a href={prevHref} rel="prev" class="btn-secondary h-9 gap-1.5 px-3">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                  <span>{t('writing.pagePrev', lang)}</span>
+                </a>
+              )}
+              {nextHref && (
+                <a href={nextHref} rel="next" class="btn-secondary h-9 gap-1.5 px-3">
+                  <span>{t('writing.pageNext', lang)}</span>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+</div>

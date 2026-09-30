@@ -1,24 +1,37 @@
 ---
-import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
 import BlogPostLayout from '../../../layouts/BlogPostLayout.astro';
+import { getPosts, findTranslation, htmlPath } from '../../../lib/posts';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const [posts, postsEn] = await Promise.all([getPosts('es'), getPosts('en')]);
+  return posts.map((post, i) => {
+    const translation = findTranslation(post, 'es', postsEn, posts);
+    return {
+      params: { slug: post.id },
+      props: {
+        post,
+        prev: posts[i + 1],
+        next: posts[i - 1],
+        alternatePath: translation ? htmlPath(translation, 'en') : '/blog/',
+        hasTranslation: Boolean(translation),
+      },
+    };
+  });
 }
 
-const { post } = Astro.props;
-const { Content } = await post.render();
+const { post, prev, next, alternatePath, hasTranslation } = Astro.props;
+const { Content, headings } = await render(post);
 ---
 
 <BlogPostLayout
-  title={post.data.title}
-  description={post.data.description}
-  date={post.data.date}
-  image={post.data.image || `/og/${post.slug}.png`}
+  post={post}
+  lang="es"
+  alternatePath={alternatePath}
+  hasTranslation={hasTranslation}
+  headings={headings}
+  prev={prev}
+  next={next}
 >
   <Content />
 </BlogPostLayout>

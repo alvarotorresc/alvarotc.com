@@ -1,0 +1,113 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+  headings: MarkdownHeading[];
+}
+const { lang, headings } = Astro.props;
+const toc = headings.filter((h) => h.depth === 2);
+const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
+---
+
+<aside class="flex flex-col gap-8 lg:sticky lg:top-8">
+  {
+    toc.length > 0 && (
+      <nav aria-label={t('post.toc', lang)} data-toc class="flex flex-col gap-3">
+        <h2 class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
+          {t('post.toc', lang)}
+        </h2>
+        <ol class="flex flex-col gap-2 text-sm">
+          {toc.map((h) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                data-toc-link
+                class="text-muted transition-[color] duration-150 motion-reduce:transition-none hover:text-text data-[active=true]:font-semibold data-[active=true]:text-text"
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )
+  }
+  <div class="card-sm flex flex-col gap-2 p-4">
+    <h2 class="text-sm font-bold">{t('post.subscribe', lang)}</h2>
+    <p class="text-[13px] text-muted">{t('post.rssOnly', lang)}</p>
+    <a href={rssHref} class="text-[13px] font-semibold text-accent">
+      {t('post.rss', lang)}
+    </a>
+  </div>
+</aside>
+
+<script>
+  function bindPostSidebarScrollSpy() {
+    const win = window as unknown as { __postSidebarScrollHandler?: () => void };
+    if (win.__postSidebarScrollHandler) {
+      window.removeEventListener('scroll', win.__postSidebarScrollHandler);
+      win.__postSidebarScrollHandler = undefined;
+    }
+
+    const nav = document.querySelector('[data-toc]');
+    if (!nav) return;
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+    if (links.length === 0) return;
+
+    const article = document.querySelector('.prose');
+    if (!article) return;
+
+    const slugOf = (link: HTMLAnchorElement) => (link.getAttribute('href') ?? '').slice(1);
+    const linkedSlugs = new Set(links.map(slugOf));
+    const headings = Array.from(article.querySelectorAll<HTMLElement>('h2[id], h3[id]'));
+    if (headings.length === 0) return;
+
+    let currentSlug: string | null = null;
+    const headingSlugFor = new Map<Element, string | null>();
+    for (const heading of headings) {
+      if (linkedSlugs.has(heading.id)) currentSlug = heading.id;
+      headingSlugFor.set(heading, currentSlug);
+    }
+
+    const setActive = (slug: string | null) => {
+      links.forEach((link) => {
+        const isActive = slug !== null && slugOf(link) === slug;
+        if (isActive) {
+          link.setAttribute('aria-current', 'location');
+          link.dataset.active = 'true';
+        } else {
+          link.removeAttribute('aria-current');
+          delete link.dataset.active;
+        }
+      });
+    };
+
+    const lineRatio = 0.2;
+    let ticking = false;
+    const updateActive = () => {
+      ticking = false;
+      let candidate = headings[0];
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= window.innerHeight * lineRatio) {
+          candidate = heading;
+        }
+      }
+      setActive(headingSlugFor.get(candidate) ?? null);
+    };
+    const scheduleUpdate = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateActive);
+    };
+
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    win.__postSidebarScrollHandler = scheduleUpdate;
+
+    updateActive();
+  }
+
+  bindPostSidebarScrollSpy();
+  document.addEventListener('astro:after-swap', bindPostSidebarScrollSpy);
+</script>

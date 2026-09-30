@@ -1,0 +1,147 @@
+---
+name: PokeUtils
+tagline: 'Tu guía Pokémon retro: análisis competitivo, crianza y Pokédex completa.'
+intro: 'Si juegas competitivo, aquí sabes si tu equipo aguanta ese ataque. Si crías, con quién cruza cada uno. Y si solo vienes a consultar la dex, está entera, en español, y no te pide una cuenta.'
+kind: web
+status: published
+tier: lab
+order: 5
+repo: https://github.com/alvarotorresc/PokeUtils
+url: https://pokeutils.alvarotc.com
+stack: [JavaScript, PokéAPI]
+githubRepo: alvarotorresc/PokeUtils
+icon: '../../../assets/projects/pokeutils/icon.png'
+cover: '../../../assets/projects/pokeutils/cover-es.png'
+promo: '../../../assets/projects/pokeutils/promo-es.png'
+facts:
+  - { label: 'Idiomas', value: 'Español e inglés' }
+  - { label: 'Cuentas', value: 'Sin cuentas ni anuncios' }
+screenshots:
+  - src: '../../../assets/projects/pokeutils/tool-02-ficha-es.png'
+    alt: 'Ficha de Garchomp con sus estadísticas.'
+    caption: 'Estadísticas de Garchomp'
+  - src: '../../../assets/projects/pokeutils/tool-13-sobrevive-es.png'
+    alt: '¿Sobrevive Amoonguss al Terremoto de Garchomp? Veredicto.'
+    caption: '¿Sobrevive el golpe?'
+  - src: '../../../assets/projects/pokeutils/tool-16-calc-dano-es.png'
+    alt: 'Daño del Terremoto de Garchomp contra Rotom Lavado.'
+    caption: 'Terremoto contra Rotom Lavado'
+  - src: '../../../assets/projects/pokeutils/tool-10-equipo-es.png'
+    alt: 'Equipo de Garchomp, Gengar, Corviknight, Rotom Lavado, Amoonguss y Dragapult con sus amenazas.'
+    caption: 'Un equipo de seis, con sus amenazas'
+toolsIntro: 'Dieciséis vistas y cada una con su propia dirección. Elige una.'
+tools:
+  - name: 'Pokédex'
+    group: 'Pokédex'
+    text: 'Los 1025 Pokémon con stats, tipos, habilidades y debilidades.'
+    href: 'https://pokeutils.alvarotc.com/#/pokedex'
+    image: '../../../assets/projects/pokeutils/tool-01-pokedex-es.png'
+  - name: 'Comparador'
+    group: 'Pokédex'
+    text: 'Hasta cuatro Pokémon lado a lado, por stats y debilidades.'
+    href: 'https://pokeutils.alvarotc.com/#/compare'
+    image: '../../../assets/projects/pokeutils/tool-03-comparador-es.png'
+  - name: 'Grupos huevo'
+    group: 'Pokédex'
+    text: 'Los 15 grupos de cría y sus reglas de compatibilidad.'
+    href: 'https://pokeutils.alvarotc.com/#/egg'
+    image: '../../../assets/projects/pokeutils/tool-04-huevo-es.png'
+  - name: 'Movimientos'
+    group: 'Datos'
+    text: '937 movimientos con filtros y su ficha.'
+    href: 'https://pokeutils.alvarotc.com/#/moves'
+    image: '../../../assets/projects/pokeutils/tool-05-movimientos-es.png'
+  - name: 'Habilidades'
+    group: 'Datos'
+    text: '313 habilidades con descripción y buscador.'
+    href: 'https://pokeutils.alvarotc.com/#/abilities'
+    image: '../../../assets/projects/pokeutils/tool-06-habilidades-es.png'
+  - name: 'Objetos'
+    group: 'Datos'
+    text: '1848 objetos con sprite y filtros.'
+    href: 'https://pokeutils.alvarotc.com/#/items'
+    image: '../../../assets/projects/pokeutils/tool-07-objetos-es.png'
+  - name: 'Naturalezas'
+    group: 'Datos'
+    text: 'Las 25 naturalezas y sus modificadores en una rejilla de 5×5.'
+    href: 'https://pokeutils.alvarotc.com/#/natures'
+    image: '../../../assets/projects/pokeutils/tool-08-naturalezas-es.png'
+  - name: 'Tabla de tipos'
+    group: 'Datos'
+    text: 'Efectividad ofensiva y defensiva de cada tipo.'
+    href: 'https://pokeutils.alvarotc.com/#/types'
+    image: '../../../assets/projects/pokeutils/tool-09-tipos-es.png'
+  - name: 'Análisis de equipo'
+    group: 'Competitivo'
+    text: 'Hasta seis Pokémon: qué los amenaza y qué cobertura tienen.'
+    href: 'https://pokeutils.alvarotc.com/#/team'
+    image: '../../../assets/projects/pokeutils/tool-10-equipo-es.png'
+  - name: 'Contrarrestar mi equipo'
+    group: 'Competitivo'
+    text: 'Quién amenaza a tu equipo entre 1259 candidatos.'
+    href: 'https://pokeutils.alvarotc.com/#/counter'
+    image: '../../../assets/projects/pokeutils/tool-11-contrarrestar-es.png'
+  - name: 'Velocidad'
+    group: 'Competitivo'
+    text: 'Ranking de velocidad relativo a un Pokémon.'
+    href: 'https://pokeutils.alvarotc.com/#/speed'
+    image: '../../../assets/projects/pokeutils/tool-12-velocidad-es.png'
+  - name: '¿Sobrevive esto?'
+    group: 'Competitivo'
+    text: 'Rango de daño, veredicto y los EVs mínimos para aguantar el golpe.'
+    href: 'https://pokeutils.alvarotc.com/#/survive'
+    image: '../../../assets/projects/pokeutils/tool-13-sobrevive-es.png'
+  - name: 'Sets del meta'
+    group: 'Competitivo'
+    text: 'Sets de uso real de Smogon, en OU y VGC.'
+    href: 'https://pokeutils.alvarotc.com/#/meta'
+    image: '../../../assets/projects/pokeutils/tool-14-meta-es.png'
+  - name: 'Calculadora IV/EV'
+    group: 'Calculadora'
+    text: 'Los stats finales o los IVs posibles.'
+    href: 'https://pokeutils.alvarotc.com/#/calculator'
+    image: '../../../assets/projects/pokeutils/tool-15-calc-ivev-es.png'
+  - name: 'Calculadora de daño'
+    group: 'Calculadora'
+    text: 'La fórmula de daño de la quinta generación en adelante.'
+    href: 'https://pokeutils.alvarotc.com/#/calculator?tab=damage'
+    image: '../../../assets/projects/pokeutils/tool-16-calc-dano-es.png'
+  - name: 'Calculadora de captura'
+    group: 'Calculadora'
+    text: 'Probabilidad de captura según la ball, el estado y los PS.'
+    href: 'https://pokeutils.alvarotc.com/#/calculator?tab=catch'
+    image: '../../../assets/projects/pokeutils/tool-17-calc-captura-es.png'
+featuresIntro: 'Preparar un equipo, criar sin adivinar y consultar la dex.'
+features:
+  - title: 'Tu equipo'
+    text: 'Hasta seis. Ves qué tipos lo amenazan y qué cobertura le falta.'
+    image: '../../../assets/projects/pokeutils/tool-10-equipo-es.png'
+  - title: 'Cría'
+    text: 'Con quién cruza cada uno: 15 grupos huevo y las cinco reglas de cría de verdad.'
+  - title: 'La dex'
+    text: 'Entera y en español, con filtros que quedan en la URL. Sin anuncios ni cuentas.'
+    image: '../../../assets/projects/pokeutils/tool-02-ficha-es.png'
+  - title: 'Todos los Pokémon'
+    text: '1025 Pokémon y 326 formas.'
+  - title: 'Un buscador para todo'
+    text: 'Cruza 1351 Pokémon, 937 movimientos, 313 habilidades y 1848 objetos.'
+  - title: 'Comparador'
+    text: 'Hasta cuatro Pokémon, uno al lado del otro.'
+illustration: '../../../assets/projects/pokeutils/icon.png'
+built:
+  - 'JavaScript sin framework.'
+  - 'Una SPA con rutas #/: cada vista y cada filtro tienen su URL.'
+  - 'Sin cuentas y sin anuncios.'
+  - 'En español y en inglés.'
+  - 'Licencia MIT, código en [github.com/alvarotorresc/PokeUtils](https://github.com/alvarotorresc/PokeUtils).'
+changelog:
+  - {
+      version: 'v1.0.0',
+      date: 2026-08-28,
+      note: 'La primera versión completa de PokeUtils: 16 herramientas y 21 rutas para jugar, criar y competir, con estética retro y cero frameworks.',
+    }
+---
+
+Juego a hack ROMs de Pokémon con mis amigos, y no teníamos un sitio cómodo donde mirar datos competitivos sin tener que suscribirnos ni aceptar mil cookies sospechosas. Así que lo hice.
+
+Sin cuentas, sin anuncios y sin cookies: abres la web y miras lo que necesitas para la próxima partida.

@@ -1,140 +1,124 @@
 ---
+import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import ShareButtons from '../components/blog/ShareButtons.astro';
+import PostSidebar from '../components/blog/PostSidebar.astro';
+import PostNav from '../components/blog/PostNav.astro';
+import Tag from '../components/ui/Tag.astro';
+import { t, type Locale } from '../i18n/translations';
 import { formatDate, getReadingTime } from '../lib/utils';
+import { markdownPath, type PostEntry } from '../lib/posts';
+import { blogPostingJsonLd } from '../lib/jsonld';
+import { tagLabel } from '../lib/tags';
 
 interface Props {
-  title: string;
-  description: string;
-  date: Date;
-  image?: string;
+  post: PostEntry;
+  lang: Locale;
+  alternatePath: string;
+  hasTranslation: boolean;
+  headings: MarkdownHeading[];
+  prev?: PostEntry;
+  next?: PostEntry;
 }
 
-const { title, description, date, image } = Astro.props;
-const readingTime = getReadingTime(description);
+const { post, lang, alternatePath, hasTranslation, headings, prev, next } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const { title, seoTitle, description, date, updated, tags } = post.data;
+const image = post.data.image || `/og/${post.id}.png`;
+const readingTime = getReadingTime(post.body ?? '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const ogImageURL = new URL(image, Astro.site).toString();
+const modifiedISO = (updated ?? date).toISOString();
+const wordCount = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
+const displayTags = tags.map((tag) => tagLabel(tag, lang));
+const markdownURL = new URL(markdownPath(post, lang), Astro.site).toString();
+
+const alternateURL = new URL(alternatePath, Astro.site).toString();
+const otherLang = lang === 'es' ? 'en' : 'es';
+const hreflangLinks = hasTranslation
+  ? [
+      { lang, href: canonicalURL },
+      { lang: otherLang, href: alternateURL },
+      { lang: 'x-default', href: lang === 'en' ? canonicalURL : alternateURL },
+    ]
+  : [
+      { lang, href: canonicalURL },
+      { lang: 'x-default', href: canonicalURL },
+    ];
+const ogLocaleAlternate = hasTranslation ? (lang === 'es' ? 'en_US' : 'es_ES') : null;
+
+const jsonLd = blogPostingJsonLd({
+  post,
+  lang,
+  url: canonicalURL,
+  image: ogImageURL,
+  wordCount,
+  readingTimeMinutes: readingTime,
+});
 ---
 
 <BaseLayout
-  title={title}
+  title={seoTitle ?? title}
   description={description}
   image={image}
   type="article"
   publishedTime={date.toISOString()}
+  modifiedTime={modifiedISO}
+  tags={displayTags}
+  markdownAlternate={markdownURL}
+  lang={lang}
+  alternatePath={alternatePath}
+  hreflangLinks={hreflangLinks}
+  ogLocaleAlternate={ogLocaleAlternate}
+  jsonLd={jsonLd}
 >
-  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
-    <article>
-      <!-- Back link -->
-      <a
-        href="/"
-        class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
-      >
-        ← Back
-      </a>
-
-      <!-- Header -->
-      <header class="mb-12">
-        <div class="flex items-center gap-3 text-sm text-text-muted mb-4">
-          <time datetime={date.toISOString()}>{formatDate(date, 'en')}</time>
-          <span>•</span>
-          <span>{readingTime} min read</span>
+  <div class="container-page py-12 lg:grid lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-12">
+    <article class="mx-auto flex w-full max-w-[720px] flex-col gap-8 lg:mx-0">
+      <header class="flex flex-col gap-4">
+        <div class="flex flex-wrap items-center gap-2 text-sm">
+          <a href={`${prefix}/blog/`} class="font-semibold text-accent">{t('writing.all', lang)}</a>
+          {displayTags.map((tag) => <Tag>{tag}</Tag>)}
         </div>
-
-        <h1 class="text-3xl font-medium mb-4">{title}</h1>
-        <p class="text-text-muted">{description}</p>
+        <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
+        <p class="text-lg leading-relaxed text-muted">{description}</p>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
+          <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
+          {
+            updated && (
+              <span>
+                {t('post.updated', lang)}{' '}
+                <time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time>
+              </span>
+            )
+          }
+          <span>{readingTime} {t('post.minRead', lang)}</span>
+          {
+            hasTranslation && (
+              <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
+                {t('post.alternate', lang)}
+              </a>
+            )
+          }
+        </div>
       </header>
 
-      <!-- Content -->
-      <div class="prose mb-12">
-        <slot />
+      <img
+        src={image}
+        alt={`${t('post.cover', lang)} ${title}`}
+        width="1200"
+        height="630"
+        class="w-full rounded-2xl border border-border object-cover"
+      />
+
+      <div class="prose"><slot /></div>
+
+      <div class="border-t border-border pt-8">
+        <ShareButtons title={title} url={canonicalURL} lang={lang} />
       </div>
 
-      <!-- Share -->
-      <div class="border-t border-border pt-8">
-        <ShareButtons title={title} url={canonicalURL} />
-      </div>
+      <PostNav lang={lang} prev={prev} next={next} />
     </article>
+
+    <div class="mt-12 lg:mt-0"><PostSidebar lang={lang} headings={headings} /></div>
   </div>
 </BaseLayout>
-
-<style is:global>
-  .prose {
-    color: var(--color-text);
-    font-size: 0.95rem;
-    line-height: 1.7;
-  }
-
-  .prose h2,
-  .prose h3,
-  .prose h4 {
-    color: var(--color-text);
-    font-weight: 500;
-    margin-top: 2em;
-    margin-bottom: 1em;
-    letter-spacing: -0.02em;
-  }
-
-  .prose h2 {
-    font-size: 1.5rem;
-  }
-
-  .prose h3 {
-    font-size: 1.25rem;
-  }
-
-  .prose p {
-    margin-bottom: 1.5em;
-  }
-
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-  }
-
-  .prose a:hover {
-    opacity: 0.8;
-  }
-
-  .prose code {
-    background: var(--color-border);
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-    font-size: 0.9em;
-  }
-
-  .prose pre {
-    background: var(--color-border);
-    padding: 1.5em;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-    margin: 2em 0;
-  }
-
-  .prose pre code {
-    background: none;
-    padding: 0;
-  }
-
-  .prose ul,
-  .prose ol {
-    margin: 1.5em 0;
-    padding-left: 1.5em;
-  }
-
-  .prose li {
-    margin-bottom: 0.5em;
-  }
-
-  .prose blockquote {
-    border-left: 2px solid var(--color-accent);
-    padding-left: 1.5em;
-    margin: 2em 0;
-    font-style: italic;
-    color: var(--color-text-muted);
-  }
-
-  .prose img {
-    border-radius: 0.5rem;
-    margin: 2em 0;
-  }
-</style>
