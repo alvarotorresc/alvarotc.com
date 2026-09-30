@@ -137,7 +137,7 @@ stages:
       - 'I love music, above all rock and metal, and the electric guitar in particular. I play an Ibanez.'
       - 'I am still learning, with live lessons, videos and online courses. Sometimes I record myself on Linux to use it in one of my videos.'
     photo: ../../assets/about/guitar.jpg
-    photoAlt: 'Placeholder: electric guitar'
+    photoAlt: 'My Ibanez electric guitar, black with a red pickguard, resting on a chair with its embroidered strap.'
     caption: 'Ibanez · rock and metal'
     facts:
       year: '2025'
@@ -167,7 +167,7 @@ stages:
       - 'I train at a club in my neighbourhood. It is all amateur: I have never competed, I just train.'
       - 'It helps me a lot to switch off and let go of all the mental load of this job. It is the only place where I do not think about software.'
     photo: ../../assets/about/boxing.jpg
-    photoAlt: 'Placeholder: boxing gloves'
+    photoAlt: 'My white Leone 1947 boxing gloves, with the logo in gold, on a parquet floor.'
     caption: 'Boxing · Seville'
     facts:
       year: '2024'
@@ -181,5 +181,13 @@ stages:
     paragraphs:
       - 'I love role-playing games. I play Dungeons & Dragons as a player with a small group of close friends spread all over Spain, and now and then I join an in-person game at local clubs.'
       - 'My favourite class is the bard, and I love playing my guitar during the sessions.'
+    photo: ../../assets/about/rpg.jpg
+    photoAlt: 'My role-playing dice, black with red numbers, on a desk mat.'
+    caption: 'D&D · the party bard'
+    facts:
+      year: '-'
+      place: 'Online and in person'
+      os: '-'
+      stack: '-'
 mock: false
 ---
