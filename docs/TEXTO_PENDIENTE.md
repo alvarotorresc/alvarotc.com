@@ -76,14 +76,14 @@ Las diez fotos de `src/assets/about/` son de relleno. Hacen falta fotos reales e
 cada `photoAlt`, que hoy dice «Placeholder: …».
 
 - [x] `ies-2018.jpg` y su texto alternativo
-- [ ] `z1-2020.jpg` y su texto alternativo
+- [x] `z1-2020.jpg` y su texto alternativo
 - [ ] `therapyside-2022.jpg` y su texto alternativo
 - [ ] `soltel-2025.jpg` y su texto alternativo
 - [ ] `desk-2026.jpg` y su texto alternativo
 - [ ] `linux.jpg` y su texto alternativo
 - [ ] `cats.jpg` y su texto alternativo
 - [ ] `guitar.jpg` y su texto alternativo
-- [ ] `chess.jpg` y su texto alternativo
+- [x] `chess.jpg` y su texto alternativo
 - [ ] `boxing.jpg` y su texto alternativo
 
 - [x] Todo lo anterior replicado en `en.md`
