@@ -201,13 +201,13 @@ Ficheros: `src/content/posts/` (español) y `src/content/posts-en/` (inglés, tr
 - [x] «Nueva web, nuevo rumbo» (16 feb): describe la web anterior (índigo eléctrico, Framer
       Motion, tres secciones). Decidir: actualizarlo, añadir una nota o dejarlo como histórico
 - [x] «New website, new direction» (inglés)
-- [ ] «VPS con observabilidad completa» (26 mar)
+- [x] «VPS con observabilidad completa» (26 mar)
 - [x] «How I set up my VPS with full observability for less than $5/month» (inglés)
-- [ ] «De una idea a una APK en 24h» (14 ago)
+- [x] «De una idea a una APK en 24h» (14 ago)
 - [x] «From an idea to an APK in 24 hours» (inglés)
-- [ ] «FreshRSS en VPS con Docker y Caddy» (2 sep)
+- [x] «FreshRSS en VPS con Docker y Caddy» (2 sep)
 - [x] «Set up a service on your VPS today and move it to your home lab tomorrow» (inglés)
-- [ ] «BaseCero: tu dinero no vive en el servidor de nadie» (7 sep)
+- [x] «BaseCero: tu dinero no vive en el servidor de nadie» (7 sep)
 - [x] «BaseCero: your money doesn't have to sit on someone else's server» (inglés)
 
 ### B6. Páginas legales
