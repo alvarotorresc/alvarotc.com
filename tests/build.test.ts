@@ -12,8 +12,6 @@ const routes = [
   'es/about/index.html',
   'cv/index.html',
   'es/cv/index.html',
-  'stats/index.html',
-  'es/stats/index.html',
   'privacy/index.html',
   'es/privacy/index.html',
   'legal/index.html',
