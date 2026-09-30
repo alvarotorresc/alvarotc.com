@@ -76,4 +76,4 @@ built:
 
 Juego al ajedrez y quería un solo sitio donde practicar aperturas, finales y táctica contra el ordenador, sin crear una cuenta.
 
-También quería un tablero que no te bloquee: puedes hacer cualquier jugada legal y la app responde a lo que has jugado.
+También quería un tablero que no te bloquee: salvo en Practicar, que es estricto a propósito, puedes hacer cualquier jugada legal y la app responde a lo que has jugado.
