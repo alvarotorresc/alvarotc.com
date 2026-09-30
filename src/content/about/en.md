@@ -122,8 +122,8 @@ stages:
       - 'I have been vegan since 2021. I realised there was no need to exploit animals to live a full and healthy life, and since then respect for them has been one of the core values of my everyday life.'
       - 'I have volunteered at animal shelters in Seville since 2024, and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Two cats on a cat tree: a tabby lying on top and a black cat sitting next to it.'
-    caption: 'Shelter · Seville'
+    photoAlt: 'My cats, Abby and Levy, on their cat tree: a tabby lying on top and a black cat sitting next to it.'
+    caption: 'Abby and Levy, my cats'
     facts:
       year: '2024'
       place: 'Seville'
