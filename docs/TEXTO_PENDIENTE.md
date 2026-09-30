@@ -82,9 +82,9 @@ cada `photoAlt`, que hoy dice «Placeholder: …».
 - [ ] `desk-2026.jpg` y su texto alternativo
 - [ ] `linux.jpg` y su texto alternativo
 - [x] `cats.jpg` y su texto alternativo
-- [ ] `guitar.jpg` y su texto alternativo
+- [x] `guitar.jpg` y su texto alternativo
 - [x] `chess.jpg` y su texto alternativo
-- [ ] `boxing.jpg` y su texto alternativo
+- [x] `boxing.jpg` y su texto alternativo
 
 - [x] Todo lo anterior replicado en `en.md`
 

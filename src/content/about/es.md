@@ -137,7 +137,7 @@ stages:
       - 'Me encanta la música, sobre todo el rock y el metal, y la guitarra eléctrica en particular. Toco una Ibanez.'
       - 'Aún estoy aprendiendo, con clases en directo, vídeos y cursos online. A veces me grabo en Linux para meterlo en alguno de mis vídeos.'
     photo: ../../assets/about/guitar.jpg
-    photoAlt: 'Placeholder: guitarra eléctrica'
+    photoAlt: 'Mi Ibanez eléctrica, negra con el golpeador rojo, apoyada en una silla con su correa bordada.'
     caption: 'Ibanez · rock y metal'
     facts:
       year: '2025'
@@ -167,7 +167,7 @@ stages:
       - 'Entreno en un club de mi barrio. Es todo amateur: nunca he competido, solo entreno.'
       - 'Me ayuda muchísimo a desconectar y a soltar todo el trabajo mental de este oficio. Es el único sitio donde no pienso en software.'
     photo: ../../assets/about/boxing.jpg
-    photoAlt: 'Placeholder: guantes de boxeo'
+    photoAlt: 'Mis guantes de boxeo Leone 1947 blancos, con el logo en dorado, sobre un suelo de parqué.'
     caption: 'Boxeo · Sevilla'
     facts:
       year: '2024'
@@ -181,5 +181,13 @@ stages:
     paragraphs:
       - 'Me encanta el rol. Juego a Dungeons & Dragons como jugador con un grupito de amigos cercanos repartidos por toda España, y a veces echo alguna partida presencial en clubes locales.'
       - 'Mi clase favorita es el bardo, y me encanta tocar mi guitarra durante las partidas.'
+    photo: ../../assets/about/rpg.jpg
+    photoAlt: 'Mis dados de rol, negros con los números en rojo, sobre un tapete de escritorio.'
+    caption: 'D&D · el bardo del grupo'
+    facts:
+      year: '-'
+      place: 'Online y en persona'
+      os: '-'
+      stack: '-'
 mock: false
 ---

@@ -25,6 +25,7 @@ const photos = [
   'guitar',
   'chess',
   'boxing',
+  'rpg',
 ];
 
 describe.each(['es', 'en'])('about/%s.md', (lang) => {
