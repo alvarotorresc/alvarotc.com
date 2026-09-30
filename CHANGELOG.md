@@ -2,17 +2,18 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Este proyecto sigue [Versionado Semántico](https://semver.org/lang/es/).
 
-## [1.0.0] - pendiente
+## [1.0.0] - 2026-10-01
 
-Rediseño completo del sitio (rama `redesign/cv-web`, 150 commits sobre `main`).
+Rediseño completo del sitio (rama `redesign/cv-web`).
 
 ### Añadido
 
 - Home rediseñada: hero, sección "Sobre mí", timeline de experiencia animado, bento de proyectos, stack/stats con mapa de calor y sección "Fuera del teclado".
-- Página `/about` en dos columnas con una fotografía ("polaroid") que cambia por etapa biográfica.
+- Página `/about` en dos columnas con una fotografía ("polaroid") y un icono de color por etapa biográfica.
 - Fichas de proyecto por tipo (móvil, web, híbrido, CLI) con capturas, notas de versión y un playground embebible.
 - Blog bilingüe (ES/EN) con feeds RSS por idioma, `llms.txt`/`llms-full.txt`, versión Markdown de cada artículo, paginación estática y páginas de tema.
-- Página `/stats` con mapa de calor de contribuciones, alimentada por una tubería diaria (GitHub + Umami) vía GitHub Actions.
+- Cifras y mapa de calor de contribuciones en la home, alimentados por una tubería diaria (GitHub + Umami) vía GitHub Actions.
+- Página 404 bilingüe con forma de diagnóstico de compilador: señala el tramo de la dirección que no existe y sugiere la página más parecida.
 - Página `/cv` imprimible generada a partir de los datos de experiencia y proyectos.
 - Formulario de contacto (isla React con estética de terminal) contra un servicio propio autoalojado, con honeypot y tiempo mínimo de relleno contra spam.
 - Buscador con índice estático y paleta de comandos.
