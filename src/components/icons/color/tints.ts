@@ -8,6 +8,11 @@ export const colorIconNames = [
   'chess',
   'boxing',
   'leaf',
+  'gradcap',
+  'rocket',
+  'chat',
+  'server',
+  'dice',
 ] as const;
 
 export type ColorIconName = (typeof colorIconNames)[number];
@@ -27,4 +32,9 @@ export const colorIconTint: Record<ColorIconName, string> = {
   chess: '#a78bfa',
   boxing: '#e5645a',
   leaf: '#5fd08a',
+  gradcap: '#4f8ef7',
+  rocket: '#f08a4b',
+  chat: '#a78bfa',
+  server: '#5fd08a',
+  dice: '#e5645a',
 };

@@ -1,3 +1,5 @@
+import type { ColorIconName } from '../components/icons/color/tints';
+
 export interface StageFacts {
   year: string;
   place: string;
@@ -16,6 +18,7 @@ export interface StoryStage {
   id: string;
   kicker: string;
   title: string;
+  icon?: ColorIconName;
   paragraphs: string[];
   links: { label: string; href: string }[];
   polaroid?: Polaroid;
@@ -25,6 +28,7 @@ export interface RawStage {
   id: string;
   kicker: string;
   title: string;
+  icon?: ColorIconName;
   paragraphs: string[];
   links: { label: string; href: string }[];
   photoAlt?: string;
@@ -35,12 +39,13 @@ export interface RawStage {
 const EMPTY_FACTS: StageFacts = { year: '', place: '', os: '', stack: '' };
 
 export function toStoryStage(stage: RawStage, src: string | undefined): StoryStage {
-  const { id, kicker, title, paragraphs, links } = stage;
-  if (!src) return { id, kicker, title, paragraphs, links };
+  const { id, kicker, title, icon, paragraphs, links } = stage;
+  if (!src) return { id, kicker, title, icon, paragraphs, links };
   return {
     id,
     kicker,
     title,
+    icon,
     paragraphs,
     links,
     polaroid: {
