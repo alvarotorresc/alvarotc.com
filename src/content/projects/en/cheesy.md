@@ -72,6 +72,10 @@ built:
   - 'About 1560 app tests and 225 content tests.'
   - 'Hosted on Netlify. Visits are counted with a self-hosted Umami, without cookies.'
   - 'Free software under GPL-3.0, code at [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
+changelog:
+  - version: 'v0.1.0'
+    date: 2026-09-30
+    note: 'The first version: 21 openings to play and practise, 14 endgames against the Lichess tablebase, 13 tactical positions and an analysis board with an engine, in Spanish and English.'
 ---
 
 I play chess and wanted one place to practise openings, endgames and tactics against the computer, without creating an account.

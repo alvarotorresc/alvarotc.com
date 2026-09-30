@@ -151,7 +151,7 @@ describe.skipIf(!built)('built project pages', () => {
     });
   });
 
-  it('renders Cheesy as a web page with four image blocks and no changelog', () => {
+  it('renders Cheesy as a web page with four image blocks and its first release', () => {
     [
       ['projects/cheesy/index.html', 'Open the site'],
       ['es/projects/cheesy/index.html', 'GPL-3.0'],
@@ -162,7 +162,9 @@ describe.skipIf(!built)('built project pages', () => {
       expect(html.match(/data-feature="block"/g), route).toHaveLength(4);
       expect(html.match(/data-feature="item"/g), route).toHaveLength(4);
       expect(html.match(/<img[^>]+class="[^"]*shot-img/g), route).toHaveLength(6);
-      expect(html, route).not.toMatch(/<li[^>]*\sdata-release[\s>]/);
+      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(1);
+      expect(html, route).toContain('v0.1.0');
+      expect(html, route).toContain('github.com/alvarotorresc/cheesy/releases');
       expect(html, route).not.toContain('role="tab"');
     });
   });

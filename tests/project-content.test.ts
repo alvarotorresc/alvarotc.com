@@ -438,8 +438,15 @@ describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
     ]);
   });
 
-  it('lists no tools, no changelog and no playground', () => {
-    expect(source).not.toMatch(/^(tools|toolsIntro|changelog|playground|download):/m);
+  it('dates v0.1.0, the first GitHub release, as its only changelog entry', () => {
+    expect(source).toMatch(
+      /^changelog:\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
+    );
+    expect(source.match(/^\s+- version:/gm)).toHaveLength(1);
+  });
+
+  it('lists no tools and no playground', () => {
+    expect(source).not.toMatch(/^(tools|toolsIntro|playground|download):/m);
   });
 
   it('carries the content counts of the app', () => {
