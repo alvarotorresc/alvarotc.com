@@ -95,7 +95,7 @@ const bandCover = band && homeImage(band);
               alt={mid.data.name}
               width={480}
               class:list={[
-                'h-[200px] w-full rounded-[10px]',
+                'aspect-video w-full rounded-[10px]',
                 isVerticalImage(midCover) ? 'bg-surface-2 object-contain' : 'object-cover',
               ]}
             />
@@ -105,6 +105,7 @@ const bandCover = band && homeImage(band);
             <Tag tone={tone(mid.data.status)}>{statusLabel(mid.data.status, lang)}</Tag>
           </div>
           <p class="text-sm leading-relaxed text-muted">{mid.data.tagline}</p>
+          {mid.data.intro && <p class="text-sm leading-relaxed text-faint">{mid.data.intro}</p>}
           <span class="mt-auto font-mono text-xs text-faint">
             {mid.data.stack.slice(0, 4).join(', ')}
           </span>
