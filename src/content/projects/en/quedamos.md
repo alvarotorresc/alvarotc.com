@@ -113,4 +113,4 @@ mock: false
 
 Meeting up with six people is a message thread nobody wants to read. Quedamos replaces it with three steps.
 
-[DATO]
+I built it for my group of friends: every plan ended in a hundred messages and nobody knew who could make it. Now we ask once and the app tells us when we are all free.

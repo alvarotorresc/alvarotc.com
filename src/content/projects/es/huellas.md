@@ -39,11 +39,11 @@ built:
   - 'API propia y base de datos en un VPS, con Docker Compose detrás de Caddy. Sin Supabase.'
   - 'Mapas con MapLibre.'
   - 'Web pública en Vercel mientras siga siendo gratuito.'
-  - '[DATO]'
+  - 'Software libre bajo AGPL-3.0, código en [github.com/alvarotorresc/huellas](https://github.com/alvarotorresc/huellas).'
 changelog: []
 mock: false
 ---
 
-Huellas no nace de un hueco de mercado, sino de una experiencia concreta de su creador: «tengo un gato que recogí de la calle, nadie me escuchó en mi barrio, me quitaban los carteles que puse y me sentí totalmente mudo». No es una competición frente a otras apps ni busca rédito económico: las donaciones solo cubren costes, como propina al creador.
+Tengo un gato que recogí de la calle. Nadie en mi barrio me escuchó y me quitaban los carteles que ponía: me sentí mudo. Huellas es el canal que me faltó. No compite con otras apps ni busca dinero: las donaciones solo cubren costes.
 
 En el MVP: perros y gatos, en España y en español. Lo que se mide son animales reunidos y personas escuchadas, no crecimiento.

@@ -39,11 +39,11 @@ built:
   - 'Its own API and database on a VPS, with Docker Compose behind Caddy. No Supabase.'
   - 'Maps with MapLibre.'
   - 'Public website on Vercel while it stays free.'
-  - '[DATO]'
+  - 'Free software under AGPL-3.0, code at [github.com/alvarotorresc/huellas](https://github.com/alvarotorresc/huellas).'
 changelog: []
 mock: false
 ---
 
-Huellas was not born from a gap in the market, but from a concrete experience of its creator: "I have a cat I picked up off the street, nobody in my neighbourhood listened to me, my posters kept being torn down and I felt completely voiceless." It is not a competition against other apps, and it does not chase profit: donations only cover costs, as a tip for the creator.
+I have a cat I picked up off the street. Nobody in my neighbourhood listened to me and my posters kept being torn down: I felt voiceless. Huellas is the channel I was missing. It does not compete with other apps and it does not chase money: donations only cover costs.
 
 In the MVP: dogs and cats, in Spain and in Spanish. What gets measured is animals reunited and people heard, not growth.
