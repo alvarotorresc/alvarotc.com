@@ -4,16 +4,16 @@ intro: 'Software engineer en Sevilla. Esta es la versión larga: quién soy, de 
 values:
   - icon: tux
     title: 'Software libre'
-    text: 'Todo lo que publico tiene el código abierto. Puedes leerlo, compilarlo y bifurcarlo.'
+    text: 'Publico el código de todo lo que hago. Si usas algo mío, puedes leer cómo funciona, compilarlo tú y llevártelo a otro sitio.'
   - icon: lock
     title: 'Privacidad y seguridad'
-    text: 'Sin cuentas cuando no hacen falta, sin rastreadores, y los datos protegidos por diseño.'
+    text: 'No te pido una cuenta si no hace falta, no te rastreo y pienso en proteger tus datos desde el primer día.'
   - icon: cat
     title: 'Los animales'
-    text: 'Vegano y voluntario en refugios de gatos. Huellas nace de ahí.'
+    text: 'Soy vegano y colaboro con refugios de gatos en Sevilla. De ahí nace Huellas.'
   - icon: megaphone
     title: 'Construir en público'
-    text: 'Documento el proceso en el blog, en vídeo y en redes. Qué funcionó, qué se rompió, y por qué.'
+    text: 'Cuento lo que construyo mientras lo construyo: lo que funcionó, lo que se rompió y por qué lo decidí así.'
 stages:
   - id: daw-2018
     kicker: '2018'
@@ -26,8 +26,8 @@ stages:
     facts:
       year: '2018'
       place: 'Sevilla'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Windows y Ubuntu'
+      stack: 'Java, JavaScript, HTML, CSS'
   - id: z1-2020
     kicker: '2020'
     title: 'Z1 Digital Studio'
@@ -39,8 +39,8 @@ stages:
     caption: '2020 · Z1 Digital Studio'
     facts:
       year: '2020'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Sevilla, híbrido'
+      os: 'macOS'
       stack: 'Python, Django, Node, TypeScript'
   - id: therapyside-2022
     kicker: '2022'
@@ -53,8 +53,8 @@ stages:
     caption: '2022 · Therapyside'
     facts:
       year: '2022'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Madrid, remoto'
+      os: 'macOS'
       stack: 'Python, Django Channels, Celery, Redis'
   - id: soltel-2025
     kicker: '2025'
@@ -67,8 +67,8 @@ stages:
     caption: '2025 · Soltel'
     facts:
       year: '2025'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Sevilla, remoto'
+      os: 'Windows'
       stack: 'Java 17, Node 22, Angular, Drools'
   - id: own-2026
     kicker: '2026'
@@ -82,15 +82,15 @@ stages:
     facts:
       year: '2026'
       place: 'Sevilla'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Nobara'
+      stack: 'Python, TypeScript, Astro, Go, Docker'
   - id: free-software
     kicker: 'Principios'
     title: 'Por qué lo publico todo libre'
     paragraphs:
       - 'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Llevo más de cinco años haciéndolo en producción.'
       - 'Lo que más me interesa es que lo que construyo se pueda usar sin tener que fiarse de nadie. Por eso todo lo que publico es software libre: puedes leerlo, compilarlo y bifurcarlo.'
-      - 'Y por eso mis aplicaciones funcionan sin cuenta cuando no hace falta una, sin rastreadores y con los datos protegidos por diseño. Autoalojo [DATO].'
+      - 'Y por eso mis aplicaciones funcionan sin cuenta cuando no hace falta una, sin rastreadores y con los datos protegidos por diseño. Autoalojo los servicios más esenciales, para que mis archivos sigan siendo privados y seguros.'
     links:
       - label: 'github.com/alvarotorresc'
         href: 'https://github.com/alvarotorresc'
@@ -98,18 +98,18 @@ stages:
         href: '/es/projects/bito'
     photo: ../../assets/about/linux.jpg
     photoAlt: 'Placeholder: escritorio Linux'
-    caption: '[DATO] · desde [DATO]'
+    caption: 'Ubuntu desde 2018 · Nobara desde 2022'
     facts:
-      year: '[DATO]'
+      year: '2018'
       place: 'Sevilla'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Ubuntu, Nobara'
+      stack: 'Fedora Server, Docker, Caddy, Nginx, Proxmox'
   - id: cats
     kicker: 'Gatos'
     title: 'Gatos, y por qué soy vegano'
     paragraphs:
-      - 'Soy vegano y me importan los animales. [DATO]'
-      - 'Colaboro con refugios de gatos en Sevilla desde 2024 ([DATO]), y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
+      - 'Soy vegano, y el respeto hacia los animales es uno de los principales valores de mi día a día.'
+      - 'Colaboro con refugios de gatos en Sevilla desde 2024, y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
     photo: ../../assets/about/cats.jpg
     photoAlt: 'Placeholder: gatos del refugio'
     caption: 'Refugio · Sevilla'
@@ -122,38 +122,38 @@ stages:
     kicker: 'Guitarra'
     title: 'Guitarra eléctrica'
     paragraphs:
-      - 'Sobre todo rock y blues, mal grabado en Linux con Ardour.'
+      - 'Sobre todo metal y rock. Aún estoy aprendiendo y a veces me grabo en Linux para meterlo en alguno de mis vídeos.'
     photo: ../../assets/about/guitar.jpg
     photoAlt: 'Placeholder: guitarra eléctrica'
-    caption: 'Rock y blues · Ardour'
+    caption: 'Metal y rock · Ardour'
     facts:
-      year: '[DATO]'
+      year: '2025'
       place: 'Sevilla'
-      os: '[DATO]'
+      os: '-'
       stack: 'Ardour'
   - id: chess
     kicker: 'Ajedrez'
     title: 'Ajedrez'
     paragraphs:
-      - 'En Lichess, que también es software libre. Siempre listo para una partida: [DATO].'
+      - 'En Lichess, que también es software libre. Siempre listo para una partida: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco).'
     photo: ../../assets/about/chess.jpg
     photoAlt: 'Placeholder: tablero de ajedrez'
-    caption: 'Lichess · [DATO]'
+    caption: 'Lichess · alvarotorrescarrasco'
     facts:
-      year: '[DATO]'
+      year: '2022'
       place: 'Lichess'
-      os: '[DATO]'
+      os: '-'
       stack: '-'
   - id: boxing
     kicker: 'Boxeo'
     title: 'Boxeo'
     paragraphs:
-      - 'Unas cuantas sesiones a la semana. El único sitio donde no pienso en colas.'
+      - 'Unas cuantas sesiones a la semana. El único sitio donde no pienso en software.'
     photo: ../../assets/about/boxing.jpg
     photoAlt: 'Placeholder: guantes de boxeo'
     caption: 'Boxeo · Sevilla'
     facts:
-      year: '[DATO]'
+      year: '2024'
       place: 'Sevilla'
       os: '-'
       stack: '-'

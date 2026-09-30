@@ -39,8 +39,7 @@ describe.each(['es', 'en'])('about/%s.md', (lang) => {
     expect(source).toContain('values:');
   });
 
-  it('stays not mock even while it has [DATO] gaps', () => {
-    expect(source).toContain('[DATO]');
+  it('is not mock', () => {
     expect(source).toContain('mock: false');
   });
 

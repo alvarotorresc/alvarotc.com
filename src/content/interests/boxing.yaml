@@ -2,6 +2,6 @@ icon: boxing
 order: 3
 title: { en: Boxing, es: Boxeo }
 text:
-  en: A few sessions a week. The only place where I do not think about queues.
-  es: Unas cuantas sesiones a la semana. El único sitio donde no pienso en colas.
+  en: A few sessions a week. The only place where I do not think about software.
+  es: Unas cuantas sesiones a la semana. El único sitio donde no pienso en software.
 mock: false
