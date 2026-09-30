@@ -122,8 +122,8 @@ stages:
       - 'Soy vegano desde 2021. Me di cuenta de que no hacía falta explotar animales para vivir una vida plena y saludable, y desde entonces el respeto hacia ellos es uno de los principales valores de mi día a día.'
       - 'Colaboro con refugios de animales en Sevilla desde 2024, y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Dos gatos en un rascador: uno atigrado tumbado arriba y uno negro sentado a su lado.'
-    caption: 'Refugio · Sevilla'
+    photoAlt: 'Mis gatos, Abby y Levy, en su rascador: uno atigrado tumbado arriba y otro negro sentado a su lado.'
+    caption: 'Abby y Levy, mis gatos'
     facts:
       year: '2024'
       place: 'Sevilla'
