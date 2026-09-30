@@ -235,20 +235,17 @@ Confirma que cada afirmación es cierta.
 
 ### B7. CV
 
-Página: `/es/cv/` y `/cv/` · Se genera de Experiencia y Proyectos
+El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces no se toca `/cv/`.
 
-- [ ] Idiomas (`cv.languagesValue`): «Español nativo, inglés B2 (Trinity College London)»
-- [ ] Ubicación (`cv.location`): «España, remoto» en español y «Spain, remote friendly» en
-      inglés; igualarlas
-- [ ] Subtítulo (`cv.subtitle`) y texto del blog (`cv.writingText`)
-- [ ] Imprimirlo a PDF y leerlo entero en los dos idiomas
+- [ ] Recibir el PDF del CV nuevo y decidir si sustituye a la página `/cv/` o se enlaza desde ella
+- [ ] Apuntar el botón «Descargar CV» de la home al PDF
 
 ### B8. Menores
 
 - [ ] 404 (`error.text`): «Esta página no existe o se ha movido a otro sitio.»
-- [ ] Stats (`/es/stats/`, fuera del menú): subtítulo y frases que acompañan a las cifras
+- [x] Stats (`/es/stats/`, fuera del menú): subtítulo y frases que acompañan a las cifras
       (`stats.*`)
-- [ ] Enlaces sociales en `site.config.ts`: GitHub `alvarotorresc`, LinkedIn
+- [x] Enlaces sociales en `site.config.ts`: GitHub `alvarotorresc`, LinkedIn
       `alvaro-torres-carrasco`, X `torresc_alvaro`, dev.to `alvarotorresc`
 
 ---
