@@ -26,6 +26,8 @@ const routes = [
   'es/projects/pokeutils/index.html',
   'projects/devtools/index.html',
   'es/projects/devtools/index.html',
+  'projects/cheesy/index.html',
+  'es/projects/cheesy/index.html',
   'projects/basecero/index.html',
   'es/projects/basecero/index.html',
   'projects/quedamos/index.html',
@@ -146,6 +148,24 @@ describe.skipIf(!built)('built project pages', () => {
       expect(html, route).toContain('data-media="web"');
       expect(html, route).toContain(text);
       expect(html.match(/role="tab"/g), route).toHaveLength(52);
+    });
+  });
+
+  it('renders Cheesy as a web page with four image blocks and its first release', () => {
+    [
+      ['projects/cheesy/index.html', 'Open the site'],
+      ['es/projects/cheesy/index.html', 'GPL-3.0'],
+    ].forEach(([route, text]) => {
+      const html = page(route);
+      expect(html, route).toContain('data-media="web"');
+      expect(html, route).toContain(text);
+      expect(html.match(/data-feature="block"/g), route).toHaveLength(4);
+      expect(html.match(/data-feature="item"/g), route).toHaveLength(4);
+      expect(html.match(/<img[^>]+class="[^"]*shot-img/g), route).toHaveLength(6);
+      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(1);
+      expect(html, route).toContain('v0.1.0');
+      expect(html, route).toContain('github.com/alvarotorresc/cheesy/releases');
+      expect(html, route).not.toContain('role="tab"');
     });
   });
 
