@@ -1,6 +1,7 @@
 import { defineCollection, type SchemaContext } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { colorIconNames } from './components/icons/color/tints';
 
 export const postSchema = z.object({
   title: z.string(),
@@ -171,6 +172,7 @@ const stageSchema = (image: SchemaContext['image']) =>
     id: z.string(),
     kicker: z.string(),
     title: z.string(),
+    icon: z.enum(colorIconNames).optional(),
     paragraphs: z.array(z.string()).min(1),
     links: z.array(z.object({ label: z.string(), href: z.string() })).default([]),
     photo: image().optional(),

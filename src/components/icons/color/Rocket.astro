@@ -1,0 +1,25 @@
+---
+interface Props {
+  size?: number;
+  class?: string;
+}
+
+const { size = 48, class: className = '' } = Astro.props;
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 48 48"
+  aria-hidden="true"
+  focusable="false"
+  class={className}
+>
+  <g transform="rotate(45 24 24)">
+    <path d="M20 33 Q24 45 28 33 Z" fill="#f2b64e"></path>
+    <path d="M18 23 L12 34 L19 32 Z M30 23 L36 34 L29 32 Z" fill="#f08a4b"></path>
+    <path d="M24 4 C31 10 32 21 30 33 H18 C16 21 17 10 24 4 Z" fill="#c9cfd9"></path>
+    <circle cx="24" cy="17" r="4.5" fill="#0b0d11"></circle>
+    <circle cx="24" cy="17" r="3" fill="#4f8ef7"></circle>
+  </g>
+</svg>

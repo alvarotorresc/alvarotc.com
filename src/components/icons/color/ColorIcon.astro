@@ -8,6 +8,11 @@ import Guitar from './Guitar.astro';
 import Chess from './Chess.astro';
 import Boxing from './Boxing.astro';
 import Leaf from './Leaf.astro';
+import GradCap from './GradCap.astro';
+import Rocket from './Rocket.astro';
+import Chat from './Chat.astro';
+import Server from './Server.astro';
+import Dice from './Dice.astro';
 import type { ColorIconName } from './tints';
 
 interface Props {
@@ -28,6 +33,11 @@ const components = {
   chess: Chess,
   boxing: Boxing,
   leaf: Leaf,
+  gradcap: GradCap,
+  rocket: Rocket,
+  chat: Chat,
+  server: Server,
+  dice: Dice,
 } satisfies Record<ColorIconName, unknown>;
 
 const Component = components[name];

@@ -1,5 +1,7 @@
 ---
 import PolaroidCard from './Polaroid.astro';
+import ColorIcon from '../icons/color/ColorIcon.astro';
+import { colorIconTint } from '../icons/color/tints';
 import { firstPolaroid, polaroidFor, type StoryStage } from '../../lib/about-stages';
 import { inlineLinks } from '../../lib/inline-links';
 import { pagePath } from '../../lib/i18n-paths';
@@ -43,8 +45,21 @@ const mobile = polaroidFor(stages, 'own-2026');
                 data-stack={stage.polaroid?.facts.stack}
                 class="about-stage"
               >
-                <p class="font-mono text-[13px] text-faint">{stage.kicker}</p>
-                <h2 class="mt-2 text-[28px] font-bold leading-[1.2]">{stage.title}</h2>
+                <div class="flex items-center gap-4">
+                  {stage.icon && (
+                    <span
+                      class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full"
+                      style={`background: color-mix(in srgb, ${colorIconTint[stage.icon]} 10%, var(--bg));`}
+                      aria-hidden="true"
+                    >
+                      <ColorIcon name={stage.icon} size={40} />
+                    </span>
+                  )}
+                  <div>
+                    <p class="font-mono text-[13px] text-faint">{stage.kicker}</p>
+                    <h2 class="mt-1 text-[28px] font-bold leading-[1.2]">{stage.title}</h2>
+                  </div>
+                </div>
                 <div class="mt-5 flex flex-col gap-5">
                   {stage.paragraphs.map((p) => (
                     <p class="about-paragraph text-lg leading-[1.65]" set:html={inlineLinks(p)} />
