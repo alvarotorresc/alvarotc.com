@@ -669,6 +669,11 @@ describe.skipIf(!process.env.RELEASE_CHECK)('projects release guard', () => {
   });
 
   it.each(visibleFiles)('%s ships real images, not placeholders', (path) => {
-    refsOf(path).forEach((ref) => expect(statSync(ref).size, ref).toBeGreaterThan(20000));
+    refsOf(path).forEach((ref) => {
+      if (!ref.endsWith('/icon.png')) return expect(statSync(ref).size, ref).toBeGreaterThan(20000);
+      const { width, height } = pngSize(ref);
+      expect(width, ref).toBe(height);
+      expect(width, ref).toBeGreaterThanOrEqual(512);
+    });
   });
 });
