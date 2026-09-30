@@ -1,6 +1,6 @@
 ---
 title: 'Hola, soy Álvaro. Me gusta el software que respeta a quien lo usa.'
-intro: 'Software engineer en Sevilla. Esta es la versión larga: quién soy, de dónde vengo y qué hago cuando cierro el portátil.'
+intro: 'Software Engineer en Sevilla. Esta es la versión larga: quién soy, de dónde vengo y qué hago cuando cierro el portátil.'
 values:
   - icon: tux
     title: 'Software libre'
@@ -10,7 +10,7 @@ values:
     text: 'No te pido una cuenta si no hace falta, no te rastreo y pienso en proteger tus datos desde el primer día.'
   - icon: cat
     title: 'Los animales'
-    text: 'Soy vegano y colaboro con refugios de gatos en Sevilla. De ahí nace Huellas.'
+    text: 'Soy vegano y colaboro con refugios de animales en Sevilla. De ahí nace Huellas.'
   - icon: megaphone
     title: 'Construir en público'
     text: 'Cuento lo que construyo mientras lo construyo: lo que funcionó, lo que se rompió y por qué lo decidí así.'
@@ -18,8 +18,10 @@ stages:
   - id: daw-2018
     kicker: '2018'
     title: 'Desarrollo de Aplicaciones Web'
+    icon: gradcap
     paragraphs:
-      - 'Dos años de ciclo superior en el IES Velázquez de Sevilla. Por el camino, la certificación de algoritmos y estructuras de datos de freeCodeCamp y el Codefest de Everis, donde descubrí que me gustaba más la parte del servidor que la pantalla.'
+      - 'Dos años de ciclo superior en el IES Velázquez de Sevilla. Java, JavaScript y bases de datos, y la primera vez que vi claro que lo que más me tiraba era lo que pasa en el servidor, no lo que se ve en la pantalla.'
+      - 'Fuera de clase saqué la certificación de algoritmos y estructuras de datos de freeCodeCamp, competí en el Codefest 2019 de Everis y fui a todos los meetups y code fests que pude. En este oficio se aprende tanto de la gente como de la documentación.'
     photo: ../../assets/about/ies-2018.jpg
     photoAlt: 'Placeholder: IES Velázquez, Sevilla'
     caption: '2018 · IES Velázquez, Sevilla'
@@ -31,23 +33,27 @@ stages:
   - id: z1-2020
     kicker: '2020'
     title: 'Z1 Digital Studio'
+    icon: rocket
     paragraphs:
-      - 'Primer trabajo. Productos digitales para clientes de Estados Unidos y Canadá en energía, seguridad y redes sociales. Python y Django, Node y TypeScript, APIs REST y GraphQL, Docker en AWS.'
-      - 'Aprendí a entregar en equipo, con Scrum o Kanban según el cliente, y que los tests no son opcionales.'
+      - 'Mi primer trabajo. Hacía productos digitales para clientes de Estados Unidos y Canadá: mantenía y ampliaba apps en producción con muchos usuarios, como [Waking Up](https://www.wakingup.com/) o [Storytelling with Data](https://www.storytellingwithdata.com/), y participé en proyectos de energía, seguridad y redes sociales.'
+      - 'Python y Django, Node y TypeScript, APIs REST y GraphQL con Apollo y Graphene. Todo en Docker sobre AWS, con CI/CD en GitHub Actions: el código solo llegaba a producción cuando el resto del equipo aprobaba la pull request.'
+      - 'Aprendí a trabajar en equipo de verdad, con Scrum o Kanban según el cliente, y que una buena cobertura de tests es lo que te deja dormir tranquilo.'
     photo: ../../assets/about/z1-2020.jpg
     photoAlt: 'Placeholder: Z1 Digital Studio'
     caption: '2020 · Z1 Digital Studio'
     facts:
       year: '2020'
-      place: 'Sevilla, híbrido'
+      place: 'Sevilla, remoto'
       os: 'macOS'
       stack: 'Python, Django, Node, TypeScript'
   - id: therapyside-2022
     kicker: '2022'
     title: 'Therapyside'
+    icon: chat
     paragraphs:
-      - 'Backend de una plataforma de terapia online con más de cinco mil usuarios activos al día. Migré el proyecto de Python 2.7 a 3.7, llevé los websockets a Django Channels, rehice las notificaciones sobre Celery y Redis y monté la estructura de tests.'
-      - 'Soporte diario con el equipo de operaciones. Aquí aprendí que aburrido es una virtud.'
+      - 'Backend de [Therapyside](https://www.therapyside.com/), una plataforma de terapia online con más de 5.000 usuarios activos al día. Empecé con funcionalidades nuevas en Django REST Framework, como la terapia de pareja o un onboarding nuevo, y acabé tocando casi todo lo que había debajo.'
+      - 'Migré el proyecto de Python 2.7 a 3.7, llevé los websockets propios a Django Channels, rehice las notificaciones push y por correo sobre Celery, Redis y Mailchimp, optimicé consultas de PostgreSQL y monté los tests con Pytest. También preparé el producto para salir a Italia y Reino Unido, traduciéndolo al italiano y al inglés, y monté una plataforma interna para que marketing, ventas y otros equipos gestionaran pacientes, suscripciones y gráficas.'
+      - 'Y soporte diario con el equipo de operaciones, con las incidencias que llegaban por Zendesk. Ahí aprendí que en producción aburrido es una virtud.'
     photo: ../../assets/about/therapyside-2022.jpg
     photoAlt: 'Placeholder: Therapyside'
     caption: '2022 · Therapyside'
@@ -59,9 +65,11 @@ stages:
   - id: soltel-2025
     kicker: '2025'
     title: 'Soltel'
+    icon: server
     paragraphs:
-      - 'Microservicios en Java 17 y Node 22 que hablan entre sí y con agentes externos, Angular en el front, Oracle y MongoDB detrás.'
-      - 'Un sistema de baremación de expedientes con Drools construido desde cero.'
+      - 'Microservicios en Java 17 y Node 22 que hablan entre sí y con agentes externos. Aquí aprendí a pensar en sistemas que no controlo del todo: cada servicio tiene que aguantar que el de al lado falle.'
+      - 'Construí desde cero un sistema de baremación de expedientes con Drools y diseñé sus bases de datos en Oracle y MongoDB.'
+      - 'Ahora estoy migrando varios sistemas públicos de ayudas y becas a uno solo, robusto, que se comunica con sistemas externos a través de colas de Kafka.'
     photo: ../../assets/about/soltel-2025.jpg
     photoAlt: 'Placeholder: Soltel'
     caption: '2025 · Soltel'
@@ -73,8 +81,9 @@ stages:
   - id: own-2026
     kicker: '2026'
     title: 'Mis propias cosas'
+    icon: construction
     paragraphs:
-      - '[Bito](/es/projects/bito), [Quedamos](/es/projects/quedamos), [BaseCero](/es/projects/basecero) y ahora [Huellas](/es/projects/huellas). Todo software libre, con las decisiones escritas en el blog.'
+      - 'Fuera del trabajo construyo mis propias cosas: [Bito](/es/projects/bito), [Quedamos](/es/projects/quedamos), [BaseCero](/es/projects/basecero), [Cheesy](/es/projects/cheesy) y ahora [Huellas](/es/projects/huellas). Todo software libre, con las decisiones escritas en el blog.'
       - 'Construyo en público. Documento el proceso en el blog, en vídeo y en redes: qué funcionó, qué se rompió y por qué. No tutoriales, sino decisiones.'
     photo: ../../assets/about/desk-2026.jpg
     photoAlt: 'Placeholder: mi mesa en 2026'
@@ -87,8 +96,9 @@ stages:
   - id: free-software
     kicker: 'Principios'
     title: 'Por qué lo publico todo libre'
+    icon: tux
     paragraphs:
-      - 'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Llevo más de cinco años haciéndolo en producción.'
+      - 'Construyo las partes de un producto que nadie ve hasta que fallan: APIs, modelos de datos, colas, despliegues. Llevo más de seis años haciéndolo en producción.'
       - 'Lo que más me interesa es que lo que construyo se pueda usar sin tener que fiarse de nadie. Por eso todo lo que publico es software libre: puedes leerlo, compilarlo y bifurcarlo.'
       - 'Y por eso mis aplicaciones funcionan sin cuenta cuando no hace falta una, sin rastreadores y con los datos protegidos por diseño. Autoalojo los servicios más esenciales, para que mis archivos sigan siendo privados y seguros.'
     links:
@@ -104,14 +114,15 @@ stages:
       place: 'Sevilla'
       os: 'Ubuntu, Nobara'
       stack: 'Fedora Server, Docker, Caddy, Nginx, Proxmox'
-  - id: cats
-    kicker: 'Gatos'
-    title: 'Gatos, y por qué soy vegano'
+  - id: animals
+    kicker: 'Animales'
+    title: 'Los animales, y por qué soy vegano'
+    icon: leaf
     paragraphs:
-      - 'Soy vegano, y el respeto hacia los animales es uno de los principales valores de mi día a día.'
-      - 'Colaboro con refugios de gatos en Sevilla desde 2024, y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
+      - 'Soy vegano desde 2021. Me di cuenta de que no hacía falta explotar animales para vivir una vida plena y saludable, y desde entonces el respeto hacia ellos es uno de los principales valores de mi día a día.'
+      - 'Colaboro con refugios de animales en Sevilla desde 2024, y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Placeholder: gatos del refugio'
+    photoAlt: 'Placeholder: animales del refugio'
     caption: 'Refugio · Sevilla'
     facts:
       year: '2024'
@@ -119,23 +130,27 @@ stages:
       os: '-'
       stack: '-'
   - id: guitar
-    kicker: 'Guitarra'
+    kicker: 'Música'
     title: 'Guitarra eléctrica'
+    icon: guitar
     paragraphs:
-      - 'Sobre todo metal y rock. Aún estoy aprendiendo y a veces me grabo en Linux para meterlo en alguno de mis vídeos.'
+      - 'Me encanta la música, sobre todo el rock y el metal, y la guitarra eléctrica en particular. Toco una Ibanez.'
+      - 'Aún estoy aprendiendo, con clases en directo, vídeos y cursos online. A veces me grabo en Linux para meterlo en alguno de mis vídeos.'
     photo: ../../assets/about/guitar.jpg
     photoAlt: 'Placeholder: guitarra eléctrica'
-    caption: 'Metal y rock · Ardour'
+    caption: 'Ibanez · rock y metal'
     facts:
       year: '2025'
       place: 'Sevilla'
       os: '-'
       stack: 'Ardour'
   - id: chess
-    kicker: 'Ajedrez'
+    kicker: 'Juego'
     title: 'Ajedrez'
+    icon: chess
     paragraphs:
-      - 'En Lichess, que también es software libre. Siempre listo para una partida: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco).'
+      - 'Empecé en 2022, cuando mi hermano mayor me enseñó a jugar. Desde entonces echamos partidas cada semana, compartimos recursos y vemos partidas juntos.'
+      - 'Juego en Lichess, que también es software libre. Siempre listo para una partida: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco). Y como quería un sitio donde practicar aperturas y finales sin cuenta, hice [Cheesy](/es/projects/cheesy).'
     photo: ../../assets/about/chess.jpg
     photoAlt: 'Placeholder: tablero de ajedrez'
     caption: 'Lichess · alvarotorrescarrasco'
@@ -145,10 +160,12 @@ stages:
       os: '-'
       stack: '-'
   - id: boxing
-    kicker: 'Boxeo'
+    kicker: 'Deporte'
     title: 'Boxeo'
+    icon: boxing
     paragraphs:
-      - 'Unas cuantas sesiones a la semana. El único sitio donde no pienso en software.'
+      - 'Entreno en un club de mi barrio. Es todo amateur: nunca he competido, solo entreno.'
+      - 'Me ayuda muchísimo a desconectar y a soltar todo el trabajo mental de este oficio. Es el único sitio donde no pienso en software.'
     photo: ../../assets/about/boxing.jpg
     photoAlt: 'Placeholder: guantes de boxeo'
     caption: 'Boxeo · Sevilla'
@@ -157,5 +174,12 @@ stages:
       place: 'Sevilla'
       os: '-'
       stack: '-'
+  - id: rpg
+    kicker: 'Rol'
+    title: 'Dungeons & Dragons'
+    icon: dice
+    paragraphs:
+      - 'Me encanta el rol. Juego a Dungeons & Dragons como jugador con un grupito de amigos cercanos repartidos por toda España, y a veces echo alguna partida presencial en clubes locales.'
+      - 'Mi clase favorita es el bardo, y me encanta tocar mi guitarra durante las partidas.'
 mock: false
 ---

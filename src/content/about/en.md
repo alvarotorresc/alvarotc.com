@@ -1,6 +1,6 @@
 ---
 title: 'Hi, I am Álvaro. I like software that respects the person using it.'
-intro: 'Software engineer in Seville. This is the long version: who I am, where I come from and what I do when I close the laptop.'
+intro: 'Software Engineer in Seville. This is the long version: who I am, where I come from and what I do when I close the laptop.'
 values:
   - icon: tux
     title: 'Free software'
@@ -10,7 +10,7 @@ values:
     text: 'I do not ask you for an account unless it is needed, I do not track you and I think about protecting your data from day one.'
   - icon: cat
     title: 'Animals'
-    text: 'I am vegan and I help cat shelters in Seville. That is where Huellas comes from.'
+    text: 'I am vegan and I help animal shelters in Seville. That is where Huellas comes from.'
   - icon: megaphone
     title: 'Building in public'
     text: 'I share what I build while I build it: what worked, what broke and why I decided it that way.'
@@ -18,8 +18,10 @@ stages:
   - id: daw-2018
     kicker: '2018'
     title: 'Web application development'
+    icon: gradcap
     paragraphs:
-      - 'A two-year vocational degree at IES Velázquez in Seville. Along the way, the freeCodeCamp algorithms and data structures certification and the Everis Codefest, where I found out I cared more about the server than the screen.'
+      - 'Two years of a vocational degree at IES Velázquez in Seville. Java, JavaScript and databases, and the first time I saw clearly that what drew me in was what happens on the server, not what you see on the screen.'
+      - 'Outside class I earned the freeCodeCamp algorithms and data structures certification, competed in Codefest 2019 at Everis and went to every meetup and code fest I could. In this trade you learn as much from people as from the docs.'
     photo: ../../assets/about/ies-2018.jpg
     photoAlt: 'Placeholder: IES Velázquez, Seville'
     caption: '2018 · IES Velázquez, Seville'
@@ -31,23 +33,27 @@ stages:
   - id: z1-2020
     kicker: '2020'
     title: 'Z1 Digital Studio'
+    icon: rocket
     paragraphs:
-      - 'First job. Digital products for clients in the US and Canada in energy, security and social networks. Python and Django, Node and TypeScript, REST and GraphQL APIs, Docker on AWS.'
-      - 'I learned to ship as a team, Scrum or Kanban depending on the client, and that tests are not optional.'
+      - 'My first job. I built digital products for clients in the US and Canada: I maintained and extended apps in production with lots of users, such as [Waking Up](https://www.wakingup.com/) and [Storytelling with Data](https://www.storytellingwithdata.com/), and I worked on projects in energy, security and social media.'
+      - 'Python and Django, Node and TypeScript, REST and GraphQL APIs with Apollo and Graphene. Everything in Docker on AWS, with CI/CD on GitHub Actions: code only reached production once the rest of the team approved the pull request.'
+      - 'I learned to really work as a team, with Scrum or Kanban depending on the client, and that good test coverage is what lets you sleep at night.'
     photo: ../../assets/about/z1-2020.jpg
     photoAlt: 'Placeholder: Z1 Digital Studio'
     caption: '2020 · Z1 Digital Studio'
     facts:
       year: '2020'
-      place: 'Seville, hybrid'
+      place: 'Seville, remote'
       os: 'macOS'
       stack: 'Python, Django, Node, TypeScript'
   - id: therapyside-2022
     kicker: '2022'
     title: 'Therapyside'
+    icon: chat
     paragraphs:
-      - 'The backend of an online therapy platform with more than five thousand daily active users. I migrated the project from Python 2.7 to 3.7, moved the websockets to Django Channels, rebuilt notifications on Celery and Redis and set up the test suite.'
-      - 'Daily support with the operations team. This is where I learned that boring is a feature.'
+      - 'The backend of [Therapyside](https://www.therapyside.com/), an online therapy platform with more than 5,000 daily active users. I started with new features on Django REST Framework, such as couples therapy or a new onboarding, and ended up touching almost everything underneath.'
+      - 'I migrated the project from Python 2.7 to 3.7, moved the in-house websockets to Django Channels, rebuilt push and email notifications on Celery, Redis and Mailchimp, tuned PostgreSQL queries and set up the tests with Pytest. I also got the product ready for Italy and the UK, translating it into Italian and English, and built an internal platform so marketing, sales and other teams could manage patients, subscriptions and charts.'
+      - 'And daily support with the operations team, with the issues that came in through Zendesk. That is where I learned that in production, boring is a virtue.'
     photo: ../../assets/about/therapyside-2022.jpg
     photoAlt: 'Placeholder: Therapyside'
     caption: '2022 · Therapyside'
@@ -59,9 +65,11 @@ stages:
   - id: soltel-2025
     kicker: '2025'
     title: 'Soltel'
+    icon: server
     paragraphs:
-      - 'Microservices in Java 17 and Node 22 that talk to each other and to external agents, Angular on the front, Oracle and MongoDB behind.'
-      - 'A case-scoring system with Drools, built from scratch.'
+      - 'Microservices in Java 17 and Node 22 that talk to each other and to external agents. This is where I learned to think about systems I do not fully control: every service has to survive the one next to it failing.'
+      - 'I built a case-scoring system from scratch with Drools and designed its databases in Oracle and MongoDB.'
+      - 'I am now migrating several public grant and scholarship systems into a single robust one that talks to external systems through Kafka queues.'
     photo: ../../assets/about/soltel-2025.jpg
     photoAlt: 'Placeholder: Soltel'
     caption: '2025 · Soltel'
@@ -73,8 +81,9 @@ stages:
   - id: own-2026
     kicker: '2026'
     title: 'My own things'
+    icon: construction
     paragraphs:
-      - '[Bito](/projects/bito), [Quedamos](/projects/quedamos), [BaseCero](/projects/basecero) and now [Huellas](/projects/huellas). All free software, with the decisions written down on the blog.'
+      - 'Outside work I build my own things: [Bito](/projects/bito), [Quedamos](/projects/quedamos), [BaseCero](/projects/basecero), [Cheesy](/projects/cheesy) and now [Huellas](/projects/huellas). All free software, with the decisions written down on the blog.'
       - 'I build in public. I document the process on the blog, on video and on social media: what worked, what broke and why. Decisions, not tutorials.'
     photo: ../../assets/about/desk-2026.jpg
     photoAlt: 'Placeholder: my desk in 2026'
@@ -87,8 +96,9 @@ stages:
   - id: free-software
     kicker: 'Principles'
     title: 'Why I publish everything as free software'
+    icon: tux
     paragraphs:
-      - 'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. I have been doing it in production for more than five years.'
+      - 'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. I have been doing it in production for more than six years.'
       - 'What interests me most is that what I build can be used without having to trust anyone. That is why everything I publish is free software: you can read it, build it and fork it.'
       - 'And that is why my apps work without an account when none is needed, with no trackers and with data protected by design. I self-host the most essential services, so my files stay private and secure.'
     links:
@@ -104,14 +114,15 @@ stages:
       place: 'Seville'
       os: 'Ubuntu, Nobara'
       stack: 'Fedora Server, Docker, Caddy, Nginx, Proxmox'
-  - id: cats
-    kicker: 'Cats'
-    title: 'Cats, and why I am vegan'
+  - id: animals
+    kicker: 'Animals'
+    title: 'Animals, and why I am vegan'
+    icon: leaf
     paragraphs:
-      - 'I am vegan, and respect for animals is one of the core values of my everyday life.'
-      - 'I have volunteered at cat shelters in Seville since 2024, and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
+      - 'I have been vegan since 2021. I realised there was no need to exploit animals to live a full and healthy life, and since then respect for them has been one of the core values of my everyday life.'
+      - 'I have volunteered at animal shelters in Seville since 2024, and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Placeholder: shelter cats'
+    photoAlt: 'Placeholder: shelter animals'
     caption: 'Shelter · Seville'
     facts:
       year: '2024'
@@ -119,23 +130,27 @@ stages:
       os: '-'
       stack: '-'
   - id: guitar
-    kicker: 'Guitar'
+    kicker: 'Music'
     title: 'Electric guitar'
+    icon: guitar
     paragraphs:
-      - 'Mostly metal and rock. I am still learning, and sometimes I record myself on Linux to use it in one of my videos.'
+      - 'I love music, above all rock and metal, and the electric guitar in particular. I play an Ibanez.'
+      - 'I am still learning, with live lessons, videos and online courses. Sometimes I record myself on Linux to use it in one of my videos.'
     photo: ../../assets/about/guitar.jpg
     photoAlt: 'Placeholder: electric guitar'
-    caption: 'Metal and rock · Ardour'
+    caption: 'Ibanez · rock and metal'
     facts:
       year: '2025'
       place: 'Seville'
       os: '-'
       stack: 'Ardour'
   - id: chess
-    kicker: 'Chess'
+    kicker: 'Game'
     title: 'Chess'
+    icon: chess
     paragraphs:
-      - 'On Lichess, which is free software too. Always up for a game: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco).'
+      - 'I started in 2022, when my older brother taught me to play. Since then we play every week, share resources and watch games together.'
+      - 'I play on Lichess, which is free software too. Always up for a game: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco). And since I wanted a place to practise openings and endgames without an account, I made [Cheesy](/projects/cheesy).'
     photo: ../../assets/about/chess.jpg
     photoAlt: 'Placeholder: chess board'
     caption: 'Lichess · alvarotorrescarrasco'
@@ -145,10 +160,12 @@ stages:
       os: '-'
       stack: '-'
   - id: boxing
-    kicker: 'Boxing'
+    kicker: 'Sport'
     title: 'Boxing'
+    icon: boxing
     paragraphs:
-      - 'A few sessions a week. The only place where I do not think about software.'
+      - 'I train at a club in my neighbourhood. It is all amateur: I have never competed, I just train.'
+      - 'It helps me a lot to switch off and let go of all the mental load of this job. It is the only place where I do not think about software.'
     photo: ../../assets/about/boxing.jpg
     photoAlt: 'Placeholder: boxing gloves'
     caption: 'Boxing · Seville'
@@ -157,5 +174,12 @@ stages:
       place: 'Seville'
       os: '-'
       stack: '-'
+  - id: rpg
+    kicker: 'Role-playing'
+    title: 'Dungeons & Dragons'
+    icon: dice
+    paragraphs:
+      - 'I love role-playing games. I play Dungeons & Dragons as a player with a small group of close friends spread all over Spain, and now and then I join an in-person game at local clubs.'
+      - 'My favourite class is the bard, and I love playing my guitar during the sessions.'
 mock: false
 ---

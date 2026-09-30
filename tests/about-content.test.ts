@@ -8,10 +8,11 @@ const ids = [
   'soltel-2025',
   'own-2026',
   'free-software',
-  'cats',
+  'animals',
   'guitar',
   'chess',
   'boxing',
+  'rpg',
 ];
 const photos = [
   'desk-2026',
@@ -30,7 +31,7 @@ describe.each(['es', 'en'])('about/%s.md', (lang) => {
   const source = readFileSync(`src/content/about/${lang}.md`, 'utf8');
   const body = source.split(/^---$/m)[2] ?? '';
 
-  it('lists the ten stages in order', () => {
+  it('lists the eleven stages in order', () => {
     const found = [...source.matchAll(/^ {2}- id: ([\w-]+)$/gm)].map((m) => m[1]);
     expect(found).toEqual(ids);
   });
