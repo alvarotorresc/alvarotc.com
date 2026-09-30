@@ -6,6 +6,7 @@ import { getStackGroups } from '../../lib/stack';
 import { getPosts } from '../../lib/posts';
 import { getAuthor, getDescription } from '../../lib/config';
 import { formatDate } from '../../lib/utils';
+import { inlineLinks } from '../../lib/inline-links';
 
 interface Props {
   lang: Locale;
@@ -66,7 +67,10 @@ function projectLine(project: ProjectEntry): string {
                     {formatPeriod(entry.data.start, entry.data.end, lang)}
                   </span>
                 </div>
-                <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
+                <p
+                  class="text-[12px] leading-relaxed text-muted"
+                  set:html={inlineLinks(entry.data.summary[lang])}
+                />
                 {entry.data.highlights?.[lang] && entry.data.highlights[lang].length > 0 && (
                   <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
                     {(entry.data.highlights?.[lang] ?? []).map((h) => (
@@ -142,7 +146,10 @@ function projectLine(project: ProjectEntry): string {
                     {formatPeriod(entry.data.start, entry.data.end, lang)}
                   </span>
                 </div>
-                <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
+                <p
+                  class="text-[12px] leading-relaxed text-muted"
+                  set:html={inlineLinks(entry.data.summary[lang])}
+                />
                 {entry.data.highlights?.[lang] && entry.data.highlights[lang].length > 0 && (
                   <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
                     {(entry.data.highlights?.[lang] ?? []).map((h) => (

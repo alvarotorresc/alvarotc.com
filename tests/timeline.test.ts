@@ -6,10 +6,15 @@ const entries = [
   {
     period: '2024 - now',
     title: 'Backend developer, Nortia',
-    summary: 'Servicios internos.',
+    summaryHtml: 'Servicios internos.',
     current: true,
   },
-  { period: '2021 - 2022', title: 'Developer, Kestrel', summary: 'Integraciones.', current: false },
+  {
+    period: '2021 - 2022',
+    title: 'Developer, Kestrel',
+    summaryHtml: 'Integraciones.',
+    current: false,
+  },
 ];
 
 describe('Timeline island', () => {
