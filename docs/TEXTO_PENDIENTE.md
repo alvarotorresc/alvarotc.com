@@ -242,7 +242,7 @@ El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces n
 
 ### B8. Menores
 
-- [ ] 404 (`error.text`): «Esta página no existe o se ha movido a otro sitio.»
+- [x] 404 (`error.text`): «Esta página no existe o se ha movido a otro sitio.»
 - [x] Stats (`/es/stats/`, fuera del menú): subtítulo y frases que acompañan a las cifras
       (`stats.*`)
 - [x] Enlaces sociales en `site.config.ts`: GitHub `alvarotorresc`, LinkedIn
