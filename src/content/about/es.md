@@ -86,7 +86,7 @@ stages:
       - 'Fuera del trabajo construyo mis propias cosas: [Bito](/es/projects/bito), [Quedamos](/es/projects/quedamos), [BaseCero](/es/projects/basecero), [Cheesy](/es/projects/cheesy) y ahora [Huellas](/es/projects/huellas). Todo software libre, con las decisiones escritas en el blog.'
       - 'Construyo en público. Documento el proceso en el blog, en vídeo y en redes: qué funcionó, qué se rompió y por qué. No tutoriales, sino decisiones.'
     photo: ../../assets/about/desk-2026.jpg
-    photoAlt: 'Placeholder: mi mesa en 2026'
+    photoAlt: 'Mi escritorio en 2026: un monitor ultrapanorámico curvo con el fondo de montañas, un teclado mecánico transparente con luz azul, dos ratones y una alfombrilla de Snorlax.'
     caption: '2026 · Sevilla'
     facts:
       year: '2026'
