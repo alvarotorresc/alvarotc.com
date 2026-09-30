@@ -107,7 +107,7 @@ stages:
       - label: '/projects/bito'
         href: '/es/projects/bito'
     photo: ../../assets/about/linux.jpg
-    photoAlt: 'Placeholder: escritorio Linux'
+    photoAlt: 'Mi escritorio de Nobara Linux: un fondo de montañas con una torre de vigilancia al atardecer, la fecha arriba y el dock con mis aplicaciones abajo.'
     caption: 'Ubuntu desde 2018 · Nobara desde 2022'
     facts:
       year: '2018'
