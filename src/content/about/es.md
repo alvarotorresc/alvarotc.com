@@ -55,7 +55,7 @@ stages:
       - 'Migré el proyecto de Python 2.7 a 3.7, llevé los websockets propios a Django Channels, rehice las notificaciones push y por correo sobre Celery, Redis y Mailchimp, optimicé consultas de PostgreSQL y monté los tests con Pytest. También preparé el producto para salir a Italia y Reino Unido, traduciéndolo al italiano y al inglés, y monté una plataforma interna para que marketing, ventas y otros equipos gestionaran pacientes, suscripciones y gráficas.'
       - 'Y soporte diario con el equipo de operaciones, con las incidencias que llegaban por Zendesk. Ahí aprendí que en producción aburrido es una virtud.'
     photo: ../../assets/about/therapyside-2022.jpg
-    photoAlt: 'Placeholder: Therapyside'
+    photoAlt: 'Yo en el andén de la estación de Santa Justa, en Sevilla, con mascarilla, mochila y la sudadera de Therapyside.'
     caption: '2022 · Therapyside'
     facts:
       year: '2022'
@@ -122,7 +122,7 @@ stages:
       - 'Soy vegano desde 2021. Me di cuenta de que no hacía falta explotar animales para vivir una vida plena y saludable, y desde entonces el respeto hacia ellos es uno de los principales valores de mi día a día.'
       - 'Colaboro con refugios de animales en Sevilla desde 2024, y de esa experiencia sale [Huellas](/es/projects/huellas), la plataforma para reunir mascotas perdidas con sus familias que estoy construyendo ahora.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Placeholder: animales del refugio'
+    photoAlt: 'Dos gatos en un rascador: uno atigrado tumbado arriba y uno negro sentado a su lado.'
     caption: 'Refugio · Sevilla'
     facts:
       year: '2024'

@@ -55,7 +55,7 @@ stages:
       - 'I migrated the project from Python 2.7 to 3.7, moved the in-house websockets to Django Channels, rebuilt push and email notifications on Celery, Redis and Mailchimp, tuned PostgreSQL queries and set up the tests with Pytest. I also got the product ready for Italy and the UK, translating it into Italian and English, and built an internal platform so marketing, sales and other teams could manage patients, subscriptions and charts.'
       - 'And daily support with the operations team, with the issues that came in through Zendesk. That is where I learned that in production, boring is a virtue.'
     photo: ../../assets/about/therapyside-2022.jpg
-    photoAlt: 'Placeholder: Therapyside'
+    photoAlt: 'Me on the platform at Santa Justa station in Seville, wearing a mask, a backpack and a Therapyside hoodie.'
     caption: '2022 · Therapyside'
     facts:
       year: '2022'
@@ -122,7 +122,7 @@ stages:
       - 'I have been vegan since 2021. I realised there was no need to exploit animals to live a full and healthy life, and since then respect for them has been one of the core values of my everyday life.'
       - 'I have volunteered at animal shelters in Seville since 2024, and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
     photo: ../../assets/about/cats.jpg
-    photoAlt: 'Placeholder: shelter animals'
+    photoAlt: 'Two cats on a cat tree: a tabby lying on top and a black cat sitting next to it.'
     caption: 'Shelter · Seville'
     facts:
       year: '2024'
