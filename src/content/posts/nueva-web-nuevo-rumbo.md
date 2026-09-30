@@ -6,6 +6,8 @@ draft: false
 tags: ['meta', 'web', 'astro', 'proyectos']
 ---
 
+> **Nota (septiembre de 2026):** este artículo describe la primera versión de la web, la de febrero de 2026. En septiembre la rediseñé entera, así que lo que cuenta aquí del diseño y la estructura ya no se corresponde con lo que ves.
+
 ## La web anterior estaba muerta
 
 Mi web personal llevaba más de dos años con Next.js 12, un diseño que nunca terminé de pulir y cero contenido real. Era una landing page estática que no contaba nada sobre mí ni sobre lo que hago. Cada vez que alguien me pedía un portfolio o un enlace profesional, sentía una mezcla de vergüenza y pereza. Vergüenza porque sabía que no me representaba, y pereza porque tocar aquel código significaba lidiar con dependencias obsoletas y decisiones técnicas que ya no compartía.
