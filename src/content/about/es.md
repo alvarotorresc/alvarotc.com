@@ -76,7 +76,7 @@ stages:
     facts:
       year: '2025'
       place: 'Sevilla, remoto'
-      os: 'Windows'
+      os: 'Windows, Pop!_OS'
       stack: 'Java 17, Node 22, Angular, Drools'
   - id: own-2026
     kicker: '2026'
