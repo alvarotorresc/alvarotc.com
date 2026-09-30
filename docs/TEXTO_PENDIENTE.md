@@ -176,16 +176,16 @@ En cada uno: fechas, ubicación, resumen, logros y stack, en los dos idiomas.
 Ficheros: `src/content/projects/{es,en}/` · En cada una: tagline, intro, datos, funciones, «Cómo
 está hecho», changelog y «Por qué existe».
 
-- [ ] Bito (`/es/projects/bito/`)
-- [ ] Bito en inglés
-- [ ] Quedamos (`/es/projects/quedamos/`): las notas de v0.2.2 a v0.3.1 salen del historial del repo
-- [ ] Quedamos en inglés
-- [ ] BaseCero (`/es/projects/basecero/`): «Por qué existe» son dos líneas sueltas; ampliarlo
-- [ ] BaseCero en inglés
-- [ ] PokeUtils (`/es/projects/pokeutils/`): «Por qué existe» repite la intro
-- [ ] PokeUtils en inglés
-- [ ] DevTools (`/es/projects/devtools/`): 52 herramientas con su descripción
-- [ ] DevTools en inglés
+- [x] Bito (`/es/projects/bito/`)
+- [x] Bito en inglés
+- [x] Quedamos (`/es/projects/quedamos/`): las notas de v0.2.2 a v0.3.1 salen del historial del repo
+- [x] Quedamos en inglés
+- [x] BaseCero (`/es/projects/basecero/`): «Por qué existe» son dos líneas sueltas; ampliarlo
+- [x] BaseCero en inglés
+- [x] PokeUtils (`/es/projects/pokeutils/`): «Por qué existe» repite la intro
+- [x] PokeUtils en inglés
+- [x] DevTools (`/es/projects/devtools/`): 52 herramientas con su descripción
+- [x] DevTools en inglés
 - [ ] Huellas (`/es/projects/huellas/`): «Definición aprobada, sin código», «12 documentos», lista
       del MVP
 - [ ] Huellas en inglés
