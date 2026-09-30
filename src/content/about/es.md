@@ -71,7 +71,7 @@ stages:
       - 'Construí desde cero un sistema de baremación de expedientes con Drools y diseñé sus bases de datos en Oracle y MongoDB.'
       - 'Ahora estoy migrando varios sistemas públicos de ayudas y becas a uno solo, robusto, que se comunica con sistemas externos a través de colas de Kafka.'
     photo: ../../assets/about/soltel-2025.jpg
-    photoAlt: 'Placeholder: Soltel'
+    photoAlt: 'Un portátil encendido con Pop!_OS y su logo de fondo, con el teclado retroiluminado, en una habitación con luz azul.'
     caption: '2025 · Soltel'
     facts:
       year: '2025'

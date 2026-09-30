@@ -78,7 +78,7 @@ cada `photoAlt`, que hoy dice «Placeholder: …».
 - [x] `ies-2018.jpg` y su texto alternativo
 - [x] `z1-2020.jpg` y su texto alternativo
 - [x] `therapyside-2022.jpg` y su texto alternativo
-- [ ] `soltel-2025.jpg` y su texto alternativo
+- [x] `soltel-2025.jpg` y su texto alternativo
 - [ ] `desk-2026.jpg` y su texto alternativo
 - [ ] `linux.jpg` y su texto alternativo
 - [x] `cats.jpg` y su texto alternativo

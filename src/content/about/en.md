@@ -71,7 +71,7 @@ stages:
       - 'I built a case-scoring system from scratch with Drools and designed its databases in Oracle and MongoDB.'
       - 'I am now migrating several public grant and scholarship systems into a single robust one that talks to external systems through Kafka queues.'
     photo: ../../assets/about/soltel-2025.jpg
-    photoAlt: 'Placeholder: Soltel'
+    photoAlt: 'A laptop running Pop!_OS with its logo as wallpaper and a backlit keyboard, in a room lit in blue.'
     caption: '2025 · Soltel'
     facts:
       year: '2025'
