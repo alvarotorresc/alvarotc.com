@@ -159,17 +159,17 @@ En cada uno: fechas, ubicación, resumen, logros y stack, en los dos idiomas.
 
 ### B3. Sobre mí (lo ya escrito)
 
-- [ ] Título e introducción de la página
-- [ ] 2018: párrafo del ciclo, freeCodeCamp y Codefest
-- [ ] Z1: «clientes de Estados Unidos y Canadá en energía, seguridad y redes sociales»
-- [ ] Therapyside: «más de cinco mil usuarios activos al día», migración de Python 2.7 a 3.7
-- [ ] Soltel: microservicios y el sistema de baremación con Drools
-- [ ] Mis propias cosas: los dos párrafos. Nombra Bito, Quedamos, BaseCero y Huellas; decidir si
+- [x] Título e introducción de la página
+- [x] 2018: párrafo del ciclo, freeCodeCamp y Codefest
+- [x] Z1: «clientes de Estados Unidos y Canadá en energía, seguridad y redes sociales»
+- [x] Therapyside: «más de cinco mil usuarios activos al día», migración de Python 2.7 a 3.7
+- [x] Soltel: microservicios y el sistema de baremación con Drools
+- [x] Mis propias cosas: los dos párrafos. Nombra Bito, Quedamos, BaseCero y Huellas; decidir si
       entra Cheesy
-- [ ] Ajedrez: decidir si la frase enlaza a Cheesy
-- [ ] Principios: «Llevo más de cinco años haciéndolo en producción»
+- [x] Ajedrez: decidir si la frase enlaza a Cheesy
+- [x] Principios: «Llevo más de cinco años haciéndolo en producción»
 - [ ] Gatos: «desde 2024»
-- [ ] Guitarra, ajedrez y boxeo: una frase cada uno
+- [x] Guitarra, ajedrez y boxeo: una frase cada uno
 
 ### B4. Fichas de proyecto
 
