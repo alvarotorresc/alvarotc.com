@@ -39,7 +39,7 @@ stages:
       - 'Python and Django, Node and TypeScript, REST and GraphQL APIs with Apollo and Graphene. Everything in Docker on AWS, with CI/CD on GitHub Actions: code only reached production once the rest of the team approved the pull request.'
       - 'I learned to really work as a team, with Scrum or Kanban depending on the client, and that good test coverage is what lets you sleep at night.'
     photo: ../../assets/about/z1-2020.jpg
-    photoAlt: 'Placeholder: Z1 Digital Studio'
+    photoAlt: 'A Z1 Digital Studio tote bag with the motto “Creativity is necessary, Honesty is essential” and the company logo.'
     caption: '2020 · Z1 Digital Studio'
     facts:
       year: '2020'
@@ -152,7 +152,7 @@ stages:
       - 'I started in 2022, when my older brother taught me to play. Since then we play every week, share resources and watch games together.'
       - 'I play on Lichess, which is free software too. Always up for a game: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco). And since I wanted a place to practise openings and endgames without an account, I made [Cheesy](/projects/cheesy).'
     photo: ../../assets/about/chess.jpg
-    photoAlt: 'Placeholder: chess board'
+    photoAlt: 'A game in progress on a folding wooden board, with the white pieces in the foreground.'
     caption: 'Lichess · alvarotorrescarrasco'
     facts:
       year: '2022'
