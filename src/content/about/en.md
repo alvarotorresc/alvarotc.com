@@ -107,7 +107,7 @@ stages:
       - label: '/projects/bito'
         href: '/projects/bito'
     photo: ../../assets/about/linux.jpg
-    photoAlt: 'Placeholder: Linux desktop'
+    photoAlt: 'My Nobara Linux desktop: a mountain wallpaper with a fire lookout tower at sunset, the date at the top and the dock with my apps at the bottom.'
     caption: 'Ubuntu since 2018 · Nobara since 2022'
     facts:
       year: '2018'
