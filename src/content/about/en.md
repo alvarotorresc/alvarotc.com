@@ -4,16 +4,16 @@ intro: 'Software engineer in Seville. This is the long version: who I am, where 
 values:
   - icon: tux
     title: 'Free software'
-    text: 'Everything I publish is open source. You can read it, build it and fork it.'
+    text: 'I publish the code of everything I make. If you use something of mine, you can read how it works, build it yourself and take it elsewhere.'
   - icon: lock
     title: 'Privacy and security'
-    text: 'No accounts when they are not needed, no trackers, and data protected by design.'
+    text: 'I do not ask you for an account unless it is needed, I do not track you and I think about protecting your data from day one.'
   - icon: cat
     title: 'Animals'
-    text: 'Vegan and volunteer at cat shelters. Huellas comes from there.'
+    text: 'I am vegan and I help cat shelters in Seville. That is where Huellas comes from.'
   - icon: megaphone
     title: 'Building in public'
-    text: 'I document the process on the blog, on video and on social media. What worked, what broke, why.'
+    text: 'I share what I build while I build it: what worked, what broke and why I decided it that way.'
 stages:
   - id: daw-2018
     kicker: '2018'
@@ -26,8 +26,8 @@ stages:
     facts:
       year: '2018'
       place: 'Seville'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Windows and Ubuntu'
+      stack: 'Java, JavaScript, HTML, CSS'
   - id: z1-2020
     kicker: '2020'
     title: 'Z1 Digital Studio'
@@ -39,8 +39,8 @@ stages:
     caption: '2020 · Z1 Digital Studio'
     facts:
       year: '2020'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Seville, hybrid'
+      os: 'macOS'
       stack: 'Python, Django, Node, TypeScript'
   - id: therapyside-2022
     kicker: '2022'
@@ -53,8 +53,8 @@ stages:
     caption: '2022 · Therapyside'
     facts:
       year: '2022'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Madrid, remote'
+      os: 'macOS'
       stack: 'Python, Django Channels, Celery, Redis'
   - id: soltel-2025
     kicker: '2025'
@@ -67,8 +67,8 @@ stages:
     caption: '2025 · Soltel'
     facts:
       year: '2025'
-      place: '[DATO]'
-      os: '[DATO]'
+      place: 'Seville, remote'
+      os: 'Windows'
       stack: 'Java 17, Node 22, Angular, Drools'
   - id: own-2026
     kicker: '2026'
@@ -82,15 +82,15 @@ stages:
     facts:
       year: '2026'
       place: 'Seville'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Nobara'
+      stack: 'Python, TypeScript, Astro, Go, Docker'
   - id: free-software
     kicker: 'Principles'
     title: 'Why I publish everything as free software'
     paragraphs:
       - 'I build the parts of a product that nobody sees until they break: APIs, data models, queues, deploys. I have been doing it in production for more than five years.'
       - 'What interests me most is that what I build can be used without having to trust anyone. That is why everything I publish is free software: you can read it, build it and fork it.'
-      - 'And that is why my apps work without an account when none is needed, with no trackers and with data protected by design. I self-host [DATO].'
+      - 'And that is why my apps work without an account when none is needed, with no trackers and with data protected by design. I self-host the most essential services, so my files stay private and secure.'
     links:
       - label: 'github.com/alvarotorresc'
         href: 'https://github.com/alvarotorresc'
@@ -98,18 +98,18 @@ stages:
         href: '/projects/bito'
     photo: ../../assets/about/linux.jpg
     photoAlt: 'Placeholder: Linux desktop'
-    caption: '[DATO] · since [DATO]'
+    caption: 'Ubuntu since 2018 · Nobara since 2022'
     facts:
-      year: '[DATO]'
+      year: '2018'
       place: 'Seville'
-      os: '[DATO]'
-      stack: '[DATO]'
+      os: 'Ubuntu, Nobara'
+      stack: 'Fedora Server, Docker, Caddy, Nginx, Proxmox'
   - id: cats
     kicker: 'Cats'
     title: 'Cats, and why I am vegan'
     paragraphs:
-      - 'I am vegan and I care about animals. [DATO]'
-      - 'I have volunteered at cat shelters in Seville since 2024 ([DATO]), and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
+      - 'I am vegan, and respect for animals is one of the core values of my everyday life.'
+      - 'I have volunteered at cat shelters in Seville since 2024, and that experience is where [Huellas](/projects/huellas) comes from, the platform to reunite lost pets with their families that I am building now.'
     photo: ../../assets/about/cats.jpg
     photoAlt: 'Placeholder: shelter cats'
     caption: 'Shelter · Seville'
@@ -122,38 +122,38 @@ stages:
     kicker: 'Guitar'
     title: 'Electric guitar'
     paragraphs:
-      - 'Mostly rock and blues, badly recorded on Linux with Ardour.'
+      - 'Mostly metal and rock. I am still learning, and sometimes I record myself on Linux to use it in one of my videos.'
     photo: ../../assets/about/guitar.jpg
     photoAlt: 'Placeholder: electric guitar'
-    caption: 'Rock and blues · Ardour'
+    caption: 'Metal and rock · Ardour'
     facts:
-      year: '[DATO]'
+      year: '2025'
       place: 'Seville'
-      os: '[DATO]'
+      os: '-'
       stack: 'Ardour'
   - id: chess
     kicker: 'Chess'
     title: 'Chess'
     paragraphs:
-      - 'On Lichess, which is free software too. Always up for a game: [DATO].'
+      - 'On Lichess, which is free software too. Always up for a game: [alvarotorrescarrasco](https://lichess.org/@/alvarotorrescarrasco).'
     photo: ../../assets/about/chess.jpg
     photoAlt: 'Placeholder: chess board'
-    caption: 'Lichess · [DATO]'
+    caption: 'Lichess · alvarotorrescarrasco'
     facts:
-      year: '[DATO]'
+      year: '2022'
       place: 'Lichess'
-      os: '[DATO]'
+      os: '-'
       stack: '-'
   - id: boxing
     kicker: 'Boxing'
     title: 'Boxing'
     paragraphs:
-      - 'A few sessions a week. The only place where I do not think about queues.'
+      - 'A few sessions a week. The only place where I do not think about software.'
     photo: ../../assets/about/boxing.jpg
     photoAlt: 'Placeholder: boxing gloves'
     caption: 'Boxing · Seville'
     facts:
-      year: '[DATO]'
+      year: '2024'
       place: 'Seville'
       os: '-'
       stack: '-'
