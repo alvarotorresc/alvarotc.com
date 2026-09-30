@@ -34,6 +34,7 @@ interface Props {
   prevHref?: string;
   nextHref?: string;
   noindex?: boolean;
+  bilingualChrome?: boolean;
 }
 
 const currentPath = Astro.url.pathname;
@@ -51,6 +52,7 @@ const {
   jsonLd,
   prevHref,
   nextHref,
+  bilingualChrome = false,
   noindex,
 } = Astro.props;
 const description = Astro.props.description ?? getDescription(lang);
@@ -93,6 +95,13 @@ const defaultJsonLd = {
   author: { '@type': 'Person', name: author.name, url: new URL('/', Astro.site).toString() },
   ...(publishedTime && { datePublished: publishedTime }),
 };
+const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden: boolean }[] =
+  bilingualChrome
+    ? [
+        { lang: 'en', currentPath: '/', alternatePath: '/es/', hidden: lang !== 'en' },
+        { lang: 'es', currentPath: '/es/', alternatePath: '/', hidden: lang !== 'es' },
+      ]
+    : [{ lang, currentPath, alternatePath: alternate, hidden: false }];
 ---
 
 <!doctype html>
@@ -177,27 +186,39 @@ const defaultJsonLd = {
     }
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-fg"
-    >
-      {t('nav.skip', lang)}
-    </a>
-    <Nav
-      lang={lang}
-      currentPath={currentPath}
-      alternatePath={alternate}
-      experienceVisible={experienceVisible}
-    />
+    {
+      chrome.map((c) => (
+        <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
+          <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-fg"
+          >
+            {t('nav.skip', c.lang)}
+          </a>
+          <Nav
+            lang={c.lang}
+            currentPath={c.currentPath}
+            alternatePath={c.alternatePath}
+            experienceVisible={experienceVisible}
+          />
+        </div>
+      ))
+    }
     <main id="main" class="flex-1">
       <slot />
     </main>
-    <Footer
-      lang={lang}
-      currentPath={currentPath}
-      alternatePath={alternate}
-      analytics={Boolean(umamiWebsiteId)}
-    />
+    {
+      chrome.map((c) => (
+        <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
+          <Footer
+            lang={c.lang}
+            currentPath={c.currentPath}
+            alternatePath={c.alternatePath}
+            analytics={Boolean(umamiWebsiteId)}
+          />
+        </div>
+      ))
+    }
     <CommandPalette client:interaction lang={lang} />
   </body>
 </html>
