@@ -1,0 +1,30 @@
+---
+import { t, type Locale, translations } from '../../i18n/translations';
+
+interface Props {
+  id: string;
+  lang: Locale;
+  titleKey: keyof typeof translations.en;
+  subtitle?: string;
+  link?: string;
+  linkLabel?: string;
+}
+const { id, lang, titleKey, subtitle, link, linkLabel } = Astro.props;
+---
+
+<section id={id} class="section container-page flex flex-col gap-6">
+  <div class="flex flex-col gap-2">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 class="text-[22px] font-bold tracking-tight">{t(titleKey, lang)}</h2>
+      {
+        link && (
+          <a href={link} class="text-sm font-semibold text-accent">
+            {linkLabel}
+          </a>
+        )
+      }
+    </div>
+    {subtitle && <p class="max-w-[720px] text-sm leading-relaxed text-faint">{subtitle}</p>}
+  </div>
+  <slot />
+</section>

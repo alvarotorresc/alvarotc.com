@@ -1,0 +1,38 @@
+---
+import { getEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutStory from './AboutStory.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { mockEntries, warnMock } from '../../lib/mock-report';
+import { personJsonLd } from '../../lib/jsonld';
+import { toStoryStage } from '../../lib/about-stages';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+
+const entry = await getEntry('about', lang);
+if (!entry) throw new Error(`Missing src/content/about/${lang}.md`);
+warnMock('about', mockEntries([entry]));
+
+const { title, intro, mock } = entry.data;
+const stages = await Promise.all(
+  entry.data.stages.map(async (stage) => {
+    const image = stage.photo
+      ? await getImage({ src: stage.photo, width: 800, format: 'webp' })
+      : undefined;
+    return toStoryStage(stage, image?.src);
+  }),
+);
+---
+
+<BaseLayout
+  title={t('about.title', lang)}
+  description={intro}
+  lang={lang}
+  jsonLd={personJsonLd(lang)}
+>
+  <AboutStory lang={lang} title={title} intro={intro} stages={stages} mock={mock} />
+</BaseLayout>

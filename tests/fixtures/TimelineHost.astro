@@ -1,0 +1,10 @@
+---
+import Timeline, { type TimelineEntry } from '../../src/components/islands/Timeline';
+
+interface Props {
+  entries: TimelineEntry[];
+}
+const { entries } = Astro.props;
+---
+
+<Timeline client:visible entries={entries} />

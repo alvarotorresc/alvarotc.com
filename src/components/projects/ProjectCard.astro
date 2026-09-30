@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import Tag from '../ui/Tag.astro';
+import { t, statusLabel, type Locale } from '../../i18n/translations';
+import {
+  homeImage,
+  isVerticalImage,
+  projectSlug,
+  tone,
+  type ProjectEntry,
+} from '../../lib/projects';
+
+interface Props {
+  lang: Locale;
+  project: ProjectEntry;
+  featured?: boolean;
+  priority?: boolean;
+}
+const { lang, project, featured = false, priority = false } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const slug = projectSlug(project);
+const cover = homeImage(project);
+---
+
+<div class="card flex flex-col gap-3 p-5">
+  {
+    cover && (
+      <Image
+        src={cover}
+        alt={project.data.name}
+        width={640}
+        widths={[320, 480, 640, 960]}
+        sizes="(min-width: 1280px) 320px, (min-width: 768px) calc((100vw - 240px) / 3), calc(100vw - 72px)"
+        format="webp"
+        priority={priority}
+        class:list={[
+          'w-full rounded-[10px]',
+          featured ? 'aspect-video' : 'aspect-[16/10] max-h-[140px]',
+          isVerticalImage(cover) ? 'bg-surface-2 object-contain' : 'object-cover',
+        ]}
+      />
+    )
+  }
+  <a href={`${prefix}/projects/${slug}/`} class="flex items-center gap-2.5">
+    <h3 class="text-lg font-extrabold tracking-tight">{project.data.name}</h3>
+    <Tag tone={tone(project.data.status)}>{statusLabel(project.data.status, lang)}</Tag>
+  </a>
+  <p class="text-sm leading-relaxed text-muted">{project.data.tagline}</p>
+  {
+    project.data.stack.length > 0 && (
+      <ul class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-accent">
+        {project.data.stack.slice(0, 3).map((s) => (
+          <li>{s}</li>
+        ))}
+      </ul>
+    )
+  }
+  {
+    (project.data.url || project.data.repo) && (
+      <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
+        {project.data.url && (
+          <a href={project.data.url} rel="noopener">
+            {t('projects.live', lang)}
+          </a>
+        )}
+        {project.data.repo && (
+          <a href={project.data.repo} rel="noopener">
+            {t('projects.repo', lang)}
+          </a>
+        )}
+      </div>
+    )
+  }
+</div>

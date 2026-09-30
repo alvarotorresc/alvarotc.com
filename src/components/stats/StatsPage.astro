@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import StatsView from './StatsView.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { getPosts } from '../../lib/posts';
+import { loadStats, writingStats } from '../../lib/stats';
+import { buildStatsView } from '../../lib/stats-view';
+import { getAuthor } from '../../lib/config';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const alternatePath = lang === 'es' ? '/stats/' : '/es/stats/';
+
+const stats = loadStats();
+const posts = await getPosts(lang);
+const writing = writingStats(posts);
+const author = getAuthor();
+
+const view = buildStatsView({
+  stats,
+  writing,
+  lang,
+  now: new Date(),
+  githubUrl: `https://github.com/${author.github}`,
+  analytics: Boolean(import.meta.env.PUBLIC_UMAMI_WEBSITE_ID),
+});
+---
+
+<BaseLayout
+  title={t('stats.title', lang)}
+  description={t('stats.description', lang)}
+  lang={lang}
+  alternatePath={alternatePath}
+  noindex
+>
+  <StatsView view={view} />
+</BaseLayout>

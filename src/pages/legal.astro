@@ -1,0 +1,37 @@
+---
+import LegalPage from '../components/legal/LegalPage.astro';
+import { getAuthor } from '../lib/config';
+
+const repo = `https://github.com/${getAuthor().github}/alvarotc.com`;
+---
+
+<LegalPage lang="en" page="notice" updated="2026-09-25">
+  <h2>Owner</h2>
+  <p>
+    alvarotc.com belongs to Álvaro Torres Carrasco, a private individual. It is a personal website
+    with no commercial activity: it sells nothing, runs no advertising and offers no paid services,
+    which is why it lists no business address or tax ID.
+  </p>
+  <p>Contact: <a href="mailto:hello@alvarotc.com">hello@alvarotc.com</a>.</p>
+
+  <h2>Intellectual property</h2>
+  <p>
+    Unless stated otherwise, the texts and images on this site, blog posts included, belong to
+    Álvaro Torres Carrasco, with all rights reserved. You may quote them briefly as long as you
+    credit the author and link to the source.
+  </p>
+  <p>
+    The site's source code is free software, published under the <a
+      href="https://opensource.org/license/mit/">MIT License</a
+    > in <a href={repo}>its public repository</a>.
+  </p>
+
+  <h2>External links</h2>
+  <p>
+    This site links to other websites. I have no control over their content or availability and am
+    not responsible for them, nor for their privacy policies.
+  </p>
+
+  <h2>Applicable law</h2>
+  <p>This legal notice and the use of the site are governed by Spanish law.</p>
+</LegalPage>

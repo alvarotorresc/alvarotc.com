@@ -1,8 +1,15 @@
+export type NavItem = { key: string; href: string; requires?: 'experience' };
+
 export const siteConfig = {
   name: 'Álvaro Torres Carrasco',
-  tagline: 'Software Developer',
+  tagline: 'Software Engineer',
   domain: 'https://alvarotc.com',
-  description: 'Software Developer. Building things.',
+  description: {
+    en: 'Software Engineer in Seville. Backend, offline-first apps, self-hosted infrastructure and free software.',
+    es: 'Software Engineer en Sevilla. Backend, apps offline-first, infraestructura autoalojada y software libre.',
+  },
+
+  contactEndpoint: 'https://contact.alvarotc.com/send',
 
   author: {
     name: 'Álvaro Torres Carrasco',
@@ -14,11 +21,12 @@ export const siteConfig = {
   },
 
   nav: [
-    { label: 'Inicio', href: '/' },
-    { label: 'Sobre mí', href: '/about' },
-    { label: 'Proyectos', href: '/projects' },
-    { label: 'Blog', href: '/blog' },
-  ],
+    { key: 'nav.about', href: '/about/' },
+    { key: 'nav.projects', href: '/#projects' },
+    { key: 'nav.experience', href: '/#experience', requires: 'experience' },
+    { key: 'nav.writing', href: '/blog/' },
+    { key: 'nav.cv', href: '/cv/' },
+  ] as NavItem[],
 
   social: [
     { platform: 'github', url: 'https://github.com/alvarotorresc' },

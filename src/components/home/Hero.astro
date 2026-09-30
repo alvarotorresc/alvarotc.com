@@ -1,0 +1,56 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+import { getAuthor, getSiteName } from '../../lib/config';
+import HeroTerminal from '../islands/HeroTerminal';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+---
+
+<header
+  id="top"
+  class="container-page flex flex-col items-start gap-8 py-14 md:flex-row md:items-center md:justify-between md:gap-12 md:py-20"
+>
+  <div class="hero-in w-full max-w-[340px] md:order-last md:w-[360px] md:max-w-none">
+    <HeroTerminal client:idle lang={lang} email={getAuthor().email} />
+  </div>
+  <div class="flex flex-col gap-4">
+    <h1
+      class="hero-in text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+      style="animation-delay: 60ms"
+    >
+      {getSiteName()}
+    </h1>
+    <p
+      class="hero-in max-w-[640px] text-lg leading-relaxed text-muted md:text-[19px]"
+      style="animation-delay: 120ms"
+    >
+      {t('hero.intro', lang)}
+    </p>
+    <div class="hero-in flex flex-wrap gap-3 pt-1" style="animation-delay: 180ms">
+      <a href="#contact" class="btn-primary">{t('hero.contact', lang)}</a>
+      <a href={`${prefix}/cv/`} class="btn-secondary">{t('hero.cv', lang)}</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-in {
+      animation: hero-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    @keyframes hero-in {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+</style>

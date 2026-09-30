@@ -1,0 +1,30 @@
+---
+import ContactTerminal from '../islands/ContactTerminal';
+import { t, type Locale } from '../../i18n/translations';
+import { getAuthor, getContactEndpoint } from '../../lib/config';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const { email, github, linkedin, twitter } = getAuthor();
+const endpoint = getContactEndpoint();
+const links = [
+  { label: 'github', href: `https://github.com/${github}` },
+  { label: 'linkedin', href: `https://www.linkedin.com/in/${linkedin}/` },
+  { label: 'x', href: `https://x.com/${twitter}` },
+];
+---
+
+<section id="contact" class="section container-page flex flex-col gap-5">
+  <div class="flex flex-col gap-2">
+    <h2 class="text-[22px] font-bold tracking-tight">{t('contact.title', lang)}</h2>
+    <p class="flex items-center gap-2.5 text-sm text-muted">
+      <span class="h-2 w-2 shrink-0 rounded-full bg-ok" aria-hidden="true"></span>
+      {t('contact.open', lang)}. {t('contact.responseValue', lang)}.
+    </p>
+  </div>
+  <div>
+    <ContactTerminal client:visible lang={lang} endpoint={endpoint} email={email} links={links} />
+  </div>
+</section>

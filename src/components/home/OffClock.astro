@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import SectionHeading from '../ui/SectionHeading.astro';
+import ColorIcon from '../icons/color/ColorIcon.astro';
+import { colorIconTint } from '../icons/color/tints';
+import { t, type Locale } from '../../i18n/translations';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const interests = (await getCollection('interests')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<SectionHeading
+  id="offclock"
+  lang={lang}
+  titleKey="offclock.title"
+  subtitle={t('offclock.subtitle', lang)}
+>
+  <ul class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+    {
+      interests.map((i) => (
+        <li
+          class="flex flex-col gap-4 rounded-2xl p-6"
+          style={`background: color-mix(in srgb, ${colorIconTint[i.data.icon]} 10%, var(--bg));`}
+        >
+          <ColorIcon name={i.data.icon} size={48} />
+          <span class="flex flex-col gap-1.5">
+            <span class="text-[17px] font-bold">{i.data.title[lang]}</span>
+            <span class="text-sm leading-relaxed text-muted">{i.data.text[lang]}</span>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</SectionHeading>

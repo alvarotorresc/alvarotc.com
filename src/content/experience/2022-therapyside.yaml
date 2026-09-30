@@ -1,0 +1,26 @@
+kind: work
+company: Therapyside
+role: { en: Software Engineer, es: Software Engineer }
+location: Madrid (remote)
+start: '2022-03'
+end: '2024-01'
+summary:
+  en: 'I learned to keep a platform with more than 5,000 daily users running in production, and that boring is a virtue. I migrated the project from Python 2.7 to 3.7, moved the websockets to Django Channels and built an internal platform so marketing, sales and other teams could manage patients, subscriptions and charts. I worked on the backend of [Therapyside](https://www.therapyside.com/), an online therapy platform: couples therapy, onboarding and notifications.'
+  es: 'Aprendí a sostener en producción una plataforma con más de 5.000 usuarios diarios, y que aburrido es una virtud. Migré el proyecto de Python 2.7 a 3.7, llevé los websockets a Django Channels y monté una plataforma interna para que marketing, ventas y otros equipos gestionaran pacientes, suscripciones y gráficas. Trabajé en el backend de [Therapyside](https://www.therapyside.com/), una plataforma de terapia online: terapia de pareja, el onboarding y las notificaciones.'
+highlights:
+  en:
+    - Migrated the project from Python 2.7 to 3.7 and the in-house websockets to Django Channels.
+    - Shipped couples therapy and a new onboarding on Django REST Framework.
+    - Built an internal platform for marketing, sales and other teams to manage patients, subscriptions and charts.
+    - Rebuilt notifications on Celery and Redis; tuned PostgreSQL queries.
+    - Set up the Pytest suite and CI with Jenkins and GitHub Actions.
+    - Daily support for the operations team through Zendesk.
+  es:
+    - Migración del proyecto de Python 2.7 a 3.7 y de los websockets propios a Django Channels.
+    - Terapia de pareja y un onboarding nuevo sobre Django REST Framework.
+    - Plataforma interna para que marketing, ventas y otros equipos gestionen pacientes, suscripciones y gráficas.
+    - Notificaciones reconstruidas sobre Celery y Redis; optimización de queries en PostgreSQL.
+    - Estructura de tests con Pytest y CI con Jenkins y GitHub Actions.
+    - Soporte diario al equipo de operaciones a través de Zendesk.
+stack: [Python, Django, PostgreSQL, Celery, Redis, AWS, Pytest]
+mock: false

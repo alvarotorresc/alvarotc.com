@@ -68,4 +68,6 @@ npm run preview      # Preview del build
 
 ## Licencia
 
-MIT — ver [LICENSE](./LICENSE)
+El código fuente se publica bajo la [licencia MIT](./LICENSE).
+
+Los textos, las imágenes y el contenido del blog son © Álvaro Torres Carrasco, todos los derechos reservados salvo indicación en contrario.

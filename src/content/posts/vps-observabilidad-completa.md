@@ -1,5 +1,6 @@
 ---
 title: 'Cómo monté mi VPS con observabilidad completa por menos de 5€/mes'
+seoTitle: 'VPS observable por menos de 5€/mes'
 description: 'Docker Compose, Caddy, Upptime, Sentry, Firebase Analytics y Umami. Todo lo que necesitas para saber qué pasa en tu infra.'
 date: 2026-03-26
 draft: false

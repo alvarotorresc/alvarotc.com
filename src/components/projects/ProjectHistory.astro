@@ -1,0 +1,82 @@
+---
+import { t } from '../../i18n/translations';
+import { inlineLinks } from '../../lib/inline-links';
+import type { ProjectView } from '../../lib/project-view';
+
+interface Props {
+  view: ProjectView;
+}
+const { view } = Astro.props;
+const { lang } = view;
+const hasChangelog = view.changelog.length > 0;
+---
+
+<section
+  data-section="history"
+  class="grid grid-cols-1 gap-12 border-t border-border py-14 md:grid-cols-2 md:gap-x-20"
+>
+  {
+    view.built.length > 0 && (
+      <div class="flex flex-col gap-5">
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.built', lang)}</h2>
+        <ul
+          data-built
+          class="built flex list-disc flex-col gap-2.5 pl-[18px] text-[15px] leading-[1.6]"
+        >
+          {view.built.map((line) => (
+            <li set:html={inlineLinks(line)} />
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  <div class="flex flex-col gap-5">
+    {
+      hasChangelog && (
+        <>
+          <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.changelog', lang)}</h2>
+          <ol class="flex flex-col">
+            {view.changelog.map((row, i) => (
+              <li
+                data-release
+                class="grid grid-cols-1 gap-1 border-t border-border py-3.5 last:border-b sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-4"
+              >
+                <span
+                  class:list={['font-mono text-[13px]', i === 0 ? 'text-accent' : 'text-muted']}
+                >
+                  {row.when ? `${row.version}, ${row.when}` : row.version}
+                </span>
+                <span class="text-sm leading-[1.6]">{row.note}</span>
+              </li>
+            ))}
+          </ol>
+        </>
+      )
+    }
+    <div class="flex flex-wrap gap-6">
+      {
+        hasChangelog && view.releases && (
+          <a
+            data-releases
+            href={view.releases.href}
+            rel="noopener"
+            class="text-[13px] font-semibold text-accent"
+          >
+            {view.releases.label}
+          </a>
+        )
+      }
+      <a href={view.allProjects} class="text-[13px] font-semibold text-accent">
+        {t('projects.all', lang)}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .built :global(a) {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--accent);
+  }
+</style>

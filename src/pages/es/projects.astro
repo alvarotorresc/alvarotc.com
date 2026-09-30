@@ -1,30 +1,68 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
-import { getVisibleProjects } from '../../data/projects';
+import ProjectCard from '../../components/projects/ProjectCard.astro';
+import { getFeaturedProjects, getLabProjects } from '../../lib/projects';
+import { t } from '../../i18n/translations';
 
-const allProjects = getVisibleProjects();
+const lang = 'es';
+const featured = await getFeaturedProjects(lang);
+const lab = await getLabProjects(lang);
 ---
 
-<BaseLayout title="Proyectos">
-  <div class="min-h-screen max-w-2xl mx-auto px-6 py-16">
-    <!-- Back link -->
-    <a
-      href="/es"
-      class="inline-block text-sm text-text-muted hover:text-accent transition-colors mb-12"
-    >
-      &larr; Volver
-    </a>
-
-    <!-- Header -->
-    <header class="mb-12">
-      <h1 class="text-2xl font-medium mb-2">Proyectos</h1>
-      <p class="text-text-muted text-sm">Todos los proyectos</p>
-    </header>
-
-    <!-- Projects -->
-    <div class="space-y-3">
-      {allProjects.map((project) => <ProjectCard project={project} lang="es" />)}
+<BaseLayout title={t('projects.title', lang)} lang={lang}>
+  <div class="container-page flex flex-col gap-12 py-14">
+    <div class="flex flex-col gap-3">
+      <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">
+        {t('projects.title', lang)}
+      </h1>
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
+        <span>{t('projects.statusText', lang)}</span>
+        <a href="https://status.alvarotc.com" class="btn-secondary h-9 gap-1.5 px-3">
+          <span class="h-2 w-2 rounded-full bg-accent" aria-hidden="true"></span>
+          <span>{t('projects.statusLink', lang)}</span>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M7 17 17 7M8 7h9v9"></path>
+          </svg>
+        </a>
+      </div>
     </div>
+
+    <section class="flex flex-col gap-5">
+      <h2 class="sr-only">{t('projects.featured', lang)}</h2>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {
+          featured.map((project, i) => (
+            <ProjectCard lang={lang} project={project} featured priority={i === 0} />
+          ))
+        }
+      </div>
+    </section>
+
+    {
+      lab.length > 0 && (
+        <div class="flex flex-col gap-5">
+          <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {lab.map((project, i) => (
+              <ProjectCard
+                lang={lang}
+                project={project}
+                priority={featured.length === 0 && i === 0}
+              />
+            ))}
+          </div>
+        </div>
+      )
+    }
   </div>
 </BaseLayout>

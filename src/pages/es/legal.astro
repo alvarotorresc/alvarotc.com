@@ -1,0 +1,37 @@
+---
+import LegalPage from '../../components/legal/LegalPage.astro';
+import { getAuthor } from '../../lib/config';
+
+const repo = `https://github.com/${getAuthor().github}/alvarotc.com`;
+---
+
+<LegalPage lang="es" page="notice" updated="2026-09-25">
+  <h2>Titular</h2>
+  <p>
+    alvarotc.com pertenece a Álvaro Torres Carrasco, persona física. Es una web personal, sin
+    actividad comercial: no vende nada, no tiene publicidad ni ofrece servicios de pago, y por eso
+    no figura dirección postal ni NIF.
+  </p>
+  <p>Contacto: <a href="mailto:hello@alvarotc.com">hello@alvarotc.com</a>.</p>
+
+  <h2>Propiedad intelectual</h2>
+  <p>
+    Salvo que se indique lo contrario, los textos y las imágenes de esta web, artículos del blog
+    incluidos, son de Álvaro Torres Carrasco, con todos los derechos reservados. Puedes citarlos
+    brevemente siempre que menciones al autor y enlaces a la fuente.
+  </p>
+  <p>
+    El código fuente de la web es software libre, publicado bajo la <a
+      href="https://opensource.org/license/mit/">Licencia MIT</a
+    > en <a href={repo}>su repositorio público</a>.
+  </p>
+
+  <h2>Enlaces externos</h2>
+  <p>
+    Esta web enlaza a otros sitios. No controlo su contenido ni su disponibilidad y no me hago
+    responsable de ellos ni de sus políticas de privacidad.
+  </p>
+
+  <h2>Ley aplicable</h2>
+  <p>Este aviso legal y el uso de la web se rigen por la legislación española.</p>
+</LegalPage>

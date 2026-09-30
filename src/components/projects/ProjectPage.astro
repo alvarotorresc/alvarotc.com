@@ -1,0 +1,93 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getEntry, render } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectView from './ProjectView.astro';
+import type { Locale } from '../../i18n/translations';
+import { getAuthor } from '../../lib/config';
+import { projectSlug, type ProjectEntry } from '../../lib/projects';
+import { featureBlocks, toProjectView, type LinkRef } from '../../lib/project-view';
+
+interface Props {
+  lang: Locale;
+  project: ProjectEntry;
+}
+const { lang, project } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const slug = projectSlug(project);
+const alternatePath = `${lang === 'es' ? '' : '/es'}/projects/${slug}/`;
+const data = project.data;
+
+async function webp(src: ImageMetadata, width: number): Promise<string> {
+  return (await getImage({ src, width, format: 'webp' })).src;
+}
+
+async function optional(src: ImageMetadata | undefined, width: number) {
+  return src ? webp(src, width) : undefined;
+}
+
+const shotWidth = data.kind === 'web' ? 800 : 400;
+const fullWidth = data.kind === 'web' ? 1600 : 1080;
+const blocks = featureBlocks(data.kind, data.features, data.featureBlockLimit);
+const images = {
+  icon: await optional(data.icon, 144),
+  cover: await optional(data.cover, data.kind === 'mobile' ? 780 : 1240),
+  coverMobile: await optional(data.coverMobile, 400),
+  illustration: await optional(data.illustration, 320),
+  promo: await optional(data.promo, 1240),
+  screenshots: await Promise.all(data.screenshots.map((shot) => webp(shot.src, shotWidth))),
+  screenshotsFull: await Promise.all(data.screenshots.map((shot) => webp(shot.src, fullWidth))),
+  features: await Promise.all(data.features.map((feature) => optional(feature.image, 288))),
+  featuresFull: await Promise.all(
+    data.features.map((feature) =>
+      blocks.includes(feature) ? optional(feature.image, fullWidth) : undefined,
+    ),
+  ),
+  tools: await Promise.all(data.tools.map((tool) => optional(tool.image, 880))),
+  toolsFull: await Promise.all(data.tools.map((tool) => optional(tool.image, 1600))),
+};
+
+const coverIsVertical = Boolean(data.cover && data.cover.height > data.cover.width);
+const ogImage = images.promo ?? (coverIsVertical ? undefined : images.cover);
+
+async function findPost(id: string): Promise<LinkRef> {
+  const entry = lang === 'es' ? await getEntry('posts', id) : await getEntry('posts-en', id);
+  if (!entry || entry.data.draft) {
+    throw new Error(`Project ${project.id} points to a missing post: ${id}`);
+  }
+  return { href: `${prefix}/blog/${entry.id}/`, label: entry.data.title };
+}
+
+const post = data.post ? await findPost(data.post) : undefined;
+const view = toProjectView(data, images, lang, post);
+
+const author = getAuthor();
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: data.name,
+  description: data.intro ?? data.tagline,
+  applicationCategory: 'DeveloperApplication',
+  ...(data.platform && { operatingSystem: data.platform }),
+  ...(data.url && { url: data.url }),
+  ...(data.repo && { codeRepository: data.repo }),
+  ...(data.license && { license: data.license }),
+  author: { '@type': 'Person', name: author.name },
+};
+
+const { Content } = await render(project);
+---
+
+<BaseLayout
+  title={data.name}
+  description={data.tagline}
+  image={ogImage}
+  lang={lang}
+  alternatePath={alternatePath}
+  jsonLd={jsonLd}
+>
+  <ProjectView view={view}>
+    <Content />
+  </ProjectView>
+</BaseLayout>

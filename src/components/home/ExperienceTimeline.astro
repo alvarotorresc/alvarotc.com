@@ -1,0 +1,35 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro';
+import Timeline, { type TimelineEntry } from '../islands/Timeline';
+import { getExperience, formatPeriod, isCurrent, hasMockExperience } from '../../lib/experience';
+import { t, type Locale } from '../../i18n/translations';
+import { inlineLinks } from '../../lib/inline-links';
+
+interface Props {
+  lang: Locale;
+}
+const { lang } = Astro.props;
+const prefix = lang === 'es' ? '/es' : '';
+const all = await getExperience();
+const entries = hasMockExperience(all) ? [] : all;
+const items: TimelineEntry[] = entries.map((entry) => ({
+  period: formatPeriod(entry.data.start, entry.data.end, lang),
+  title: `${entry.data.role[lang]}, ${entry.data.company}`,
+  summaryHtml: inlineLinks(entry.data.summary[lang]),
+  current: isCurrent(entry),
+}));
+---
+
+{
+  items.length > 0 && (
+    <SectionHeading
+      id="experience"
+      lang={lang}
+      titleKey="experience.title"
+      link={`${prefix}/cv/`}
+      linkLabel={t('experience.cv', lang)}
+    >
+      <Timeline client:visible entries={items} />
+    </SectionHeading>
+  )
+}

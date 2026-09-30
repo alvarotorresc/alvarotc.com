@@ -1,0 +1,91 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+import { tagLabel } from '../../lib/tags';
+
+interface Props {
+  lang: Locale;
+  tags: { tag: string; count: number }[];
+  total: number;
+  allHref: string;
+  topicHref: (tag: string) => string;
+  activeTag?: string;
+  class?: string;
+}
+const { lang, tags, total, allHref, topicHref, activeTag, class: className } = Astro.props;
+const itemBase =
+  'flex h-8 items-center justify-between gap-3 rounded-md px-2.5 text-sm font-medium text-muted hover:text-text aria-[current=page]:bg-surface-2 aria-[current=page]:font-bold aria-[current=page]:text-text';
+const label = activeTag
+  ? t('writing.filterTag', lang).replace('{tag}', tagLabel(activeTag, lang))
+  : t('writing.filter', lang);
+---
+
+<details data-topics-filter class:list={['group relative', className]}>
+  <summary
+    class="btn-secondary h-10 list-none gap-2 [&::-webkit-details-marker]:hidden group-open:border-accent group-open:bg-surface-2"
+  >
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M3 5h18l-7 8v6l-4 2v-8z"></path>
+    </svg>
+    <span class="inline-block min-w-0 max-w-[38vw] truncate sm:max-w-none">{label}</span>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      class="text-faint motion-safe:transition-transform group-open:rotate-180"
+    >
+      <path d="M6 9l6 6 6-6"></path>
+    </svg>
+  </summary>
+
+  <div
+    role="group"
+    aria-label={t('writing.topics', lang)}
+    class="mt-2 flex w-full flex-col gap-3 rounded-xl border border-border bg-surface p-3 md:absolute md:right-0 md:top-full md:z-10 md:w-[420px]"
+  >
+    <h2 class="px-1 text-sm font-bold">{t('writing.topics', lang)}</h2>
+    <div class="grid grid-cols-1 gap-1 md:grid-cols-2">
+      <a href={allHref} aria-current={activeTag ? undefined : 'page'} class={itemBase}>
+        <span>{t('writing.filterAll', lang)}</span>
+        <span class="font-mono text-xs text-faint">{total}</span>
+      </a>
+      {
+        tags.map(({ tag, count }) => (
+          <a
+            href={topicHref(tag)}
+            aria-current={activeTag === tag ? 'page' : undefined}
+            class={itemBase}
+          >
+            <span>{tagLabel(tag, lang)}</span>
+            <span class="font-mono text-xs text-faint">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+    {
+      activeTag && (
+        <div class="flex items-center justify-between border-t border-border px-1 pt-2 text-[13px]">
+          <span class="text-faint">{label}</span>
+          <a href={allHref} class="font-semibold text-accent">
+            {t('writing.clearFilter', lang)}
+          </a>
+        </div>
+      )
+    }
+  </div>
+</details>

@@ -1,0 +1,146 @@
+---
+import { t, type Locale } from '../../i18n/translations';
+import type { HeatmapCell, HeatmapMonthLabel } from '../../lib/stats-view';
+
+interface Props {
+  columns: HeatmapCell[][];
+  monthLabels: HeatmapMonthLabel[];
+  legend: string;
+  ariaLabel: string;
+  lang: Locale;
+}
+const { columns, monthLabels, legend, ariaLabel, lang } = Astro.props;
+const CELL = 12;
+
+const dateFmt = new Intl.DateTimeFormat(lang === 'es' ? 'es-ES' : 'en-US', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+
+function cellTitle(cell: HeatmapCell): string {
+  const date = dateFmt.format(new Date(`${cell.date}T00:00:00Z`)).replace('.', '');
+  const count = t('stats.heatmapCellContributions', lang).replace('{count}', String(cell.count));
+  return `${date}: ${count}`;
+}
+---
+
+<div class="stats-heatmap">
+  <div class="stats-heatmap-scroll" role="img" aria-label={ariaLabel} tabindex="0">
+    <div class="stats-heatmap-content" style={`width: ${columns.length * CELL}px`}>
+      <div class="stats-heatmap-months">
+        {
+          monthLabels.map((month) => (
+            <span style={`left: ${month.column * CELL}px`}>{month.label}</span>
+          ))
+        }
+      </div>
+      <div class="stats-heatmap-cols">
+        {
+          columns.map((column) => (
+            <div class="stats-heatmap-col">
+              {column.map((cell) =>
+                cell.isFuture ? (
+                  <div class="stats-heatmap-cell is-future" aria-hidden="true" />
+                ) : (
+                  <div
+                    class:list={['stats-heatmap-cell', `lvl-${cell.level}`]}
+                    title={cellTitle(cell)}
+                  />
+                ),
+              )}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+  <div class="stats-heatmap-footer">
+    <span>{legend}</span>
+    <span class="stats-heatmap-scale">
+      <span>{t('stats.heatmapLess', lang)}</span>
+      <span class="stats-heatmap-cell lvl-0"></span>
+      <span class="stats-heatmap-cell lvl-1"></span>
+      <span class="stats-heatmap-cell lvl-2"></span>
+      <span class="stats-heatmap-cell lvl-3"></span>
+      <span class="stats-heatmap-cell lvl-4"></span>
+      <span>{t('stats.heatmapMore', lang)}</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .stats-heatmap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .stats-heatmap-scroll {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 2px;
+  }
+  .stats-heatmap-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stats-heatmap-months {
+    position: relative;
+    height: 14px;
+    font-size: 11px;
+    color: var(--text-faint);
+  }
+  .stats-heatmap-months span {
+    position: absolute;
+    top: 0;
+  }
+  .stats-heatmap-cols {
+    display: flex;
+    gap: 1px;
+  }
+  .stats-heatmap-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 11px;
+    scroll-snap-align: start;
+  }
+  .stats-heatmap-cell {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px;
+  }
+  .stats-heatmap-cell.is-future {
+    visibility: hidden;
+  }
+  .lvl-0 {
+    background: var(--surface-2);
+  }
+  .lvl-1 {
+    background: color-mix(in srgb, var(--accent) 25%, var(--surface-2));
+  }
+  .lvl-2 {
+    background: color-mix(in srgb, var(--accent) 50%, var(--surface-2));
+  }
+  .lvl-3 {
+    background: color-mix(in srgb, var(--accent) 75%, var(--surface-2));
+  }
+  .lvl-4 {
+    background: var(--accent);
+  }
+  .stats-heatmap-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+  .stats-heatmap-scale {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+</style>

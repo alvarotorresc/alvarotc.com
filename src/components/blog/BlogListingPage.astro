@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from './PostList.astro';
+import { t, type Locale } from '../../i18n/translations';
+import { getReadingTime } from '../../lib/utils';
+import { getPosts, htmlPath, tagCounts, type PostEntry } from '../../lib/posts';
+import {
+  paginateItems,
+  pagePath,
+  blogBasePath,
+  topicBasePath,
+  otherLangPageNumber,
+  hreflangLinksFor,
+} from '../../lib/pagination';
+import { collectionPageJsonLd } from '../../lib/jsonld';
+import { tagLabel } from '../../lib/tags';
+
+interface Props {
+  lang: Locale;
+  posts: PostEntry[];
+  page: number;
+  tag?: string;
+}
+
+const { lang, posts, page: pageNum, tag } = Astro.props;
+const otherLang: Locale = lang === 'en' ? 'es' : 'en';
+const otherPosts = await getPosts(otherLang);
+
+const tags = tagCounts(posts);
+const otherTags = tagCounts(otherPosts);
+
+const scoped = tag ? posts.filter((post) => post.data.tags.includes(tag)) : posts;
+const otherScoped = tag ? otherPosts.filter((post) => post.data.tags.includes(tag)) : otherPosts;
+const pages = paginateItems(scoped);
+const otherPages = paginateItems(otherScoped);
+const current = pages[pageNum - 1];
+const totalPages = current.totalPages;
+
+const base = tag ? topicBasePath(lang, tag) : blogBasePath(lang);
+const otherBase = tag ? topicBasePath(otherLang, tag) : blogBasePath(otherLang);
+const otherBlogBase = blogBasePath(otherLang);
+
+const flatPosts = current.items.map((post) => ({
+  slug: post.id,
+  href: htmlPath(post, lang),
+  title: post.data.title,
+  description: post.data.description,
+  date: post.data.date,
+  readingMinutes: getReadingTime(post.body ?? ''),
+  tags: post.data.tags,
+  tagHref: (tg: string) => topicBasePath(lang, tg),
+}));
+
+const prevHref = pageNum > 1 ? pagePath(base, pageNum - 1) : undefined;
+const nextHref = pageNum < totalPages ? pagePath(base, pageNum + 1) : undefined;
+
+const label = tag ? tagLabel(tag, lang) : undefined;
+const heading = tag
+  ? t('writing.topicTitle', lang).replace('{tag}', label!)
+  : t('writing.title', lang);
+const titleSuffix =
+  pageNum > 1 ? t('writing.titlePageSuffix', lang).replace('{page}', String(pageNum)) : '';
+const pageTitle = `${heading}${titleSuffix}`;
+const description = tag
+  ? t('writing.topicDescription', lang)
+      .replace('{n}', String(scoped.length))
+      .replace('{tag}', label!)
+  : t('writing.description', lang);
+
+const otherHasTag = tag ? otherTags.some((ot) => ot.tag === tag) : true;
+const alternatePath = otherHasTag
+  ? pagePath(otherBase, otherLangPageNumber(pageNum, otherPages.length))
+  : otherBlogBase;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const otherPageExists = otherHasTag && pageNum <= otherPages.length;
+const hreflangLinks = hreflangLinksFor(
+  lang,
+  canonicalURL,
+  otherLang,
+  otherPageExists ? new URL(pagePath(otherBase, pageNum), Astro.site).toString() : undefined,
+);
+
+const jsonLd = collectionPageJsonLd({
+  lang,
+  title: pageTitle,
+  description,
+  url: canonicalURL,
+  posts: current.items.map((post) => ({
+    headline: post.data.title,
+    url: new URL(htmlPath(post, lang), Astro.site).toString(),
+  })),
+});
+
+const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
+---
+
+<BaseLayout
+  title={pageTitle}
+  description={description}
+  lang={lang}
+  alternatePath={alternatePath}
+  hreflangLinks={hreflangLinks}
+  prevHref={prevHref}
+  nextHref={nextHref}
+  jsonLd={jsonLd}
+  noindex={tag ? scoped.length < 2 : undefined}
+>
+  <div class="container-page py-14">
+    <PostList
+      lang={lang}
+      posts={flatPosts}
+      tags={tags}
+      rssHref={rssHref}
+      title={tag ? heading : undefined}
+      languageTotal={posts.length}
+      scopeTotal={scoped.length}
+      rangeStart={current.start}
+      rangeEnd={current.end}
+      allHref={blogBasePath(lang)}
+      topicHref={(tg: string) => topicBasePath(lang, tg)}
+      activeTag={tag}
+      page={pageNum}
+      totalPages={totalPages}
+      prevHref={prevHref}
+      nextHref={nextHref}
+    />
+  </div>
+</BaseLayout>

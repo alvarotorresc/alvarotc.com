@@ -1,0 +1,12 @@
+dist/
+.astro/
+node_modules/
+.superpowers/
+.playwright-mcp/
+reports/
+research_notes/
+package-lock.json
+.lighthouseci/
+lighthouse/
+docs/superpowers/**/*.html
+launch-gate/

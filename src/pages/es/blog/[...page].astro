@@ -1,0 +1,19 @@
+---
+import BlogListingPage from '../../../components/blog/BlogListingPage.astro';
+import { getPosts } from '../../../lib/posts';
+import { paginateItems } from '../../../lib/pagination';
+
+export async function getStaticPaths() {
+  const posts = await getPosts('es');
+  const pages = paginateItems(posts);
+  return pages.map((p) => ({
+    params: { page: p.page === 1 ? undefined : String(p.page) },
+    props: { pageNum: p.page },
+  }));
+}
+
+const { pageNum } = Astro.props as { pageNum: number };
+const posts = await getPosts('es');
+---
+
+<BlogListingPage lang="es" posts={posts} page={pageNum} />
