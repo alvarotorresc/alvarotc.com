@@ -8,7 +8,7 @@ tier: lab
 order: 5
 repo: https://github.com/alvarotorresc/PokeUtils
 url: https://pokeutils.alvarotc.com
-stack: [JavaScript, SPA]
+stack: [JavaScript, PokéAPI]
 githubRepo: alvarotorresc/PokeUtils
 icon: '../../../assets/projects/pokeutils/icon.png'
 cover: '../../../assets/projects/pokeutils/cover-es.png'
@@ -119,7 +119,7 @@ features:
   - title: 'Cría'
     text: 'Con quién cruza cada uno: 15 grupos huevo y las cinco reglas de cría de verdad.'
   - title: 'La dex'
-    text: 'Entera y en español, con filtros que quedan en la URL. Sin fricción.'
+    text: 'Entera y en español, con filtros que quedan en la URL. Sin anuncios ni cuentas.'
     image: '../../../assets/projects/pokeutils/tool-02-ficha-es.png'
   - title: 'Todos los Pokémon'
     text: '1025 Pokémon y 326 formas.'
@@ -127,8 +127,6 @@ features:
     text: 'Cruza 1351 Pokémon, 937 movimientos, 313 habilidades y 1848 objetos.'
   - title: 'Comparador'
     text: 'Hasta cuatro Pokémon, uno al lado del otro.'
-  - title: '16 herramientas'
-    text: 'Pokédex, ficha de cada Pokémon, grupos huevo, movimientos y más.'
 illustration: '../../../assets/projects/pokeutils/icon.png'
 built:
   - 'JavaScript sin framework.'
@@ -144,6 +142,6 @@ changelog:
     }
 ---
 
-Una SPA en JavaScript sin framework, hecha para aprender la plataforma.
+Juego a hack ROMs de Pokémon con mis amigos, y no teníamos un sitio cómodo donde mirar datos competitivos sin tener que suscribirnos ni aceptar mil cookies sospechosas. Así que lo hice.
 
-Si juegas competitivo, aquí sabes si tu equipo aguanta ese ataque y quién te lo puede reventar. Si crías, con quién cruza cada uno. Y si solo vienes a consultar la dex, está entera, en español, y no te pide una cuenta.
+Sin cuentas, sin anuncios y sin cookies: abres la web y miras lo que necesitas para la próxima partida.

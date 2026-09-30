@@ -79,7 +79,7 @@ changelog:
   - {
       version: 'v0.3.2',
       date: 2026-04-09,
-      note: 'Online events, a production crash fix, and member color stability.',
+      note: 'Online meetups, an unexpected crash fixed and a stable color for each member.',
     }
   - { version: 'v0.3.1', date: 2026-04-05, note: 'Fixes an API startup crash in production.' }
   - {
@@ -92,7 +92,11 @@ changelog:
       date: 2026-03-27,
       note: 'Visual rework of every screen, with empty states and loading skeletons.',
     }
-  - { version: 'v0.2.4', date: 2026-03-26, note: 'CSP/CORS hotfix and observability improvements.' }
+  - {
+      version: 'v0.2.4',
+      date: 2026-03-26,
+      note: 'Urgent browser security fix (CSP and CORS) and better monitoring.',
+    }
   - {
       version: 'v0.2.3',
       date: 2026-03-18,
@@ -106,11 +110,9 @@ changelog:
   - {
       version: 'v0.2.1',
       date: 2026-03-12,
-      note: 'Supabase auth, i18n, calendar, groups, and theme toggle.',
+      note: 'Sign-in with Supabase, Spanish and English, calendar, groups and a light or dark theme.',
     }
 mock: false
 ---
-
-Meeting up with six people is a message thread nobody wants to read. Quedamos replaces it with three steps.
 
 I built it for my group of friends: every plan ended in a hundred messages and nobody knew who could make it. Now we ask once and the app tells us when we are all free.

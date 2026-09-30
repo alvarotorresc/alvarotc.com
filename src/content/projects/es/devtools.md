@@ -161,7 +161,7 @@ tools:
     image: '../../../assets/projects/devtools/tool-25-nss-es.png'
   - name: 'Tarjetas de prueba'
     group: 'Identificadores'
-    text: 'Genera y valida números de tarjeta de prueba que pasan Luhn.'
+    text: 'Genera y valida números de tarjeta de prueba que pasan el algoritmo de Luhn.'
     href: 'https://devtools.alvarotc.com/es/tarjetas-de-credito-de-prueba'
     image: '../../../assets/projects/devtools/tool-26-card-es.png'
   - name: 'Teléfonos ES'

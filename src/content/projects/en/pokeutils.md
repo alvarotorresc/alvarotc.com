@@ -8,7 +8,7 @@ tier: lab
 order: 5
 repo: https://github.com/alvarotorresc/PokeUtils
 url: https://pokeutils.alvarotc.com
-stack: [JavaScript, SPA]
+stack: [JavaScript, PokéAPI]
 githubRepo: alvarotorresc/PokeUtils
 icon: '../../../assets/projects/pokeutils/icon.png'
 cover: '../../../assets/projects/pokeutils/cover-en.png'
@@ -119,7 +119,7 @@ features:
   - title: 'Breeding'
     text: 'Who pairs with whom: 15 egg groups and the five real breeding rules.'
   - title: 'The dex'
-    text: 'Complete and in Spanish, with filters that stay in the URL. No friction.'
+    text: 'Complete and in Spanish, with filters that stay in the URL. No ads, no accounts.'
     image: '../../../assets/projects/pokeutils/tool-02-ficha-en.png'
   - title: 'Every Pokémon'
     text: '1025 Pokémon and 326 forms.'
@@ -127,8 +127,6 @@ features:
     text: 'Covers 1351 Pokémon, 937 moves, 313 abilities and 1848 items.'
   - title: 'Comparison'
     text: 'Up to four Pokémon, side by side.'
-  - title: '16 tools'
-    text: 'Pokédex, a page for each Pokémon, egg groups, moves and more.'
 illustration: '../../../assets/projects/pokeutils/icon.png'
 built:
   - 'JavaScript with no framework.'
@@ -144,6 +142,6 @@ changelog:
     }
 ---
 
-A vanilla JavaScript single-page app, no framework, built to learn the platform.
+I play Pokémon hack ROMs with my friends, and we had no comfortable place to look up competitive data without signing up or accepting a thousand suspicious cookies. So I built one.
 
-If you play competitive, here you find out whether your team survives that attack and who can tear it apart. If you breed, who pairs with whom. And if you just want to check the dex, it is complete, in Spanish, and it does not ask you for an account.
+No accounts, no ads and no cookies: you open the site and look up what you need for the next battle.

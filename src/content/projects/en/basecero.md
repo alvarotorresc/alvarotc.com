@@ -10,7 +10,7 @@ repo: https://github.com/alvarotorresc/basecero
 url: https://basecero.alvarotc.com
 license: MIT
 platform: 'Browser, on desktop and mobile'
-stack: [Local-first, JavaScript]
+stack: [JavaScript, SQLite (WebAssembly), PWA]
 githubRepo: alvarotorresc/basecero
 icon: '../../../assets/projects/basecero/icon.png'
 cover: '../../../assets/projects/basecero/cover-en.png'
@@ -71,8 +71,9 @@ built:
   - 'Free software under MIT, code at [github.com/alvarotorresc/basecero](https://github.com/alvarotorresc/basecero).'
 changelog:
   - {
-      version: 'PENDING',
-      note: 'A full redesign: aluminium background in light and graphite in dark, with a theme switch; one colour per category across the app; PDF report; logging by sentence or dictation; review before importing, payday setting and pages for each account and goal.',
+      version: 'v1.1.0',
+      date: 2026-09-30,
+      note: 'A full redesign with light and dark themes; a home screen that leads with the balance, and payday; logging by sentence, voice or receipt photo; PDF report; subscription radar; multiple filters and a review of the statement before importing it.',
     }
   - {
       version: 'v1.0.0',
@@ -81,6 +82,6 @@ changelog:
     }
 ---
 
-Local-first personal finance. No server, no account, plain file export.
+I tried a fair few finance apps and almost all of them failed in the same place: they were free because the business was your data, paid but with your accounts in their cloud, or local but closed. I could not find one that was serverless, account-free, truly offline and open source all at once.
 
-For people who track their spending by hand and want to stay the owners of their data.
+So I built it. It is for people who track their spending by hand and want to stay the owners of their data: if BaseCero disappeared tomorrow, your accounts would still be yours, in a spreadsheet you can open with any program.

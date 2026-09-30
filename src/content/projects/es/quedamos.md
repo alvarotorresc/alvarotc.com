@@ -83,7 +83,7 @@ changelog:
   - {
       version: 'v0.3.2',
       date: 2026-04-09,
-      note: 'Eventos en línea, fix de crash en producción y estabilidad de color de miembro.',
+      note: 'Quedadas online, un cierre inesperado corregido y el color de cada miembro, estable.',
     }
   - {
       version: 'v0.3.1',
@@ -100,7 +100,11 @@ changelog:
       date: 2026-03-27,
       note: 'Rediseño visual de todas las pantallas, con estados vacíos y esqueletos de carga.',
     }
-  - { version: 'v0.2.4', date: 2026-03-26, note: 'Hotfix de CSP/CORS y mejoras de observabilidad.' }
+  - {
+      version: 'v0.2.4',
+      date: 2026-03-26,
+      note: 'Arreglo urgente de seguridad del navegador (CSP y CORS) y mejor monitorización.',
+    }
   - {
       version: 'v0.2.3',
       date: 2026-03-18,
@@ -114,11 +118,9 @@ changelog:
   - {
       version: 'v0.2.1',
       date: 2026-03-12,
-      note: 'Auth con Supabase, i18n, calendario, grupos y toggle de tema.',
+      note: 'Inicio de sesión con Supabase, español e inglés, calendario, grupos y tema claro u oscuro.',
     }
 mock: false
 ---
-
-Quedar con seis personas es una cadena de mensajes que nadie quiere leer. Quedamos la sustituye por tres pasos.
 
 Lo hice para mi grupo de amigos: cada plan acababa en cien mensajes y nadie sabía quién podía. Ahora preguntamos una vez y la app nos dice cuándo estamos todos.
