@@ -48,8 +48,6 @@ for (const [tag, count] of tagCounts(es)) {
   if (count < 2) thinTopicUrls.add(`${SITE}/es/blog/tema/${tag}/`);
 }
 
-const hiddenUrls = new Set([`${SITE}/stats/`, `${SITE}/es/stats/`]);
-
 const pairs = new Map();
 const lastmod = new Map();
 for (const p of en) {
@@ -88,7 +86,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en', es: 'es' },
       },
-      filter: (page) => !thinTopicUrls.has(page) && !hiddenUrls.has(page),
+      filter: (page) => !thinTopicUrls.has(page),
       serialize(item) {
         const alt = alternatesFor(item.url);
         if (alt) {

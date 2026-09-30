@@ -38,11 +38,9 @@ describe.skipIf(!process.env.RELEASE_CHECK)('hidden stats page in the build', ()
     expect(sitemap).not.toContain('https://alvarotc.com/es/stats/');
   });
 
-  it('is still built but marked noindex', () => {
+  it('is not built, so its URL answers 404', () => {
     for (const route of ['stats/index.html', 'es/stats/index.html']) {
-      const path = join(dist, route);
-      expect(existsSync(path)).toBe(true);
-      expect(readFileSync(path, 'utf8')).toContain('<meta name="robots" content="noindex, follow"');
+      expect(existsSync(join(dist, route))).toBe(false);
     }
   });
 });
