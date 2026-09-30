@@ -127,6 +127,7 @@ Página: `/es/` y `/` · Textos de interfaz en `src/i18n/translations.ts`
 - [x] Descripción del sitio en `site.config.ts` (SEO, RSS, OG): «Desarrollador backend. Apps
       offline-first, infraestructura autoalojada, software libre.» No coincide con el «Software
       Engineer» del hero: decidir cuál
+- [x] Los dos párrafos de «Sobre mí» en la home (fijos en `src/components/home/About.astro`)
 - [x] «Lo que me importa»: las cuatro tarjetas de valores (arriba de `about/es.md`)
 - [x] Etiquetas de Sobre mí (`about.tag.*`): en español una dice «Seguridad» y en inglés
       «Offline-first»; igualarlas
@@ -186,12 +187,12 @@ está hecho», changelog y «Por qué existe».
 - [x] PokeUtils en inglés
 - [x] DevTools (`/es/projects/devtools/`): 52 herramientas con su descripción
 - [x] DevTools en inglés
-- [ ] Huellas (`/es/projects/huellas/`): «Definición aprobada, sin código», «12 documentos», lista
+- [x] Huellas (`/es/projects/huellas/`): «Definición aprobada, sin código», «12 documentos», lista
       del MVP
-- [ ] Huellas en inglés
-- [ ] Cheesy (`/es/projects/cheesy/`, añadido el 30 sep): «Por qué existe», datos («21
+- [x] Huellas en inglés
+- [x] Cheesy (`/es/projects/cheesy/`, añadido el 30 sep): «Por qué existe», datos («21
       aperturas, 14 finales y 13 posiciones»), «Unos 1560 tests de la app y 225 del contenido»
-- [ ] Cheesy en inglés
+- [x] Cheesy en inglés
 
 ### B5. Blog
 
