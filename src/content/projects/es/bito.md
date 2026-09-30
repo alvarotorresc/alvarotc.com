@@ -10,7 +10,7 @@ repo: https://github.com/alvarotorresc/bito
 url: https://bito.alvarotc.com
 license: GPL-3.0-or-later
 platform: Android 8.0+
-stack: [Kotlin, Offline-first, Privacy]
+stack: [Kotlin, Jetpack Compose, Room]
 githubRepo: alvarotorresc/bito
 icon: '../../../assets/projects/bito/icon.png'
 cover: '../../../assets/projects/bito/cover-es.png'

@@ -69,7 +69,7 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(field(source, 'platform')).toBe('Android 8.0+');
     expect(field(source, 'license')).toBe('GPL-3.0-or-later');
     expect(field(source, 'url')).toBe('https://bito.alvarotc.com');
-    expect(field(source, 'stack')).toBe('[Kotlin, Offline-first, Privacy]');
+    expect(field(source, 'stack')).toBe('[Kotlin, Jetpack Compose, Room]');
     expect(source).toMatch(
       /https:\/\/github\.com\/alvarotorresc\/bito\/releases\/download\/v1\.\d+\.\d+\/app-release\.apk/,
     );
@@ -246,7 +246,7 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
   it('is a published web project', () => {
     expect(field(source, 'kind')).toBe('web');
     expect(field(source, 'status')).toBe('published');
-    expect(field(source, 'stack')).toBe('[JavaScript, SPA]');
+    expect(field(source, 'stack')).toBe('[JavaScript, PokéAPI]');
   });
 
   it('has no license, no playground and no hero', () => {
@@ -258,9 +258,9 @@ describe.each(['es', 'en'])('pokeutils (%s)', (lang) => {
     expect(source).not.toContain('[DATO]');
   });
 
-  it('has four screenshots and seven features', () => {
+  it('has four screenshots and six features', () => {
     expect(source.match(/^ {2}- src: /gm)).toHaveLength(4);
-    expect(source.match(/^ {2}- title: /gm)).toHaveLength(7);
+    expect(source.match(/^ {2}- title: /gm)).toHaveLength(6);
   });
 
   it('points only at images that exist', () => {

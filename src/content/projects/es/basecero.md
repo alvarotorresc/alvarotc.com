@@ -10,7 +10,7 @@ repo: https://github.com/alvarotorresc/basecero
 url: https://basecero.alvarotc.com
 license: MIT
 platform: 'Navegador, en escritorio y móvil'
-stack: [Local-first, JavaScript]
+stack: [JavaScript, SQLite (WebAssembly), PWA]
 githubRepo: alvarotorresc/basecero
 icon: '../../../assets/projects/basecero/icon.png'
 cover: '../../../assets/projects/basecero/cover-es.png'
@@ -71,8 +71,9 @@ built:
   - 'Software libre bajo MIT, código en [github.com/alvarotorresc/basecero](https://github.com/alvarotorresc/basecero).'
 changelog:
   - {
-      version: 'PENDIENTE',
-      note: 'Rediseño entero: fondo aluminio en claro y grafito en oscuro, con selector de tema; un color por categoría en toda la app; Informe en PDF; registro por frase o dictado; revisión antes de importar, día de cobro y fichas de cuenta y de objetivo.',
+      version: 'v1.1.0',
+      date: 2026-09-30,
+      note: 'Rediseño entero con tema claro y oscuro; inicio con el saldo primero y día de cobro; registro por frase, voz o foto del ticket; informe en PDF; radar de suscripciones; filtros múltiples y revisión del extracto antes de importarlo.',
     }
   - {
       version: 'v1.0.0',
@@ -81,6 +82,6 @@ changelog:
     }
 ---
 
-Finanzas personales local-first. Sin servidor, sin cuenta, exportación a fichero plano.
+Probé unas cuantas apps de finanzas y casi todas fallaban en lo mismo: eran gratis porque el negocio eran tus datos, de pago pero con tus cuentas en su nube, o locales pero cerradas. No encontré ninguna que fuera a la vez sin servidor, sin cuenta, offline de verdad y con el código a la vista.
 
-Para quien lleva sus gastos a mano y quiere seguir siendo dueño de sus datos.
+Así que la hice. Es para quien lleva sus gastos a mano y quiere seguir siendo dueño de sus datos: si mañana BaseCero desapareciera, tus cuentas seguirían siendo tuyas, en una hoja de cálculo que abres con cualquier programa.

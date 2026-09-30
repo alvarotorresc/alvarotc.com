@@ -161,7 +161,7 @@ tools:
     image: '../../../assets/projects/devtools/tool-25-nss-en.png'
   - name: 'Test cards'
     group: 'Identifiers'
-    text: 'Generates and validates test card numbers that pass Luhn.'
+    text: 'Generates and validates test card numbers that pass the Luhn check.'
     href: 'https://devtools.alvarotc.com/en/test-credit-card-numbers'
     image: '../../../assets/projects/devtools/tool-26-card-en.png'
   - name: 'Spanish phone numbers'
