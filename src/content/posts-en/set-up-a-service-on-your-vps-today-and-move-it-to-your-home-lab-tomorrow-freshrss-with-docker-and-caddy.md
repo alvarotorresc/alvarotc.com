@@ -8,17 +8,17 @@ tags: ['self-hosted', 'docker', 'caddy', 'vps', 'homelab', 'rss']
 source: freshrss-vps-docker-caddy-migrable
 ---
 
-I wanted my own RSS reader, and I wanted it right away. The homelab that’s going to host it doesn’t even have an operating system yet. So I deployed it on the VPS I already have, with one condition: that moving it to my home in a few weeks would just take an `rsync` and a DNS change.
+I wanted my own RSS reader, and I wanted it right away. The homelab that’s going to host it doesn’t even have an operating system yet. So I deployed it on the VPS I already have, with one condition: that moving it home in a few weeks would just take an `rsync` and a DNS change.
 
 This post details that deployment. But above all, it covers the decisions that make a service portable from day one—decisions that apply to anything you set up with Docker.
 
-## The Context
+## The context
 
-The starting point is a VPS with Docker Compose and Caddy as a reverse proxy, with several services in production under `/opt/services/`. The new service is [FreshRSS](https://freshrss.org/): PHP with SQLite, a single container, and a Google Reader-compatible API that mobile clients can understand without any additional coding.
+The starting point is a VPS with Docker Compose and Caddy as a reverse proxy, with several services in production under `/opt/services/`. The new service is [FreshRSS](https://freshrss.org/): PHP with SQLite, a single container, and a Google Reader-compatible API that mobile clients speak out of the box.
 
 The choice of SQLite isn’t just a detail. It means that **the entire state of the service resides in a single directory**: database, configuration, users, and API password. And a service whose state fits into a directory is a service that can be moved with a `tar`.
 
-## Designing for Migration: Five Rules
+## Designing for migration: five rules
 
 Before touching the server, I set five conditions. If they’re met, migration is trivial. If one is missing, it becomes a project.
 
@@ -52,7 +52,7 @@ Structure on the host:
 ```
 /opt/services/rss/
   compose.yaml
-  data/ # all state: SQLite, config, users, favicons
+  data/          # all state: SQLite, config, users, favicons
   extensions/    # empty
 ```
 
@@ -65,18 +65,18 @@ services:
     container_name: freshrss
     restart: unless-stopped
     environment:
- TZ: Europe/Madrid
-      CRON_MIN: "13,43" # refresh feeds twice per hour
- FRESHRSS_ENV: production
+      TZ: Europe/Madrid
+      CRON_MIN: '13,43' # refresh feeds twice an hour
+      FRESHRSS_ENV: production
     volumes:
- - ./data:/var/www/FreshRSS/data
+      - ./data:/var/www/FreshRSS/data
       - ./extensions:/var/www/FreshRSS/extensions
     networks:
- - proxy
+      - proxy
 
 networks:
   proxy:
-    external: true # the network shared with Caddy
+    external: true # the network it shares with Caddy
 ```
 
 It does not expose any ports. Caddy accesses the container via the internal `proxy` network, and the container only listens on port 80 on that network. The official image also automatically sets the permissions for `data/` upon startup (the directories are set to `root:www-data`), so there’s no need to blindly run the classic `chown` command.
@@ -91,7 +91,7 @@ rss.example.com {
 
 First, an A record in DNS pointing `rss` to the VPS’s IP address. If your DNS is on Cloudflare, **without a proxy** (gray cloud): Caddy needs to receive the Let’s Encrypt challenge directly.
 
-And the step that’s most daunting on a server with production environments—reloading the proxy—doesn’t have to be a problem:
+And the step that’s most daunting on a server with things in production—reloading the proxy—doesn’t have to be a problem:
 
 ```bash
 docker exec caddy caddy validate --config /etc/caddy/Caddyfile
@@ -102,7 +102,7 @@ Validate first, reload later. The reload is a hot reload: the other services won
 
 ## Configure via CLI without passwords appearing in the terminal
 
-A user fills out the web wizard in a browser: SQLite database, username, password. This ensures the password doesn’t appear in any browser history or logs.
+A user fills out the web wizard in a browser: SQLite database, username, password. That way the password never ends up in any shell history or log.
 
 The rest is done via the CLI. FreshRSS includes its scripts in `cli/`, and you must run them as the web server user:
 
@@ -139,7 +139,7 @@ The initial subscriptions are stored in an OPML file and imported via the CLI as
 
 **Another feed subscribed on its own.** The log showed `WebSub subscribe … 204`. That media outlet advertises a _hub_; FreshRSS asked it to notify FreshRSS upon publication, and the hub agreed. Articles arrive via push, within seconds, without waiting for a refresh. This has an implication for the migration: push works because the service is accessible from the internet. If, in the homelab, it ends up behind a VPN, the hub won’t be able to call the _callback_ and will revert to polling. It’s not a big deal, but it’s a factor that tips the scales in favor of a public reverse proxy.
 
-## Backup: Stop, Compress, Start, and Truly Restore
+## Backup: stop, compress, start, and truly restore
 
 With SQLite, the simplest consistent backup is to stop the container for a moment. The complete script:
 
@@ -161,13 +161,13 @@ find "$DEST" -name 'rss-data-*.tar.gz' -mtime +"$KEEP_DAYS" -delete
 echo "$(date -Is) OK $FILE"
 ```
 
-The `trap` is the important line: if the `tar` fails, the container starts anyway. Estimated time: one second. Scheduled in `/etc/cron.d/rss-backup` as root, because `data/` is not readable by a regular user:
+The `trap` is the important line: if the `tar` fails, the container starts anyway. Measured downtime: one second. Scheduled in `/etc/cron.d/rss-backup` as root, because `data/` is not readable by a regular user:
 
 ```
 17 4 * * * root /opt/services/rss/backup.sh >> /var/log/rss-backup.log 2>&1
 ```
 
-And something almost no one does: **test the restore on the same day**. Extract the backup to a temporary file and check with the database to see if it’s intact:
+And something almost no one does: **test the restore on the same day**. Extract the backup into a temporary directory and ask the database whether it’s intact:
 
 ```bash
 T=$(mktemp -d) && sudo tar -xzf "$FILE" -C "$T"
@@ -181,7 +181,7 @@ print(c.execute('select count(*) from feed').fetchone()[0], 'feeds')"
 
 This covers application errors: a deleted category, a `latest` update that breaks the database. It does not cover the VPS failing. For that, the provider’s full-machine backup serves as the complementary layer: inexpensive, maintenance-free, and with seven days of retention. These are two layers for two different types of failures.
 
-## The Upcoming Migration
+## The upcoming migration
 
 When the homelab is ready, the entire procedure:
 
@@ -195,9 +195,9 @@ docker compose pull && docker compose up -d
 # Change the A record for rss.example.com
 ```
 
-One rule: the image version at the destination must be **the same or newer** than at the source. SQLite is forward-compatible, and there’s no going back. And the mobile client doesn’t need any changes: same URL, same username.
+One rule: the image version at the destination must be **the same or newer** than at the source. The SQLite database only migrates forward; there’s no going back. And the mobile client doesn’t need any changes: same URL, same username.
 
-## What I Learned
+## What I learned
 
 - **A service with its state stored in a directory is a portable service.** If the application lets you choose SQLite and you’re a single user, choose it.
 - **Subdomain over path**, whenever possible. The path ties you to whoever hosts the root, and that’s where things break.
@@ -205,6 +205,6 @@ One rule: the image version at the destination must be **the same or newer** tha
 - **Validate and reload the proxy on the fly.** You don’t need to restart anything in production to add a service.
 - **If there’s no CLI for something, use the app’s internal API**, not its database.
 - **Every `docker exec` inside a script via stdin needs `</dev/null`.** You’ll see this in every deployment script out there once you know it.
-- **The backup is tested the same day it’s created.** `pragma integrity_check` are two words.
+- **The backup is tested the same day it’s created.** `pragma integrity_check` is two words.
 
 The homelab doesn’t exist yet. And it already has its first service in production waiting for it.
