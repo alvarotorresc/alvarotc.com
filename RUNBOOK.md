@@ -78,7 +78,7 @@ Por confirmar: si se quiere algo más permanente, añadir un `vercel.json` con u
 ## Logs
 
 - **Vercel**: dashboard → proyecto `alvarotc.com` → cada despliegue tiene sus **Build Logs**; el sitio es estático (`output: 'static'` en `astro.config.mjs`), así que no hay logs de funciones serverless en tiempo real más allá de esos logs de build.
-- **Caddy (VPS)**: `docker logs caddy` o, desde el directorio donde vive el compose de Caddy en el VPS (ruta por confirmar, no está en ninguno de los repos consultados), `docker compose logs caddy`.
+- **Caddy (VPS)**: `docker logs caddy`, o `docker compose logs caddy` desde `/opt/services/caddy`. El Caddyfile está en `/opt/services/caddy/Caddyfile` (contenedor `caddy`, red `proxy`); tras editarlo, `docker exec caddy caddy reload --config /etc/caddy/Caddyfile`.
 - **Servicio de contacto (VPS)**:
   ```bash
   cd /opt/services/alvarotc-contact
