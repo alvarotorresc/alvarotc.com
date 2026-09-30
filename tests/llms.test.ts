@@ -108,7 +108,7 @@ describe('/llms-full.txt (English)', () => {
     for (const title of enTitles) expect(text).toContain(`## ${title}`);
     for (const title of esTitles) expect(text).not.toContain(`## ${title}`);
 
-    expect(text).toContain('My personal website had been dead for over two years with Next.js 12');
+    expect(text).toContain('My personal website had spent more than two years on Next.js 12');
     expect(text).toContain('URL: https://alvarotc.com/blog/new-website-new-direction/');
   });
 

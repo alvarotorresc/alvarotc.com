@@ -8,7 +8,7 @@ tags: ['devops', 'docker', 'observabilidad', 'vps', 'self-hosted']
 source: vps-observabilidad-completa
 ---
 
-I had several products deployed as managed services. A backend on Railway, frontends on Vercel, and a database on Supabase. Everything was working, but I had no idea what was happening when I wasn’t looking. Was anything going down? How many people were using my apps? What errors were occurring in production? I didn’t have answers to any of those questions.
+I had several products deployed on managed services. A backend on Railway, frontends on Vercel, and a database on Supabase. Everything was working, but I had no idea what was happening when I wasn’t looking. Was anything going down? How many people were using my apps? What errors were occurring in production? I didn’t have answers to any of those questions.
 
 So I set up a VPS on Hetzner, migrated what made sense to migrate, and built a complete observability stack. All for less than €5 a month. Here I’ll explain how, step by step, so you can replicate it.
 
@@ -20,15 +20,15 @@ Unbeatable price. A CAX11 (2 ARM vCPUs, 4GB RAM, 40GB disk) costs €3.79/month.
 
 A heads-up: it’s ARM. The Docker images you deploy must be compiled for `arm64`. Almost all the official ones are; yours will depend on whether your CI builds them for that architecture.
 
-### Basic Hardening
+### Basic hardening
 
 The first thing to do after creating the server: lock everything down. In this order, because if you disable the password before getting your key onto the server, you’ll be locked out.
 
 ```bash
 # 1. Create your own user with sudo, and copy your SSH key to that user
-adduser your-user
-usermod -aG sudo your-user
-# from your machine: ssh-copy-id your-user@your-vps
+adduser your-username
+usermod -aG sudo your-username
+# from your machine: ssh-copy-id your-username@your-vps
 
 # 2. Firewall: only SSH, HTTP, and HTTPS
 sudo ufw allow 22
@@ -51,14 +51,14 @@ PubkeyAuthentication yes
 
 Restart SSH with `sudo systemctl restart ssh` **without logging out of your current session**, and try logging in from another terminal before logging out. Three minutes of work that will save you serious trouble.
 
-### Docker Compose as an Orchestrator
+### Docker Compose as an orchestrator
 
 You don’t need Kubernetes. You don’t need Nomad. Docker Compose is perfect for a VPS with just a few services. The structure is simple:
 
 ```
 /opt/services/
 ├── docker-compose.yml
-├── .env.mi-api
+├── .env.my-api
 ├── .env.umami
 └── caddy/
     └── Caddyfile
@@ -72,26 +72,26 @@ services:
     image: caddy:2-alpine
     restart: unless-stopped
     ports:
- - "80:80"
-      - "443:443"
- - "443:443/udp"
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
     volumes:
- - ./caddy/Caddyfile:/etc/caddy/Caddyfile
- - caddy_data:/data
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
       - caddy_config:/config
     networks:
- - proxy
+      - proxy
 
-  mi-api:
-    image: ghcr.io/tu-usuario/mi-api:latest
+  my-api:
+    image: ghcr.io/your-username/my-api:latest
     restart: unless-stopped
     env_file:
- - .env.mi-api
+      - .env.my-api
     environment:
- - NODE_ENV=production
+      - NODE_ENV=production
       - PORT=3001
     networks:
- - proxy
+      - proxy
 
 volumes:
   caddy_data:
@@ -103,33 +103,33 @@ networks:
     driver: bridge
 ```
 
-### Caddy as a Reverse Proxy
+### Caddy as a reverse proxy
 
 Caddy is the best infrastructure decision I’ve ever made. Two lines per service, automatic HTTPS with Let’s Encrypt, HTTP/2, and zero certificate configuration.
 
 ```
-mi-api.your-domain.com {
-    reverse_proxy mi-api:3001
+my-api.your-domain.com {
+    reverse_proxy my-api:3001
 }
 ```
 
 That’s it. Caddy detects the domain, requests the certificate, automatically renews it, and acts as a reverse proxy for the container. Compared to Nginx + Certbot, it’s in a whole different league.
 
-### Automatic Deployment with GitHub Actions
+### Automatic deployment with GitHub Actions
 
 Every push to `main` triggers a workflow that builds the Docker image, uploads it to `ghcr.io`, and SSHs into the VPS to pull the image and recreate the container. The connection uses an SSH key dedicated to the deployment, stored as a secret in the repository:
 
 ```yaml
 - name: Deploy to VPS
   run: |
-    ssh user@your-vps "cd /opt/services && \
- docker compose pull my-api && \
- docker compose up -d my-api"
+    ssh your-username@your-vps "cd /opt/services && \
+      docker compose pull my-api && \
+      docker compose up -d my-api"
 ```
 
-There’s a few seconds of downtime while Compose recreates the container. For an indie project, this is acceptable, and Caddy returns a clean 502 in the meantime. If you ever need zero downtime, the solution is a second container and a change to the proxy’s destination—no additional commands required.
+There are a few seconds of downtime while Compose recreates the container. For an indie project, this is acceptable, and Caddy returns a clean 502 in the meantime. If you ever need zero downtime, the solution is a second container and a change to the proxy’s destination—not more commands.
 
-## Observability: 4 Tools, 4 Problems
+## Observability: 4 tools, 4 problems
 
 With the VPS up and running, the next step was to answer four questions:
 
@@ -138,7 +138,7 @@ With the VPS up and running, the next step was to answer four questions:
 3. **How do users interact with my app?** → Firebase Analytics
 4. **How many people visit my websites?** → Umami
 
-### 1. Upptime: Public status page + Telegram alerts
+### 1. Upptime: public status page + Telegram alerts
 
 [Upptime](https://upptime.js.org) is an uptime monitor that runs 100% on GitHub Actions. It doesn’t require a server. Create a repo, configure what to monitor, and GitHub Actions checks your endpoints every 5 minutes. If something goes down, you’ll receive a message on Telegram.
 
@@ -147,11 +147,11 @@ The configuration file is a `.upptimerc.yml`:
 ```yaml
 sites:
   - name: My API
-    url: https://mi-api.tu-dominio.com/health
+    url: https://my-api.your-domain.com/health
     expectedStatusCodes:
- - 200
+      - 200
   - name: My Website
-    url: https://tu-dominio.com
+    url: https://your-domain.com
 
 status-website:
   cname: status.your-domain.com
@@ -166,17 +166,17 @@ notifications:
 
 Three things I learned while setting this up:
 
-- You need a **GitHub PAT** (Fine-grained Personal Access Token) with permissions for Actions, Content, Issues, Workflows, and Administration. Without it, the workflow that generates the charts fails silently.
+- You need a **GitHub PAT** (Fine-grained Personal Access Token) with permissions for Actions, Contents, Issues, Workflows, and Administration. Without it, the workflow that generates the charts fails silently.
 - For Telegram notifications, you need **three** secrets, not two: `NOTIFICATION_TELEGRAM` (value: `true`), `NOTIFICATION_TELEGRAM_BOT_KEY`, and `NOTIFICATION_TELEGRAM_CHAT_ID`. The first is an activation flag that isn’t clearly documented.
 - The subdomain’s DNS (`status.your-domain.com`) must point to `your-username.github.io` via a CNAME record. If you use Cloudflare, disable the proxy (gray cloud).
 
 Result: a [public status page](https://status.alvarotc.com) with uptime history, response time charts, and instant alerts via Telegram when something goes down.
 
-### 2. Sentry: Error Tracking Without the Noise
+### 2. Sentry: error tracking without the noise
 
 [Sentry](https://sentry.io) captures production errors with full context: stack trace, request data, and breadcrumbs. The free tier provides 5,000 events per month—more than enough for an indie project.
 
-Integration with NestJS is straightforward. A `instrument.ts` file that is imported as the first line in `main.ts`:
+Integration with NestJS is straightforward. An `instrument.ts` file that is imported as the first line in `main.ts`:
 
 ```typescript
 import * as Sentry from '@sentry/nestjs';
@@ -202,7 +202,7 @@ Sentry.init({
 });
 ```
 
-A mistake I made at first: using the `@SentryExceptionCaptured()` decorator on the global exception filter. That captures **all** exceptions, including 400 Bad Request, 401 Unauthorized, 404 Not Found... Client-side errors that are completely normal and flood your Sentry quota with noise.
+A mistake I made at first: using the `@SentryExceptionCaptured()` decorator on the global exception filter. That captures **all** exceptions, including 400 Bad Request, 401 Unauthorized, 404 Not Found... Client errors that are completely normal and flood your Sentry quota with noise.
 
 The solution is to manually capture only what matters:
 
@@ -211,7 +211,7 @@ catch(exception: unknown, host: ArgumentsHost) {
   if (exception instanceof HttpException) {
     const status = exception.getStatus();
     if (status >= 500) {
- Sentry.captureException(exception);
+      Sentry.captureException(exception);
     }
     // ... return response
   }
@@ -224,7 +224,7 @@ catch(exception: unknown, host: ArgumentsHost) {
 
 This way, you only receive alerts for real errors: unhandled exceptions and explicit 500 errors.
 
-### 3. Firebase Analytics: What Users Are Doing
+### 3. Firebase Analytics: what users are doing
 
 For mobile apps (Capacitor/React in my case), Firebase Analytics is the fastest option. The measurement ID is injected at build time, and events are sent automatically.
 
@@ -240,7 +240,7 @@ export function useScreenView(screenName: string) {
 
 The golden rule: **analytics should never break the app**. Every call to `logEvent` is wrapped in a silent try/catch block. If Firebase fails, the user won’t even notice.
 
-### 4. Umami: Privacy-Friendly Web Analytics
+### 4. Umami: privacy-friendly web analytics
 
 [Umami](https://umami.is) is the self-hosted alternative to Google Analytics. It doesn’t use cookies or identify anyone, so it doesn’t require a consent banner. And best of all: you run it on your own VPS.
 
@@ -254,7 +254,7 @@ umami:
     - .env.umami
   depends_on:
     umami-db:
-  condition: service_healthy
+      condition: service_healthy
   networks:
     - proxy
 
@@ -292,25 +292,25 @@ And a tracking script for each website you want to monitor:
 ```html
 <script
   defer
-  src="https://analytics.tu-dominio.com/script.js"
+  src="https://analytics.your-domain.com/script.js"
   data-website-id="your-website-id"
 ></script>
 ```
 
 After deployment, you’ll have a complete dashboard showing visitors, page views, bounce rate, referrers, devices, and countries. All hosted on your server, with no data sent to third parties.
 
-## The Result
+## The result
 
 For less than €5 a month (€3.79 for the VPS + snapshots), I get:
 
 - **Public status page** with uptime history and Telegram alerts
-- **Error tracking** that alerts me to actual bugs in production, not just 404s
+- **Error tracking** that alerts me to actual bugs in production, not 404s
 - **Product analytics** to understand how people use my app
 - **Web analytics** for all my websites without relying on Google or violating anyone’s privacy
 
 Everything runs on a single VPS with Docker Compose. Everything deploys automatically. And most importantly: now I know what’s going on when I’m not looking.
 
-## What I Learned
+## What I learned
 
 - **Caddy is the ultimate reverse proxy** for small and medium-sized projects. Zero SSL configuration, zero manual renewals, zero headaches.
 - **Not everything needs to be cloud-managed.** Self-hosted Umami replaces Google Analytics with no monthly cost. Upptime replaces paid monitoring services using only GitHub Actions.
