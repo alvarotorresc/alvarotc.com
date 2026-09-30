@@ -49,7 +49,7 @@ features:
   - title: 'Finales contra un rival perfecto'
     text: 'Ganas los finales ganados y aguantas quince jugadas los de tablas. El rival juega con la tablebase de Lichess y un panel da el veredicto teórico de la posición.'
     image: '../../../assets/projects/cheesy/screen-04-finales-es.png'
-  - title: 'Posiciones que no dan pistas'
+  - title: 'Posiciones que no se delatan'
     text: 'Buscas la jugada ganadora. El nombre y el tema de cada posición no se ven hasta que la resuelves, para que no te digan qué buscar.'
     image: '../../../assets/projects/cheesy/screen-06-posiciones-es.png'
   - title: 'Análisis con variaciones y motor'
