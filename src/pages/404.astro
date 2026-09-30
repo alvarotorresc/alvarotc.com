@@ -28,6 +28,7 @@ const langs: { lang: Locale; home: string; routes: string[] }[] = await Promise.
   lang="en"
   alternatePath="/es/"
   noindex
+  bilingualChrome
 >
   {
     langs.map(({ lang, home, routes }) => (
@@ -203,6 +204,9 @@ const langs: { lang: Locale; home: string; routes: string[] }[] = await Promise.
     }
     const lang = path === '/es' || path.startsWith('/es/') ? 'es' : 'en';
     document.documentElement.lang = lang;
+    document.querySelectorAll<HTMLElement>('[data-chrome-lang]').forEach((chrome) => {
+      chrome.hidden = chrome.dataset.chromeLang !== lang;
+    });
 
     document.querySelectorAll<HTMLElement>('[data-404-lang]').forEach((block) => {
       block.hidden = block.dataset['404Lang'] !== lang;
@@ -232,7 +236,10 @@ const langs: { lang: Locale; home: string; routes: string[] }[] = await Promise.
         ]);
         line(diag, [['   |', 'g']]);
         if (suggestion) {
-          line(diag, [['help', 'h'], [`: ${d.help}`]]);
+          line(diag, [
+            ['help', 'h'],
+            [`: ${d.help}`, 'w'],
+          ]);
           line(diag, [['   |', 'g']]);
           line(diag, [
             [' 1 | ', 'g'],
@@ -240,7 +247,10 @@ const langs: { lang: Locale; home: string; routes: string[] }[] = await Promise.
           ]);
           line(diag, [['   |', 'g']]);
         } else {
-          line(diag, [['help', 'h'], [`: ${d.helpNone}`]]);
+          line(diag, [
+            ['help', 'h'],
+            [`: ${d.helpNone}`, 'w'],
+          ]);
           line(diag, [['   |', 'g']]);
         }
         line(diag, [

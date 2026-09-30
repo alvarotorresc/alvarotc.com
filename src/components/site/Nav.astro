@@ -64,7 +64,7 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
         data-menu-toggle
         aria-label={t('nav.menu', lang)}
         aria-expanded="false"
-        aria-controls="mobile-menu"
+        aria-controls={`mobile-menu-${lang}`}
         class="flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-border bg-surface text-muted"
       >
         <Icon name="menu" size={16} />
@@ -72,7 +72,12 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
     </div>
   </nav>
 
-  <div id="mobile-menu" hidden class="container-page border-t border-border pb-4 md:hidden">
+  <div
+    id={`mobile-menu-${lang}`}
+    data-mobile-menu
+    hidden
+    class="container-page border-t border-border pb-4 md:hidden"
+  >
     <ul class="flex flex-col gap-1 pt-2">
       {
         items.map((item) => (
@@ -109,25 +114,32 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 </header>
 
 <script>
+  function closeMenus() {
+    document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]').forEach((button) => {
+      const menu = document.getElementById(button.getAttribute('aria-controls') ?? '');
+      if (menu && !menu.hidden) {
+        menu.hidden = true;
+        button.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
   function bind() {
-    const button = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
-    const menu = document.getElementById('mobile-menu');
-    if (button && menu && !button.dataset.bound) {
+    document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]').forEach((button) => {
+      const menu = document.getElementById(button.getAttribute('aria-controls') ?? '');
+      if (!menu || button.dataset.bound) return;
       button.dataset.bound = 'true';
       button.addEventListener('click', () => {
         const open = menu.hidden;
         menu.hidden = !open;
         button.setAttribute('aria-expanded', String(open));
       });
-    }
+    });
     document.querySelectorAll<HTMLButtonElement>('[data-command-palette]').forEach((trigger) => {
       if (trigger.dataset.bound) return;
       trigger.dataset.bound = 'true';
       trigger.addEventListener('click', () => {
-        if (menu && !menu.hidden) {
-          menu.hidden = true;
-          button?.setAttribute('aria-expanded', 'false');
-        }
+        closeMenus();
         document.dispatchEvent(new CustomEvent('command-palette:open'));
       });
     });
