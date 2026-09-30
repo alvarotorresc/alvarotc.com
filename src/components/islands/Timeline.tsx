@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 export type TimelineEntry = {
   period: string;
   title: string;
-  summary: string;
+  summaryHtml: string;
   current: boolean;
 };
 
@@ -119,7 +119,10 @@ export default function Timeline({ entries }: { entries: TimelineEntry[] }) {
             />
             <div className="flex flex-col gap-1.5 md:pl-8">
               <h3 className="text-[17px] font-bold">{entry.title}</h3>
-              <p className="max-w-[640px] text-sm leading-relaxed text-muted">{entry.summary}</p>
+              <p
+                className="max-w-[640px] text-sm leading-relaxed text-muted"
+                dangerouslySetInnerHTML={{ __html: entry.summaryHtml }}
+              />
             </div>
           </motion.li>
         ))}
