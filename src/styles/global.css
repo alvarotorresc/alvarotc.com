@@ -13,6 +13,7 @@
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-fg);
   --color-ok: var(--ok);
+  --color-danger: var(--danger);
   --color-lang-1: var(--lang-1);
   --color-lang-2: var(--lang-2);
   --color-lang-3: var(--lang-3);
@@ -34,6 +35,7 @@
     --accent: #2563eb;
     --accent-fg: #ffffff;
     --ok: #1a7f4b;
+    --danger: #c0341d;
     --lang-1: #1d4ed8;
     --lang-2: #2563eb;
     --lang-3: #60a5fa;
@@ -55,6 +57,7 @@
       --accent: #4f8ef7;
       --accent-fg: #0b1020;
       --ok: #5fd08a;
+      --danger: #ff7b72;
       --lang-1: #b3cdff;
       --lang-2: #4f8ef7;
       --lang-3: #2d5aa8;
@@ -76,6 +79,7 @@
     --accent: #4f8ef7;
     --accent-fg: #0b1020;
     --ok: #5fd08a;
+    --danger: #ff7b72;
     --lang-1: #b3cdff;
     --lang-2: #4f8ef7;
     --lang-3: #2d5aa8;
@@ -357,6 +361,7 @@
     --accent: #2563eb;
     --accent-fg: #ffffff;
     --ok: #1a7f4b;
+    --danger: #c0341d;
   }
 
   header,

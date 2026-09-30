@@ -274,6 +274,13 @@ export const translations = {
     'error.description':
       'This page does not exist or has moved. Go back to the home page or check whether the site is up.',
     'error.status': 'Service status',
+    'error.headline': 'no page at',
+    'error.headlineFallback': 'no page at this address',
+    'error.caret': 'this part does not exist',
+    'error.help': 'a page with a similar address exists',
+    'error.helpNone': 'start again from the home page',
+    'error.note': 'if a link on this site brought you here, tell me at',
+    'error.go': 'Go to {path}',
     'stats.description':
       'Public numbers from alvarotc.com: GitHub activity, published writing and site performance, refreshed daily.',
     'legal.updated': 'Last updated',
@@ -561,6 +568,13 @@ export const translations = {
     'error.description':
       'Esta página no existe o se ha movido. Vuelve a la portada o comprueba si la web está en marcha.',
     'error.status': 'Estado de los servicios',
+    'error.headline': 'no hay ninguna página en',
+    'error.headlineFallback': 'no hay ninguna página en esta dirección',
+    'error.caret': 'esta parte no existe',
+    'error.help': 'existe una página con una dirección parecida',
+    'error.helpNone': 'empieza de nuevo desde la portada',
+    'error.note': 'si te ha traído aquí un enlace de esta web, avísame en',
+    'error.go': 'Ir a {path}',
     'stats.description':
       'Cifras públicas de alvarotc.com: actividad en GitHub, artículos publicados y rendimiento de la web, actualizadas a diario.',
     'legal.updated': 'Última actualización',
