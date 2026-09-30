@@ -541,8 +541,8 @@ describe('every project file', () => {
   });
 
   it('leaves the hidden projects out of the release guard', () => {
-    expect(allFiles).toHaveLength(14);
-    expect(visibleFiles).toHaveLength(12);
+    expect(allFiles).toHaveLength(16);
+    expect(visibleFiles).toHaveLength(14);
     expect(visibleFiles.some((path) => path.endsWith('create-astro-blog.md'))).toBe(false);
   });
 });
