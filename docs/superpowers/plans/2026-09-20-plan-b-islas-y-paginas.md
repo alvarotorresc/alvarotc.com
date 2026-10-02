@@ -4320,11 +4320,7 @@ export type ContactFields = { from: string; subject: string; body: string };
 export type ContactFieldError = 'invalid_email' | 'subject_length' | 'body_length';
 
 export type ContactErrorCode =
-  | ContactFieldError
-  | 'too_fast'
-  | 'rate_limited'
-  | 'network'
-  | 'generic';
+  ContactFieldError | 'too_fast' | 'rate_limited' | 'network' | 'generic';
 
 export type ContactPayload = {
   from: string;
