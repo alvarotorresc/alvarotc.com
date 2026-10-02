@@ -25,18 +25,18 @@ const keys = ['year', 'place', 'os', 'stack'] as const;
         decoding="async"
         class="polaroid-img"
       />
-      <p data-polaroid-caption class="polaroid-caption">{polaroid.caption}</p>
+      <p data-polaroid-caption class="polaroid-caption">
+        {polaroid.caption}
+      </p>
     </div>
   </div>
   <dl class="polaroid-facts">
-    {
-      keys.map((key) => (
-        <div class="flex">
-          <dt class="w-14 shrink-0">{t(`about.facts.${key}` as const, lang)}</dt>
-          <dd data-fact={key}>{polaroid.facts[key]}</dd>
-        </div>
-      ))
-    }
+    {keys.map((key) => (
+      <div class="flex">
+        <dt class="w-14 shrink-0">{t(`about.facts.${key}` as const, lang)}</dt>
+        <dd data-fact={key}>{polaroid.facts[key]}</dd>
+      </div>
+    ))}
   </dl>
 </figure>
 

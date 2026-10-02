@@ -20,9 +20,7 @@ const label = activeTag
 ---
 
 <details data-topics-filter class:list={['group relative', className]}>
-  <summary
-    class="btn-secondary h-10 list-none gap-2 [&::-webkit-details-marker]:hidden group-open:border-accent group-open:bg-surface-2"
-  >
+  <summary class="btn-secondary h-10 list-none gap-2 [&::-webkit-details-marker]:hidden group-open:border-accent group-open:bg-surface-2">
     <svg
       width="16"
       height="16"
@@ -64,28 +62,24 @@ const label = activeTag
         <span>{t('writing.filterAll', lang)}</span>
         <span class="font-mono text-xs text-faint">{total}</span>
       </a>
-      {
-        tags.map(({ tag, count }) => (
-          <a
-            href={topicHref(tag)}
-            aria-current={activeTag === tag ? 'page' : undefined}
-            class={itemBase}
-          >
-            <span>{tagLabel(tag, lang)}</span>
-            <span class="font-mono text-xs text-faint">{count}</span>
-          </a>
-        ))
-      }
+      {tags.map(({ tag, count }) => (
+        <a
+          href={topicHref(tag)}
+          aria-current={activeTag === tag ? 'page' : undefined}
+          class={itemBase}
+        >
+          <span>{tagLabel(tag, lang)}</span>
+          <span class="font-mono text-xs text-faint">{count}</span>
+        </a>
+      ))}
     </div>
-    {
-      activeTag && (
-        <div class="flex items-center justify-between border-t border-border px-1 pt-2 text-[13px]">
-          <span class="text-faint">{label}</span>
-          <a href={allHref} class="font-semibold text-accent">
-            {t('writing.clearFilter', lang)}
-          </a>
-        </div>
-      )
-    }
+    {activeTag && (
+      <div class="flex items-center justify-between border-t border-border px-1 pt-2 text-[13px]">
+        <span class="text-faint">{label}</span>
+        <a href={allHref} class="font-semibold text-accent">
+          {t('writing.clearFilter', lang)}
+        </a>
+      </div>
+    )}
   </div>
 </details>

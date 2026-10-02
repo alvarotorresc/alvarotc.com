@@ -30,40 +30,38 @@ const langs: { lang: Locale; home: string; routes: string[] }[] = await Promise.
   noindex
   bilingualChrome
 >
-  {
-    langs.map(({ lang, home, routes }) => (
-      <section
-        data-404-lang={lang}
-        data-title={t('error.title', lang)}
-        data-routes={JSON.stringify(routes)}
-        data-headline={t('error.headline', lang)}
-        data-caret={t('error.caret', lang)}
-        data-help={t('error.help', lang)}
-        data-help-none={t('error.helpNone', lang)}
-        data-note={t('error.note', lang)}
-        data-go={t('error.go', lang)}
-        lang={lang}
-        hidden={lang === 'es'}
-        class="container-page nf"
-      >
-        <h1 class="nf-title">
-          <span class="nf-kind">error[E404]</span>:{' '}
-          <span data-404-headline>{t('error.headlineFallback', lang)}</span>
-        </h1>
-        <pre class="nf-diag" data-404-diag aria-hidden="true" hidden />
-        <p class="nf-text">{t('error.text', lang)}</p>
-        <div class="flex flex-wrap gap-3">
-          <a href={home} class="btn-secondary" data-404-suggest hidden />
-          <a href={home} class="btn-primary" data-404-home>
-            {t('error.home', lang)}
-          </a>
-          <a href="https://status.alvarotc.com" class="btn-secondary">
-            {t('error.status', lang)}
-          </a>
-        </div>
-      </section>
-    ))
-  }
+  {langs.map(({ lang, home, routes }) => (
+    <section
+      data-404-lang={lang}
+      data-title={t('error.title', lang)}
+      data-routes={JSON.stringify(routes)}
+      data-headline={t('error.headline', lang)}
+      data-caret={t('error.caret', lang)}
+      data-help={t('error.help', lang)}
+      data-help-none={t('error.helpNone', lang)}
+      data-note={t('error.note', lang)}
+      data-go={t('error.go', lang)}
+      lang={lang}
+      hidden={lang === 'es'}
+      class="container-page nf"
+    >
+      <h1 class="nf-title">
+        <span class="nf-kind">error[E404]</span>:{' '}
+        <span data-404-headline>{t('error.headlineFallback', lang)}</span>
+      </h1>
+      <pre class="nf-diag" data-404-diag aria-hidden="true" hidden />
+      <p class="nf-text">{t('error.text', lang)}</p>
+      <div class="flex flex-wrap gap-3">
+        <a href={home} class="btn-secondary" data-404-suggest hidden />
+        <a href={home} class="btn-primary" data-404-home>
+          {t('error.home', lang)}
+        </a>
+        <a href="https://status.alvarotc.com" class="btn-secondary">
+          {t('error.status', lang)}
+        </a>
+      </div>
+    </section>
+  ))}
 </BaseLayout>
 
 <style>

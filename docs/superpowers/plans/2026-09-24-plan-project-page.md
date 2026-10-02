@@ -2613,29 +2613,25 @@ const { size, src, alt = '' } = Astro.props;
 ---
 
 <div data-frame="device" data-size={size} class:list={['device', `device-${size}`]}>
-  {
-    size === 'hero' && (
-      <>
-        <span class="device-key device-key-1" aria-hidden="true" />
-        <span class="device-key device-key-2" aria-hidden="true" />
-      </>
-    )
-  }
+  {size === 'hero' && (
+    <>
+      <span class="device-key device-key-1" aria-hidden="true" />
+      <span class="device-key device-key-2" aria-hidden="true" />
+    </>
+  )}
   <div class="device-screen">
     <span class="device-notch" aria-hidden="true"></span>
-    {
-      src ? (
-        <img
-          src={src}
-          alt={alt}
-          loading={size === 'hero' ? 'eager' : 'lazy'}
-          decoding="async"
-          class="device-img"
-        />
-      ) : (
-        <slot />
-      )
-    }
+    {src ? (
+      <img
+        src={src}
+        alt={alt}
+        loading={size === 'hero' ? 'eager' : 'lazy'}
+        decoding="async"
+        class="device-img"
+      />
+    ) : (
+      <slot />
+    )}
   </div>
 </div>
 
@@ -2776,24 +2772,26 @@ const { size, address, src, alt = '' } = Astro.props;
 
 <div data-frame="browser" data-size={size} class:list={['browser', `browser-${size}`]}>
   <div class="browser-bar" aria-hidden="true">
-    <span class="browser-dots"><span></span><span></span><span></span></span>
+    <span class="browser-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
     <span class="browser-address">{address}</span>
     <span class="browser-spacer"></span>
   </div>
   <div class="browser-screen">
-    {
-      src ? (
-        <img
-          src={src}
-          alt={alt}
-          loading={size === 'play' ? 'lazy' : 'eager'}
-          decoding="async"
-          class="browser-img"
-        />
-      ) : (
-        <slot />
-      )
-    }
+    {src ? (
+      <img
+        src={src}
+        alt={alt}
+        loading={size === 'play' ? 'lazy' : 'eager'}
+        decoding="async"
+        class="browser-img"
+      />
+    ) : (
+      <slot />
+    )}
   </div>
 </div>
 
@@ -2947,25 +2945,23 @@ const parsed = lines.map(parseTerminalLine);
     <span class="term-title">{title}</span>
   </div>
   <div class="term-body">
-    {
-      parsed.map((line) =>
-        line.kind === 'blank' ? (
-          <div class="term-gap" aria-hidden="true" />
-        ) : line.kind === 'command' ? (
-          <div>
-            <span class="term-faint">$ </span>
-            {line.text}
-          </div>
-        ) : line.kind === 'answer' ? (
-          <div>
-            <span class="term-ok">✔</span> {line.label} <span class="term-faint">›</span>{' '}
-            <span class="term-value">{line.value}</span>
-          </div>
-        ) : (
-          <div class="term-out">{line.text}</div>
-        ),
-      )
-    }
+    {parsed.map((line) =>
+      line.kind === 'blank' ? (
+        <div class="term-gap" aria-hidden="true" />
+      ) : line.kind === 'command' ? (
+        <div>
+          <span class="term-faint">$ </span>
+          {line.text}
+        </div>
+      ) : line.kind === 'answer' ? (
+        <div>
+          <span class="term-ok">✔</span> {line.label} <span class="term-faint">›</span>{' '}
+          <span class="term-value">{line.value}</span>
+        </div>
+      ) : (
+        <div class="term-out">{line.text}</div>
+      ),
+    )}
   </div>
 </div>
 
@@ -3243,142 +3239,125 @@ const openIcon = kind === 'web' ? icons.globe : icons.external;
 ---
 
 <div class="mt-7 flex flex-col gap-2.5">
-  {
-    kind === 'cli' && view.command && (
-      <div
-        data-command
-        class="flex h-11 max-w-full self-start overflow-hidden rounded-lg border border-border bg-surface"
+  {kind === 'cli' && view.command && (
+    <div
+      data-command
+      class="flex h-11 max-w-full self-start overflow-hidden rounded-lg border border-border bg-surface"
+    >
+      <code class="flex min-w-0 items-center overflow-x-auto whitespace-nowrap px-3.5 font-mono text-[13px]">
+        {view.command}
+      </code>
+      <button
+        type="button"
+        data-copy-command={view.command}
+        data-copied-label={t('project.copied', lang)}
+        class="inline-flex shrink-0 items-center gap-2 bg-accent px-4 text-sm font-bold text-accent-fg"
       >
-        <code class="flex min-w-0 items-center overflow-x-auto whitespace-nowrap px-3.5 font-mono text-[13px]">
-          {view.command}
-        </code>
-        <button
-          type="button"
-          data-copy-command={view.command}
-          data-copied-label={t('project.copied', lang)}
-          class="inline-flex shrink-0 items-center gap-2 bg-accent px-4 text-sm font-bold text-accent-fg"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.copy}
-          />
-          <span data-copy-label aria-live="polite">
-            {t('project.copy', lang)}
-          </span>
-        </button>
-      </div>
-    )
-  }
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.copy}
+        />
+        <span data-copy-label aria-live="polite">
+          {t('project.copy', lang)}
+        </span>
+      </button>
+    </div>
+  )}
   <div class="flex flex-wrap gap-2.5">
-    {
-      kind === 'mobile' && view.download && (
-        <a
-          href={view.download.url}
-          rel="noopener"
-          data-action="download"
-          class="btn-primary gap-2.5"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.download}
-          />
-          <span>{t('project.download', lang)}</span>
-          <span class="font-mono text-xs font-medium">{view.download.label}</span>
-        </a>
-      )
-    }
-    {
-      openLabel && view.url && (
-        <a href={view.url} rel="noopener" data-action="open" class="btn-primary gap-2.5">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={openIcon}
-          />
-          <span>{openLabel}</span>
-        </a>
-      )
-    }
-    {
-      view.repo && (
-        <a href={view.repo} rel="noopener" data-action="repo" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.code}
-          />
-          <span>{t('project.source', lang)}</span>
-        </a>
-      )
-    }
-    {
-      (kind === 'mobile' || kind === 'hybrid') && view.url && view.address && (
-        <a href={view.url} rel="noopener" data-action="site" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.globe}
-          />
-          <span>{view.address}</span>
-        </a>
-      )
-    }
-    {
-      kind === 'cli' && view.url && (
-        <a href={view.url} rel="noopener" data-action="npm" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.external}
-          />
-          <span>{t('project.npmLink', lang)}</span>
-        </a>
-      )
-    }
+    {kind === 'mobile' && view.download && (
+      <a href={view.download.url} rel="noopener" data-action="download" class="btn-primary gap-2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.download}
+        />
+        <span>{t('project.download', lang)}</span>
+        <span class="font-mono text-xs font-medium">{view.download.label}</span>
+      </a>
+    )}
+    {openLabel && view.url && (
+      <a href={view.url} rel="noopener" data-action="open" class="btn-primary gap-2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={openIcon}
+        />
+        <span>{openLabel}</span>
+      </a>
+    )}
+    {view.repo && (
+      <a href={view.repo} rel="noopener" data-action="repo" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.code}
+        />
+        <span>{t('project.source', lang)}</span>
+      </a>
+    )}
+    {(kind === 'mobile' || kind === 'hybrid') && view.url && view.address && (
+      <a href={view.url} rel="noopener" data-action="site" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.globe}
+        />
+        <span>{view.address}</span>
+      </a>
+    )}
+    {kind === 'cli' && view.url && (
+      <a href={view.url} rel="noopener" data-action="npm" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.external}
+        />
+        <span>{t('project.npmLink', lang)}</span>
+      </a>
+    )}
   </div>
 </div>
 
@@ -3435,49 +3414,41 @@ const lift = overhangs(view)
 const appAddress = view.playground ? displayUrl(view.playground.src) : (view.address ?? '');
 ---
 
-{
-  view.kind === 'mobile' && view.cover && (
-    <div data-media="mobile" class:list={['flex justify-center lg:block', lift]}>
-      <DeviceFrame size="hero" src={view.cover} alt={coverAlt} />
-    </div>
-  )
-}
-{
-  view.kind === 'web' && view.cover && (
-    <div data-media="web" class:list={['min-w-0 xl:self-end', lift]}>
-      <BrowserFrame size="hero" address={view.address ?? ''} src={view.cover} alt={coverAlt} />
-    </div>
-  )
-}
-{
-  view.kind === 'hybrid' && view.cover && (
+{view.kind === 'mobile' && view.cover && (
+  <div data-media="mobile" class:list={['flex justify-center lg:block', lift]}>
+    <DeviceFrame size="hero" src={view.cover} alt={coverAlt} />
+  </div>
+)}
+{view.kind === 'web' && view.cover && (
+  <div data-media="web" class:list={['min-w-0 xl:self-end', lift]}>
+    <BrowserFrame size="hero" address={view.address ?? ''} src={view.cover} alt={coverAlt} />
+  </div>
+)}
+{view.kind === 'hybrid' && view.cover && (
+  <div
+    data-media="hybrid"
+    class:list={['min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end', lift]}
+  >
     <div
-      data-media="hybrid"
-      class:list={['min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end', lift]}
+      class:list={[
+        'lg:absolute lg:left-0 lg:top-0 lg:w-[520px]',
+        view.coverMobile && 'hidden md:block',
+      ]}
     >
-      <div
-        class:list={[
-          'lg:absolute lg:left-0 lg:top-0 lg:w-[520px]',
-          view.coverMobile && 'hidden md:block',
-        ]}
-      >
-        <BrowserFrame size="thin" address={appAddress} src={view.cover} alt={coverAlt} />
+      <BrowserFrame size="thin" address={appAddress} src={view.cover} alt={coverAlt} />
+    </div>
+    {view.coverMobile && (
+      <div class="flex justify-center md:hidden lg:absolute lg:-right-10 lg:bottom-0 lg:block">
+        <DeviceFrame size="small" src={view.coverMobile} alt={phoneAlt} />
       </div>
-      {view.coverMobile && (
-        <div class="flex justify-center md:hidden lg:absolute lg:-right-10 lg:bottom-0 lg:block">
-          <DeviceFrame size="small" src={view.coverMobile} alt={phoneAlt} />
-        </div>
-      )}
-    </div>
-  )
-}
-{
-  view.kind === 'cli' && view.terminal.length > 0 && (
-    <div data-media="cli" class="min-w-0 xl:mt-6 xl:self-start">
-      <TerminalFrame title={t('project.terminalTitle', lang)} lines={view.terminal} />
-    </div>
-  )
-}
+    )}
+  </div>
+)}
+{view.kind === 'cli' && view.terminal.length > 0 && (
+  <div data-media="cli" class="min-w-0 xl:mt-6 xl:self-start">
+    <TerminalFrame title={t('project.terminalTitle', lang)} lines={view.terminal} />
+  </div>
+)}
 ```
 
 `src/components/projects/ProjectHeader.astro`:
@@ -3511,20 +3482,18 @@ const iconSize = view.kind === 'web' ? 56 : 72;
         {t('projects.all', view.lang)}
       </a>
       <div class="mt-7 flex items-center gap-4 sm:gap-5">
-        {
-          view.icon && view.kind !== 'cli' && (
-            <img
-              src={view.icon}
-              alt=""
-              width={iconSize}
-              height={iconSize}
-              class:list={[
-                'shrink-0 object-cover',
-                view.kind === 'web' ? 'rounded-[14px]' : 'rounded-[18px]',
-              ]}
-            />
-          )
-        }
+        {view.icon && view.kind !== 'cli' && (
+          <img
+            src={view.icon}
+            alt=""
+            width={iconSize}
+            height={iconSize}
+            class:list={[
+              'shrink-0 object-cover',
+              view.kind === 'web' ? 'rounded-[14px]' : 'rounded-[18px]',
+            ]}
+          />
+        )}
         <h1
           class:list={[
             'min-w-0 break-words font-extrabold leading-none tracking-[-0.04em]',
@@ -3537,34 +3506,28 @@ const iconSize = view.kind === 'web' ? 56 : 72;
       <p class="mt-5 text-xl font-semibold leading-[1.3] tracking-[-0.02em] sm:text-[26px]">
         {view.tagline}
       </p>
-      {
-        view.intro && (
-          <p class="mt-3 max-w-[560px] text-base leading-[1.6] text-muted">{view.intro}</p>
-        )
-      }
+      {view.intro && (
+        <p class="mt-3 max-w-[560px] text-base leading-[1.6] text-muted">{view.intro}</p>
+      )}
       <div class="mt-5 flex flex-wrap items-center gap-3">
         <Tag tone={view.tone}>{view.statusLabel}</Tag>
-        {
-          view.release && (
-            <span data-release-label class="font-mono text-[13px] text-muted">
-              {view.release}
-            </span>
-          )
-        }
+        {view.release && (
+          <span data-release-label class="font-mono text-[13px] text-muted">
+            {view.release}
+          </span>
+        )}
       </div>
       <ProjectActions view={view} />
-      {
-        view.facts.length > 0 && (
-          <dl class="mt-9 flex max-w-[560px] flex-col">
-            {view.facts.map((fact) => (
-              <div class="grid min-h-11 grid-cols-[140px_minmax(0,1fr)] items-center gap-3 border-t border-border py-2 sm:grid-cols-[180px_minmax(0,1fr)]">
-                <dt class="text-[13px] text-muted">{fact.label}</dt>
-                <dd class:list={['break-words text-sm', fact.mono && 'font-mono']}>{fact.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )
-      }
+      {view.facts.length > 0 && (
+        <dl class="mt-9 flex max-w-[560px] flex-col">
+          {view.facts.map((fact) => (
+            <div class="grid min-h-11 grid-cols-[140px_minmax(0,1fr)] items-center gap-3 border-t border-border py-2 sm:grid-cols-[180px_minmax(0,1fr)]">
+              <dt class="text-[13px] text-muted">{fact.label}</dt>
+              <dd class:list={['break-words text-sm', fact.mono && 'font-mono']}>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </div>
     {media && <ProjectMedia view={view} />}
   </div>
@@ -3749,41 +3712,39 @@ const wide = view.kind === 'web';
 const clearance = overhangs(view) ? (wide ? 'xl:pt-[120px]' : 'lg:pt-[120px]') : '';
 ---
 
-{
-  view.screenshots.length > 0 && (
-    <section
-      data-section="screens"
-      class="grid grid-cols-1 gap-y-6 border-t border-border pb-12 pt-10 md:grid-cols-[200px_minmax(0,1fr)] md:gap-x-10"
-    >
-      <div class="flex flex-col gap-2 md:pt-10">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">
-          {t('project.screenshots', view.lang)}
-        </h2>
-        {view.screenshotsIntro && (
-          <p class="text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
-        )}
-      </div>
-      <div class:list={['shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0', clearance]}>
-        <ul class="flex w-max gap-5">
-          {view.screenshots.map((shot) => (
-            <li class="shot">
-              <figure class="flex flex-col gap-2.5">
-                <img
-                  src={shot.src}
-                  alt={shot.alt}
-                  loading="lazy"
-                  decoding="async"
-                  class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
-                />
-                <figcaption class="text-[13px] text-muted">{shot.caption}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
+{view.screenshots.length > 0 && (
+  <section
+    data-section="screens"
+    class="grid grid-cols-1 gap-y-6 border-t border-border pb-12 pt-10 md:grid-cols-[200px_minmax(0,1fr)] md:gap-x-10"
+  >
+    <div class="flex flex-col gap-2 md:pt-10">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">
+        {t('project.screenshots', view.lang)}
+      </h2>
+      {view.screenshotsIntro && (
+        <p class="text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
+      )}
+    </div>
+    <div class:list={['shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0', clearance]}>
+      <ul class="flex w-max gap-5">
+        {view.screenshots.map((shot) => (
+          <li class="shot">
+            <figure class="flex flex-col gap-2.5">
+              <img
+                src={shot.src}
+                alt={shot.alt}
+                loading="lazy"
+                decoding="async"
+                class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
+              />
+              <figcaption class="text-[13px] text-muted">{shot.caption}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
 
 <style>
   .shots {
@@ -3835,87 +3796,80 @@ const blocks = cli ? [] : view.features.filter((feature) => feature.image).slice
 const items = view.features.filter((feature) => !blocks.includes(feature));
 ---
 
-{
-  view.features.length > 0 && (
-    <section data-section="features" class="flex flex-col gap-8 border-t border-border py-14">
-      <div class="flex flex-col gap-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">
-          {t(cli ? 'project.featuresCli' : 'project.features', lang)}
-        </h2>
-        {view.featuresIntro && <p class="text-base text-muted">{view.featuresIntro}</p>}
-      </div>
-      {blocks.length > 0 && (
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          {blocks.map((feature) => (
-            <div
-              data-feature="block"
-              class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5"
-            >
-              <img
-                src={feature.image}
-                alt={feature.title}
-                loading="lazy"
-                decoding="async"
-                class:list={['feature-img', wide ? 'feature-wide' : 'feature-tall']}
-              />
-              <div class="flex flex-col gap-2 sm:pt-1">
-                <h3 class="text-[17px] font-bold tracking-[-0.01em]">{feature.title}</h3>
-                <p class="text-sm leading-[1.6] text-muted">{feature.text}</p>
-              </div>
+{view.features.length > 0 && (
+  <section data-section="features" class="flex flex-col gap-8 border-t border-border py-14">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">
+        {t(cli ? 'project.featuresCli' : 'project.features', lang)}
+      </h2>
+      {view.featuresIntro && <p class="text-base text-muted">{view.featuresIntro}</p>}
+    </div>
+    {blocks.length > 0 && (
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        {blocks.map((feature) => (
+          <div data-feature="block" class="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-5">
+            <img
+              src={feature.image}
+              alt={feature.title}
+              loading="lazy"
+              decoding="async"
+              class:list={['feature-img', wide ? 'feature-wide' : 'feature-tall']}
+            />
+            <div class="flex flex-col gap-2 sm:pt-1">
+              <h3 class="text-[17px] font-bold tracking-[-0.01em]">{feature.title}</h3>
+              <p class="text-sm leading-[1.6] text-muted">{feature.text}</p>
             </div>
-          ))}
-        </div>
-      )}
-      {items.length > 0 && (
-        <ul class="grid grid-cols-1 md:grid-cols-2 md:gap-x-20">
-          {items.map((feature) => (
-            <li data-feature="item" class="flex flex-col gap-1.5 border-t border-border py-[18px]">
-              <span class="text-[15px] font-bold">{feature.title}</span>
-              <span class="text-sm leading-[1.6] text-muted">{feature.text}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-{
-  view.steps.length > 0 && (
-    <section
-      data-section="steps"
-      class="grid grid-cols-1 gap-8 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
-    >
-      <div class="flex flex-col gap-2 md:pt-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.steps', lang)}</h2>
-        {view.stepsIntro && <p class="text-base leading-[1.6] text-muted">{view.stepsIntro}</p>}
+          </div>
+        ))}
       </div>
-      <div class="flex max-w-[640px] flex-col">
-        <ol class="flex flex-col">
-          {view.steps.map((step, i) => (
-            <li
-              data-step={i + 1}
-              class="grid grid-cols-[32px_minmax(0,1fr)] border-t border-border py-[18px] last:border-b"
-            >
-              <span class="text-[15px] font-bold text-faint">{i + 1}</span>
-              <div class="flex flex-col gap-1.5">
-                <span class="text-[15px] font-bold">{step.title}</span>
-                <span class="text-sm leading-[1.6] text-muted">{step.text}</span>
-              </div>
-            </li>
-          ))}
-        </ol>
-        {view.after && (
-          <p class="flex flex-wrap items-center gap-3 pt-5">
-            <span class="text-sm text-muted">{t('project.after', lang)}</span>
-            <code class="rounded-md border border-border bg-surface px-2.5 py-1.5 font-mono text-[13px]">
-              {view.after}
-            </code>
-          </p>
-        )}
-      </div>
-    </section>
-  )
-}
+    )}
+    {items.length > 0 && (
+      <ul class="grid grid-cols-1 md:grid-cols-2 md:gap-x-20">
+        {items.map((feature) => (
+          <li data-feature="item" class="flex flex-col gap-1.5 border-t border-border py-[18px]">
+            <span class="text-[15px] font-bold">{feature.title}</span>
+            <span class="text-sm leading-[1.6] text-muted">{feature.text}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+)}
+{view.steps.length > 0 && (
+  <section
+    data-section="steps"
+    class="grid grid-cols-1 gap-8 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
+  >
+    <div class="flex flex-col gap-2 md:pt-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.steps', lang)}</h2>
+      {view.stepsIntro && <p class="text-base leading-[1.6] text-muted">{view.stepsIntro}</p>}
+    </div>
+    <div class="flex max-w-[640px] flex-col">
+      <ol class="flex flex-col">
+        {view.steps.map((step, i) => (
+          <li
+            data-step={i + 1}
+            class="grid grid-cols-[32px_minmax(0,1fr)] border-t border-border py-[18px] last:border-b"
+          >
+            <span class="text-[15px] font-bold text-faint">{i + 1}</span>
+            <div class="flex flex-col gap-1.5">
+              <span class="text-[15px] font-bold">{step.title}</span>
+              <span class="text-sm leading-[1.6] text-muted">{step.text}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+      {view.after && (
+        <p class="flex flex-wrap items-center gap-3 pt-5">
+          <span class="text-sm text-muted">{t('project.after', lang)}</span>
+          <code class="rounded-md border border-border bg-surface px-2.5 py-1.5 font-mono text-[13px]">
+            {view.after}
+          </code>
+        </p>
+      )}
+    </div>
+  </section>
+)}
 
 <style>
   .feature-img {
@@ -3957,31 +3911,25 @@ const { lang } = view;
 >
   <h2 class="text-[22px] font-bold tracking-[-0.02em] lg:col-span-3">{t('project.why', lang)}</h2>
   <div class="flex flex-col gap-4 lg:col-span-7">
-    <div class="prose why-body"><slot /></div>
-    {
-      view.post && (
-        <a
-          data-post-link
-          href={view.post.href}
-          class="self-start text-sm font-semibold text-accent"
-        >
-          {t('project.readPost', lang).replace('{title}', view.post.label)}
-        </a>
-      )
-    }
+    <div class="prose why-body">
+      <slot />
+    </div>
+    {view.post && (
+      <a data-post-link href={view.post.href} class="self-start text-sm font-semibold text-accent">
+        {t('project.readPost', lang).replace('{title}', view.post.label)}
+      </a>
+    )}
   </div>
-  {
-    view.illustration && (
-      <img
-        data-illustration
-        src={view.illustration}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        class="h-40 w-40 rounded-xl object-contain lg:col-span-2"
-      />
-    )
-  }
+  {view.illustration && (
+    <img
+      data-illustration
+      src={view.illustration}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      class="h-40 w-40 rounded-xl object-contain lg:col-span-2"
+    />
+  )}
 </section>
 
 <style>
@@ -4176,94 +4124,13 @@ const partClass = (part: NotePart) =>
     .join(' ');
 ---
 
-{
-  playground && phone && (
-    <section
-      data-section="playground"
-      class="grid grid-cols-1 gap-10 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
-    >
-      <div class="flex justify-center md:block">
-        <DeviceFrame size="play">
-          <button
-            type="button"
-            data-playground-load
-            data-src={playground.src}
-            data-title={view.name}
-            class="btn-primary gap-2"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-              set:html={play}
-            />
-            <span>{t('project.loadApp', lang)}</span>
-          </button>
-        </DeviceFrame>
-      </div>
-      <div class="flex flex-col md:pt-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
-        <p class="mb-8 mt-2 max-w-[520px] text-base leading-[1.6] text-muted">
-          {t('project.tryApp', lang)}
-        </p>
-        <ul class="flex max-w-[560px] flex-col">
-          {notes.map((note) => (
-            <li
-              data-note
-              class="flex flex-col gap-1.5 border-t border-border py-[18px] last:border-b"
-            >
-              {note.title && <span class="text-[15px] font-bold">{note.title}</span>}
-              <span class="text-sm leading-[1.6] text-muted">
-                {note.parts.map((part) =>
-                  part.href ? (
-                    <a href={part.href} rel="noopener" class={partClass(part)}>
-                      {part.text}
-                    </a>
-                  ) : part.mono ? (
-                    <span class={partClass(part)}>{part.text}</span>
-                  ) : (
-                    part.text
-                  ),
-                )}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
-{
-  playground && web && (
-    <section data-section="playground" class="flex flex-col gap-8 border-t border-border py-14">
-      <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
-        <div class="flex flex-col gap-2">
-          <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
-          <p class="max-w-[620px] text-base leading-[1.6] text-muted">
-            {t('project.tryWeb', lang)}
-          </p>
-        </div>
-        {notes.map((note) => (
-          <p data-note class="max-w-[360px] text-sm leading-[1.6] text-muted md:text-right">
-            {note.parts.map((part) =>
-              part.href ? (
-                <a href={part.href} rel="noopener" class={partClass(part)}>
-                  {part.text}
-                </a>
-              ) : (
-                part.text
-              ),
-            )}
-          </p>
-        ))}
-      </div>
-      <BrowserFrame size="play" address={displayUrl(playground.src)}>
+{playground && phone && (
+  <section
+    data-section="playground"
+    class="grid grid-cols-1 gap-10 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
+  >
+    <div class="flex justify-center md:block">
+      <DeviceFrame size="play">
         <button
           type="button"
           data-playground-load
@@ -4283,12 +4150,87 @@ const partClass = (part: NotePart) =>
             aria-hidden="true"
             set:html={play}
           />
-          <span>{t('project.loadWeb', lang)}</span>
+          <span>{t('project.loadApp', lang)}</span>
         </button>
-      </BrowserFrame>
-    </section>
-  )
-}
+      </DeviceFrame>
+    </div>
+    <div class="flex flex-col md:pt-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
+      <p class="mb-8 mt-2 max-w-[520px] text-base leading-[1.6] text-muted">
+        {t('project.tryApp', lang)}
+      </p>
+      <ul class="flex max-w-[560px] flex-col">
+        {notes.map((note) => (
+          <li
+            data-note
+            class="flex flex-col gap-1.5 border-t border-border py-[18px] last:border-b"
+          >
+            {note.title && <span class="text-[15px] font-bold">{note.title}</span>}
+            <span class="text-sm leading-[1.6] text-muted">
+              {note.parts.map((part) =>
+                part.href ? (
+                  <a href={part.href} rel="noopener" class={partClass(part)}>
+                    {part.text}
+                  </a>
+                ) : part.mono ? (
+                  <span class={partClass(part)}>{part.text}</span>
+                ) : (
+                  part.text
+                ),
+              )}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+{playground && web && (
+  <section data-section="playground" class="flex flex-col gap-8 border-t border-border py-14">
+    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-10">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.try', lang)}</h2>
+        <p class="max-w-[620px] text-base leading-[1.6] text-muted">{t('project.tryWeb', lang)}</p>
+      </div>
+      {notes.map((note) => (
+        <p data-note class="max-w-[360px] text-sm leading-[1.6] text-muted md:text-right">
+          {note.parts.map((part) =>
+            part.href ? (
+              <a href={part.href} rel="noopener" class={partClass(part)}>
+                {part.text}
+              </a>
+            ) : (
+              part.text
+            ),
+          )}
+        </p>
+      ))}
+    </div>
+    <BrowserFrame size="play" address={displayUrl(playground.src)}>
+      <button
+        type="button"
+        data-playground-load
+        data-src={playground.src}
+        data-title={view.name}
+        class="btn-primary gap-2"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={play}
+        />
+        <span>{t('project.loadWeb', lang)}</span>
+      </button>
+    </BrowserFrame>
+  </section>
+)}
 
 <script>
   function bindPlayground() {
@@ -4330,57 +4272,49 @@ const hasChangelog = view.changelog.length > 0;
   data-section="history"
   class="grid grid-cols-1 gap-12 border-t border-border py-14 md:grid-cols-2 md:gap-x-20"
 >
-  {
-    view.built.length > 0 && (
-      <div class="flex flex-col gap-5">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.built', lang)}</h2>
-        <ul
-          data-built
-          class="built flex list-disc flex-col gap-2.5 pl-[18px] text-[15px] leading-[1.6]"
-        >
-          {view.built.map((line) => (
-            <li set:html={inlineLinks(line)} />
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  {view.built.length > 0 && (
+    <div class="flex flex-col gap-5">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.built', lang)}</h2>
+      <ul
+        data-built
+        class="built flex list-disc flex-col gap-2.5 pl-[18px] text-[15px] leading-[1.6]"
+      >
+        {view.built.map((line) => (
+          <li set:html={inlineLinks(line)} />
+        ))}
+      </ul>
+    </div>
+  )}
   <div class="flex flex-col gap-5">
-    {
-      hasChangelog && (
-        <>
-          <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.changelog', lang)}</h2>
-          <ol class="flex flex-col">
-            {view.changelog.map((row, i) => (
-              <li
-                data-release
-                class="grid grid-cols-1 gap-1 border-t border-border py-3.5 last:border-b sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-4"
-              >
-                <span
-                  class:list={['font-mono text-[13px]', i === 0 ? 'text-accent' : 'text-muted']}
-                >
-                  {row.when ? `${row.version}, ${row.when}` : row.version}
-                </span>
-                <span class="text-sm leading-[1.6]">{row.note}</span>
-              </li>
-            ))}
-          </ol>
-        </>
-      )
-    }
+    {hasChangelog && (
+      <>
+        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.changelog', lang)}</h2>
+        <ol class="flex flex-col">
+          {view.changelog.map((row, i) => (
+            <li
+              data-release
+              class="grid grid-cols-1 gap-1 border-t border-border py-3.5 last:border-b sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-4"
+            >
+              <span class:list={['font-mono text-[13px]', i === 0 ? 'text-accent' : 'text-muted']}>
+                {row.when ? `${row.version}, ${row.when}` : row.version}
+              </span>
+              <span class="text-sm leading-[1.6]">{row.note}</span>
+            </li>
+          ))}
+        </ol>
+      </>
+    )}
     <div class="flex flex-wrap gap-6">
-      {
-        hasChangelog && view.releases && (
-          <a
-            data-releases
-            href={view.releases.href}
-            rel="noopener"
-            class="text-[13px] font-semibold text-accent"
-          >
-            {view.releases.label}
-          </a>
-        )
-      }
+      {hasChangelog && view.releases && (
+        <a
+          data-releases
+          href={view.releases.href}
+          rel="noopener"
+          class="text-[13px] font-semibold text-accent"
+        >
+          {view.releases.label}
+        </a>
+      )}
       <a href={view.allProjects} class="text-[13px] font-semibold text-accent">
         {t('projects.all', lang)}
       </a>
@@ -4547,7 +4481,9 @@ const { view } = Astro.props;
   <ProjectHeader view={view} />
   <ProjectScreens view={view} />
   <ProjectFeatures view={view} />
-  <ProjectWhy view={view}><slot /></ProjectWhy>
+  <ProjectWhy view={view}>
+    <slot />
+  </ProjectWhy>
   <ProjectPlayground view={view} />
   <ProjectHistory view={view} />
 </div>
@@ -4809,46 +4745,40 @@ const href = (p: ProjectEntry) => `${prefix}/projects/${projectSlug(p)}`;
 Sustituir la imagen de `big` (bloque `{big.data.hero && (...)}`, líneas 41-47 del original):
 
 ```astro
-{
-  big.data.cover && (
-    <Image
-      src={big.data.cover}
-      alt={big.data.name}
-      width={960}
-      class="aspect-video w-full rounded-[10px] object-cover"
-    />
-  )
-}
+{big.data.cover && (
+  <Image
+    src={big.data.cover}
+    alt={big.data.name}
+    width={960}
+    class="aspect-video w-full rounded-[10px] object-cover"
+  />
+)}
 ```
 
 La de `mid` (bloque `{mid.data.hero && (...)}`, líneas 69-75 del original):
 
 ```astro
-{
-  mid.data.cover && (
-    <Image
-      src={mid.data.cover}
-      alt={mid.data.name}
-      width={480}
-      class="h-[200px] w-full rounded-[10px] object-cover"
-    />
-  )
-}
+{mid.data.cover && (
+  <Image
+    src={mid.data.cover}
+    alt={mid.data.name}
+    width={480}
+    class="h-[200px] w-full rounded-[10px] object-cover"
+  />
+)}
 ```
 
 En `band`, la línea 95 pasa a `band.data.cover && 'md:grid-cols-[minmax(0,1fr)_340px]',` y la imagen (líneas 106-112):
 
 ```astro
-{
-  band.data.cover && (
-    <Image
-      src={band.data.cover}
-      alt={band.data.name}
-      width={680}
-      class="h-[120px] w-full rounded-[10px] object-cover"
-    />
-  )
-}
+{band.data.cover && (
+  <Image
+    src={band.data.cover}
+    alt={band.data.name}
+    width={680}
+    class="h-[120px] w-full rounded-[10px] object-cover"
+  />
+)}
 ```
 
 `src/components/projects/ProjectCard.astro`, líneas 1-27 (frontmatter e imagen) pasan a:
@@ -4871,16 +4801,14 @@ const slug = projectSlug(project);
 ---
 
 <div class="card flex flex-col gap-3 p-5">
-  {
-    featured && project.data.cover && (
-      <Image
-        src={project.data.cover}
-        alt={project.data.name}
-        width={640}
-        class="aspect-video w-full rounded-[10px] object-cover"
-      />
-    )
-  }
+  {featured && project.data.cover && (
+    <Image
+      src={project.data.cover}
+      alt={project.data.name}
+      width={640}
+      class="aspect-video w-full rounded-[10px] object-cover"
+    />
+  )}
 </div>
 ```
 

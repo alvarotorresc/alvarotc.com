@@ -21,81 +21,81 @@ const { lang } = view;
   <ProjectScreens view={view} />
   <ProjectTools view={view} />
   <ProjectFeatures view={view} />
-  <ProjectWhy view={view}><slot /></ProjectWhy>
+  <ProjectWhy view={view}>
+    <slot />
+  </ProjectWhy>
   <ProjectPlayground view={view} />
   <ProjectHistory view={view} />
 </div>
 
-{
-  hasLightbox(view) && (
-    <dialog class="lightbox" aria-labelledby="lightbox-caption">
-      <figure class="lightbox-figure">
-        <img class="lightbox-img" alt="" data-lightbox-img />
-        <figcaption id="lightbox-caption" class="text-sm text-muted" data-lightbox-caption />
-      </figure>
-      <button
-        type="button"
-        class="lightbox-btn lightbox-close"
-        data-lightbox-close
-        aria-label={t('lightbox.close', lang)}
+{hasLightbox(view) && (
+  <dialog class="lightbox" aria-labelledby="lightbox-caption">
+    <figure class="lightbox-figure">
+      <img class="lightbox-img" alt="" data-lightbox-img />
+      <figcaption id="lightbox-caption" class="text-sm text-muted" data-lightbox-caption />
+    </figure>
+    <button
+      type="button"
+      class="lightbox-btn lightbox-close"
+      data-lightbox-close
+      aria-label={t('lightbox.close', lang)}
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        aria-hidden="true"
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <path d="m3.5 3.5 9 9" />
-          <path d="m12.5 3.5-9 9" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        class="lightbox-btn lightbox-prev"
-        data-lightbox-prev
-        aria-label={t('lightbox.prev', lang)}
+        <path d="m3.5 3.5 9 9" />
+        <path d="m12.5 3.5-9 9" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="lightbox-btn lightbox-prev"
+      data-lightbox-prev
+      aria-label={t('lightbox.prev', lang)}
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M10 3.5 5.5 8l4.5 4.5" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        class="lightbox-btn lightbox-next"
-        data-lightbox-next
-        aria-label={t('lightbox.next', lang)}
+        <path d="M10 3.5 5.5 8l4.5 4.5" />
+      </svg>
+    </button>
+    <button
+      type="button"
+      class="lightbox-btn lightbox-next"
+      data-lightbox-next
+      aria-label={t('lightbox.next', lang)}
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
       >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M6 3.5 10.5 8 6 12.5" />
-        </svg>
-      </button>
-    </dialog>
-  )
-}
+        <path d="M6 3.5 10.5 8 6 12.5" />
+      </svg>
+    </button>
+  </dialog>
+)}
 
 <script>
   function bindLightbox() {

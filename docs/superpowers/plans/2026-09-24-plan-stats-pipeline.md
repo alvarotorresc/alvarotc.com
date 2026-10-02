@@ -2076,16 +2076,14 @@ const umamiWebsiteId: string | undefined = import.meta.env.PUBLIC_UMAMI_WEBSITE_
 Sustituir el `<script defer src="https://analytics.alvarotc.com/script.js" data-website-id="4dc00bab-…"></script>` del `<head>` por:
 
 ```astro
-{
-  umamiWebsiteId && (
-    <script
-      is:inline
-      defer
-      src="https://analytics.alvarotc.com/script.js"
-      data-website-id={umamiWebsiteId}
-    />
-  )
-}
+{umamiWebsiteId && (
+  <script
+    is:inline
+    defer
+    src="https://analytics.alvarotc.com/script.js"
+    data-website-id={umamiWebsiteId}
+  />
+)}
 ```
 
 y el `<Footer lang={lang} currentPath={currentPath} alternatePath={alternate} />` por:
@@ -2368,64 +2366,58 @@ const languageName = (name: string) => (name === 'other' ? t('stats.otherLanguag
   <header class="flex flex-col gap-2.5">
     <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('stats.title', lang)}</h1>
     <p class="max-w-[640px] text-muted">{t('stats.subtitle', lang)}</p>
-    {
-      stats.generatedAt && (
-        <span class="font-mono text-xs text-faint" data-generated-at>
-          {t('stats.lastBuild', lang)}: {formatDate(new Date(stats.generatedAt), lang)}
-        </span>
-      )
-    }
+    {stats.generatedAt && (
+      <span class="font-mono text-xs text-faint" data-generated-at>
+        {t('stats.lastBuild', lang)}: {formatDate(new Date(stats.generatedAt), lang)}
+      </span>
+    )}
   </header>
 
-  {
-    stats.github && (
-      <section data-section="code" class="flex flex-col gap-4 border-t border-border pt-10">
-        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.code', lang)}</h2>
-        <div class="grid grid-cols-1 gap-3.5 lg:grid-cols-[2fr_1fr]">
-          <div class="card-sm flex flex-col gap-3.5 p-5">
-            <div class="flex items-baseline justify-between gap-3">
-              <span class="text-sm font-bold">{t('stats.contributions', lang)}</span>
-              <span class="font-mono text-xs text-faint">github.com/{githubLogin}</span>
-            </div>
-            <ContributionHeatmap weeks={weeks} lang={lang} />
+  {stats.github && (
+    <section data-section="code" class="flex flex-col gap-4 border-t border-border pt-10">
+      <h2 class="text-[22px] font-bold tracking-tight">{t('stats.code', lang)}</h2>
+      <div class="grid grid-cols-1 gap-3.5 lg:grid-cols-[2fr_1fr]">
+        <div class="card-sm flex flex-col gap-3.5 p-5">
+          <div class="flex items-baseline justify-between gap-3">
+            <span class="text-sm font-bold">{t('stats.contributions', lang)}</span>
+            <span class="font-mono text-xs text-faint">github.com/{githubLogin}</span>
           </div>
-          <StatsGrid
-            items={[
-              { value: num(stats.github.commitsThisYear), label: t('stats.commits', lang) },
-              { value: num(stats.github.publicRepos), label: t('stats.repos', lang) },
-              { value: num(stats.github.stars), label: t('stats.stars', lang) },
-              { value: num(stats.github.streak), label: t('stats.streak', lang) },
-            ]}
-          />
+          <ContributionHeatmap weeks={weeks} lang={lang} />
         </div>
-        {(stats.github.mostActiveRepo || stats.github.languages.length > 0) && (
-          <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
-            {stats.github.mostActiveRepo && (
-              <div class="card-sm flex flex-col gap-2 p-[18px]">
-                <span class="text-xs font-bold text-faint">{t('stats.mostActive', lang)}</span>
-                <span class="font-mono text-base font-bold">
-                  {stats.github.mostActiveRepo.name}
-                </span>
-                <span class="text-[13px] text-muted" data-most-active-commits>
-                  {`${num(stats.github.mostActiveRepo.commits30d)} ${t('stats.commits30d', lang)}`}
-                </span>
-              </div>
-            )}
-            {stats.github.languages.length > 0 && (
-              <div class="card-sm flex flex-col gap-2 p-[18px]">
-                <span class="text-xs font-bold text-faint">{t('stats.languages', lang)}</span>
-                <span class="text-[13px] text-muted" data-languages>
-                  {stats.github.languages
-                    .map((l) => `${languageName(l.name)} ${l.percent}%`)
-                    .join(', ')}
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-      </section>
-    )
-  }
+        <StatsGrid
+          items={[
+            { value: num(stats.github.commitsThisYear), label: t('stats.commits', lang) },
+            { value: num(stats.github.publicRepos), label: t('stats.repos', lang) },
+            { value: num(stats.github.stars), label: t('stats.stars', lang) },
+            { value: num(stats.github.streak), label: t('stats.streak', lang) },
+          ]}
+        />
+      </div>
+      {(stats.github.mostActiveRepo || stats.github.languages.length > 0) && (
+        <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
+          {stats.github.mostActiveRepo && (
+            <div class="card-sm flex flex-col gap-2 p-[18px]">
+              <span class="text-xs font-bold text-faint">{t('stats.mostActive', lang)}</span>
+              <span class="font-mono text-base font-bold">{stats.github.mostActiveRepo.name}</span>
+              <span class="text-[13px] text-muted" data-most-active-commits>
+                {`${num(stats.github.mostActiveRepo.commits30d)} ${t('stats.commits30d', lang)}`}
+              </span>
+            </div>
+          )}
+          {stats.github.languages.length > 0 && (
+            <div class="card-sm flex flex-col gap-2 p-[18px]">
+              <span class="text-xs font-bold text-faint">{t('stats.languages', lang)}</span>
+              <span class="text-[13px] text-muted" data-languages>
+                {stats.github.languages
+                  .map((l) => `${languageName(l.name)} ${l.percent}%`)
+                  .join(', ')}
+              </span>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  )}
 
   <section data-section="writing" class="flex flex-col gap-4 border-t border-border pt-10">
     <h2 class="text-[22px] font-bold tracking-tight">{t('stats.writing', lang)}</h2>
@@ -2438,67 +2430,59 @@ const languageName = (name: string) => (name === 'other' ? t('stats.otherLanguag
           : []),
       ]}
     />
-    {
-      (writing.topics.length > 0 || (stats.umami && stats.umami.mostRead.length > 0)) && (
-        <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
-          {stats.umami && stats.umami.mostRead.length > 0 && (
-            <div class="card-sm flex flex-col gap-2 p-[18px]" data-most-read>
-              <span class="text-xs font-bold text-faint">{t('stats.mostRead', lang)}</span>
-              <ul class="flex flex-col">
-                {stats.umami.mostRead.map((page) => (
-                  <li class="flex items-center justify-between gap-4 border-t border-border py-2.5 first:border-t-0">
-                    <span class="text-sm font-semibold">{page.title}</span>
-                    <span class="font-mono text-[13px] text-faint">{num(page.views)}</span>
-                  </li>
-                ))}
-              </ul>
+    {(writing.topics.length > 0 || (stats.umami && stats.umami.mostRead.length > 0)) && (
+      <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
+        {stats.umami && stats.umami.mostRead.length > 0 && (
+          <div class="card-sm flex flex-col gap-2 p-[18px]" data-most-read>
+            <span class="text-xs font-bold text-faint">{t('stats.mostRead', lang)}</span>
+            <ul class="flex flex-col">
+              {stats.umami.mostRead.map((page) => (
+                <li class="flex items-center justify-between gap-4 border-t border-border py-2.5 first:border-t-0">
+                  <span class="text-sm font-semibold">{page.title}</span>
+                  <span class="font-mono text-[13px] text-faint">{num(page.views)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {writing.topics.length > 0 && (
+          <div class="card-sm flex flex-col gap-2 p-[18px]">
+            <span class="text-xs font-bold text-faint">{t('stats.topics', lang)}</span>
+            <div class="flex flex-wrap gap-2">
+              {writing.topics.map((topic) => (
+                <Tag>{`${topic.tag} ${topic.count}`}</Tag>
+              ))}
             </div>
-          )}
-          {writing.topics.length > 0 && (
-            <div class="card-sm flex flex-col gap-2 p-[18px]">
-              <span class="text-xs font-bold text-faint">{t('stats.topics', lang)}</span>
-              <div class="flex flex-wrap gap-2">
-                {writing.topics.map((topic) => (
-                  <Tag>{`${topic.tag} ${topic.count}`}</Tag>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )
-    }
+          </div>
+        )}
+      </div>
+    )}
   </section>
 
-  {
-    stats.lighthouse && (
-      <section data-section="site" class="flex flex-col gap-4 border-t border-border pt-10">
-        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.site', lang)}</h2>
-        <StatsGrid
-          items={[
-            {
-              value: num(stats.lighthouse.performanceMobile),
-              label: t('stats.lighthouse', lang),
-            },
-            {
-              value: num(stats.lighthouse.performanceDesktop),
-              label: t('stats.lighthouseDesktop', lang),
-            },
-          ]}
-        />
-      </section>
-    )
-  }
+  {stats.lighthouse && (
+    <section data-section="site" class="flex flex-col gap-4 border-t border-border pt-10">
+      <h2 class="text-[22px] font-bold tracking-tight">{t('stats.site', lang)}</h2>
+      <StatsGrid
+        items={[
+          {
+            value: num(stats.lighthouse.performanceMobile),
+            label: t('stats.lighthouse', lang),
+          },
+          {
+            value: num(stats.lighthouse.performanceDesktop),
+            label: t('stats.lighthouseDesktop', lang),
+          },
+        ]}
+      />
+    </section>
+  )}
 
-  {
-    stats.generatedAt && (
-      <section data-section="sources" class="flex flex-col gap-3 border-t border-border pt-10">
-        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.sources', lang)}</h2>
-        <p class="max-w-[640px] text-sm leading-relaxed text-muted">
-          {t('stats.sourcesText', lang)}
-        </p>
-      </section>
-    )
-  }
+  {stats.generatedAt && (
+    <section data-section="sources" class="flex flex-col gap-3 border-t border-border pt-10">
+      <h2 class="text-[22px] font-bold tracking-tight">{t('stats.sources', lang)}</h2>
+      <p class="max-w-[640px] text-sm leading-relaxed text-muted">{t('stats.sourcesText', lang)}</p>
+    </section>
+  )}
 </div>
 ```
 
@@ -2667,9 +2651,7 @@ const locale = lang === 'es' ? 'es-ES' : 'en-US';
 y sustituir `<span class="font-mono text-[26px] font-extrabold">{c.value}</span>` por:
 
 ```astro
-<span class="font-mono text-[26px] font-extrabold">
-  {c.value.toLocaleString(locale)}
-</span>
+<span class="font-mono text-[26px] font-extrabold">{c.value.toLocaleString(locale)}</span>
 ```
 
 En `src/pages/index.astro`, añadir tras `import { personJsonLd } from '../lib/jsonld';`:
