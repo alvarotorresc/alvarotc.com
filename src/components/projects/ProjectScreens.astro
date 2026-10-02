@@ -10,47 +10,45 @@ const { view } = Astro.props;
 const wide = view.kind === 'web';
 ---
 
-{
-  view.screenshots.length > 0 && (
-    <section data-section="screens" class="flex flex-col gap-6 border-t border-border pb-12 pt-10">
-      <div class="flex flex-col gap-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">
-          {t('project.screenshots', view.lang)}
-        </h2>
-        {view.screenshotsIntro && (
-          <p class="max-w-[520px] text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
-        )}
-      </div>
-      <div class="shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0">
-        <ul class="flex w-max gap-5">
-          {view.screenshots.map((shot) => (
-            <li class="shot">
-              <figure class="flex flex-col gap-2.5">
-                <LightboxTrigger
-                  lang={view.lang}
-                  group="screens"
-                  full={shot.full}
+{view.screenshots.length > 0 && (
+  <section data-section="screens" class="flex flex-col gap-6 border-t border-border pb-12 pt-10">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">
+        {t('project.screenshots', view.lang)}
+      </h2>
+      {view.screenshotsIntro && (
+        <p class="max-w-[520px] text-sm leading-[1.6] text-muted">{view.screenshotsIntro}</p>
+      )}
+    </div>
+    <div class="shots -mx-4 min-w-0 overflow-x-auto px-4 md:mx-0 md:px-0">
+      <ul class="flex w-max gap-5">
+        {view.screenshots.map((shot) => (
+          <li class="shot">
+            <figure class="flex flex-col gap-2.5">
+              <LightboxTrigger
+                lang={view.lang}
+                group="screens"
+                full={shot.full}
+                alt={shot.alt}
+                caption={shot.caption}
+                class={wide ? 'rounded-xl' : 'rounded-3xl'}
+              >
+                <img
+                  src={shot.src}
                   alt={shot.alt}
-                  caption={shot.caption}
-                  class={wide ? 'rounded-xl' : 'rounded-3xl'}
-                >
-                  <img
-                    src={shot.src}
-                    alt={shot.alt}
-                    loading="lazy"
-                    decoding="async"
-                    class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
-                  />
-                </LightboxTrigger>
-                <figcaption class="text-[13px] text-muted">{shot.caption}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  )
-}
+                  loading="lazy"
+                  decoding="async"
+                  class:list={['shot-img', wide ? 'shot-wide' : 'shot-tall']}
+                />
+              </LightboxTrigger>
+              <figcaption class="text-[13px] text-muted">{shot.caption}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
 
 <style>
   .shots {

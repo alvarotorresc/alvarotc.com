@@ -14,96 +14,89 @@ const blocks = featureBlocks(view.kind, view.features, view.featureBlockLimit);
 const items = view.features.filter((feature) => !blocks.includes(feature));
 ---
 
-{
-  view.features.length > 0 && (
-    <section data-section="features" class="flex flex-col gap-8 border-t border-border py-14">
-      <div class="flex flex-col gap-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">
-          {t(cli ? 'project.featuresCli' : 'project.features', lang)}
-        </h2>
-        {view.featuresIntro && <p class="text-base text-muted">{view.featuresIntro}</p>}
-      </div>
-      {blocks.length > 0 && (
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
-          {blocks.map((feature) => (
-            <div
-              data-feature="block"
-              class="flex flex-col gap-4 md:flex-row md:items-start md:gap-5"
+{view.features.length > 0 && (
+  <section data-section="features" class="flex flex-col gap-8 border-t border-border py-14">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">
+        {t(cli ? 'project.featuresCli' : 'project.features', lang)}
+      </h2>
+      {view.featuresIntro && <p class="text-base text-muted">{view.featuresIntro}</p>}
+    </div>
+    {blocks.length > 0 && (
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-3">
+        {blocks.map((feature) => (
+          <div data-feature="block" class="flex flex-col gap-4 md:flex-row md:items-start md:gap-5">
+            <LightboxTrigger
+              lang={lang}
+              group="features"
+              full={feature.full ?? feature.image ?? ''}
+              alt=""
+              caption={feature.title}
+              class:list={['shrink-0 self-start', wide ? 'rounded-lg' : 'rounded-2xl']}
             >
-              <LightboxTrigger
-                lang={lang}
-                group="features"
-                full={feature.full ?? feature.image ?? ''}
+              <img
+                src={feature.image}
                 alt=""
-                caption={feature.title}
-                class:list={['shrink-0 self-start', wide ? 'rounded-lg' : 'rounded-2xl']}
-              >
-                <img
-                  src={feature.image}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  class:list={['feature-img', wide ? 'feature-wide' : 'feature-tall']}
-                />
-              </LightboxTrigger>
-              <div class="flex flex-col gap-2 md:pt-1">
-                <h3 class="text-[17px] font-bold tracking-[-0.01em]">{feature.title}</h3>
-                <p class="text-sm leading-[1.6] text-muted">{feature.text}</p>
-              </div>
+                loading="lazy"
+                decoding="async"
+                class:list={['feature-img', wide ? 'feature-wide' : 'feature-tall']}
+              />
+            </LightboxTrigger>
+            <div class="flex flex-col gap-2 md:pt-1">
+              <h3 class="text-[17px] font-bold tracking-[-0.01em]">{feature.title}</h3>
+              <p class="text-sm leading-[1.6] text-muted">{feature.text}</p>
             </div>
-          ))}
-        </div>
-      )}
-      {items.length > 0 && (
-        <ul class="grid grid-cols-1 md:grid-cols-2 md:gap-x-20">
-          {items.map((feature) => (
-            <li data-feature="item" class="flex flex-col gap-1.5 border-t border-border py-[18px]">
-              <span class="text-[15px] font-bold">{feature.title}</span>
-              <span class="text-sm leading-[1.6] text-muted">{feature.text}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </section>
-  )
-}
-{
-  view.steps.length > 0 && (
-    <section
-      data-section="steps"
-      class="grid grid-cols-1 gap-8 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
-    >
-      <div class="flex flex-col gap-2 md:pt-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.steps', lang)}</h2>
-        {view.stepsIntro && <p class="text-base leading-[1.6] text-muted">{view.stepsIntro}</p>}
+          </div>
+        ))}
       </div>
-      <div class="flex max-w-[640px] flex-col">
-        <ol class="flex flex-col">
-          {view.steps.map((step, i) => (
-            <li
-              data-step={i + 1}
-              class="grid grid-cols-[32px_minmax(0,1fr)] border-t border-border py-[18px] last:border-b"
-            >
-              <span class="text-[15px] font-bold text-faint">{i + 1}</span>
-              <div class="flex flex-col gap-1.5">
-                <span class="text-[15px] font-bold">{step.title}</span>
-                <span class="text-sm leading-[1.6] text-muted">{step.text}</span>
-              </div>
-            </li>
-          ))}
-        </ol>
-        {view.after && (
-          <p class="flex flex-wrap items-center gap-3 pt-5">
-            <span class="text-sm text-muted">{t('project.after', lang)}</span>
-            <code class="rounded-md border border-border bg-surface px-2.5 py-1.5 font-mono text-[13px]">
-              {view.after}
-            </code>
-          </p>
-        )}
-      </div>
-    </section>
-  )
-}
+    )}
+    {items.length > 0 && (
+      <ul class="grid grid-cols-1 md:grid-cols-2 md:gap-x-20">
+        {items.map((feature) => (
+          <li data-feature="item" class="flex flex-col gap-1.5 border-t border-border py-[18px]">
+            <span class="text-[15px] font-bold">{feature.title}</span>
+            <span class="text-sm leading-[1.6] text-muted">{feature.text}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+)}
+{view.steps.length > 0 && (
+  <section
+    data-section="steps"
+    class="grid grid-cols-1 gap-8 border-t border-border py-14 md:grid-cols-[320px_minmax(0,1fr)] md:gap-x-20"
+  >
+    <div class="flex flex-col gap-2 md:pt-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.steps', lang)}</h2>
+      {view.stepsIntro && <p class="text-base leading-[1.6] text-muted">{view.stepsIntro}</p>}
+    </div>
+    <div class="flex max-w-[640px] flex-col">
+      <ol class="flex flex-col">
+        {view.steps.map((step, i) => (
+          <li
+            data-step={i + 1}
+            class="grid grid-cols-[32px_minmax(0,1fr)] border-t border-border py-[18px] last:border-b"
+          >
+            <span class="text-[15px] font-bold text-faint">{i + 1}</span>
+            <div class="flex flex-col gap-1.5">
+              <span class="text-[15px] font-bold">{step.title}</span>
+              <span class="text-sm leading-[1.6] text-muted">{step.text}</span>
+            </div>
+          </li>
+        ))}
+      </ol>
+      {view.after && (
+        <p class="flex flex-wrap items-center gap-3 pt-5">
+          <span class="text-sm text-muted">{t('project.after', lang)}</span>
+          <code class="rounded-md border border-border bg-surface px-2.5 py-1.5 font-mono text-[13px]">
+            {view.after}
+          </code>
+        </p>
+      )}
+    </div>
+  </section>
+)}
 
 <style>
   .feature-img {
