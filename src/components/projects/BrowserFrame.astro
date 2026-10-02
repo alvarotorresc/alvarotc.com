@@ -10,24 +10,26 @@ const { size, address, src, alt = '' } = Astro.props;
 
 <div data-frame="browser" data-size={size} class:list={['browser', `browser-${size}`]}>
   <div class="browser-bar" aria-hidden="true">
-    <span class="browser-dots"><span></span><span></span><span></span></span>
+    <span class="browser-dots">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
     <span class="browser-address">{address}</span>
     <span class="browser-spacer"></span>
   </div>
   <div class="browser-screen">
-    {
-      src ? (
-        <img
-          src={src}
-          alt={alt}
-          loading={size === 'play' ? 'lazy' : 'eager'}
-          decoding="async"
-          class="browser-img"
-        />
-      ) : (
-        <slot />
-      )
-    }
+    {src ? (
+      <img
+        src={src}
+        alt={alt}
+        loading={size === 'play' ? 'lazy' : 'eager'}
+        decoding="async"
+        class="browser-img"
+      />
+    ) : (
+      <slot />
+    )}
   </div>
 </div>
 

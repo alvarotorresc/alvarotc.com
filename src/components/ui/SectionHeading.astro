@@ -16,13 +16,11 @@ const { id, lang, titleKey, subtitle, link, linkLabel } = Astro.props;
   <div class="flex flex-col gap-2">
     <div class="flex items-baseline justify-between gap-4">
       <h2 class="text-[22px] font-bold tracking-tight">{t(titleKey, lang)}</h2>
-      {
-        link && (
-          <a href={link} class="text-sm font-semibold text-accent">
-            {linkLabel}
-          </a>
-        )
-      }
+      {link && (
+        <a href={link} class="text-sm font-semibold text-accent">
+          {linkLabel}
+        </a>
+      )}
     </div>
     {subtitle && <p class="max-w-[720px] text-sm leading-relaxed text-faint">{subtitle}</p>}
   </div>

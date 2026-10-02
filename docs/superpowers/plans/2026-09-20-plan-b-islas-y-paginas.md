@@ -297,33 +297,31 @@ const links = [
 
 <div class="flex flex-wrap items-center gap-2">
   <span class="mr-2 text-sm text-muted">{t('post.share', lang)}:</span>
-  {
-    links.map((link) => (
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t(link.key, lang)}
-        class="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-muted hover:text-text"
-      >
-        {link.icon === 'x' && (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-        )}
-        {link.icon === 'linkedin' && (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-          </svg>
-        )}
-        {link.icon === 'whatsapp' && (
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-          </svg>
-        )}
-      </a>
-    ))
-  }
+  {links.map((link) => (
+    <a
+      href={link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t(link.key, lang)}
+      class="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-surface text-muted hover:text-text"
+    >
+      {link.icon === 'x' && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      )}
+      {link.icon === 'linkedin' && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+        </svg>
+      )}
+      {link.icon === 'whatsapp' && (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+      )}
+    </a>
+  ))}
   <button
     type="button"
     data-copy-link={url}
@@ -405,17 +403,15 @@ const tones = {
 const classes = `inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold ${tones[tone]} ${className}`;
 ---
 
-{
-  href ? (
-    <a href={href} class={classes}>
-      <slot />
-    </a>
-  ) : (
-    <span class={classes}>
-      <slot />
-    </span>
-  )
-}
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <span class={classes}>
+    <slot />
+  </span>
+)}
 ```
 
 - [ ] **Step 12: Componentes de la página de post**
@@ -437,28 +433,28 @@ const rss = lang === 'es' ? '/rss.xml' : '/rss.xml';
 ---
 
 <aside class="flex flex-col gap-8 lg:sticky lg:top-8">
-  {
-    toc.length > 0 && (
-      <nav aria-label={t('post.toc', lang)} class="flex flex-col gap-3">
-        <h2 class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
-          {t('post.toc', lang)}
-        </h2>
-        <ol class="flex flex-col gap-2 text-sm">
-          {toc.map((h) => (
-            <li>
-              <a href={`#${h.slug}`} class="text-muted hover:text-text">
-                {h.text}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-    )
-  }
+  {toc.length > 0 && (
+    <nav aria-label={t('post.toc', lang)} class="flex flex-col gap-3">
+      <h2 class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
+        {t('post.toc', lang)}
+      </h2>
+      <ol class="flex flex-col gap-2 text-sm">
+        {toc.map((h) => (
+          <li>
+            <a href={`#${h.slug}`} class="text-muted hover:text-text">
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
   <div class="card-sm flex flex-col gap-2 p-4">
     <h2 class="text-sm font-bold">{t('post.subscribe', lang)}</h2>
     <p class="text-[13px] text-muted">{t('post.rssOnly', lang)}</p>
-    <a href={rss} class="text-[13px] font-semibold text-accent">{t('post.rss', lang)}</a>
+    <a href={rss} class="text-[13px] font-semibold text-accent">
+      {t('post.rss', lang)}
+    </a>
   </div>
 </aside>
 ```
@@ -481,33 +477,31 @@ const { lang, prev, next } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 ---
 
-{
-  (prev || next) && (
-    <nav
-      aria-label={`${t('post.previous', lang)} / ${t('post.next', lang)}`}
-      class="grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
-    >
-      {prev ? (
-        <a href={`${prefix}/blog/${prev.id}`} class="card-sm flex flex-col gap-1 p-4">
-          <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
-            {t('post.previous', lang)}
-          </span>
-          <span class="text-sm font-semibold">{prev.data.title}</span>
-        </a>
-      ) : (
-        <span />
-      )}
-      {next && (
-        <a href={`${prefix}/blog/${next.id}`} class="card-sm flex flex-col gap-1 p-4 sm:text-right">
-          <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
-            {t('post.next', lang)}
-          </span>
-          <span class="text-sm font-semibold">{next.data.title}</span>
-        </a>
-      )}
-    </nav>
-  )
-}
+{(prev || next) && (
+  <nav
+    aria-label={`${t('post.previous', lang)} / ${t('post.next', lang)}`}
+    class="grid grid-cols-1 gap-4 border-t border-border pt-8 sm:grid-cols-2"
+  >
+    {prev ? (
+      <a href={`${prefix}/blog/${prev.id}`} class="card-sm flex flex-col gap-1 p-4">
+        <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
+          {t('post.previous', lang)}
+        </span>
+        <span class="text-sm font-semibold">{prev.data.title}</span>
+      </a>
+    ) : (
+      <span />
+    )}
+    {next && (
+      <a href={`${prefix}/blog/${next.id}`} class="card-sm flex flex-col gap-1 p-4 sm:text-right">
+        <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-faint">
+          {t('post.next', lang)}
+        </span>
+        <span class="text-sm font-semibold">{next.data.title}</span>
+      </a>
+    )}
+  </nav>
+)}
 ```
 
 - [ ] **Step 13: Reescribir `src/layouts/BlogPostLayout.astro`**
@@ -555,21 +549,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
     <article class="mx-auto flex w-full max-w-[720px] flex-col gap-8 lg:mx-0">
       <header class="flex flex-col gap-4">
         <div class="flex flex-wrap items-center gap-2 text-sm">
-          <a href={`${prefix}/blog`} class="font-semibold text-accent">{t('writing.all', lang)}</a>
-          {tags.map((tag) => <Tag>{tag}</Tag>)}
+          <a href={`${prefix}/blog`} class="font-semibold text-accent">
+            {t('writing.all', lang)}
+          </a>
+          {tags.map((tag) => (
+            <Tag>{tag}</Tag>
+          ))}
         </div>
         <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
         <p class="text-lg leading-relaxed text-muted">{description}</p>
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
           <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
-          <span>{readingTime} {t('post.minRead', lang)}</span>
-          {
-            hasTranslation && (
-              <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
-                {t('post.alternate', lang)}
-              </a>
-            )
-          }
+          <span>
+            {readingTime} {t('post.minRead', lang)}
+          </span>
+          {hasTranslation && (
+            <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
+              {t('post.alternate', lang)}
+            </a>
+          )}
         </div>
       </header>
 
@@ -581,7 +579,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
         class="w-full rounded-2xl border border-border object-cover"
       />
 
-      <div class="prose"><slot /></div>
+      <div class="prose">
+        <slot />
+      </div>
 
       <div class="border-t border-border pt-8">
         <ShareButtons title={title} url={canonicalURL} lang={lang} />
@@ -590,7 +590,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
       <PostNav lang={lang} prev={prev} next={next} />
     </article>
 
-    <div class="mt-12 lg:mt-0"><PostSidebar lang={lang} headings={headings} /></div>
+    <div class="mt-12 lg:mt-0">
+      <PostSidebar lang={lang} headings={headings} />
+    </div>
   </div>
 </BaseLayout>
 ```
@@ -693,25 +695,23 @@ const base =
   'h-8 rounded-lg border border-border bg-surface px-3 text-[13px] font-semibold text-muted hover:text-text aria-pressed:border-accent aria-pressed:text-accent';
 ---
 
-{
-  tags.length > 0 && (
-    <div
-      role="group"
-      aria-label={t('writing.filter', lang)}
-      class="flex flex-wrap gap-2"
-      data-tag-filter
-    >
-      <button type="button" data-tag="" aria-pressed="true" class={base}>
-        {t('writing.filterAll', lang)}
+{tags.length > 0 && (
+  <div
+    role="group"
+    aria-label={t('writing.filter', lang)}
+    class="flex flex-wrap gap-2"
+    data-tag-filter
+  >
+    <button type="button" data-tag="" aria-pressed="true" class={base}>
+      {t('writing.filterAll', lang)}
+    </button>
+    {tags.map(({ tag, count }) => (
+      <button type="button" data-tag={tag} aria-pressed="false" class={base}>
+        {tag} <span class="font-mono text-[11px] text-faint">{count}</span>
       </button>
-      {tags.map(({ tag, count }) => (
-        <button type="button" data-tag={tag} aria-pressed="false" class={base}>
-          {tag} <span class="font-mono text-[11px] text-faint">{count}</span>
-        </button>
-      ))}
-    </div>
-  )
-}
+    ))}
+  </div>
+)}
 
 <script>
   function bind() {
@@ -755,30 +755,30 @@ const tags = tagCounts(posts);
   <div class="container-page flex flex-col gap-8 py-14">
     <header class="flex flex-col gap-3">
       <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('writing.title', lang)}</h1>
-      <p class="text-muted">{posts.length} {t('writing.count', lang)}</p>
+      <p class="text-muted">
+        {posts.length} {t('writing.count', lang)}
+      </p>
     </header>
     <TagFilter lang={lang} tags={tags} />
     <ul class="flex flex-col">
-      {
-        posts.map((post) => (
-          <li data-tags={post.data.tags.join(' ')} class="border-t border-border last:border-b">
-            <a href={`/blog/${post.id}`} class="flex flex-col gap-2 py-6 md:flex-row md:gap-8">
-              <span class="shrink-0 font-mono text-[13px] text-faint md:w-[160px]">
-                <time datetime={post.data.date.toISOString()}>
-                  {formatDate(post.data.date, lang)}
-                </time>
-                <span class="block">
-                  {getReadingTime(post.body ?? '')} {t('post.minRead', lang)}
-                </span>
+      {posts.map((post) => (
+        <li data-tags={post.data.tags.join(' ')} class="border-t border-border last:border-b">
+          <a href={`/blog/${post.id}`} class="flex flex-col gap-2 py-6 md:flex-row md:gap-8">
+            <span class="shrink-0 font-mono text-[13px] text-faint md:w-[160px]">
+              <time datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date, lang)}
+              </time>
+              <span class="block">
+                {getReadingTime(post.body ?? '')} {t('post.minRead', lang)}
               </span>
-              <span class="flex flex-col gap-1">
-                <span class="text-lg font-bold">{post.data.title}</span>
-                <span class="text-sm leading-relaxed text-muted">{post.data.description}</span>
-              </span>
-            </a>
-          </li>
-        ))
-      }
+            </span>
+            <span class="flex flex-col gap-1">
+              <span class="text-lg font-bold">{post.data.title}</span>
+              <span class="text-sm leading-relaxed text-muted">{post.data.description}</span>
+            </span>
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 </BaseLayout>
@@ -941,28 +941,26 @@ interface Props {
 const { kind, src, title, lang } = Astro.props;
 ---
 
-{
-  kind === 'video' ? (
-    <video
-      controls
-      src={src}
-      title={title}
-      class="mx-auto w-full max-w-[420px] rounded-2xl border border-border"
-    />
-  ) : (
-    <div class="mx-auto flex aspect-[9/19] w-full max-w-[360px] items-center justify-center overflow-hidden rounded-[36px] border-[6px] border-border bg-surface-2">
-      <button
-        type="button"
-        data-playground-load
-        data-src={src}
-        data-title={title}
-        class="btn-primary"
-      >
-        {t('project.load', lang)}
-      </button>
-    </div>
-  )
-}
+{kind === 'video' ? (
+  <video
+    controls
+    src={src}
+    title={title}
+    class="mx-auto w-full max-w-[420px] rounded-2xl border border-border"
+  />
+) : (
+  <div class="mx-auto flex aspect-[9/19] w-full max-w-[360px] items-center justify-center overflow-hidden rounded-[36px] border-[6px] border-border bg-surface-2">
+    <button
+      type="button"
+      data-playground-load
+      data-src={src}
+      data-title={title}
+      class="btn-primary"
+    >
+      {t('project.load', lang)}
+    </button>
+  </div>
+)}
 
 <script>
   function bind() {
@@ -1006,45 +1004,39 @@ const tone = (status: string) =>
 ---
 
 <div class="card flex flex-col gap-3 p-5">
-  {
-    featured && project.data.hero && (
-      <img
-        src={project.data.hero}
-        alt={project.data.name}
-        class="aspect-video w-full rounded-[10px] object-cover"
-      />
-    )
-  }
+  {featured && project.data.hero && (
+    <img
+      src={project.data.hero}
+      alt={project.data.name}
+      class="aspect-video w-full rounded-[10px] object-cover"
+    />
+  )}
   <a href={`${prefix}/projects/${slug}`} class="flex items-center gap-2.5">
     <h3 class="text-lg font-extrabold tracking-tight">{project.data.name}</h3>
     <Tag tone={tone(project.data.status)}>{statusLabel(project.data.status, lang)}</Tag>
   </a>
   <p class="text-sm leading-relaxed text-muted">{project.data.tagline}</p>
-  {
-    project.data.stack.length > 0 && (
-      <ul class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-accent">
-        {project.data.stack.slice(0, 3).map((s) => (
-          <li>{s}</li>
-        ))}
-      </ul>
-    )
-  }
-  {
-    (project.data.url || project.data.repo) && (
-      <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
-        {project.data.url && (
-          <a href={project.data.url} rel="noopener">
-            {t('projects.live', lang)}
-          </a>
-        )}
-        {project.data.repo && (
-          <a href={project.data.repo} rel="noopener">
-            {t('projects.repo', lang)}
-          </a>
-        )}
-      </div>
-    )
-  }
+  {project.data.stack.length > 0 && (
+    <ul class="flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs text-accent">
+      {project.data.stack.slice(0, 3).map((s) => (
+        <li>{s}</li>
+      ))}
+    </ul>
+  )}
+  {(project.data.url || project.data.repo) && (
+    <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
+      {project.data.url && (
+        <a href={project.data.url} rel="noopener">
+          {t('projects.live', lang)}
+        </a>
+      )}
+      {project.data.repo && (
+        <a href={project.data.repo} rel="noopener">
+          {t('projects.repo', lang)}
+        </a>
+      )}
+    </div>
+  )}
 </div>
 ```
 
@@ -1130,18 +1122,16 @@ const { Content } = await render(project);
     <header class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
       <div class="flex flex-col gap-4">
         <div class="flex items-center gap-4">
-          {
-            icon ? (
-              <img src={icon} alt="" class="h-14 w-14 rounded-2xl object-cover" />
-            ) : (
-              <div
-                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-2 text-xl font-extrabold text-faint"
-                aria-hidden="true"
-              >
-                {name.slice(0, 1)}
-              </div>
-            )
-          }
+          {icon ? (
+            <img src={icon} alt="" class="h-14 w-14 rounded-2xl object-cover" />
+          ) : (
+            <div
+              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-surface-2 text-xl font-extrabold text-faint"
+              aria-hidden="true"
+            >
+              {name.slice(0, 1)}
+            </div>
+          )}
           <div class="flex flex-col gap-1.5">
             <div class="flex items-center gap-2.5">
               <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{name}</h1>
@@ -1154,128 +1144,114 @@ const { Content } = await render(project);
           </div>
         </div>
         <div class="flex gap-3">
-          {
-            url && (
-              <a href={url} rel="noopener" class="btn-primary">
-                {t('projects.live', lang)}
-              </a>
-            )
-          }
-          {
-            repo && (
-              <a href={repo} rel="noopener" class="btn-secondary">
-                {t('project.source', lang)}
-              </a>
-            )
-          }
+          {url && (
+            <a href={url} rel="noopener" class="btn-primary">
+              {t('projects.live', lang)}
+            </a>
+          )}
+          {repo && (
+            <a href={repo} rel="noopener" class="btn-secondary">
+              {t('project.source', lang)}
+            </a>
+          )}
         </div>
       </div>
-      {
-        (platform || license || lastRelease) && (
-          <dl class="grid grid-cols-2 gap-3 md:w-[340px]">
-            {platform && (
-              <div class="card-sm flex flex-col gap-0.5 p-3.5">
-                <dt class="text-xs text-faint">{t('project.platform', lang)}</dt>
-                <dd class="text-sm font-bold">{platform}</dd>
-              </div>
-            )}
-            {license && (
-              <div class="card-sm flex flex-col gap-0.5 p-3.5">
-                <dt class="text-xs text-faint">{t('project.license', lang)}</dt>
-                <dd class="text-sm font-bold">{license}</dd>
-              </div>
-            )}
-            {lastRelease && (
-              <div class="card-sm flex flex-col gap-0.5 p-3.5">
-                <dt class="text-xs text-faint">{t('project.lastRelease', lang)}</dt>
-                <dd class="font-mono text-sm font-bold">{lastRelease.date}</dd>
-              </div>
-            )}
-          </dl>
-        )
-      }
+      {(platform || license || lastRelease) && (
+        <dl class="grid grid-cols-2 gap-3 md:w-[340px]">
+          {platform && (
+            <div class="card-sm flex flex-col gap-0.5 p-3.5">
+              <dt class="text-xs text-faint">{t('project.platform', lang)}</dt>
+              <dd class="text-sm font-bold">{platform}</dd>
+            </div>
+          )}
+          {license && (
+            <div class="card-sm flex flex-col gap-0.5 p-3.5">
+              <dt class="text-xs text-faint">{t('project.license', lang)}</dt>
+              <dd class="text-sm font-bold">{license}</dd>
+            </div>
+          )}
+          {lastRelease && (
+            <div class="card-sm flex flex-col gap-0.5 p-3.5">
+              <dt class="text-xs text-faint">{t('project.lastRelease', lang)}</dt>
+              <dd class="font-mono text-sm font-bold">{lastRelease.date}</dd>
+            </div>
+          )}
+        </dl>
+      )}
     </header>
 
-    {
-      hero && (
-        <section>
-          {isVideo(hero) ? (
-            <video
-              controls
-              muted
-              playsinline
-              preload="metadata"
-              class="aspect-video w-full rounded-2xl border border-border"
-            >
-              <source src={hero} />
-            </video>
-          ) : (
-            <img
-              src={hero}
-              alt={name}
-              class="aspect-video w-full rounded-2xl border border-border object-cover"
-            />
-          )}
-        </section>
-      )
-    }
+    {hero && (
+      <section>
+        {isVideo(hero) ? (
+          <video
+            controls
+            muted
+            playsinline
+            preload="metadata"
+            class="aspect-video w-full rounded-2xl border border-border"
+          >
+            <source src={hero} />
+          </video>
+        ) : (
+          <img
+            src={hero}
+            alt={name}
+            class="aspect-video w-full rounded-2xl border border-border object-cover"
+          />
+        )}
+      </section>
+    )}
 
-    {
-      gallery.length > 0 && (
-        <section class="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {gallery.map((src, i) => (
-            <img
-              src={src}
-              alt={`${t('project.screenshot', lang)} ${i + 1}`}
-              loading="lazy"
-              class="aspect-[9/16] w-full rounded-xl border border-border object-cover"
-            />
-          ))}
-        </section>
-      )
-    }
+    {gallery.length > 0 && (
+      <section class="grid grid-cols-2 gap-3 md:grid-cols-4">
+        {gallery.map((src, i) => (
+          <img
+            src={src}
+            alt={`${t('project.screenshot', lang)} ${i + 1}`}
+            loading="lazy"
+            class="aspect-[9/16] w-full rounded-xl border border-border object-cover"
+          />
+        ))}
+      </section>
+    )}
 
     <div class="prose">
       <Content />
     </div>
 
-    {
-      playground && (
-        <section class="flex flex-col gap-6 border-t border-border pt-10">
-          <div class="flex flex-col gap-2">
-            <h2 class="text-[22px] font-bold tracking-tight">{t('project.try', lang)}</h2>
-            <p class="max-w-[520px] text-sm leading-relaxed text-muted">
-              {t('project.tryText', lang)}
-            </p>
-          </div>
-          <PlaygroundFrame kind={playground.kind} src={playground.src} title={name} lang={lang} />
-        </section>
-      )
-    }
+    {playground && (
+      <section class="flex flex-col gap-6 border-t border-border pt-10">
+        <div class="flex flex-col gap-2">
+          <h2 class="text-[22px] font-bold tracking-tight">{t('project.try', lang)}</h2>
+          <p class="max-w-[520px] text-sm leading-relaxed text-muted">
+            {t('project.tryText', lang)}
+          </p>
+        </div>
+        <PlaygroundFrame kind={playground.kind} src={playground.src} title={name} lang={lang} />
+      </section>
+    )}
 
-    {
-      changelog.length > 0 && (
-        <section class="flex flex-col gap-4 border-t border-border pt-10">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('project.changelog', lang)}</h2>
-          <ul class="flex flex-col">
-            {changelog.map((entry) => (
-              <li class="grid grid-cols-1 gap-2 border-t border-border py-3.5 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-4">
-                <span class="font-mono text-[13px] text-accent">{entry.version}</span>
-                <span class="text-sm text-muted">
-                  {entry.date && <span class="mr-2 text-faint">{entry.date}</span>}
-                  {entry.note}
-                </span>
-              </li>
-            ))}
-          </ul>
-          {repo && (
-            <a href={`${repo}/releases`} rel="noopener" class="text-sm font-semibold text-accent">
-              {t('project.changelogFull', lang)}
-            </a>
-          )}
-        </section>
-      )
-    }
+    {changelog.length > 0 && (
+      <section class="flex flex-col gap-4 border-t border-border pt-10">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('project.changelog', lang)}</h2>
+        <ul class="flex flex-col">
+          {changelog.map((entry) => (
+            <li class="grid grid-cols-1 gap-2 border-t border-border py-3.5 sm:grid-cols-[120px_minmax(0,1fr)] sm:gap-4">
+              <span class="font-mono text-[13px] text-accent">{entry.version}</span>
+              <span class="text-sm text-muted">
+                {entry.date && <span class="mr-2 text-faint">{entry.date}</span>}
+                {entry.note}
+              </span>
+            </li>
+          ))}
+        </ul>
+        {repo && (
+          <a href={`${repo}/releases`} rel="noopener" class="text-sm font-semibold text-accent">
+            {t('project.changelogFull', lang)}
+          </a>
+        )}
+      </section>
+    )}
   </div>
 </BaseLayout>
 ```
@@ -1347,21 +1323,21 @@ const lab = await getLabProjects(lang);
     <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('projects.title', lang)}</h1>
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
+      {featured.map((project) => (
+        <ProjectCard lang={lang} project={project} featured />
+      ))}
     </div>
 
-    {
-      lab.length > 0 && (
-        <div class="flex flex-col gap-5">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
-          <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {lab.map((project) => (
-              <ProjectCard lang={lang} project={project} />
-            ))}
-          </div>
+    {lab.length > 0 && (
+      <div class="flex flex-col gap-5">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {lab.map((project) => (
+            <ProjectCard lang={lang} project={project} />
+          ))}
         </div>
-      )
-    }
+      </div>
+    )}
   </div>
 </BaseLayout>
 ```
@@ -1385,21 +1361,21 @@ const lab = await getLabProjects(lang);
     <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('projects.title', lang)}</h1>
 
     <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {featured.map((project) => <ProjectCard lang={lang} project={project} featured />)}
+      {featured.map((project) => (
+        <ProjectCard lang={lang} project={project} featured />
+      ))}
     </div>
 
-    {
-      lab.length > 0 && (
-        <div class="flex flex-col gap-5">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
-          <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {lab.map((project) => (
-              <ProjectCard lang={lang} project={project} />
-            ))}
-          </div>
+    {lab.length > 0 && (
+      <div class="flex flex-col gap-5">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('projects.lab', lang)}</h2>
+        <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {lab.map((project) => (
+            <ProjectCard lang={lang} project={project} />
+          ))}
         </div>
-      )
-    }
+      </div>
+    )}
   </div>
 </BaseLayout>
 ```
@@ -1755,27 +1731,21 @@ const { Content } = await render(entry);
         <p class="max-w-[520px] text-lg leading-relaxed text-muted">{intro}</p>
       </header>
 
-      {
-        !mock && (
-          <div class="prose">
-            <Content />
-          </div>
-        )
-      }
+      {!mock && (
+        <div class="prose">
+          <Content />
+        </div>
+      )}
 
       <section class="flex flex-col gap-6 border-t border-border pt-10">
-        <h2 class="text-center text-[22px] font-bold tracking-tight">
-          {t('about.values', lang)}
-        </h2>
+        <h2 class="text-center text-[22px] font-bold tracking-tight">{t('about.values', lang)}</h2>
         <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {
-            values.map((value) => (
-              <div class="flex flex-col gap-1.5">
-                <h3 class="text-base font-bold">{value.title}</h3>
-                <p class="text-sm leading-relaxed text-muted">{value.text}</p>
-              </div>
-            ))
-          }
+          {values.map((value) => (
+            <div class="flex flex-col gap-1.5">
+              <h3 class="text-base font-bold">{value.title}</h3>
+              <p class="text-sm leading-relaxed text-muted">{value.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -2272,9 +2242,7 @@ function projectLine(project: ProjectEntry): string {
 ---
 
 <article class="cv-sheet card mx-auto w-full max-w-[794px] p-8 md:p-14">
-  <div
-    class="flex flex-col gap-4 border-b-2 border-text pb-4 sm:flex-row sm:items-start sm:justify-between"
-  >
+  <div class="flex flex-col gap-4 border-b-2 border-text pb-4 sm:flex-row sm:items-start sm:justify-between">
     <div class="flex flex-col gap-1">
       <h1 class="text-2xl font-extrabold tracking-tight">{author.name}</h1>
       <p class="text-sm text-muted">{getDescription(lang)}</p>
@@ -2288,145 +2256,126 @@ function projectLine(project: ProjectEntry): string {
   </div>
 
   <div class="grid grid-cols-[110px_minmax(0,1fr)] gap-x-5 gap-y-4 pt-5">
-    {
-      work.length > 0 && (
-        <>
-          <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
-            {t('cv.experience', lang)}
-          </span>
-          <div class="flex flex-col gap-3">
-            {work.map((entry) => (
-              <div class="flex flex-col gap-1">
-                <div class="flex items-baseline justify-between gap-3">
-                  <span class="text-[13px] font-extrabold">
-                    {entry.data.role[lang]}, {entry.data.company}
-                  </span>
-                  <span class="shrink-0 font-mono text-[11px] text-faint">
-                    {formatPeriod(entry.data.start, entry.data.end, lang)}
-                  </span>
-                </div>
-                <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
-                {entry.data.highlights && entry.data.highlights[lang].length > 0 && (
-                  <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
-                    {entry.data.highlights[lang].map((h) => (
-                      <li>{h}</li>
-                    ))}
-                  </ul>
-                )}
-                {entry.data.stack.length > 0 && (
-                  <span class="font-mono text-[11px] text-faint">
-                    {entry.data.stack.join(', ')}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </>
-      )
-    }
-
-    {
-      projects.length > 0 && (
-        <>
-          <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
-            {t('cv.projects', lang)}
-          </span>
-          <div class="flex flex-col gap-2.5">
-            {projects.map((project) => (
-              <div class="flex flex-col gap-0.5">
+    {work.length > 0 && (
+      <>
+        <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
+          {t('cv.experience', lang)}
+        </span>
+        <div class="flex flex-col gap-3">
+          {work.map((entry) => (
+            <div class="flex flex-col gap-1">
+              <div class="flex items-baseline justify-between gap-3">
                 <span class="text-[13px] font-extrabold">
-                  {project.data.name}, {project.data.tagline}
+                  {entry.data.role[lang]}, {entry.data.company}
                 </span>
-                <span class="text-[12px] leading-relaxed text-muted">{projectLine(project)}</span>
+                <span class="shrink-0 font-mono text-[11px] text-faint">
+                  {formatPeriod(entry.data.start, entry.data.end, lang)}
+                </span>
               </div>
-            ))}
-          </div>
-        </>
-      )
-    }
+              <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
+              {entry.data.highlights && entry.data.highlights[lang].length > 0 && (
+                <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
+                  {entry.data.highlights[lang].map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              )}
+              {entry.data.stack.length > 0 && (
+                <span class="font-mono text-[11px] text-faint">{entry.data.stack.join(', ')}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+
+    {projects.length > 0 && (
+      <>
+        <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
+          {t('cv.projects', lang)}
+        </span>
+        <div class="flex flex-col gap-2.5">
+          {projects.map((project) => (
+            <div class="flex flex-col gap-0.5">
+              <span class="text-[13px] font-extrabold">
+                {project.data.name}, {project.data.tagline}
+              </span>
+              <span class="text-[12px] leading-relaxed text-muted">{projectLine(project)}</span>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
 
     <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
       {t('cv.skills', lang)}
     </span>
-    <div
-      class="grid grid-cols-1 gap-x-4 gap-y-1.5 text-[12px] leading-relaxed text-muted sm:grid-cols-2"
-    >
-      {
-        stack.map((group) => (
-          <span>
-            <strong class="text-text">{group.label}:</strong> {group.items.join(', ')}
-          </span>
-        ))
-      }
+    <div class="grid grid-cols-1 gap-x-4 gap-y-1.5 text-[12px] leading-relaxed text-muted sm:grid-cols-2">
+      {stack.map((group) => (
+        <span>
+          <strong class="text-text">{group.label}:</strong> {group.items.join(', ')}
+        </span>
+      ))}
       <span>
-        <strong class="text-text">{t('cv.languages', lang)}:</strong>{' '}
-        {t('cv.languagesValue', lang)}
+        <strong class="text-text">{t('cv.languages', lang)}:</strong> {t('cv.languagesValue', lang)}
       </span>
     </div>
 
-    {
-      education.length > 0 && (
-        <>
-          <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
-            {t('cv.education', lang)}
-          </span>
-          <div class="flex flex-col gap-3">
-            {education.map((entry) => (
-              <div class="flex flex-col gap-1">
-                <div class="flex items-baseline justify-between gap-3">
-                  <span class="text-[13px] font-extrabold">
-                    {entry.data.role[lang]}, {entry.data.company}
-                  </span>
-                  <span class="shrink-0 font-mono text-[11px] text-faint">
-                    {formatPeriod(entry.data.start, entry.data.end, lang)}
-                  </span>
-                </div>
-                <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
-                {entry.data.highlights && entry.data.highlights[lang].length > 0 && (
-                  <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
-                    {entry.data.highlights[lang].map((h) => (
-                      <li>{h}</li>
-                    ))}
-                  </ul>
-                )}
-                {entry.data.stack.length > 0 && (
-                  <span class="font-mono text-[11px] text-faint">
-                    {entry.data.stack.join(', ')}
-                  </span>
-                )}
+    {education.length > 0 && (
+      <>
+        <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
+          {t('cv.education', lang)}
+        </span>
+        <div class="flex flex-col gap-3">
+          {education.map((entry) => (
+            <div class="flex flex-col gap-1">
+              <div class="flex items-baseline justify-between gap-3">
+                <span class="text-[13px] font-extrabold">
+                  {entry.data.role[lang]}, {entry.data.company}
+                </span>
+                <span class="shrink-0 font-mono text-[11px] text-faint">
+                  {formatPeriod(entry.data.start, entry.data.end, lang)}
+                </span>
               </div>
-            ))}
-          </div>
-        </>
-      )
-    }
+              <p class="text-[12px] leading-relaxed text-muted">{entry.data.summary[lang]}</p>
+              {entry.data.highlights && entry.data.highlights[lang].length > 0 && (
+                <ul class="list-disc pl-4 text-[12px] leading-relaxed text-muted">
+                  {entry.data.highlights[lang].map((h) => (
+                    <li>{h}</li>
+                  ))}
+                </ul>
+              )}
+              {entry.data.stack.length > 0 && (
+                <span class="font-mono text-[11px] text-faint">{entry.data.stack.join(', ')}</span>
+              )}
+            </div>
+          ))}
+        </div>
+      </>
+    )}
 
-    {
-      posts.length > 0 && (
-        <>
-          <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
-            {t('cv.writing', lang)}
-          </span>
-          <div class="flex flex-col gap-1.5 text-[12px] leading-relaxed text-muted">
-            <p>{t('cv.writingText', lang)}</p>
-            <ul class="list-disc pl-4">
-              {posts.map((post) => (
-                <li>
-                  <a href={`https://alvarotc.com${prefix}/blog/${post.id}`} class="text-accent">
-                    {post.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </>
-      )
-    }
+    {posts.length > 0 && (
+      <>
+        <span class="text-[11px] font-bold uppercase tracking-[0.04em] text-faint">
+          {t('cv.writing', lang)}
+        </span>
+        <div class="flex flex-col gap-1.5 text-[12px] leading-relaxed text-muted">
+          <p>{t('cv.writingText', lang)}</p>
+          <ul class="list-disc pl-4">
+            {posts.map((post) => (
+              <li>
+                <a href={`https://alvarotc.com${prefix}/blog/${post.id}`} class="text-accent">
+                  {post.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </>
+    )}
   </div>
 
-  <div
-    class="mt-8 flex justify-between border-t border-border pt-4 font-mono text-[10px] text-faint"
-  >
+  <div class="mt-8 flex justify-between border-t border-border pt-4 font-mono text-[10px] text-faint">
     <span>{t('cv.generated', lang)}</span>
     <span>
       {t('cv.updated', lang)}
@@ -2927,26 +2876,24 @@ const opacityByLevel: Record<0 | 1 | 2 | 3 | 4, number> = { 0: 1, 1: 0.25, 2: 0.
   aria-label={t('stats.contributions', lang)}
   class="aspect-[53/7] w-full"
 >
-  {
-    weeks.map((week, w) =>
-      week.map((count, d) => {
-        const level = heatLevel(count, max);
-        return (
-          <rect
-            x={w * 12}
-            y={d * 12}
-            width="10"
-            height="10"
-            rx="2"
-            fill={level === 0 ? 'var(--surface-2)' : 'var(--accent)'}
-            opacity={opacityByLevel[level]}
-          >
-            <title>{count}</title>
-          </rect>
-        );
-      }),
-    )
-  }
+  {weeks.map((week, w) =>
+    week.map((count, d) => {
+      const level = heatLevel(count, max);
+      return (
+        <rect
+          x={w * 12}
+          y={d * 12}
+          width="10"
+          height="10"
+          rx="2"
+          fill={level === 0 ? 'var(--surface-2)' : 'var(--accent)'}
+          opacity={opacityByLevel[level]}
+        >
+          <title>{count}</title>
+        </rect>
+      );
+    }),
+  )}
 </svg>
 ```
 
@@ -2963,14 +2910,12 @@ const { items } = Astro.props;
 ---
 
 <ul class="grid grid-cols-2 gap-3.5 md:grid-cols-4">
-  {
-    items.map((item) => (
-      <li class="card-sm flex flex-col gap-1 p-[18px]">
-        <span class="font-mono text-[26px] font-extrabold">{item.value}</span>
-        <span class="text-xs text-muted">{item.label}</span>
-      </li>
-    ))
-  }
+  {items.map((item) => (
+    <li class="card-sm flex flex-col gap-1 p-[18px]">
+      <span class="font-mono text-[26px] font-extrabold">{item.value}</span>
+      <span class="text-xs text-muted">{item.label}</span>
+    </li>
+  ))}
 </ul>
 ```
 
@@ -3013,62 +2958,58 @@ const author = getAuthor();
     <header class="flex flex-col gap-2.5">
       <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{t('stats.title', lang)}</h1>
       <p class="max-w-[640px] text-muted">{t('stats.subtitle', lang)}</p>
-      {
-        stats.generatedAt && (
-          <span class="font-mono text-xs text-faint">
-            {t('stats.lastBuild', lang)}: {formatDate(new Date(stats.generatedAt), lang)}
-          </span>
-        )
-      }
+      {stats.generatedAt && (
+        <span class="font-mono text-xs text-faint">
+          {t('stats.lastBuild', lang)}: {formatDate(new Date(stats.generatedAt), lang)}
+        </span>
+      )}
     </header>
 
-    {
-      stats.github && (
-        <section class="flex flex-col gap-4 border-t border-border pt-10">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('stats.code', lang)}</h2>
-          <div class="grid grid-cols-1 gap-3.5 lg:grid-cols-[2fr_1fr]">
-            <div class="card-sm flex flex-col gap-3.5 p-5">
-              <div class="flex items-baseline justify-between gap-3">
-                <span class="text-sm font-bold">{t('stats.contributions', lang)}</span>
-                <span class="font-mono text-xs text-faint">github.com/{author.github}</span>
-              </div>
-              <ContributionHeatmap weeks={weeks} lang={lang} />
+    {stats.github && (
+      <section class="flex flex-col gap-4 border-t border-border pt-10">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.code', lang)}</h2>
+        <div class="grid grid-cols-1 gap-3.5 lg:grid-cols-[2fr_1fr]">
+          <div class="card-sm flex flex-col gap-3.5 p-5">
+            <div class="flex items-baseline justify-between gap-3">
+              <span class="text-sm font-bold">{t('stats.contributions', lang)}</span>
+              <span class="font-mono text-xs text-faint">github.com/{author.github}</span>
             </div>
-            <StatsGrid
-              items={[
-                { value: num(stats.github.commitsThisYear), label: t('stats.commits', lang) },
-                { value: num(stats.github.publicRepos), label: t('stats.repos', lang) },
-                { value: num(stats.github.stars), label: t('stats.stars', lang) },
-                { value: num(stats.github.streak), label: t('stats.streak', lang) },
-              ]}
-            />
+            <ContributionHeatmap weeks={weeks} lang={lang} />
           </div>
-          {(stats.github.mostActiveRepo || stats.github.languages.length > 0) && (
-            <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
-              {stats.github.mostActiveRepo && (
-                <div class="card-sm flex flex-col gap-2 p-[18px]">
-                  <span class="text-xs font-bold text-faint">{t('stats.mostActive', lang)}</span>
-                  <span class="font-mono text-base font-bold">
-                    {stats.github.mostActiveRepo.name}
-                  </span>
-                  <span class="text-[13px] text-muted">
-                    {num(stats.github.mostActiveRepo.commits30d)} {t('stats.commits30d', lang)}
-                  </span>
-                </div>
-              )}
-              {stats.github.languages.length > 0 && (
-                <div class="card-sm flex flex-col gap-2 p-[18px]">
-                  <span class="text-xs font-bold text-faint">{t('stats.languages', lang)}</span>
-                  <span class="text-[13px] text-muted">
-                    {stats.github.languages.map((l) => `${l.name} ${l.percent}%`).join(', ')}
-                  </span>
-                </div>
-              )}
-            </div>
-          )}
-        </section>
-      )
-    }
+          <StatsGrid
+            items={[
+              { value: num(stats.github.commitsThisYear), label: t('stats.commits', lang) },
+              { value: num(stats.github.publicRepos), label: t('stats.repos', lang) },
+              { value: num(stats.github.stars), label: t('stats.stars', lang) },
+              { value: num(stats.github.streak), label: t('stats.streak', lang) },
+            ]}
+          />
+        </div>
+        {(stats.github.mostActiveRepo || stats.github.languages.length > 0) && (
+          <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
+            {stats.github.mostActiveRepo && (
+              <div class="card-sm flex flex-col gap-2 p-[18px]">
+                <span class="text-xs font-bold text-faint">{t('stats.mostActive', lang)}</span>
+                <span class="font-mono text-base font-bold">
+                  {stats.github.mostActiveRepo.name}
+                </span>
+                <span class="text-[13px] text-muted">
+                  {num(stats.github.mostActiveRepo.commits30d)} {t('stats.commits30d', lang)}
+                </span>
+              </div>
+            )}
+            {stats.github.languages.length > 0 && (
+              <div class="card-sm flex flex-col gap-2 p-[18px]">
+                <span class="text-xs font-bold text-faint">{t('stats.languages', lang)}</span>
+                <span class="text-[13px] text-muted">
+                  {stats.github.languages.map((l) => `${l.name} ${l.percent}%`).join(', ')}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+    )}
 
     <section class="flex flex-col gap-4 border-t border-border pt-10">
       <h2 class="text-[22px] font-bold tracking-tight">{t('stats.writing', lang)}</h2>
@@ -3081,54 +3022,50 @@ const author = getAuthor();
             : []),
         ]}
       />
-      {
-        (writing.topics.length > 0 || (stats.umami && stats.umami.mostRead.length > 0)) && (
-          <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
-            {stats.umami && stats.umami.mostRead.length > 0 && (
-              <div class="card-sm flex flex-col gap-2 p-[18px]">
-                <span class="text-xs font-bold text-faint">{t('stats.mostRead', lang)}</span>
-                <ul class="flex flex-col">
-                  {stats.umami.mostRead.map((page) => (
-                    <li class="flex items-center justify-between gap-4 border-t border-border py-2.5 first:border-t-0">
-                      <span class="text-sm font-semibold">{page.title}</span>
-                      <span class="font-mono text-[13px] text-faint">{num(page.views)}</span>
-                    </li>
-                  ))}
-                </ul>
+      {(writing.topics.length > 0 || (stats.umami && stats.umami.mostRead.length > 0)) && (
+        <div class="grid grid-cols-1 gap-3.5 md:grid-cols-2">
+          {stats.umami && stats.umami.mostRead.length > 0 && (
+            <div class="card-sm flex flex-col gap-2 p-[18px]">
+              <span class="text-xs font-bold text-faint">{t('stats.mostRead', lang)}</span>
+              <ul class="flex flex-col">
+                {stats.umami.mostRead.map((page) => (
+                  <li class="flex items-center justify-between gap-4 border-t border-border py-2.5 first:border-t-0">
+                    <span class="text-sm font-semibold">{page.title}</span>
+                    <span class="font-mono text-[13px] text-faint">{num(page.views)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {writing.topics.length > 0 && (
+            <div class="card-sm flex flex-col gap-2 p-[18px]">
+              <span class="text-xs font-bold text-faint">{t('stats.topics', lang)}</span>
+              <div class="flex flex-wrap gap-2">
+                {writing.topics.map((topic) => (
+                  <Tag>
+                    {topic.tag} {topic.count}
+                  </Tag>
+                ))}
               </div>
-            )}
-            {writing.topics.length > 0 && (
-              <div class="card-sm flex flex-col gap-2 p-[18px]">
-                <span class="text-xs font-bold text-faint">{t('stats.topics', lang)}</span>
-                <div class="flex flex-wrap gap-2">
-                  {writing.topics.map((topic) => (
-                    <Tag>
-                      {topic.tag} {topic.count}
-                    </Tag>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )
-      }
+            </div>
+          )}
+        </div>
+      )}
     </section>
 
-    {
-      stats.lighthouse && (
-        <section class="flex flex-col gap-4 border-t border-border pt-10">
-          <h2 class="text-[22px] font-bold tracking-tight">{t('stats.site', lang)}</h2>
-          <StatsGrid
-            items={[
-              {
-                value: num(stats.lighthouse.performanceMobile),
-                label: t('stats.lighthouse', lang),
-              },
-            ]}
-          />
-        </section>
-      )
-    }
+    {stats.lighthouse && (
+      <section class="flex flex-col gap-4 border-t border-border pt-10">
+        <h2 class="text-[22px] font-bold tracking-tight">{t('stats.site', lang)}</h2>
+        <StatsGrid
+          items={[
+            {
+              value: num(stats.lighthouse.performanceMobile),
+              label: t('stats.lighthouse', lang),
+            },
+          ]}
+        />
+      </section>
+    )}
 
     <section class="flex flex-col gap-3 border-t border-border pt-10">
       <h2 class="text-[22px] font-bold tracking-tight">{t('stats.sources', lang)}</h2>
@@ -3209,37 +3146,31 @@ Antes:
 
 ```astro
 <ul class:list={['grid gap-3', columns[counters.length] ?? 'grid-cols-3']}>
-  {
-    counters.map((c) => (
-      <li class="card-sm flex flex-col gap-1 p-4">
-        <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
-        <span class="text-xs text-faint">{c.label}</span>
-      </li>
-    ))
-  }
+  {counters.map((c) => (
+    <li class="card-sm flex flex-col gap-1 p-4">
+      <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
+      <span class="text-xs text-faint">{c.label}</span>
+    </li>
+  ))}
 </ul>
-
-) }
+)
 ```
 
 Después:
 
 ```astro
 <ul class:list={['grid gap-3', columns[counters.length] ?? 'grid-cols-3']}>
-  {
-    counters.map((c) => (
-      <li class="card-sm flex flex-col gap-1 p-4">
-        <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
-        <span class="text-xs text-faint">{c.label}</span>
-      </li>
-    ))
-  }
+  {counters.map((c) => (
+    <li class="card-sm flex flex-col gap-1 p-4">
+      <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
+      <span class="text-xs text-faint">{c.label}</span>
+    </li>
+  ))}
 </ul>
 <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">
   {t('stats.full', lang)}
 </a>
-
-) }
+)
 ```
 
 - [ ] **Step 13: Build, lint, tests**
@@ -3477,19 +3408,17 @@ const items: TimelineEntry[] = entries.map((entry) => ({
 }));
 ---
 
-{
-  items.length > 0 && (
-    <SectionHeading
-      id="experience"
-      lang={lang}
-      titleKey="experience.title"
-      link={`${prefix}/cv`}
-      linkLabel={t('experience.cv', lang)}
-    >
-      <Timeline client:visible entries={items} />
-    </SectionHeading>
-  )
-}
+{items.length > 0 && (
+  <SectionHeading
+    id="experience"
+    lang={lang}
+    titleKey="experience.title"
+    link={`${prefix}/cv`}
+    linkLabel={t('experience.cv', lang)}
+  >
+    <Timeline client:visible entries={items} />
+  </SectionHeading>
+)}
 ```
 
 El enlace `experience.cv` ("Full CV, printable" / "CV completo, imprimible") ya existe en `src/i18n/translations.ts` y la ruta `/cv` la creó la Task 4, así que no queda ningún enlace muerto.
@@ -4320,11 +4249,7 @@ export type ContactFields = { from: string; subject: string; body: string };
 export type ContactFieldError = 'invalid_email' | 'subject_length' | 'body_length';
 
 export type ContactErrorCode =
-  | ContactFieldError
-  | 'too_fast'
-  | 'rate_limited'
-  | 'network'
-  | 'generic';
+  ContactFieldError | 'too_fast' | 'rate_limited' | 'network' | 'generic';
 
 export type ContactPayload = {
   from: string;
@@ -4790,9 +4715,7 @@ const endpoint = getContactEndpoint();
       </p>
       <div class="flex flex-col gap-1.5">
         <span class="text-xs text-faint">{t('contact.email', lang)}</span>
-        <div
-          class="flex items-center justify-between gap-2.5 rounded-lg border border-border bg-bg px-3 py-2.5"
-        >
+        <div class="flex items-center justify-between gap-2.5 rounded-lg border border-border bg-bg px-3 py-2.5">
           <span class="font-mono text-sm font-semibold">{email}</span>
           <button
             type="button"
@@ -4809,7 +4732,9 @@ const endpoint = getContactEndpoint();
         <span class="text-xs text-faint">{t('contact.response', lang)}</span>
         <span class="text-sm font-semibold">{t('contact.responseValue', lang)}</span>
       </div>
-      <a href={calLink} class="btn-primary h-10">{t('contact.call', lang)}</a>
+      <a href={calLink} class="btn-primary h-10">
+        {t('contact.call', lang)}
+      </a>
       <div class="flex gap-3.5 text-[13px] text-accent">
         <a href="https://github.com/alvarotorresc">GitHub</a>
         <a href="https://www.linkedin.com/in/alvaro-torres-carrasco/">LinkedIn</a>
@@ -5154,7 +5079,9 @@ Antes:
 
 ```astro
 <div class="hero-in flex gap-3 pt-1" style="animation-delay: 180ms">
-  <a href="#contact" class="btn-primary">{t('hero.contact', lang)}</a>
+  <a href="#contact" class="btn-primary">
+    {t('hero.contact', lang)}
+  </a>
 </div>
 ```
 
@@ -5162,8 +5089,12 @@ Después:
 
 ```astro
 <div class="hero-in flex flex-wrap gap-3 pt-1" style="animation-delay: 180ms">
-  <a href="#contact" class="btn-primary">{t('hero.contact', lang)}</a>
-  <a href={`${prefix}/cv`} class="btn-secondary">{t('hero.cv', lang)}</a>
+  <a href="#contact" class="btn-primary">
+    {t('hero.contact', lang)}
+  </a>
+  <a href={`${prefix}/cv`} class="btn-secondary">
+    {t('hero.cv', lang)}
+  </a>
 </div>
 ```
 
@@ -5187,13 +5118,9 @@ Antes:
 
 ```astro
 <ul class="flex flex-wrap gap-2 pt-1">
-  {
-    tags.map((key) => (
-      <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
-        {t(key, lang)}
-      </li>
-    ))
-  }
+  {tags.map((key) => (
+    <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">{t(key, lang)}</li>
+  ))}
 </ul>
 ```
 
@@ -5201,13 +5128,9 @@ Después:
 
 ```astro
 <ul class="flex flex-wrap gap-2 pt-1">
-  {
-    tags.map((key) => (
-      <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
-        {t(key, lang)}
-      </li>
-    ))
-  }
+  {tags.map((key) => (
+    <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">{t(key, lang)}</li>
+  ))}
 </ul>
 <a href={`${prefix}/about`} class="text-sm font-semibold text-accent">
   {t('about.more', lang)}

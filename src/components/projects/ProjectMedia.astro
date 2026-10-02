@@ -18,43 +18,35 @@ const appAddress =
     : (view.address ?? '');
 ---
 
-{
-  view.kind === 'mobile' && view.cover && (
-    <div data-media="mobile" class="flex justify-center lg:block">
-      <DeviceFrame size="hero" src={view.cover} alt={coverAlt} />
+{view.kind === 'mobile' && view.cover && (
+  <div data-media="mobile" class="flex justify-center lg:block">
+    <DeviceFrame size="hero" src={view.cover} alt={coverAlt} />
+  </div>
+)}
+{view.kind === 'web' && view.cover && (
+  <div data-media="web" class="min-w-0 xl:self-end">
+    <BrowserFrame size="hero" address={view.address ?? ''} src={view.cover} alt={coverAlt} />
+  </div>
+)}
+{view.kind === 'hybrid' && view.cover && (
+  <div data-media="hybrid" class="min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end">
+    <div
+      class:list={[
+        'lg:absolute lg:left-0 lg:top-0 lg:w-[520px]',
+        view.coverMobile && 'hidden md:block',
+      ]}
+    >
+      <BrowserFrame size="thin" address={appAddress} src={view.cover} alt={coverAlt} />
     </div>
-  )
-}
-{
-  view.kind === 'web' && view.cover && (
-    <div data-media="web" class="min-w-0 xl:self-end">
-      <BrowserFrame size="hero" address={view.address ?? ''} src={view.cover} alt={coverAlt} />
-    </div>
-  )
-}
-{
-  view.kind === 'hybrid' && view.cover && (
-    <div data-media="hybrid" class="min-w-0 lg:relative lg:h-[620px] lg:w-[520px] lg:self-end">
-      <div
-        class:list={[
-          'lg:absolute lg:left-0 lg:top-0 lg:w-[520px]',
-          view.coverMobile && 'hidden md:block',
-        ]}
-      >
-        <BrowserFrame size="thin" address={appAddress} src={view.cover} alt={coverAlt} />
+    {view.coverMobile && (
+      <div class="flex justify-center md:hidden lg:absolute lg:-right-10 lg:bottom-0 lg:block">
+        <DeviceFrame size="small" src={view.coverMobile} alt={phoneAlt} />
       </div>
-      {view.coverMobile && (
-        <div class="flex justify-center md:hidden lg:absolute lg:-right-10 lg:bottom-0 lg:block">
-          <DeviceFrame size="small" src={view.coverMobile} alt={phoneAlt} />
-        </div>
-      )}
-    </div>
-  )
-}
-{
-  view.kind === 'cli' && view.terminal.length > 0 && (
-    <div data-media="cli" class="min-w-0 xl:mt-6 xl:self-start">
-      <TerminalFrame title={t('project.terminalTitle', lang)} lines={view.terminal} />
-    </div>
-  )
-}
+    )}
+  </div>
+)}
+{view.kind === 'cli' && view.terminal.length > 0 && (
+  <div data-media="cli" class="min-w-0 xl:mt-6 xl:self-start">
+    <TerminalFrame title={t('project.terminalTitle', lang)} lines={view.terminal} />
+  </div>
+)}

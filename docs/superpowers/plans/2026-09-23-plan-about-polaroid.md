@@ -1080,18 +1080,18 @@ const keys = ['year', 'place', 'os', 'stack'] as const;
         decoding="async"
         class="polaroid-img"
       />
-      <p data-polaroid-caption class="polaroid-caption">{polaroid.caption}</p>
+      <p data-polaroid-caption class="polaroid-caption">
+        {polaroid.caption}
+      </p>
     </div>
   </div>
   <dl class="polaroid-facts">
-    {
-      keys.map((key) => (
-        <div class="flex">
-          <dt class="w-14 shrink-0">{t(`about.facts.${key}` as const, lang)}</dt>
-          <dd data-fact={key}>{polaroid.facts[key]}</dd>
-        </div>
-      ))
-    }
+    {keys.map((key) => (
+      <div class="flex">
+        <dt class="w-14 shrink-0">{t(`about.facts.${key}` as const, lang)}</dt>
+        <dd data-fact={key}>{polaroid.facts[key]}</dd>
+      </div>
+    ))}
   </dl>
 </figure>
 
@@ -1176,64 +1176,62 @@ const mobile = polaroidFor(stages, 'own-2026');
 
     <div class="about-grid">
       <div class="about-text">
-        {
-          !mock &&
-            stages.map((stage) => (
-              <section
-                data-stage={stage.id}
-                data-photo={stage.polaroid?.src}
-                data-alt={stage.polaroid?.alt}
-                data-caption={stage.polaroid?.caption}
-                data-year={stage.polaroid?.facts.year}
-                data-place={stage.polaroid?.facts.place}
-                data-os={stage.polaroid?.facts.os}
-                data-stack={stage.polaroid?.facts.stack}
-                class="about-stage"
-              >
-                <p class="font-mono text-[13px] text-faint">{stage.kicker}</p>
-                <h2 class="mt-2 text-[28px] font-bold leading-[1.2]">{stage.title}</h2>
-                <div class="mt-5 flex flex-col gap-5">
-                  {stage.paragraphs.map((p) => (
-                    <p class="about-paragraph text-lg leading-[1.65]" set:html={inlineLinks(p)} />
+        {!mock &&
+          stages.map((stage) => (
+            <section
+              data-stage={stage.id}
+              data-photo={stage.polaroid?.src}
+              data-alt={stage.polaroid?.alt}
+              data-caption={stage.polaroid?.caption}
+              data-year={stage.polaroid?.facts.year}
+              data-place={stage.polaroid?.facts.place}
+              data-os={stage.polaroid?.facts.os}
+              data-stack={stage.polaroid?.facts.stack}
+              class="about-stage"
+            >
+              <p class="font-mono text-[13px] text-faint">{stage.kicker}</p>
+              <h2 class="mt-2 text-[28px] font-bold leading-[1.2]">{stage.title}</h2>
+              <div class="mt-5 flex flex-col gap-5">
+                {stage.paragraphs.map((p) => (
+                  <p class="about-paragraph text-lg leading-[1.65]" set:html={inlineLinks(p)} />
+                ))}
+              </div>
+              {stage.links.length > 0 && (
+                <ul class="mt-5 flex flex-col gap-1 font-mono text-[13px]">
+                  {stage.links.map((link) => (
+                    <li>
+                      <a href={link.href} class="text-accent">
+                        {link.label}
+                      </a>
+                    </li>
                   ))}
-                </div>
-                {stage.links.length > 0 && (
-                  <ul class="mt-5 flex flex-col gap-1 font-mono text-[13px]">
-                    {stage.links.map((link) => (
-                      <li>
-                        <a href={link.href} class="text-accent">
-                          {link.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </section>
-            ))
-        }
+                </ul>
+              )}
+            </section>
+          ))}
       </div>
 
-      {
-        sticky && (
-          <aside class="about-aside">
-            <div class="about-sticky">
-              <PolaroidCard polaroid={sticky} lang={lang} variant="sticky" />
-            </div>
-          </aside>
-        )
-      }
-      {
-        mobile && (
-          <div class="about-mobile">
-            <PolaroidCard polaroid={mobile} lang={lang} variant="mobile" />
+      {sticky && (
+        <aside class="about-aside">
+          <div class="about-sticky">
+            <PolaroidCard polaroid={sticky} lang={lang} variant="sticky" />
           </div>
-        )
-      }
+        </aside>
+      )}
+      {mobile && (
+        <div class="about-mobile">
+          <PolaroidCard polaroid={mobile} lang={lang} variant="mobile" />
+        </div>
+      )}
     </div>
 
     <div class="mb-16 mt-16 flex flex-wrap gap-3 border-t border-border pt-10">
-      <a href={`${prefix}/#contact`} class="btn-primary">{t('hero.contact', lang)}</a>
-      <a href={`${prefix}/cv`} class="btn-secondary">{t('experience.cv', lang)}</a>
+      <a href={`${prefix}/#contact`} class="btn-primary">
+        {t('hero.contact', lang)}
+      </a>
+      <a href={`${prefix}/cv`} class="btn-secondary">
+        {t('experience.cv', lang)}
+      </a>
     </div>
   </div>
 </div>

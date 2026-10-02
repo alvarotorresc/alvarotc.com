@@ -20,16 +20,14 @@ const items: TimelineEntry[] = entries.map((entry) => ({
 }));
 ---
 
-{
-  items.length > 0 && (
-    <SectionHeading
-      id="experience"
-      lang={lang}
-      titleKey="experience.title"
-      link={`${prefix}/cv/`}
-      linkLabel={t('experience.cv', lang)}
-    >
-      <Timeline client:visible entries={items} />
-    </SectionHeading>
-  )
-}
+{items.length > 0 && (
+  <SectionHeading
+    id="experience"
+    lang={lang}
+    titleKey="experience.title"
+    link={`${prefix}/cv/`}
+    linkLabel={t('experience.cv', lang)}
+  >
+    <Timeline client:visible entries={items} />
+  </SectionHeading>
+)}

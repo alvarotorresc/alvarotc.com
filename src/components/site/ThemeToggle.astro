@@ -14,8 +14,12 @@ const { lang } = Astro.props;
   aria-label={t('nav.theme', lang)}
   class="flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-border bg-surface text-muted hover:text-text"
 >
-  <span class="hidden dark:inline"><Icon name="sun" size={15} /></span>
-  <span class="inline dark:hidden"><Icon name="moon" size={15} /></span>
+  <span class="hidden dark:inline">
+    <Icon name="sun" size={15} />
+  </span>
+  <span class="inline dark:hidden">
+    <Icon name="moon" size={15} />
+  </span>
 </button>
 
 <script>

@@ -30,29 +30,25 @@ function cellTitle(cell: HeatmapCell): string {
   <div class="stats-heatmap-scroll" role="img" aria-label={ariaLabel} tabindex="0">
     <div class="stats-heatmap-content" style={`width: ${columns.length * CELL}px`}>
       <div class="stats-heatmap-months">
-        {
-          monthLabels.map((month) => (
-            <span style={`left: ${month.column * CELL}px`}>{month.label}</span>
-          ))
-        }
+        {monthLabels.map((month) => (
+          <span style={`left: ${month.column * CELL}px`}>{month.label}</span>
+        ))}
       </div>
       <div class="stats-heatmap-cols">
-        {
-          columns.map((column) => (
-            <div class="stats-heatmap-col">
-              {column.map((cell) =>
-                cell.isFuture ? (
-                  <div class="stats-heatmap-cell is-future" aria-hidden="true" />
-                ) : (
-                  <div
-                    class:list={['stats-heatmap-cell', `lvl-${cell.level}`]}
-                    title={cellTitle(cell)}
-                  />
-                ),
-              )}
-            </div>
-          ))
-        }
+        {columns.map((column) => (
+          <div class="stats-heatmap-col">
+            {column.map((cell) =>
+              cell.isFuture ? (
+                <div class="stats-heatmap-cell is-future" aria-hidden="true" />
+              ) : (
+                <div
+                  class:list={['stats-heatmap-cell', `lvl-${cell.level}`]}
+                  title={cellTitle(cell)}
+                />
+              ),
+            )}
+          </div>
+        ))}
       </div>
     </div>
   </div>

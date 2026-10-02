@@ -59,39 +59,49 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="border-t border-border">
-  <div
-    class="container-page flex flex-col gap-6 py-7 pb-10 md:flex-row md:items-center md:justify-between"
-  >
+  <div class="container-page flex flex-col gap-6 py-7 pb-10 md:flex-row md:items-center md:justify-between">
     <div class="flex flex-col gap-2.5 text-[13px] text-faint">
       <span>{t(analytics ? 'footer.privacy' : 'footer.privacyNoAnalytics', lang)}</span>
       <div class="flex flex-wrap gap-4 font-medium">
-        <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
-        <a href={lang === 'es' ? '/es/rss.xml' : '/rss.xml'} class="hover:text-text">RSS</a>
-        <a href={sourceHref} class="hover:text-text">{t('footer.source', lang)}</a>
-        <a href={`${prefix}/privacy/`} class="hover:text-text">{t('footer.privacyPolicy', lang)}</a>
-        <a href={`${prefix}/legal/`} class="hover:text-text">{t('footer.legal', lang)}</a>
-        <a href="https://status.alvarotc.com" class="hover:text-text">{t('footer.status', lang)}</a>
+        <a href={otherLang} class="hover:text-text">
+          {t('footer.lang', lang)}
+        </a>
+        <a href={lang === 'es' ? '/es/rss.xml' : '/rss.xml'} class="hover:text-text">
+          RSS
+        </a>
+        <a href={sourceHref} class="hover:text-text">
+          {t('footer.source', lang)}
+        </a>
+        <a href={`${prefix}/privacy/`} class="hover:text-text">
+          {t('footer.privacyPolicy', lang)}
+        </a>
+        <a href={`${prefix}/legal/`} class="hover:text-text">
+          {t('footer.legal', lang)}
+        </a>
+        <a href="https://status.alvarotc.com" class="hover:text-text">
+          {t('footer.status', lang)}
+        </a>
       </div>
-      <span>© {year} {author.name}</span>
+      <span>
+        © {year} {author.name}
+      </span>
     </div>
     <div class="flex gap-2.5">
-      {
-        socialLinks.map((s) => (
-          <a
-            href={s.href}
-            aria-label={`${s.label}, ${s.handle}`}
-            title={s.handle}
-            rel={s.icon === 'mail' ? undefined : 'me'}
-            class="footer-social flex h-9 w-9 items-center justify-center rounded-full border border-border text-text"
-          >
-            {s.brand ? (
-              <BrandIcon slug={s.brand} size={20} />
-            ) : (
-              <Icon name={s.icon} size={20} strokeWidth={1.8} />
-            )}
-          </a>
-        ))
-      }
+      {socialLinks.map((s) => (
+        <a
+          href={s.href}
+          aria-label={`${s.label}, ${s.handle}`}
+          title={s.handle}
+          rel={s.icon === 'mail' ? undefined : 'me'}
+          class="footer-social flex h-9 w-9 items-center justify-center rounded-full border border-border text-text"
+        >
+          {s.brand ? (
+            <BrandIcon slug={s.brand} size={20} />
+          ) : (
+            <Icon name={s.icon} size={20} strokeWidth={1.8} />
+          )}
+        </a>
+      ))}
     </div>
   </div>
 </footer>

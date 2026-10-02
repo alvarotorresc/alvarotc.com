@@ -13,14 +13,12 @@ const tones = {
 const classes = `inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-bold ${tones[tone]} ${className}`;
 ---
 
-{
-  href ? (
-    <a href={href} class={classes}>
-      <slot />
-    </a>
-  ) : (
-    <span class={classes}>
-      <slot />
-    </span>
-  )
-}
+{href ? (
+  <a href={href} class={classes}>
+    <slot />
+  </a>
+) : (
+  <span class={classes}>
+    <slot />
+  </span>
+)}

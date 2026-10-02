@@ -899,8 +899,12 @@ const { lang } = Astro.props;
   aria-label={t('nav.theme', lang)}
   class="flex h-[34px] w-[34px] items-center justify-center rounded-lg border border-border bg-surface text-muted hover:text-text"
 >
-  <span class="hidden dark:inline"><Icon name="sun" size={15} /></span>
-  <span class="inline dark:hidden"><Icon name="moon" size={15} /></span>
+  <span class="hidden dark:inline">
+    <Icon name="sun" size={15} />
+  </span>
+  <span class="inline dark:hidden">
+    <Icon name="moon" size={15} />
+  </span>
 </button>
 
 <script>
@@ -954,16 +958,16 @@ const otherLang =
 
 <header class="border-b border-border">
   <nav class="container-page flex h-[72px] items-center justify-between">
-    <a href={`${prefix}/`} class="text-base font-extrabold tracking-tight">alvarotc</a>
+    <a href={`${prefix}/`} class="text-base font-extrabold tracking-tight">
+      alvarotc
+    </a>
 
     <div class="hidden items-center gap-6 text-sm font-medium md:flex">
-      {
-        items.map((item) => (
-          <a href={item.href} class="text-muted hover:text-text">
-            {item.label}
-          </a>
-        ))
-      }
+      {items.map((item) => (
+        <a href={item.href} class="text-muted hover:text-text">
+          {item.label}
+        </a>
+      ))}
       <button
         type="button"
         data-command-palette
@@ -971,9 +975,9 @@ const otherLang =
       >
         <Icon name="search" size={14} />
         <span>{t('nav.search', lang)}</span>
-        <kbd class="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint"
-          >⌘K</kbd
-        >
+        <kbd class="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint">
+          ⌘K
+        </kbd>
       </button>
       <a
         href={otherLang}
@@ -1002,18 +1006,16 @@ const otherLang =
 
   <div id="mobile-menu" hidden class="container-page border-t border-border pb-4 md:hidden">
     <ul class="flex flex-col gap-1 pt-2">
-      {
-        items.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
       <li>
         <a
           href={otherLang}
@@ -1062,17 +1064,21 @@ const rss = lang === 'es' ? '/rss.xml' : '/rss-en.xml';
 ---
 
 <footer class="border-t border-border">
-  <div
-    class="container-page flex flex-col gap-3 py-6 pb-10 text-[13px] text-faint md:flex-row md:items-center md:justify-between"
-  >
+  <div class="container-page flex flex-col gap-3 py-6 pb-10 text-[13px] text-faint md:flex-row md:items-center md:justify-between">
     <span>{t('footer.privacy', lang)}</span>
     <div class="flex gap-4">
-      <a href={otherLang} class="hover:text-text">{t('footer.lang', lang)}</a>
-      <a href={rss} class="hover:text-text">RSS</a>
-      <a href="/llms.txt" class="hover:text-text">llms.txt</a>
-      <a href="https://github.com/alvarotorresc/alvarotc-web" class="hover:text-text"
-        >{t('footer.source', lang)}</a
-      >
+      <a href={otherLang} class="hover:text-text">
+        {t('footer.lang', lang)}
+      </a>
+      <a href={rss} class="hover:text-text">
+        RSS
+      </a>
+      <a href="/llms.txt" class="hover:text-text">
+        llms.txt
+      </a>
+      <a href="https://github.com/alvarotorresc/alvarotc-web" class="hover:text-text">
+        {t('footer.source', lang)}
+      </a>
     </div>
   </div>
 </footer>
@@ -1185,15 +1191,14 @@ const defaultJsonLd = {
         document.addEventListener('astro:after-swap', apply);
       })();
     </script>
-
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? defaultJsonLd)} />
-
     <ClientRouter />
     <Analytics />
     <script
       defer
       src="https://analytics.alvarotc.com/script.js"
-      data-website-id="4dc00bab-7da7-488d-b399-299d751b6801"></script>
+      data-website-id="4dc00bab-7da7-488d-b399-299d751b6801"
+    ></script>
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
     <Nav lang={lang} currentPath={currentPath} />
@@ -1981,22 +1986,20 @@ const projects = await getProjects(lang);
   <div class="container-page py-14">
     <h1 class="mb-8 text-3xl font-extrabold tracking-tight">{t('projects.title', lang)}</h1>
     <ul class="grid gap-4 md:grid-cols-2">
-      {
-        projects.map((p) => (
-          <li class="card flex flex-col gap-2 p-5">
-            <div class="flex items-center gap-2">
-              <h2 class="text-lg font-bold">{p.data.name}</h2>
-              <Tag>{statusLabel(p.data.status, lang)}</Tag>
-            </div>
-            <p class="text-sm text-muted">{p.data.tagline}</p>
-            <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
-              <a href={`/projects/${projectSlug(p)}`}>{t('projects.caseStudy', lang)}</a>
-              {p.data.url && <a href={p.data.url}>{t('projects.live', lang)}</a>}
-              {p.data.repo && <a href={p.data.repo}>{t('projects.repo', lang)}</a>}
-            </div>
-          </li>
-        ))
-      }
+      {projects.map((p) => (
+        <li class="card flex flex-col gap-2 p-5">
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-bold">{p.data.name}</h2>
+            <Tag>{statusLabel(p.data.status, lang)}</Tag>
+          </div>
+          <p class="text-sm text-muted">{p.data.tagline}</p>
+          <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
+            <a href={`/projects/${projectSlug(p)}`}>{t('projects.caseStudy', lang)}</a>
+            {p.data.url && <a href={p.data.url}>{t('projects.live', lang)}</a>}
+            {p.data.repo && <a href={p.data.repo}>{t('projects.repo', lang)}</a>}
+          </div>
+        </li>
+      ))}
     </ul>
   </div>
 </BaseLayout>
@@ -2020,9 +2023,9 @@ const tones = {
 };
 ---
 
-<span class={`rounded-md px-2 py-0.5 text-[11px] font-bold ${tones[tone]} ${className}`}
-  ><slot /></span
->
+<span class={`rounded-md px-2 py-0.5 text-[11px] font-bold ${tones[tone]} ${className}`}>
+  <slot />
+</span>
 ```
 
 En `src/pages/index.astro` y `src/pages/es/index.astro` eliminar el import de `getFeaturedProjects` desde `../data/projects` y de `ProjectCard`, y sustituir la sección de proyectos por un `<p>` temporal. Se reescriben enteras en la Task 8.
@@ -2358,13 +2361,11 @@ const { id, lang, titleKey, subtitle, link, linkLabel } = Astro.props;
   <div class="flex flex-col gap-2 md:col-span-3">
     <h2 class="text-[22px] font-bold tracking-tight">{t(titleKey, lang)}</h2>
     {subtitle && <p class="text-sm leading-relaxed text-faint">{subtitle}</p>}
-    {
-      link && (
-        <a href={link} class="text-sm font-semibold text-accent">
-          {linkLabel}
-        </a>
-      )
-    }
+    {link && (
+      <a href={link} class="text-sm font-semibold text-accent">
+        {linkLabel}
+      </a>
+    )}
   </div>
   <div class="md:col-span-9">
     <slot />
@@ -2383,7 +2384,9 @@ interface Props {
 const { label, class: className = '' } = Astro.props;
 ---
 
-<div class={`placeholder ${className}`} role="img" aria-label={label}>[{label}]</div>
+<div class={`placeholder ${className}`} role="img" aria-label={label}>
+  [{label}]
+</div>
 ```
 
 - [ ] **Step 3: Crear `src/components/home/Hero.astro`**
@@ -2424,8 +2427,12 @@ const prefix = lang === 'es' ? '/es' : '';
       {t('hero.intro', lang)}
     </p>
     <div class="hero-in flex gap-3 pt-1" style="animation-delay: 180ms">
-      <a href="#contact" class="btn-primary">{t('hero.contact', lang)}</a>
-      <a href={`${prefix}/cv`} class="btn-secondary">{t('hero.cv', lang)}</a>
+      <a href="#contact" class="btn-primary">
+        {t('hero.contact', lang)}
+      </a>
+      <a href={`${prefix}/cv`} class="btn-secondary">
+        {t('hero.cv', lang)}
+      </a>
     </div>
   </div>
 </header>
@@ -2485,19 +2492,19 @@ const tags = [
 <SectionHeading id="about" lang={lang} titleKey="about.title">
   <div class="flex flex-col gap-6">
     <div class="flex max-w-[720px] flex-col gap-3">
-      {paragraphs.map((p) => <p class="text-[17px] leading-relaxed text-muted">{p}</p>)}
+      {paragraphs.map((p) => (
+        <p class="text-[17px] leading-relaxed text-muted">{p}</p>
+      ))}
       <ul class="flex flex-wrap gap-2 pt-1">
-        {
-          tags.map((key) => (
-            <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
-              {t(key, lang)}
-            </li>
-          ))
-        }
+        {tags.map((key) => (
+          <li class="rounded-md bg-surface-2 px-2.5 py-1 text-xs font-bold text-muted">
+            {t(key, lang)}
+          </li>
+        ))}
       </ul>
-      <a href={`${prefix}/about`} class="text-sm font-semibold text-accent"
-        >{t('about.more', lang)}</a
-      >
+      <a href={`${prefix}/about`} class="text-sm font-semibold text-accent">
+        {t('about.more', lang)}
+      </a>
     </div>
     <NowCards lang={lang} />
   </div>
@@ -2528,19 +2535,17 @@ const project = await getEntry('projects', `${lang}/${building.project}`);
 
 <ul class="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
   <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      reading.cover ? (
-        <img
-          src={reading.cover}
-          alt=""
-          width="54"
-          height="80"
-          class="h-20 w-[54px] shrink-0 rounded object-cover"
-        />
-      ) : (
-        <Placeholder label="cover" class="h-20 w-[54px] shrink-0 !p-1 !text-[9px]" />
-      )
-    }
+    {reading.cover ? (
+      <img
+        src={reading.cover}
+        alt=""
+        width="54"
+        height="80"
+        class="h-20 w-[54px] shrink-0 rounded object-cover"
+      />
+    ) : (
+      <Placeholder label="cover" class="h-20 w-[54px] shrink-0 !p-1 !text-[9px]" />
+    )}
     <div class="flex flex-col justify-center gap-1">
       <span class="text-[11px] font-bold text-faint">{t('now.reading', lang)}</span>
       <span class="text-[13px] font-bold leading-snug">{reading.title}</span>
@@ -2555,69 +2560,63 @@ const project = await getEntry('projects', `${lang}/${building.project}`);
   </li>
 
   <li class="card-sm flex gap-3.5 p-3.5">
-    <div
-      class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2"
-    >
+    <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
       <Icon name="tux" size={30} strokeWidth={1.6} />
     </div>
     <div class="flex flex-col justify-center gap-1">
       <span class="text-[11px] font-bold text-faint">{t('now.driver', lang)}</span>
       <span class="text-[13px] font-bold leading-snug">
-        {dailyDriver.distro}{dailyDriver.kernel && `, kernel ${dailyDriver.kernel}`}
+        {dailyDriver.distro}
+        {dailyDriver.kernel && `, kernel ${dailyDriver.kernel}`}
       </span>
-      {
-        dailyDriver.selfHosted.length > 0 && (
-          <span class="text-xs text-muted">Self-hosted: {dailyDriver.selfHosted.join(', ')}</span>
-        )
-      }
+      {dailyDriver.selfHosted.length > 0 && (
+        <span class="text-xs text-muted">Self-hosted: {dailyDriver.selfHosted.join(', ')}</span>
+      )}
     </div>
   </li>
 
   <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      listening?.art ? (
-        <img
-          src={listening.art}
-          alt=""
-          width="54"
-          height="54"
-          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
-        />
-      ) : (
-        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
-          <Icon name="music" size={22} />
-        </div>
-      )
-    }
+    {listening?.art ? (
+      <img
+        src={listening.art}
+        alt=""
+        width="54"
+        height="54"
+        class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
+      />
+    ) : (
+      <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
+        <Icon name="music" size={22} />
+      </div>
+    )}
     <div class="flex flex-col justify-center gap-1">
       <span class="text-[11px] font-bold text-ok">{t('now.listening', lang)}</span>
       <span class="text-[13px] font-bold leading-snug">{listening?.title ?? '[track title]'}</span>
-      <span class="text-xs text-muted">{listening?.artist ?? '[artist]'}, {t('now.via', lang)}</span
-      >
+      <span class="text-xs text-muted">
+        {listening?.artist ?? '[artist]'}, {t('now.via', lang)}
+      </span>
     </div>
   </li>
 
   <li class="card-sm flex gap-3.5 p-3.5">
-    {
-      project?.data.icon ? (
-        <img
-          src={project.data.icon}
-          alt=""
-          width="54"
-          height="54"
-          class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
-        />
-      ) : (
-        <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
-          <Icon name="hammer" size={22} />
-        </div>
-      )
-    }
+    {project?.data.icon ? (
+      <img
+        src={project.data.icon}
+        alt=""
+        width="54"
+        height="54"
+        class="h-[54px] w-[54px] shrink-0 rounded-lg object-cover"
+      />
+    ) : (
+      <div class="flex h-[54px] w-[54px] shrink-0 items-center justify-center rounded-lg bg-surface-2">
+        <Icon name="hammer" size={22} />
+      </div>
+    )}
     <div class="flex flex-col justify-center gap-1">
       <span class="text-[11px] font-bold text-faint">{t('now.building', lang)}</span>
-      <span class="text-[13px] font-bold leading-snug"
-        >{project?.data.name ?? building.project}</span
-      >
+      <span class="text-[13px] font-bold leading-snug">
+        {project?.data.name ?? building.project}
+      </span>
       <span class="font-mono text-xs text-muted">
         {lastCommit ? `${lastCommit.message}, ${lastCommit.when}` : (project?.data.tagline ?? '')}
       </span>
@@ -2677,115 +2676,107 @@ const href = (p: NonNullable<typeof big>) => `${prefix}/projects/${projectSlug(p
 <section id="projects" class="section container-page flex flex-col gap-6">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('projects.title', lang)}</h2>
-    <a href={`${prefix}/projects`} class="text-sm font-semibold text-accent"
-      >{t('projects.all', lang)}</a
-    >
+    <a href={`${prefix}/projects`} class="text-sm font-semibold text-accent">
+      {t('projects.all', lang)}
+    </a>
   </div>
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
-    {
-      big && (
-        <a
-          href={href(big)}
-          class="card flex flex-col gap-4 border-accent/30 bg-accent/5 p-5 md:col-span-8"
-        >
-          {big.data.hero ? (
-            <img
-              src={big.data.hero}
-              alt={big.data.name}
-              class="aspect-video w-full rounded-[10px] object-cover"
-            />
-          ) : (
-            <Placeholder
-              label={`${big.data.name} product shot or promo video, 16:9`}
-              class="aspect-video w-full"
-            />
-          )}
-          <div class="flex flex-col justify-between gap-4 sm:flex-row">
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center gap-2.5">
-                <h3 class="text-2xl font-extrabold tracking-tight">{big.data.name}</h3>
-                <Tag tone={tone(big.data.status)}>{statusLabel(big.data.status, lang)}</Tag>
-              </div>
-              <p class="max-w-[520px] text-sm leading-relaxed text-muted">{big.data.tagline}</p>
-            </div>
-            <ul class="flex shrink-0 gap-2 font-mono text-xs text-accent sm:flex-col sm:items-end sm:gap-1.5">
-              {big.data.stack.slice(0, 3).map((s) => (
-                <li>{s}</li>
-              ))}
-            </ul>
-          </div>
-        </a>
-      )
-    }
-
-    {
-      mid && (
-        <a href={href(mid)} class="card flex flex-col gap-3 p-5 md:col-span-4">
-          {mid.data.hero ? (
-            <img
-              src={mid.data.hero}
-              alt={mid.data.name}
-              class="h-[200px] w-full rounded-[10px] object-cover"
-            />
-          ) : (
-            <Placeholder label={`${mid.data.name} screenshot`} class="h-[200px]" />
-          )}
-          <div class="flex items-center gap-2.5">
-            <h3 class="text-xl font-extrabold tracking-tight">{mid.data.name}</h3>
-            <Tag tone={tone(mid.data.status)}>{statusLabel(mid.data.status, lang)}</Tag>
-          </div>
-          <p class="text-sm leading-relaxed text-muted">{mid.data.tagline}</p>
-          <span class="mt-auto font-mono text-xs text-faint">
-            {mid.data.stack.slice(0, 4).join(', ')}
-          </span>
-        </a>
-      )
-    }
-
-    {
-      band && (
-        <a
-          href={href(band)}
-          class="card grid grid-cols-1 items-center gap-6 p-5 md:col-span-12 md:grid-cols-[minmax(0,1fr)_340px]"
-        >
+    {big && (
+      <a
+        href={href(big)}
+        class="card flex flex-col gap-4 border-accent/30 bg-accent/5 p-5 md:col-span-8"
+      >
+        {big.data.hero ? (
+          <img
+            src={big.data.hero}
+            alt={big.data.name}
+            class="aspect-video w-full rounded-[10px] object-cover"
+          />
+        ) : (
+          <Placeholder
+            label={`${big.data.name} product shot or promo video, 16:9`}
+            class="aspect-video w-full"
+          />
+        )}
+        <div class="flex flex-col justify-between gap-4 sm:flex-row">
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2.5">
-              <h3 class="text-xl font-extrabold tracking-tight">{band.data.name}</h3>
-              <Tag tone={tone(band.data.status)}>{statusLabel(band.data.status, lang)}</Tag>
+              <h3 class="text-2xl font-extrabold tracking-tight">{big.data.name}</h3>
+              <Tag tone={tone(big.data.status)}>{statusLabel(big.data.status, lang)}</Tag>
             </div>
-            <p class="max-w-[620px] text-sm leading-relaxed text-muted">{band.data.tagline}</p>
-            <span class="font-mono text-xs text-faint">{band.data.stack.join(', ')}</span>
+            <p class="max-w-[520px] text-sm leading-relaxed text-muted">{big.data.tagline}</p>
           </div>
-          {band.data.hero ? (
-            <img
-              src={band.data.hero}
-              alt={band.data.name}
-              class="h-[120px] w-full rounded-[10px] object-cover"
-            />
-          ) : (
-            <Placeholder label={`${band.data.name} concept`} class="h-[120px]" />
-          )}
-        </a>
-      )
-    }
+          <ul class="flex shrink-0 gap-2 font-mono text-xs text-accent sm:flex-col sm:items-end sm:gap-1.5">
+            {big.data.stack.slice(0, 3).map((s) => (
+              <li>{s}</li>
+            ))}
+          </ul>
+        </div>
+      </a>
+    )}
+
+    {mid && (
+      <a href={href(mid)} class="card flex flex-col gap-3 p-5 md:col-span-4">
+        {mid.data.hero ? (
+          <img
+            src={mid.data.hero}
+            alt={mid.data.name}
+            class="h-[200px] w-full rounded-[10px] object-cover"
+          />
+        ) : (
+          <Placeholder label={`${mid.data.name} screenshot`} class="h-[200px]" />
+        )}
+        <div class="flex items-center gap-2.5">
+          <h3 class="text-xl font-extrabold tracking-tight">{mid.data.name}</h3>
+          <Tag tone={tone(mid.data.status)}>{statusLabel(mid.data.status, lang)}</Tag>
+        </div>
+        <p class="text-sm leading-relaxed text-muted">{mid.data.tagline}</p>
+        <span class="mt-auto font-mono text-xs text-faint">
+          {mid.data.stack.slice(0, 4).join(', ')}
+        </span>
+      </a>
+    )}
+
+    {band && (
+      <a
+        href={href(band)}
+        class="card grid grid-cols-1 items-center gap-6 p-5 md:col-span-12 md:grid-cols-[minmax(0,1fr)_340px]"
+      >
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-xl font-extrabold tracking-tight">{band.data.name}</h3>
+            <Tag tone={tone(band.data.status)}>{statusLabel(band.data.status, lang)}</Tag>
+          </div>
+          <p class="max-w-[620px] text-sm leading-relaxed text-muted">{band.data.tagline}</p>
+          <span class="font-mono text-xs text-faint">{band.data.stack.join(', ')}</span>
+        </div>
+        {band.data.hero ? (
+          <img
+            src={band.data.hero}
+            alt={band.data.name}
+            class="h-[120px] w-full rounded-[10px] object-cover"
+          />
+        ) : (
+          <Placeholder label={`${band.data.name} concept`} class="h-[120px]" />
+        )}
+      </a>
+    )}
   </div>
 
-  {
-    lab.length > 0 && (
-      <p class="text-sm text-faint">
-        {t('projects.also', lang)}:{' '}
-        {lab.map((p, i) => (
-          <>
-            <a href={href(p)} class="hover:text-text">
-              {p.data.name}
-            </a>
-            {i < lab.length - 1 && ', '}
-          </>
-        ))}
-      </p>
-    )
-  }
+  {lab.length > 0 && (
+    <p class="text-sm text-faint">
+      {t('projects.also', lang)}:{' '}
+      {lab.map((p, i) => (
+        <>
+          <a href={href(p)} class="hover:text-text">
+            {p.data.name}
+          </a>
+          {i < lab.length - 1 && ', '}
+        </>
+      ))}
+    </p>
+  )}
 </section>
 ```
 
@@ -2815,45 +2806,37 @@ const entries = await getExperience();
   linkLabel={t('experience.cv', lang)}
 >
   <ol class="grid grid-cols-[28px_minmax(0,1fr)] gap-x-4 md:grid-cols-[120px_28px_minmax(0,1fr)]">
-    {
-      entries.map((e, i) => {
-        const current = isCurrent(e);
-        const last = i === entries.length - 1;
-        return (
-          <li class="contents">
+    {entries.map((e, i) => {
+      const current = isCurrent(e);
+      const last = i === entries.length - 1;
+      return (
+        <li class="contents">
+          <span
+            class:list={[
+              'col-span-2 pb-1 font-mono text-[13px] md:col-span-1 md:pb-10',
+              current ? 'text-accent' : 'text-faint',
+            ]}
+          >
+            {formatPeriod(e.data.start, e.data.end, lang)}
+          </span>
+          <span class="flex flex-col items-center" aria-hidden="true">
             <span
               class:list={[
-                'col-span-2 pb-1 font-mono text-[13px] md:col-span-1 md:pb-10',
-                current ? 'text-accent' : 'text-faint',
+                'h-3 w-3 rounded-full',
+                current ? 'bg-accent ring-4 ring-accent/25' : i < 2 ? 'bg-accent' : 'bg-surface-2',
               ]}
-            >
-              {formatPeriod(e.data.start, e.data.end, lang)}
-            </span>
-            <span class="flex flex-col items-center" aria-hidden="true">
-              <span
-                class:list={[
-                  'h-3 w-3 rounded-full',
-                  current
-                    ? 'bg-accent ring-4 ring-accent/25'
-                    : i < 2
-                      ? 'bg-accent'
-                      : 'bg-surface-2',
-                ]}
-              />
-              {!last && (
-                <span class:list={['w-0.5 flex-1', i < 1 ? 'bg-accent' : 'bg-surface-2']} />
-              )}
-            </span>
-            <article class:list={['flex flex-col gap-1.5', !last && 'pb-10']}>
-              <h3 class:list={['text-[17px] font-bold', !current && i >= 2 && 'text-muted']}>
-                {e.data.role[lang]}, {e.data.company}
-              </h3>
-              <p class="max-w-[640px] text-sm leading-relaxed text-muted">{e.data.summary[lang]}</p>
-            </article>
-          </li>
-        );
-      })
-    }
+            />
+            {!last && <span class:list={['w-0.5 flex-1', i < 1 ? 'bg-accent' : 'bg-surface-2']} />}
+          </span>
+          <article class:list={['flex flex-col gap-1.5', !last && 'pb-10']}>
+            <h3 class:list={['text-[17px] font-bold', !current && i >= 2 && 'text-muted']}>
+              {e.data.role[lang]}, {e.data.company}
+            </h3>
+            <p class="max-w-[640px] text-sm leading-relaxed text-muted">{e.data.summary[lang]}</p>
+          </article>
+        </li>
+      );
+    })}
   </ol>
 </SectionHeading>
 ```
@@ -2880,50 +2863,47 @@ const minutes = (p: (typeof posts)[number]) => getReadingTime(p.body ?? p.data.d
 <section id="writing" class="section container-page flex flex-col gap-5">
   <div class="flex items-baseline justify-between">
     <h2 class="text-[22px] font-bold tracking-tight">{t('writing.title', lang)}</h2>
-    <a href={`${prefix}/blog`} class="text-sm font-semibold text-accent">{t('writing.all', lang)}</a
-    >
+    <a href={`${prefix}/blog`} class="text-sm font-semibold text-accent">
+      {t('writing.all', lang)}
+    </a>
   </div>
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
-    {
-      latest && (
-        <a href={`${prefix}/blog/${latest.id}`} class="card flex flex-col gap-3 p-6 md:col-span-7">
-          {latest.data.image ? (
-            <img
-              src={latest.data.image}
-              alt=""
-              class="h-[200px] w-full rounded-[10px] object-cover"
-            />
-          ) : (
-            <img
-              src={`/og/${latest.id}.png`}
-              alt=""
-              class="h-[200px] w-full rounded-[10px] object-cover"
-              loading="lazy"
-            />
-          )}
-          <span class="font-mono text-[13px] text-accent">
-            {t('writing.latest', lang)}, {formatDate(latest.data.date, lang)}, {minutes(latest)}{' '}
-            {t('writing.minRead', lang)}
-          </span>
-          <h3 class="text-2xl font-extrabold leading-tight tracking-tight">{latest.data.title}</h3>
-          <p class="text-sm leading-relaxed text-muted">{latest.data.description}</p>
-        </a>
-      )
-    }
+    {latest && (
+      <a href={`${prefix}/blog/${latest.id}`} class="card flex flex-col gap-3 p-6 md:col-span-7">
+        {latest.data.image ? (
+          <img
+            src={latest.data.image}
+            alt=""
+            class="h-[200px] w-full rounded-[10px] object-cover"
+          />
+        ) : (
+          <img
+            src={`/og/${latest.id}.png`}
+            alt=""
+            class="h-[200px] w-full rounded-[10px] object-cover"
+            loading="lazy"
+          />
+        )}
+        <span class="font-mono text-[13px] text-accent">
+          {t('writing.latest', lang)}, {formatDate(latest.data.date, lang)}, {minutes(latest)}{' '}
+          {t('writing.minRead', lang)}
+        </span>
+        <h3 class="text-2xl font-extrabold leading-tight tracking-tight">{latest.data.title}</h3>
+        <p class="text-sm leading-relaxed text-muted">{latest.data.description}</p>
+      </a>
+    )}
     <ul class="flex flex-col md:col-span-5">
-      {
-        rest.slice(0, 3).map((p, i) => (
-          <li class:list={['border-t border-border', i === 2 && 'border-b']}>
-            <a href={`${prefix}/blog/${p.id}`} class="flex flex-col gap-1.5 py-4">
-              <span class="font-mono text-xs text-faint">
-                {formatDate(p.data.date, lang)}, {minutes(p)} {t('writing.minRead', lang)}
-              </span>
-              <span class="text-base font-bold leading-snug">{p.data.title}</span>
-            </a>
-          </li>
-        ))
-      }
+      {rest.slice(0, 3).map((p, i) => (
+        <li class:list={['border-t border-border', i === 2 && 'border-b']}>
+          <a href={`${prefix}/blog/${p.id}`} class="flex flex-col gap-1.5 py-4">
+            <span class="font-mono text-xs text-faint">
+              {formatDate(p.data.date, lang)}, {minutes(p)} {t('writing.minRead', lang)}
+            </span>
+            <span class="text-base font-bold leading-snug">{p.data.title}</span>
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 </section>
@@ -2965,34 +2945,31 @@ const counters = [
   <div class="flex flex-col gap-4">
     <h2 class="text-[22px] font-bold tracking-tight">{t('stack.title', lang)}</h2>
     <dl class="grid grid-cols-2 gap-4">
-      {
-        groups.map((g) => (
-          <div class="flex flex-col gap-1.5">
-            <dt class="text-xs font-bold text-faint">{g.label}</dt>
-            <dd class="text-sm leading-relaxed text-muted">
-              {g.items.map((line) => (
-                <span class="block">{line}</span>
-              ))}
-            </dd>
-          </div>
-        ))
-      }
+      {groups.map((g) => (
+        <div class="flex flex-col gap-1.5">
+          <dt class="text-xs font-bold text-faint">{g.label}</dt>
+          <dd class="text-sm leading-relaxed text-muted">
+            {g.items.map((line) => (
+              <span class="block">{line}</span>
+            ))}
+          </dd>
+        </div>
+      ))}
     </dl>
   </div>
   <div class="flex flex-col gap-4">
     <h2 class="text-[22px] font-bold tracking-tight">{t('stats.title', lang)}</h2>
     <ul class="grid grid-cols-3 gap-3">
-      {
-        counters.map((c) => (
-          <li class="card-sm flex flex-col gap-1 p-4">
-            <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
-            <span class="text-xs text-faint">{c.label}</span>
-          </li>
-        ))
-      }
+      {counters.map((c) => (
+        <li class="card-sm flex flex-col gap-1 p-4">
+          <span class="font-mono text-[26px] font-extrabold">{c.value}</span>
+          <span class="text-xs text-faint">{c.label}</span>
+        </li>
+      ))}
     </ul>
-    <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">{t('stats.full', lang)}</a
-    >
+    <a href={`${prefix}/stats`} class="text-sm font-semibold text-accent">
+      {t('stats.full', lang)}
+    </a>
   </div>
 </section>
 ```
@@ -3020,17 +2997,15 @@ const interests = (await getCollection('interests')).sort((a, b) => a.data.order
   subtitle={t('offclock.subtitle', lang)}
 >
   <ul class="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
-    {
-      interests.map((i) => (
-        <li class="card-sm flex flex-col gap-3 p-[18px]">
-          <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-2">
-            <Icon name={i.data.icon} size={22} />
-          </span>
-          <span class="text-[15px] font-bold">{i.data.title[lang]}</span>
-          <span class="text-[13px] leading-relaxed text-muted">{i.data.text[lang]}</span>
-        </li>
-      ))
-    }
+    {interests.map((i) => (
+      <li class="card-sm flex flex-col gap-3 p-[18px]">
+        <span class="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-2">
+          <Icon name={i.data.icon} size={22} />
+        </span>
+        <span class="text-[15px] font-bold">{i.data.title[lang]}</span>
+        <span class="text-[13px] leading-relaxed text-muted">{i.data.text[lang]}</span>
+      </li>
+    ))}
   </ul>
 </SectionHeading>
 ```
@@ -3063,9 +3038,7 @@ const calLink = 'https://cal.com/alvarotc';
       </p>
       <div class="flex flex-col gap-1.5">
         <span class="text-xs text-faint">{t('contact.email', lang)}</span>
-        <div
-          class="flex items-center justify-between gap-2.5 rounded-lg border border-border bg-bg px-3 py-2.5"
-        >
+        <div class="flex items-center justify-between gap-2.5 rounded-lg border border-border bg-bg px-3 py-2.5">
           <span class="font-mono text-sm font-semibold">{email}</span>
           <button
             type="button"
@@ -3082,7 +3055,9 @@ const calLink = 'https://cal.com/alvarotc';
         <span class="text-xs text-faint">{t('contact.response', lang)}</span>
         <span class="text-sm font-semibold">{t('contact.responseValue', lang)}</span>
       </div>
-      <a href={calLink} class="btn-primary h-10">{t('contact.call', lang)}</a>
+      <a href={calLink} class="btn-primary h-10">
+        {t('contact.call', lang)}
+      </a>
       <div class="flex gap-3.5 text-[13px] text-accent">
         <a href="https://github.com/alvarotorresc">GitHub</a>
         <a href="https://www.linkedin.com/in/alvaro-torres-carrasco/">LinkedIn</a>
@@ -3102,9 +3077,14 @@ const calLink = 'https://cal.com/alvarotc';
         <span class="ml-2 text-xs text-[#8a93a3]">alvarotc.com, mail</span>
       </div>
       <div class="flex flex-col gap-2.5 p-4 text-[13px] leading-relaxed">
-        <p class="flex gap-2.5"><span class="text-[#5fd08a]">$</span><span>mail alvaro</span></p>
+        <p class="flex gap-2.5">
+          <span class="text-[#5fd08a]">$</span>
+          <span>mail alvaro</span>
+        </p>
         <div class="flex items-center gap-2.5">
-          <label for="c-from" class="w-[60px] text-[#8a93a3]">{t('contact.from', lang)}</label>
+          <label for="c-from" class="w-[60px] text-[#8a93a3]">
+            {t('contact.from', lang)}
+          </label>
           <input
             id="c-from"
             name="from"
@@ -3115,8 +3095,9 @@ const calLink = 'https://cal.com/alvarotc';
           />
         </div>
         <div class="flex items-center gap-2.5">
-          <label for="c-subject" class="w-[60px] text-[#8a93a3]">{t('contact.subject', lang)}</label
-          >
+          <label for="c-subject" class="w-[60px] text-[#8a93a3]">
+            {t('contact.subject', lang)}
+          </label>
           <input
             id="c-subject"
             name="subject"
@@ -3125,9 +3106,9 @@ const calLink = 'https://cal.com/alvarotc';
           />
         </div>
         <div class="flex items-start gap-2.5">
-          <label for="c-body" class="w-[60px] pt-1.5 text-[#8a93a3]"
-            >{t('contact.body', lang)}</label
-          >
+          <label for="c-body" class="w-[60px] pt-1.5 text-[#8a93a3]">
+            {t('contact.body', lang)}
+          </label>
           <textarea
             id="c-body"
             name="body"
@@ -3144,7 +3125,9 @@ const calLink = 'https://cal.com/alvarotc';
           aria-hidden="true"
         />
         <div class="flex items-center justify-between gap-3 pt-1">
-          <span id="contact-soon" class="text-xs text-[#8a93a3]">{t('contact.soon', lang)}</span>
+          <span id="contact-soon" class="text-xs text-[#8a93a3]">
+            {t('contact.soon', lang)}
+          </span>
           <button
             type="submit"
             disabled

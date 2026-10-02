@@ -8,29 +8,25 @@ const { size, src, alt = '' } = Astro.props;
 ---
 
 <div data-frame="device" data-size={size} class:list={['device', `device-${size}`]}>
-  {
-    size === 'hero' && (
-      <>
-        <span class="device-key device-key-1" aria-hidden="true" />
-        <span class="device-key device-key-2" aria-hidden="true" />
-      </>
-    )
-  }
+  {size === 'hero' && (
+    <>
+      <span class="device-key device-key-1" aria-hidden="true" />
+      <span class="device-key device-key-2" aria-hidden="true" />
+    </>
+  )}
   <div class="device-screen">
     <span class="device-notch" aria-hidden="true"></span>
-    {
-      src ? (
-        <img
-          src={src}
-          alt={alt}
-          loading={size === 'hero' ? 'eager' : 'lazy'}
-          decoding="async"
-          class="device-img"
-        />
-      ) : (
-        <slot />
-      )
-    }
+    {src ? (
+      <img
+        src={src}
+        alt={alt}
+        loading={size === 'hero' ? 'eager' : 'lazy'}
+        decoding="async"
+        class="device-img"
+      />
+    ) : (
+      <slot />
+    )}
   </div>
 </div>
 

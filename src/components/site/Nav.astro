@@ -26,16 +26,16 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
 
 <header class="border-b border-border">
   <nav class="container-page flex h-[72px] items-center justify-between">
-    <a href={`${prefix}/`} class="text-base font-extrabold tracking-tight">alvarotc</a>
+    <a href={`${prefix}/`} class="text-base font-extrabold tracking-tight">
+      alvarotc
+    </a>
 
     <div class="hidden items-center gap-6 text-sm font-medium md:flex">
-      {
-        items.map((item) => (
-          <a href={item.href} class="text-muted hover:text-text">
-            {item.label}
-          </a>
-        ))
-      }
+      {items.map((item) => (
+        <a href={item.href} class="text-muted hover:text-text">
+          {item.label}
+        </a>
+      ))}
       <button
         type="button"
         data-command-palette
@@ -43,9 +43,9 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
       >
         <Icon name="search" size={14} />
         <span>{t('nav.search', lang)}</span>
-        <kbd class="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint"
-          >⌘K</kbd
-        >
+        <kbd class="rounded border border-border px-1.5 py-0.5 font-mono text-[11px] text-faint">
+          ⌘K
+        </kbd>
       </button>
       <a
         href={otherLang}
@@ -79,18 +79,16 @@ const otherLang = alternatePath ?? mirroredPath(lang, currentPath);
     class="container-page border-t border-border pb-4 md:hidden"
   >
     <ul class="flex flex-col gap-1 pt-2">
-      {
-        items.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
+      {items.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class="block rounded-lg px-2 py-2 text-sm font-medium text-muted hover:bg-surface-2"
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
       <li>
         <button
           type="button"

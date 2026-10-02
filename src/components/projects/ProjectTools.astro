@@ -15,119 +15,117 @@ const addressOf = (href?: string) => (href ? displayUrl(href) : (view.address ??
 const indexOf = new Map(view.tools.map((tool, i) => [tool, i]));
 ---
 
-{
-  first && (
-    <section data-section="tools" class="flex flex-col gap-7 border-t border-border py-14">
-      <div class="flex flex-col gap-1.5">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.tools', lang)}</h2>
-        {view.toolsIntro && <p class="text-[15px] text-muted">{view.toolsIntro}</p>}
-      </div>
-      <div class="tools" data-tools data-enlarge={t('lightbox.open', lang)}>
-        <div
-          class="tools-list"
-          role="tablist"
-          aria-label={t('project.toolsList', lang).replace('{name}', view.name)}
-        >
-          {groups.map((group, g) => (
-            <div class="tools-group" role="presentation">
-              {group.name && (
-                <span id={`tools-group-${g}`} class="tools-group-name" aria-hidden="true">
-                  {group.name}
-                </span>
-              )}
-              {group.tools.map((tool) => {
-                const i = indexOf.get(tool) ?? 0;
-                return (
-                  <button
-                    type="button"
-                    role="tab"
-                    id={`tools-tab-${i}`}
-                    class="tools-tab"
-                    aria-selected={i === 0 ? 'true' : 'false'}
-                    aria-controls="tools-panel"
-                    aria-describedby={
-                      group.name && tool === group.tools[0] ? `tools-group-${g}` : undefined
-                    }
-                    tabindex={i === 0 ? 0 : -1}
-                    data-image={tool.image ?? ''}
-                    data-full={tool.full ?? tool.image ?? ''}
-                    data-alt={tool.name}
-                    data-address={addressOf(tool.href)}
-                    data-name={tool.name}
-                    data-text={tool.text}
-                    data-href={tool.href ?? ''}
-                  >
-                    {tool.name}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-        </div>
-        <div
-          id="tools-panel"
-          class="tools-panel"
-          role="tabpanel"
-          aria-labelledby="tools-tab-0"
-          data-tools-panel
-        >
-          <BrowserFrame size="wide" address={addressOf(first.href)}>
-            <LightboxTrigger
-              lang={lang}
-              group="tools"
-              full={first.full ?? first.image ?? ''}
-              alt={first.name}
-              caption={first.name}
-              class="tools-trigger"
-              hidden={!first.image}
-            >
-              <img
-                src={first.image}
-                alt={first.name}
-                loading="lazy"
-                decoding="async"
-                class="tools-img"
-                hidden={!first.image}
-                data-tools-img
-              />
-            </LightboxTrigger>
-          </BrowserFrame>
-          <div class="tools-detail">
-            <div class="flex flex-col gap-1.5">
-              <h3 class="text-lg font-bold tracking-[-0.01em]" data-tools-name>
-                {first.name}
-              </h3>
-              <p class="max-w-[62ch] text-[15px] leading-[1.55] text-muted" data-tools-text>
-                {first.text}
-              </p>
-            </div>
-            <a
-              href={first.href}
-              class="btn-secondary h-9 gap-1.5 self-start px-3 whitespace-nowrap"
-              hidden={!first.href}
-              data-tools-open
-            >
-              <span>{t('project.openTool', lang).replace('{name}', view.name)}</span>
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M7 17 17 7M8 7h9v9" />
-              </svg>
-            </a>
+{first && (
+  <section data-section="tools" class="flex flex-col gap-7 border-t border-border py-14">
+    <div class="flex flex-col gap-1.5">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.tools', lang)}</h2>
+      {view.toolsIntro && <p class="text-[15px] text-muted">{view.toolsIntro}</p>}
+    </div>
+    <div class="tools" data-tools data-enlarge={t('lightbox.open', lang)}>
+      <div
+        class="tools-list"
+        role="tablist"
+        aria-label={t('project.toolsList', lang).replace('{name}', view.name)}
+      >
+        {groups.map((group, g) => (
+          <div class="tools-group" role="presentation">
+            {group.name && (
+              <span id={`tools-group-${g}`} class="tools-group-name" aria-hidden="true">
+                {group.name}
+              </span>
+            )}
+            {group.tools.map((tool) => {
+              const i = indexOf.get(tool) ?? 0;
+              return (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`tools-tab-${i}`}
+                  class="tools-tab"
+                  aria-selected={i === 0 ? 'true' : 'false'}
+                  aria-controls="tools-panel"
+                  aria-describedby={
+                    group.name && tool === group.tools[0] ? `tools-group-${g}` : undefined
+                  }
+                  tabindex={i === 0 ? 0 : -1}
+                  data-image={tool.image ?? ''}
+                  data-full={tool.full ?? tool.image ?? ''}
+                  data-alt={tool.name}
+                  data-address={addressOf(tool.href)}
+                  data-name={tool.name}
+                  data-text={tool.text}
+                  data-href={tool.href ?? ''}
+                >
+                  {tool.name}
+                </button>
+              );
+            })}
           </div>
+        ))}
+      </div>
+      <div
+        id="tools-panel"
+        class="tools-panel"
+        role="tabpanel"
+        aria-labelledby="tools-tab-0"
+        data-tools-panel
+      >
+        <BrowserFrame size="wide" address={addressOf(first.href)}>
+          <LightboxTrigger
+            lang={lang}
+            group="tools"
+            full={first.full ?? first.image ?? ''}
+            alt={first.name}
+            caption={first.name}
+            class="tools-trigger"
+            hidden={!first.image}
+          >
+            <img
+              src={first.image}
+              alt={first.name}
+              loading="lazy"
+              decoding="async"
+              class="tools-img"
+              hidden={!first.image}
+              data-tools-img
+            />
+          </LightboxTrigger>
+        </BrowserFrame>
+        <div class="tools-detail">
+          <div class="flex flex-col gap-1.5">
+            <h3 class="text-lg font-bold tracking-[-0.01em]" data-tools-name>
+              {first.name}
+            </h3>
+            <p class="max-w-[62ch] text-[15px] leading-[1.55] text-muted" data-tools-text>
+              {first.text}
+            </p>
+          </div>
+          <a
+            href={first.href}
+            class="btn-secondary h-9 gap-1.5 self-start px-3 whitespace-nowrap"
+            hidden={!first.href}
+            data-tools-open
+          >
+            <span>{t('project.openTool', lang).replace('{name}', view.name)}</span>
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
-  )
-}
+    </div>
+  </section>
+)}
 
 <script>
   const KEYS: Record<string, (i: number, n: number) => number> = {

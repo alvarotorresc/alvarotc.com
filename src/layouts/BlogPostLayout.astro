@@ -76,29 +76,31 @@ const jsonLd = blogPostingJsonLd({
     <article class="mx-auto flex w-full max-w-[720px] flex-col gap-8 lg:mx-0">
       <header class="flex flex-col gap-4">
         <div class="flex flex-wrap items-center gap-2 text-sm">
-          <a href={`${prefix}/blog/`} class="font-semibold text-accent">{t('writing.all', lang)}</a>
-          {displayTags.map((tag) => <Tag>{tag}</Tag>)}
+          <a href={`${prefix}/blog/`} class="font-semibold text-accent">
+            {t('writing.all', lang)}
+          </a>
+          {displayTags.map((tag) => (
+            <Tag>{tag}</Tag>
+          ))}
         </div>
         <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">{title}</h1>
         <p class="text-lg leading-relaxed text-muted">{description}</p>
         <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-faint">
           <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
-          {
-            updated && (
-              <span>
-                {t('post.updated', lang)}{' '}
-                <time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time>
-              </span>
-            )
-          }
-          <span>{readingTime} {t('post.minRead', lang)}</span>
-          {
-            hasTranslation && (
-              <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
-                {t('post.alternate', lang)}
-              </a>
-            )
-          }
+          {updated && (
+            <span>
+              {t('post.updated', lang)}{' '}
+              <time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time>
+            </span>
+          )}
+          <span>
+            {readingTime} {t('post.minRead', lang)}
+          </span>
+          {hasTranslation && (
+            <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
+              {t('post.alternate', lang)}
+            </a>
+          )}
         </div>
       </header>
 
@@ -110,7 +112,9 @@ const jsonLd = blogPostingJsonLd({
         class="w-full rounded-2xl border border-border object-cover"
       />
 
-      <div class="prose"><slot /></div>
+      <div class="prose">
+        <slot />
+      </div>
 
       <div class="border-t border-border pt-8">
         <ShareButtons title={title} url={canonicalURL} lang={lang} />
@@ -119,6 +123,8 @@ const jsonLd = blogPostingJsonLd({
       <PostNav lang={lang} prev={prev} next={next} />
     </article>
 
-    <div class="mt-12 lg:mt-0"><PostSidebar lang={lang} headings={headings} /></div>
+    <div class="mt-12 lg:mt-0">
+      <PostSidebar lang={lang} headings={headings} />
+    </div>
   </div>
 </BaseLayout>
