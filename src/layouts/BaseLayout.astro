@@ -117,7 +117,9 @@ const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden
     {noindex && <meta name="robots" content="noindex, follow" />}
     {prevHref && <link rel="prev" href={new URL(prevHref, Astro.site)} />}
     {nextHref && <link rel="next" href={new URL(nextHref, Astro.site)} />}
-    {links.map((l) => <link rel="alternate" hreflang={l.lang} href={l.href} />)}
+    {links.map((l) => (
+      <link rel="alternate" hreflang={l.lang} href={l.href} />
+    ))}
     {markdownAlternate && <link rel="alternate" type="text/markdown" href={markdownAlternate} />}
     <link
       rel="alternate"
@@ -170,55 +172,47 @@ const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden
         document.addEventListener('astro:after-swap', apply);
       })();
     </script>
-
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? defaultJsonLd)} />
-
     <ClientRouter />
-    {
-      umamiWebsiteId && (
-        <script
-          is:inline
-          defer
-          src="https://analytics.alvarotc.com/script.js"
-          data-website-id={umamiWebsiteId}
-        />
-      )
-    }
+    {umamiWebsiteId && (
+      <script
+        is:inline
+        defer
+        src="https://analytics.alvarotc.com/script.js"
+        data-website-id={umamiWebsiteId}
+      />
+    )}
   </head>
   <body class="flex min-h-screen flex-col bg-bg text-text">
-    {
-      chrome.map((c) => (
-        <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
-          <a
-            href="#main"
-            class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-fg"
-          >
-            {t('nav.skip', c.lang)}
-          </a>
-          <Nav
-            lang={c.lang}
-            currentPath={c.currentPath}
-            alternatePath={c.alternatePath}
-            experienceVisible={experienceVisible}
-          />
-        </div>
-      ))
-    }
+    {chrome.map((c) => (
+      <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
+        <a
+          href="#main"
+          class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-accent-fg"
+        >
+          {t('nav.skip', c.lang)}
+        </a>
+        <Nav
+          lang={c.lang}
+          currentPath={c.currentPath}
+          alternatePath={c.alternatePath}
+          experienceVisible={experienceVisible}
+        />
+      </div>
+    ))}
     <main id="main" class="flex-1">
       <slot />
     </main>
-    {
-      chrome.map((c) => (
-        <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
-          <Footer
-            lang={c.lang}
-            currentPath={c.currentPath}
-            alternatePath={c.alternatePath}
-            analytics={Boolean(umamiWebsiteId)}
-          />
-        </div>
-      ))
-    }
+    {chrome.map((c) => (
+      <div data-chrome-lang={bilingualChrome ? c.lang : undefined} hidden={c.hidden}>
+        <Footer
+          lang={c.lang}
+          currentPath={c.currentPath}
+          alternatePath={c.alternatePath}
+          analytics={Boolean(umamiWebsiteId)}
+        />
+      </div>
+    ))}
     <CommandPalette client:interaction lang={lang} />
   </body>
 </html>

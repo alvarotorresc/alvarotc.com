@@ -50,117 +50,109 @@ const bandCover = band && homeImage(band);
   </div>
 
   <div class="grid grid-cols-1 gap-5 md:grid-cols-12">
-    {
-      big && (
-        <a
-          href={href(big)}
-          rel="noopener"
-          class="card flex flex-col gap-4 border-accent/30 bg-accent/5 p-5 md:col-span-8"
-        >
-          {bigCover && (
-            <Image
-              src={bigCover}
-              alt={big.data.name}
-              width={960}
-              class:list={[
-                'aspect-video w-full rounded-[10px]',
-                isVerticalImage(bigCover) ? 'bg-surface-2 object-contain' : 'object-cover',
-              ]}
-            />
-          )}
-          <div class="flex flex-col justify-between gap-4 sm:flex-row">
-            <div class="flex flex-col gap-2">
-              <div class="flex items-center gap-2.5">
-                <h3 class="text-2xl font-extrabold tracking-tight">{big.data.name}</h3>
-                <Tag tone={tone(big.data.status)}>{statusLabel(big.data.status, lang)}</Tag>
-              </div>
-              <p class="max-w-[520px] text-sm leading-relaxed text-muted">{big.data.tagline}</p>
-            </div>
-            <ul class="flex shrink-0 gap-2 font-mono text-xs text-accent sm:flex-col sm:items-end sm:gap-1.5">
-              {big.data.stack.slice(0, 3).map((s) => (
-                <li>{s}</li>
-              ))}
-            </ul>
-          </div>
-        </a>
-      )
-    }
-
-    {
-      mid && (
-        <a href={href(mid)} rel="noopener" class="card flex flex-col gap-3 p-5 md:col-span-4">
-          {midCover && (
-            <Image
-              src={midCover}
-              alt={mid.data.name}
-              width={480}
-              class:list={[
-                'aspect-video w-full rounded-[10px]',
-                isVerticalImage(midCover) ? 'bg-surface-2 object-contain' : 'object-cover',
-              ]}
-            />
-          )}
-          <div class="flex items-center gap-2.5">
-            <h3 class="text-xl font-extrabold tracking-tight">{mid.data.name}</h3>
-            <Tag tone={tone(mid.data.status)}>{statusLabel(mid.data.status, lang)}</Tag>
-          </div>
-          <p class="text-sm leading-relaxed text-muted">{mid.data.tagline}</p>
-          {mid.data.intro && <p class="text-sm leading-relaxed text-faint">{mid.data.intro}</p>}
-          <span class="mt-auto font-mono text-xs text-faint">
-            {mid.data.stack.slice(0, 4).join(', ')}
-          </span>
-        </a>
-      )
-    }
-
-    {
-      band && (
-        <a
-          href={href(band)}
-          rel="noopener"
-          class:list={[
-            'card grid grid-cols-1 items-center gap-6 p-5 md:col-span-12',
-            bandCover && 'md:grid-cols-[minmax(0,1fr)_340px]',
-          ]}
-        >
+    {big && (
+      <a
+        href={href(big)}
+        rel="noopener"
+        class="card flex flex-col gap-4 border-accent/30 bg-accent/5 p-5 md:col-span-8"
+      >
+        {bigCover && (
+          <Image
+            src={bigCover}
+            alt={big.data.name}
+            width={960}
+            class:list={[
+              'aspect-video w-full rounded-[10px]',
+              isVerticalImage(bigCover) ? 'bg-surface-2 object-contain' : 'object-cover',
+            ]}
+          />
+        )}
+        <div class="flex flex-col justify-between gap-4 sm:flex-row">
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2.5">
-              <h3 class="text-xl font-extrabold tracking-tight">{band.data.name}</h3>
-              <Tag tone={tone(band.data.status)}>{statusLabel(band.data.status, lang)}</Tag>
+              <h3 class="text-2xl font-extrabold tracking-tight">{big.data.name}</h3>
+              <Tag tone={tone(big.data.status)}>{statusLabel(big.data.status, lang)}</Tag>
             </div>
-            <p class="max-w-[620px] text-sm leading-relaxed text-muted">{band.data.tagline}</p>
-            <span class="font-mono text-xs text-faint">{band.data.stack.join(', ')}</span>
+            <p class="max-w-[520px] text-sm leading-relaxed text-muted">{big.data.tagline}</p>
           </div>
-          {bandCover && (
-            <Image
-              src={bandCover}
-              alt={band.data.name}
-              width={680}
-              class:list={[
-                'h-[120px] w-full rounded-[10px]',
-                isVerticalImage(bandCover) ? 'bg-surface-2 object-contain' : 'object-cover',
-              ]}
-            />
-          )}
-        </a>
-      )
-    }
+          <ul class="flex shrink-0 gap-2 font-mono text-xs text-accent sm:flex-col sm:items-end sm:gap-1.5">
+            {big.data.stack.slice(0, 3).map((s) => (
+              <li>{s}</li>
+            ))}
+          </ul>
+        </div>
+      </a>
+    )}
+
+    {mid && (
+      <a href={href(mid)} rel="noopener" class="card flex flex-col gap-3 p-5 md:col-span-4">
+        {midCover && (
+          <Image
+            src={midCover}
+            alt={mid.data.name}
+            width={480}
+            class:list={[
+              'aspect-video w-full rounded-[10px]',
+              isVerticalImage(midCover) ? 'bg-surface-2 object-contain' : 'object-cover',
+            ]}
+          />
+        )}
+        <div class="flex items-center gap-2.5">
+          <h3 class="text-xl font-extrabold tracking-tight">{mid.data.name}</h3>
+          <Tag tone={tone(mid.data.status)}>{statusLabel(mid.data.status, lang)}</Tag>
+        </div>
+        <p class="text-sm leading-relaxed text-muted">{mid.data.tagline}</p>
+        {mid.data.intro && <p class="text-sm leading-relaxed text-faint">{mid.data.intro}</p>}
+        <span class="mt-auto font-mono text-xs text-faint">
+          {mid.data.stack.slice(0, 4).join(', ')}
+        </span>
+      </a>
+    )}
+
+    {band && (
+      <a
+        href={href(band)}
+        rel="noopener"
+        class:list={[
+          'card grid grid-cols-1 items-center gap-6 p-5 md:col-span-12',
+          bandCover && 'md:grid-cols-[minmax(0,1fr)_340px]',
+        ]}
+      >
+        <div class="flex flex-col gap-2">
+          <div class="flex items-center gap-2.5">
+            <h3 class="text-xl font-extrabold tracking-tight">{band.data.name}</h3>
+            <Tag tone={tone(band.data.status)}>{statusLabel(band.data.status, lang)}</Tag>
+          </div>
+          <p class="max-w-[620px] text-sm leading-relaxed text-muted">{band.data.tagline}</p>
+          <span class="font-mono text-xs text-faint">{band.data.stack.join(', ')}</span>
+        </div>
+        {bandCover && (
+          <Image
+            src={bandCover}
+            alt={band.data.name}
+            width={680}
+            class:list={[
+              'h-[120px] w-full rounded-[10px]',
+              isVerticalImage(bandCover) ? 'bg-surface-2 object-contain' : 'object-cover',
+            ]}
+          />
+        )}
+      </a>
+    )}
   </div>
 
-  {
-    lab.length > 0 && (
-      <div class="flex flex-wrap items-center gap-2">
-        <span class="text-sm text-muted">{t('projects.also', lang)}</span>
-        {lab.map((p) => (
-          <a
-            href={href(p)}
-            rel="noopener"
-            class="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-text"
-          >
-            {p.data.name}
-          </a>
-        ))}
-      </div>
-    )
-  }
+  {lab.length > 0 && (
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="text-sm text-muted">{t('projects.also', lang)}</span>
+      {lab.map((p) => (
+        <a
+          href={href(p)}
+          rel="noopener"
+          class="rounded-lg bg-surface-2 px-3 py-1.5 text-sm font-semibold text-text"
+        >
+          {p.data.name}
+        </a>
+      ))}
+    </div>
+  )}
 </section>

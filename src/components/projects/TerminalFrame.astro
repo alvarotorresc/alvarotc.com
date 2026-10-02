@@ -17,25 +17,23 @@ const parsed = lines.map(parseTerminalLine);
     <span class="term-title">{title}</span>
   </div>
   <div class="term-body">
-    {
-      parsed.map((line) =>
-        line.kind === 'blank' ? (
-          <div class="term-gap" aria-hidden="true" />
-        ) : line.kind === 'command' ? (
-          <div>
-            <span class="term-faint">$ </span>
-            {line.text}
-          </div>
-        ) : line.kind === 'answer' ? (
-          <div>
-            <span class="term-ok">✔</span> {line.label} <span class="term-faint">›</span>{' '}
-            <span class="term-value">{line.value}</span>
-          </div>
-        ) : (
-          <div class="term-out">{line.text}</div>
-        ),
-      )
-    }
+    {parsed.map((line) =>
+      line.kind === 'blank' ? (
+        <div class="term-gap" aria-hidden="true" />
+      ) : line.kind === 'command' ? (
+        <div>
+          <span class="term-faint">$ </span>
+          {line.text}
+        </div>
+      ) : line.kind === 'answer' ? (
+        <div>
+          <span class="term-ok">✔</span> {line.label} <span class="term-faint">›</span>{' '}
+          <span class="term-value">{line.value}</span>
+        </div>
+      ) : (
+        <div class="term-out">{line.text}</div>
+      ),
+    )}
   </div>
 </div>
 

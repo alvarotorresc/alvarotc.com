@@ -486,53 +486,49 @@ const web = !video && view.kind === 'web';
 Justo antes de la etiqueta `<script>`, detrás de la llave que cierra el bloque `playground && web`, añade:
 
 ```astro
-{
-  playground && video && (
-    <section data-section="video" class="flex flex-col gap-6 border-t border-border py-14">
-      <div class="flex flex-col gap-2">
-        <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.watch', lang)}</h2>
-        <p class="max-w-[620px] text-base leading-[1.6] text-muted">
-          {t('project.watchText', lang)}
-        </p>
-      </div>
-      <a
-        data-video-link
-        href={playground.src}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="relative flex aspect-video w-full max-w-[960px] items-center justify-center overflow-hidden rounded-xl border border-border bg-surface-2"
-      >
-        {view.poster && (
-          <img
-            src={view.poster}
-            alt=""
-            loading="lazy"
-            decoding="async"
-            class="absolute inset-0 h-full w-full object-cover"
-          />
-        )}
-        <span class="btn-primary relative gap-2">
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={play}
-          />
-          <span>{t('project.watchLink', lang)}</span>
-        </span>
-      </a>
-      <p data-note class="max-w-[620px] text-sm leading-[1.6] text-muted">
-        {t('project.watchNote', lang)}
-      </p>
-    </section>
-  )
-}
+{playground && video && (
+  <section data-section="video" class="flex flex-col gap-6 border-t border-border py-14">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-[22px] font-bold tracking-[-0.02em]">{t('project.watch', lang)}</h2>
+      <p class="max-w-[620px] text-base leading-[1.6] text-muted">{t('project.watchText', lang)}</p>
+    </div>
+    <a
+      data-video-link
+      href={playground.src}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="relative flex aspect-video w-full max-w-[960px] items-center justify-center overflow-hidden rounded-xl border border-border bg-surface-2"
+    >
+      {view.poster && (
+        <img
+          src={view.poster}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+      <span class="btn-primary relative gap-2">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={play}
+        />
+        <span>{t('project.watchLink', lang)}</span>
+      </span>
+    </a>
+    <p data-note class="max-w-[620px] text-sm leading-[1.6] text-muted">
+      {t('project.watchNote', lang)}
+    </p>
+  </section>
+)}
 ```
 
 El `<script>` del componente no se toca: si cambiara, cambiaría su hash en la CSP de `vercel.json`.

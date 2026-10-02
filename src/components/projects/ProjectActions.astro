@@ -27,142 +27,125 @@ const openIcon = kind === 'web' ? icons.globe : icons.external;
 ---
 
 <div class="mt-7 flex flex-col gap-2.5">
-  {
-    kind === 'cli' && view.command && (
-      <div
-        data-command
-        class="flex h-11 max-w-full self-start overflow-hidden rounded-lg border border-border bg-surface"
+  {kind === 'cli' && view.command && (
+    <div
+      data-command
+      class="flex h-11 max-w-full self-start overflow-hidden rounded-lg border border-border bg-surface"
+    >
+      <code class="flex min-w-0 items-center overflow-x-auto whitespace-nowrap px-3.5 font-mono text-[13px]">
+        {view.command}
+      </code>
+      <button
+        type="button"
+        data-copy-command={view.command}
+        data-copied-label={t('project.copied', lang)}
+        class="inline-flex shrink-0 items-center gap-2 bg-accent px-4 text-sm font-bold text-accent-fg"
       >
-        <code class="flex min-w-0 items-center overflow-x-auto whitespace-nowrap px-3.5 font-mono text-[13px]">
-          {view.command}
-        </code>
-        <button
-          type="button"
-          data-copy-command={view.command}
-          data-copied-label={t('project.copied', lang)}
-          class="inline-flex shrink-0 items-center gap-2 bg-accent px-4 text-sm font-bold text-accent-fg"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.copy}
-          />
-          <span data-copy-label aria-live="polite">
-            {t('project.copy', lang)}
-          </span>
-        </button>
-      </div>
-    )
-  }
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.copy}
+        />
+        <span data-copy-label aria-live="polite">
+          {t('project.copy', lang)}
+        </span>
+      </button>
+    </div>
+  )}
   <div class="flex flex-wrap gap-2.5">
-    {
-      kind === 'mobile' && view.download && (
-        <a
-          href={view.download.url}
-          rel="noopener"
-          data-action="download"
-          class="btn-primary gap-2.5"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.download}
-          />
-          <span>{t('project.download', lang)}</span>
-          <span class="font-mono text-xs font-medium">{view.download.label}</span>
-        </a>
-      )
-    }
-    {
-      openLabel && view.url && (
-        <a href={view.url} rel="noopener" data-action="open" class="btn-primary gap-2.5">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={openIcon}
-          />
-          <span>{openLabel}</span>
-        </a>
-      )
-    }
-    {
-      view.repo && (
-        <a href={view.repo} rel="noopener" data-action="repo" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.code}
-          />
-          <span>{t('project.source', lang)}</span>
-        </a>
-      )
-    }
-    {
-      (kind === 'mobile' || kind === 'hybrid') && view.url && view.address && (
-        <a href={view.url} rel="noopener" data-action="site" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.globe}
-          />
-          <span>{view.address}</span>
-        </a>
-      )
-    }
-    {
-      kind === 'cli' && view.url && (
-        <a href={view.url} rel="noopener" data-action="npm" class="btn-secondary gap-2">
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            set:html={icons.external}
-          />
-          <span>{t('project.npmLink', lang)}</span>
-        </a>
-      )
-    }
+    {kind === 'mobile' && view.download && (
+      <a href={view.download.url} rel="noopener" data-action="download" class="btn-primary gap-2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.download}
+        />
+        <span>{t('project.download', lang)}</span>
+        <span class="font-mono text-xs font-medium">{view.download.label}</span>
+      </a>
+    )}
+    {openLabel && view.url && (
+      <a href={view.url} rel="noopener" data-action="open" class="btn-primary gap-2.5">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={openIcon}
+        />
+        <span>{openLabel}</span>
+      </a>
+    )}
+    {view.repo && (
+      <a href={view.repo} rel="noopener" data-action="repo" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.code}
+        />
+        <span>{t('project.source', lang)}</span>
+      </a>
+    )}
+    {(kind === 'mobile' || kind === 'hybrid') && view.url && view.address && (
+      <a href={view.url} rel="noopener" data-action="site" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.globe}
+        />
+        <span>{view.address}</span>
+      </a>
+    )}
+    {kind === 'cli' && view.url && (
+      <a href={view.url} rel="noopener" data-action="npm" class="btn-secondary gap-2">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={icons.external}
+        />
+        <span>{t('project.npmLink', lang)}</span>
+      </a>
+    )}
   </div>
 </div>
 
