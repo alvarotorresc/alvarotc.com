@@ -32,7 +32,7 @@ screenshots:
     alt: 'El primer paso de la lección «La horquilla»: un tablero con un caballo blanco y dos flechas hacia el rey y la torre negros, el texto que lo explica en palabras, el avance «Paso 1 de 7» y abierta la burbuja del término «Jaque», con su definición, un minitablero y el enlace «Ver en el glosario».'
     caption: 'Una lección, paso a paso'
   - src: '../../../assets/projects/cheesy/screen-glossary-es.png'
-    alt: 'El glosario en el tema oscuro, filtrado por la familia Táctica: el buscador, los filtros por nivel y por familia, el recuento «21 de 78 términos» y la primera fila de tarjetas, cada una con su tablero de ejemplo, su nivel, su definición y la lección donde se aprende.'
+    alt: 'El glosario en el tema oscuro, filtrado por la familia Táctica: el buscador, los filtros por nivel y por familia, el recuento de términos de la familia y la primera fila de tarjetas, cada una con su tablero de ejemplo, su nivel, su definición y la lección donde se aprende.'
     caption: 'Las palabras del ajedrez, con tablero'
   - src: '../../../assets/projects/cheesy/screen-puzzles-es.png'
     alt: 'La lista de Practica más en el tema oscuro: problemas reales de Lichess agrupados por lección, con tres lecciones empezadas, «16 de 50 a la primera» en Piezas sin defensa y 8 de 50 en La horquilla y en La clavada, y el resto por empezar.'
