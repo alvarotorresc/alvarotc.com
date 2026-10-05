@@ -1,7 +1,7 @@
 ---
 name: Cheesy
-tagline: 'Aperturas, finales y táctica, en tu navegador.'
-intro: 'Juegas aperturas y finales contra el ordenador, buscas la jugada en posiciones tácticas y analizas con motor. Sin cuenta, sin instalar nada y sin anuncios: tu progreso se queda en tu navegador.'
+tagline: 'Lecciones, aperturas, finales y táctica, en tu navegador.'
+intro: 'Aprendes desde cero con lecciones cortas, juegas aperturas y finales contra el ordenador, resuelves problemas tácticos y analizas con motor. Las jugadas se leen en palabras, no en notación, y un glosario explica la jerga. Sin cuenta, sin instalar nada y sin anuncios: tu progreso se queda en tu navegador.'
 kind: web
 status: published
 tier: lab
@@ -17,11 +17,29 @@ coverMobile: '../../../assets/projects/cheesy/cover-mobile-es.png'
 promo: '../../../assets/projects/cheesy/promo-es.png'
 facts:
   - { label: 'Contenido', value: '21 aperturas, 14 finales y 13 posiciones' }
+  - { label: 'Aprender', value: '36 lecciones, en tres niveles' }
+  - { label: 'Glosario', value: '[DATO] términos, cada uno con su tablero' }
+  - { label: 'Problemas', value: '550 de Lichess, en tandas de 10' }
   - { label: 'Idiomas', value: 'Español e inglés' }
   - { label: 'Cuentas', value: 'Sin cuentas; el progreso, en tu navegador' }
   - { label: 'Motor', value: 'Stockfish 19, en el navegador' }
-screenshotsIntro: 'Las cuatro secciones, en tema claro y en oscuro.'
+screenshotsIntro: 'Aprender, el glosario y Practica más, y después Aperturas, Finales, Posiciones y Análisis.'
 screenshots:
+  - src: '../../../assets/projects/cheesy/screen-learn-es.png'
+    alt: 'La portada de «Aprender»: los niveles Principiante, Medio y Avanzado, cada uno con su descripción y su número de lecciones, y las entradas al glosario y a «Practica más».'
+    caption: 'Tres niveles de lecciones'
+  - src: '../../../assets/projects/cheesy/screen-lesson-es.png'
+    alt: 'Un paso de una lección: el tablero, el avance «Paso … de …» arriba y, al lado, la explicación o el ejercicio del paso, con las jugadas escritas en palabras.'
+    caption: 'Una lección, paso a paso'
+  - src: '../../../assets/projects/cheesy/screen-glossary-es.png'
+    alt: 'El glosario: el buscador, los filtros por familia y por nivel, y las tarjetas de los términos, cada una con su definición y su tablero de ejemplo.'
+    caption: 'La jerga, con su tablero'
+  - src: '../../../assets/projects/cheesy/screen-puzzles-es.png'
+    alt: 'La lista de «Practica más»: un tema por cada lección del nivel medio, con cuántos de sus 50 problemas te han salido a la primera y el botón «Practicar».'
+    caption: 'Los problemas, por tema'
+  - src: '../../../assets/projects/cheesy/screen-puzzle-es.png'
+    alt: 'Un problema de Lichess dentro de una tanda: el tablero, la jugada que acaba de hacer el rival, la petición de buscar la mejor jugada y el avance dentro de la tanda de diez.'
+    caption: 'Un problema real de Lichess'
   - src: '../../../assets/projects/cheesy/screen-01-aperturas-es.png'
     alt: 'El catálogo de aperturas: los filtros por primera jugada, familia, bando y progreso, y la fila «1.e4 e5: juegos abiertos» con cuatro aperturas, cada una con su minitablero, su progreso y los botones «Jugar» y «Practicar».'
     caption: 'Las 21 aperturas, con filtros'
@@ -40,25 +58,37 @@ screenshots:
   - src: '../../../assets/projects/cheesy/screen-08-analisis-es.png'
     alt: 'El tablero de análisis en el tema oscuro con una partida de la Apertura Española: el motor encendido a profundidad 20, la barra de evaluación, las tres mejores líneas, una flecha verde con la mejor jugada y la lista de jugadas con una variación plegada.'
     caption: 'Análisis con motor y variaciones'
-featuresIntro: 'Cuatro secciones, y lo que comparten.'
-featureBlockLimit: 4
+featuresIntro: 'Aprender, las cuatro secciones y lo que comparten.'
+featureBlockLimit: 6
 features:
+  - title: 'Aprender, desde cero hasta los planes'
+    text: 'Lecciones cortas por pasos: unos explican y otros te piden encontrar la jugada, elegir la respuesta o jugar la posición hasta el final. Son tres niveles de 12 lecciones: principiante, medio (táctica y finales) y avanzado (estrategia y planes).'
+    image: '../../../assets/projects/cheesy/screen-lesson-es.png'
+  - title: 'Practica más, con problemas reales'
+    text: 'Once lecciones del nivel medio traen 50 problemas cada una, sacados de partidas de la base abierta de Lichess (CC0). Van en tandas de diez, del más fácil al más difícil, sin puntos ni rachas.'
+    image: '../../../assets/projects/cheesy/screen-puzzle-es.png'
+  - title: 'Un glosario con tablero'
+    text: 'Cada palabra de la jerga tiene su definición en llano y un tablero de ejemplo. En los textos, los términos van subrayados: al pasar por uno, sale una burbuja con lo que significa.'
+    image: '../../../assets/projects/cheesy/screen-glossary-es.png'
   - title: 'Aperturas para jugar y para practicar'
     text: 'En Jugar, el rival responde con las líneas cubiertas o es Stockfish en cinco niveles; un panel de teoría nombra la variante y avisa cuando te sales. En Practicar solo vale la jugada de la línea, que queda dominada tras tres pasadas seguidas sin fallos.'
     image: '../../../assets/projects/cheesy/screen-02-jugar-es.png'
   - title: 'Finales contra un rival perfecto'
     text: 'Ganas los finales ganados y aguantas quince jugadas los de tablas. El rival juega con la tablebase de Lichess y un panel da el veredicto teórico de la posición.'
     image: '../../../assets/projects/cheesy/screen-04-finales-es.png'
-  - title: 'Posiciones que no se delatan'
-    text: 'Buscas la jugada ganadora. El nombre y el tema de cada posición no se ven hasta que la resuelves, para que no te digan qué buscar.'
-    image: '../../../assets/projects/cheesy/screen-06-posiciones-es.png'
   - title: 'Análisis con variaciones y motor'
     text: 'Un tablero libre, con las jugadas en un árbol con variaciones. El motor es opcional: barra de evaluación, tres mejores líneas y flecha. Importa FEN y PGN y da enlaces para compartir.'
     image: '../../../assets/projects/cheesy/screen-08-analisis-es.png'
+  - title: 'Posiciones que no se delatan'
+    text: 'Buscas la jugada ganadora. El nombre y el tema de cada posición no se ven hasta que la resuelves, para que no te digan qué buscar.'
+  - title: 'Jugadas en palabras'
+    text: 'Por defecto, las jugadas se escriben en palabras: «Caballo a f3» en vez de «Cf3». Un conmutador en la cabecera pasa a notación, y al pasar por una jugada se resalta su casilla en el tablero.'
+  - title: 'Con el teclado'
+    text: 'Todos los tableros se manejan sin ratón: flechas para moverte, Intro para elegir y jugar, Escape para anular. Un lector de pantalla anuncia cada casilla y lo que hay en ella.'
   - title: 'Sin cuenta y en tu navegador'
     text: 'No hay cuentas, servidor propio ni anuncios. El progreso se guarda en tu navegador y las visitas se cuentan con Umami, sin cookies.'
   - title: 'Contenido comprobado por máquina'
-    text: 'Antes de publicarse, todo pasa una validación automática: jugadas legales con chessops, comprobaciones con Stockfish y los finales contra la tablebase de Lichess.'
+    text: 'Antes de publicarse, aperturas, finales, posiciones y lecciones pasan una validación automática: jugadas legales con chessops, comprobaciones con Stockfish y los finales contra la tablebase de Lichess.'
   - title: 'Español e inglés, claro y oscuro'
     text: 'La interfaz está en los dos idiomas y el tema sigue al del sistema.'
   - title: 'Software libre'
@@ -69,10 +99,15 @@ built:
   - 'Stockfish 19, versión lite de un solo hilo, en un Web Worker del navegador.'
   - 'En los finales, la posición se consulta en la tablebase de Lichess.'
   - 'El progreso se guarda en IndexedDB, en tu navegador. Sin backend.'
-  - 'Unos 1560 tests de la app y 225 del contenido.'
+  - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban cada jugada con chessops, Stockfish y la tablebase de Lichess.'
+  - 'Los problemas de Practica más los elige un script de la base abierta de Lichess, por tema y dificultad.'
+  - 'Unos [DATO] tests de la app y [DATO] del contenido.'
   - 'Alojada en Netlify. Las visitas se cuentan con un Umami propio, sin cookies.'
   - 'Software libre bajo GPL-3.0, código en [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
+  - version: 'v0.2.0'
+    date: 2026-10-06
+    note: 'Aprender: 36 lecciones en tres niveles, un glosario con tablero y Practica más, con 550 problemas de Lichess. Las jugadas, en palabras por defecto, y todos los tableros, con teclado.'
   - version: 'v0.1.0'
     date: 2026-09-30
     note: 'La primera versión: 21 aperturas para jugar y practicar, 14 finales contra la tablebase de Lichess, 13 posiciones tácticas y un tablero de análisis con motor, en español e inglés.'
@@ -81,3 +116,5 @@ changelog:
 Juego al ajedrez cada semana con mi hermano y quería un solo sitio donde practicar aperturas, finales y táctica contra el ordenador, sin crear una cuenta.
 
 También quería un tablero que no te bloquee: salvo en Practicar, que es estricto a propósito, puedes hacer cualquier jugada legal y la app responde a lo que has jugado.
+
+Cuando se la pasé a unos amigos, el problema era otro: no sabían notación y la jerga los perdía. De ahí salieron las jugadas en palabras, el glosario y Aprender, para empezar desde cero.
