@@ -449,7 +449,7 @@ describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
 
   it('dates v0.2.0 first and keeps v0.1.0, the first GitHub release', () => {
     expect(source).toMatch(
-      /^changelog:\n  - version: 'v0\.2\.0'\n    date: 2026-10-06\n    note: '[^']+'\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
+      /^changelog:\n  - version: 'v0\.2\.0'\n    date: 2026-10-05\n    note: '[^']+'\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
     );
     expect(source.match(/^\s+- version:/gm)).toHaveLength(2);
   });
