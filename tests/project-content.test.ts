@@ -408,41 +408,50 @@ describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
     expect(width).toBeGreaterThan(height);
   });
 
-  it('has six screenshots of its language, in order, and introduces them', () => {
+  it('has eleven screenshots of its language, in order, and introduces them', () => {
     const shots = [...source.matchAll(/^ {2}- src: '[^']*\/([\w-]+)\.png'$/gm)].map((m) => m[1]);
     expect(shots).toEqual(
-      ['01-aperturas', '02-jugar', '03-practicar', '05-final', '07-posicion', '08-analisis'].map(
-        (shot) => `screen-${shot}-${lang}`,
-      ),
+      [
+        'learn',
+        'lesson',
+        'glossary',
+        'puzzles',
+        'puzzle',
+        '01-aperturas',
+        '02-jugar',
+        '03-practicar',
+        '05-final',
+        '07-posicion',
+        '08-analisis',
+      ].map((shot) => `screen-${shot}-${lang}`),
     );
     expect(source).toMatch(/^screenshotsIntro: /m);
   });
 
-  it('has eight features, the first four with a screen of its language', () => {
+  it('has thirteen features, the first six with a screen of its language', () => {
     const features = source.slice(source.indexOf('\nfeatures:'), source.indexOf('\nillustration:'));
-    expect(features.match(/^ {2}- title: /gm)).toHaveLength(8);
-    expect(field(source, 'featureBlockLimit')).toBe('4');
+    expect(features.match(/^ {2}- title: /gm)).toHaveLength(13);
+    expect(field(source, 'featureBlockLimit')).toBe('6');
     const withImage = features
       .split(/^ {2}- title: /m)
       .slice(1)
       .map((feature) => /^ {4}image: '[^']*\/([\w-]+)\.png'$/m.exec(feature)?.[1]);
     expect(withImage).toEqual([
+      `screen-lesson-${lang}`,
+      `screen-puzzle-${lang}`,
+      `screen-glossary-${lang}`,
       `screen-02-jugar-${lang}`,
       `screen-04-finales-${lang}`,
-      `screen-06-posiciones-${lang}`,
       `screen-08-analisis-${lang}`,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      ...Array.from({ length: 7 }, () => undefined),
     ]);
   });
 
-  it('dates v0.1.0, the first GitHub release, as its only changelog entry', () => {
+  it('dates v0.2.0 first and keeps v0.1.0, the first GitHub release', () => {
     expect(source).toMatch(
-      /^changelog:\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
+      /^changelog:\n  - version: 'v0\.2\.0'\n    date: 2026-10-06\n    note: '[^']+'\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
     );
-    expect(source.match(/^\s+- version:/gm)).toHaveLength(1);
+    expect(source.match(/^\s+- version:/gm)).toHaveLength(2);
   });
 
   it('lists no tools and no playground', () => {
@@ -464,7 +473,7 @@ describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
 
   it('points only at images that exist, at 400 KB or less', () => {
     const refs = imageRefs(lang, 'cheesy');
-    expect(refs).toHaveLength(15);
+    expect(refs).toHaveLength(22);
     refs.forEach((ref) => {
       expect(existsSync(ref), ref).toBe(true);
       expect(statSync(ref).size, ref).toBeLessThanOrEqual(400 * 1024);
@@ -476,7 +485,7 @@ describe('cheesy media', () => {
   it('keeps every file of the folder at 400 KB or less', () => {
     const dir = 'src/assets/projects/cheesy';
     const files = readdirSync(dir);
-    expect(files).toHaveLength(23);
+    expect(files).toHaveLength(33);
     files.forEach((name) =>
       expect(statSync(`${dir}/${name}`).size, name).toBeLessThanOrEqual(400 * 1024),
     );
