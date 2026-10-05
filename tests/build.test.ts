@@ -149,7 +149,7 @@ describe.skipIf(!built)('built project pages', () => {
     });
   });
 
-  it('renders Cheesy as a web page with four image blocks and its first release', () => {
+  it('renders Cheesy as a web page with six image blocks and its two releases', () => {
     [
       ['projects/cheesy/index.html', 'Open the site'],
       ['es/projects/cheesy/index.html', 'GPL-3.0'],
@@ -157,10 +157,11 @@ describe.skipIf(!built)('built project pages', () => {
       const html = page(route);
       expect(html, route).toContain('data-media="web"');
       expect(html, route).toContain(text);
-      expect(html.match(/data-feature="block"/g), route).toHaveLength(4);
-      expect(html.match(/data-feature="item"/g), route).toHaveLength(4);
-      expect(html.match(/<img[^>]+class="[^"]*shot-img/g), route).toHaveLength(6);
-      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(1);
+      expect(html.match(/data-feature="block"/g), route).toHaveLength(6);
+      expect(html.match(/data-feature="item"/g), route).toHaveLength(7);
+      expect(html.match(/<img[^>]+class="[^"]*shot-img/g), route).toHaveLength(11);
+      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(2);
+      expect(html, route).toContain('v0.2.0');
       expect(html, route).toContain('v0.1.0');
       expect(html, route).toContain('github.com/alvarotorresc/cheesy/releases');
       expect(html, route).not.toContain('role="tab"');
