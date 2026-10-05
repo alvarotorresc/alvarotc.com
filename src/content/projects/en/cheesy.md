@@ -99,7 +99,7 @@ built:
   - 'Stockfish 19, the single-thread lite build, in a Web Worker in the browser.'
   - 'In endgames, the position is looked up in the Lichess tablebase.'
   - 'Progress is kept in IndexedDB, in your browser. No backend.'
-  - 'Lessons are written in TypeScript and built into JSON. Their tests check every move with chessops, Stockfish and the Lichess tablebase.'
+  - 'Lessons are written in TypeScript and built into JSON. Their tests check the moves with chessops, the exercises with Stockfish and the endgames with the Lichess tablebase.'
   - 'A script picks the Practise more puzzles from the open Lichess database, by theme and difficulty.'
   - 'About [DATO] app tests and [DATO] content tests.'
   - 'Hosted on Netlify. Visits are counted with a self-hosted Umami, without cookies.'

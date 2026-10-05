@@ -99,7 +99,7 @@ built:
   - 'Stockfish 19, versión lite de un solo hilo, en un Web Worker del navegador.'
   - 'En los finales, la posición se consulta en la tablebase de Lichess.'
   - 'El progreso se guarda en IndexedDB, en tu navegador. Sin backend.'
-  - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban cada jugada con chessops, Stockfish y la tablebase de Lichess.'
+  - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban las jugadas con chessops, los ejercicios con Stockfish y los finales con la tablebase de Lichess.'
   - 'Los problemas de Practica más los elige un script de la base abierta de Lichess, por tema y dificultad.'
   - 'Unos [DATO] tests de la app y [DATO] del contenido.'
   - 'Alojada en Netlify. Las visitas se cuentan con un Umami propio, sin cookies.'
