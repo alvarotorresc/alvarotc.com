@@ -18,7 +18,7 @@ promo: '../../../assets/projects/cheesy/promo-en.png'
 facts:
   - { label: 'Content', value: '21 openings, 14 endgames, 13 positions' }
   - { label: 'Learn', value: '36 lessons, in three levels' }
-  - { label: 'Glossary', value: '[DATO] terms, each with its board' }
+  - { label: 'Glossary', value: '89 terms, each with its board' }
   - { label: 'Puzzles', value: '550 from Lichess, in batches of 10' }
   - { label: 'Languages', value: 'Spanish and English' }
   - { label: 'Accounts', value: 'None; progress stays in your browser' }
@@ -26,28 +26,28 @@ facts:
 screenshotsIntro: 'Learn, the glossary and Practise more, then Openings, Endgames, Positions and Analysis.'
 screenshots:
   - src: '../../../assets/projects/cheesy/screen-learn-en.png'
-    alt: 'The Learn page: the Beginner, Intermediate and Advanced levels, each with its description and its number of lessons, and the ways into the glossary and Practise more.'
-    caption: 'Three levels of lessons'
+    alt: 'The Learn page: the “Continue: The skewer” button and five cards, the Beginner, Intermediate and Advanced levels with their number of lessons, the Glossary and Practise more, and below the note that progress is kept only in the browser.'
+    caption: 'Lessons from beginner to advanced'
   - src: '../../../assets/projects/cheesy/screen-lesson-en.png'
-    alt: 'A step of a lesson: the board, the progress “Step … of …” at the top and, beside it, the explanation or the exercise of the step, with the moves written in words.'
+    alt: 'The first step of the lesson “The fork”: a board with a white knight and two arrows to the black king and rook, the text that explains it in words, the progress “Step 1 of 7” and the bubble of the term “Check” open, with its definition, a mini board and the “See in the glossary” link.'
     caption: 'A lesson, step by step'
   - src: '../../../assets/projects/cheesy/screen-glossary-en.png'
-    alt: 'The glossary: the search box, the filters by family and by level, and the cards of the terms, each with its definition and its example board.'
-    caption: 'The jargon, with its board'
+    alt: 'The glossary in the dark theme, filtered by the Tactics family: the search box, the filters by level and by family, the count “21 of 78 terms” and the first row of cards, each with its example board, its level, its definition and the lesson where it is learnt.'
+    caption: 'Chess words, with a board'
   - src: '../../../assets/projects/cheesy/screen-puzzles-en.png'
-    alt: 'The Practise more list: one theme for each lesson of the intermediate level, with how many of its 50 puzzles you solved on the first try and the “Practise” button.'
-    caption: 'The puzzles, by theme'
+    alt: 'The Practise more list in the dark theme: real Lichess puzzles grouped by lesson, with three lessons started, “16 of 50 on the first try” in Hanging pieces and 8 of 50 in The fork and The pin, and the rest still to start.'
+    caption: 'Lichess puzzles by theme'
   - src: '../../../assets/projects/cheesy/screen-puzzle-en.png'
-    alt: 'A Lichess puzzle within a batch: the board, the move the rival has just played, the prompt to find the best move and the progress within the batch of ten.'
-    caption: 'A real Lichess puzzle'
+    alt: 'An unsolved puzzle of The fork: the board, the progress “Puzzle 1 of 10”, the prompt “You play White. Black just moved: pawn to c5. Find the best move.” and the “Next puzzle” button disabled.'
+    caption: 'A puzzle to solve'
   - src: '../../../assets/projects/cheesy/screen-01-aperturas-en.png'
     alt: 'The opening catalogue: the filters by first move, family, side and progress, and the row “1.e4 e5: open games” with four openings, each with its mini board, its progress and the “Play” and “Practise” buttons.'
     caption: 'The 21 openings, with filters'
   - src: '../../../assets/projects/cheesy/screen-02-jugar-en.png'
-    alt: 'A game of the Ruy Lopez as White, in the dark theme: the board after 5…Be7, the notice “Your move”, the theory panel with the Closed Variation and the note “You are in our lines”, and the move list.'
+    alt: 'A game of the Ruy Lopez as White, in the dark theme: the board after Black’s third move, the notice “Your move”, the theory panel with the Morphy Defence explained in words and the note “You are in our lines”, and the move list.'
     caption: 'An opening, with its theory'
   - src: '../../../assets/projects/cheesy/screen-03-practicar-en.png'
-    alt: 'Practice of the main line of the Sicilian Najdorf as Black: the board seen from Black’s side after 6.Bg5, the progress “Move 6 of 13”, the count of mistakes on this move at 0 of 3 and the move list.'
+    alt: 'Practice of the main line of the Sicilian Najdorf as Black: the board seen from Black’s side after White’s sixth move, the progress “Move 6 of 13”, the count of mistakes on this move at 0 of 3 and the move list.'
     caption: 'A line, played from memory'
   - src: '../../../assets/projects/cheesy/screen-05-final-en.png'
     alt: 'The Lucena position, to win with White: the board, the goal checklist with “The win is still on” and the tablebase panel open, with the theoretical result “You win”, “You mate in 17” and the “Show hint” button.'
@@ -101,12 +101,12 @@ built:
   - 'Progress is kept in IndexedDB, in your browser. No backend.'
   - 'Lessons are written in TypeScript and built into JSON. Their tests check the moves with chessops, the exercises with Stockfish and the endgames with the Lichess tablebase.'
   - 'A script picks the Practise more puzzles from the open Lichess database, by theme and difficulty.'
-  - 'About [DATO] app tests and [DATO] content tests.'
+  - 'About 2027 app tests and 748 content tests.'
   - 'Hosted on Netlify. Visits are counted with a self-hosted Umami, without cookies.'
   - 'Free software under GPL-3.0, code at [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
   - version: 'v0.2.0'
-    date: 2026-10-06
+    date: 2026-10-05
     note: 'Learn: 36 lessons in three levels, a glossary with boards and Practise more, with 550 Lichess puzzles. Moves in words by default, and every board works with the keyboard.'
   - version: 'v0.1.0'
     date: 2026-09-30

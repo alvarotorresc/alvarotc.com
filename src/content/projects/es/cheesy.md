@@ -18,7 +18,7 @@ promo: '../../../assets/projects/cheesy/promo-es.png'
 facts:
   - { label: 'Contenido', value: '21 aperturas, 14 finales y 13 posiciones' }
   - { label: 'Aprender', value: '36 lecciones, en tres niveles' }
-  - { label: 'Glosario', value: '[DATO] términos, cada uno con su tablero' }
+  - { label: 'Glosario', value: '89 términos, cada uno con su tablero' }
   - { label: 'Problemas', value: '550 de Lichess, en tandas de 10' }
   - { label: 'Idiomas', value: 'Español e inglés' }
   - { label: 'Cuentas', value: 'Sin cuentas; el progreso, en tu navegador' }
@@ -26,28 +26,28 @@ facts:
 screenshotsIntro: 'Aprender, el glosario y Practica más, y después Aperturas, Finales, Posiciones y Análisis.'
 screenshots:
   - src: '../../../assets/projects/cheesy/screen-learn-es.png'
-    alt: 'La portada de «Aprender»: los niveles Principiante, Medio y Avanzado, cada uno con su descripción y su número de lecciones, y las entradas al glosario y a «Practica más».'
-    caption: 'Tres niveles de lecciones'
+    alt: 'La página Aprender: el botón «Continuar: La enfilada» y cinco tarjetas, los niveles Principiante, Medio y Avanzado con su número de lecciones, el Glosario y Practica más, y debajo la nota de que el progreso se guarda solo en el navegador.'
+    caption: 'Lecciones de principiante a avanzado'
   - src: '../../../assets/projects/cheesy/screen-lesson-es.png'
-    alt: 'Un paso de una lección: el tablero, el avance «Paso … de …» arriba y, al lado, la explicación o el ejercicio del paso, con las jugadas escritas en palabras.'
+    alt: 'El primer paso de la lección «La horquilla»: un tablero con un caballo blanco y dos flechas hacia el rey y la torre negros, el texto que lo explica en palabras, el avance «Paso 1 de 7» y abierta la burbuja del término «Jaque», con su definición, un minitablero y el enlace «Ver en el glosario».'
     caption: 'Una lección, paso a paso'
   - src: '../../../assets/projects/cheesy/screen-glossary-es.png'
-    alt: 'El glosario: el buscador, los filtros por familia y por nivel, y las tarjetas de los términos, cada una con su definición y su tablero de ejemplo.'
-    caption: 'La jerga, con su tablero'
+    alt: 'El glosario en el tema oscuro, filtrado por la familia Táctica: el buscador, los filtros por nivel y por familia, el recuento «21 de 78 términos» y la primera fila de tarjetas, cada una con su tablero de ejemplo, su nivel, su definición y la lección donde se aprende.'
+    caption: 'Las palabras del ajedrez, con tablero'
   - src: '../../../assets/projects/cheesy/screen-puzzles-es.png'
-    alt: 'La lista de «Practica más»: un tema por cada lección del nivel medio, con cuántos de sus 50 problemas te han salido a la primera y el botón «Practicar».'
-    caption: 'Los problemas, por tema'
+    alt: 'La lista de Practica más en el tema oscuro: problemas reales de Lichess agrupados por lección, con tres lecciones empezadas, «16 de 50 a la primera» en Piezas sin defensa y 8 de 50 en La horquilla y en La clavada, y el resto por empezar.'
+    caption: 'Problemas de Lichess por tema'
   - src: '../../../assets/projects/cheesy/screen-puzzle-es.png'
-    alt: 'Un problema de Lichess dentro de una tanda: el tablero, la jugada que acaba de hacer el rival, la petición de buscar la mejor jugada y el avance dentro de la tanda de diez.'
-    caption: 'Un problema real de Lichess'
+    alt: 'Un problema de La horquilla sin resolver: el tablero, el avance «Problema 1 de 10», la indicación «Juegas con las blancas. Las negras acaban de mover: peón a c5. Busca la mejor jugada.» y el botón «Siguiente problema» desactivado.'
+    caption: 'Un problema por resolver'
   - src: '../../../assets/projects/cheesy/screen-01-aperturas-es.png'
     alt: 'El catálogo de aperturas: los filtros por primera jugada, familia, bando y progreso, y la fila «1.e4 e5: juegos abiertos» con cuatro aperturas, cada una con su minitablero, su progreso y los botones «Jugar» y «Practicar».'
     caption: 'Las 21 aperturas, con filtros'
   - src: '../../../assets/projects/cheesy/screen-02-jugar-es.png'
-    alt: 'Una partida de la Apertura Española con blancas, en el tema oscuro: el tablero tras 5…Ae7, el aviso «Te toca mover», el panel de teoría con la Variante Cerrada y la nota «Estás dentro de nuestras líneas», y la lista de jugadas.'
+    alt: 'Una partida de la Apertura Española con blancas, en el tema oscuro: el tablero tras la tercera jugada de las negras, el aviso «Te toca mover», el panel de teoría con la Defensa Morphy explicada en palabras y la nota «Estás dentro de nuestras líneas», y la lista de jugadas.'
     caption: 'Una apertura, con su teoría'
   - src: '../../../assets/projects/cheesy/screen-03-practicar-es.png'
-    alt: 'La práctica de la línea principal de la Siciliana Najdorf con negras: el tablero visto desde las negras tras 6.Ag5, el avance «Jugada 6 de 13», el contador de fallos en esta jugada a 0 de 3 y la lista de jugadas.'
+    alt: 'La práctica de la línea principal de la Siciliana Najdorf con negras: el tablero visto desde las negras tras la sexta jugada de las blancas, el avance «Jugada 6 de 13», el contador de fallos en esta jugada a 0 de 3 y la lista de jugadas.'
     caption: 'Una línea, jugada de memoria'
   - src: '../../../assets/projects/cheesy/screen-05-final-es.png'
     alt: 'La Posición de Lucena, a ganar con blancas: el tablero, la lista de objetivos con «La victoria sigue en juego» y el panel de la tablebase abierto, con el resultado teórico «Ganas», «Das mate en 17» y el botón «Ver pista».'
@@ -101,12 +101,12 @@ built:
   - 'El progreso se guarda en IndexedDB, en tu navegador. Sin backend.'
   - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban las jugadas con chessops, los ejercicios con Stockfish y los finales con la tablebase de Lichess.'
   - 'Los problemas de Practica más los elige un script de la base abierta de Lichess, por tema y dificultad.'
-  - 'Unos [DATO] tests de la app y [DATO] del contenido.'
+  - 'Unos 2027 tests de la app y 748 del contenido.'
   - 'Alojada en Netlify. Las visitas se cuentan con un Umami propio, sin cookies.'
   - 'Software libre bajo GPL-3.0, código en [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
   - version: 'v0.2.0'
-    date: 2026-10-06
+    date: 2026-10-05
     note: 'Aprender: 36 lecciones en tres niveles, un glosario con tablero y Practica más, con 550 problemas de Lichess. Las jugadas, en palabras por defecto, y todos los tableros, con teclado.'
   - version: 'v0.1.0'
     date: 2026-09-30
