@@ -32,7 +32,7 @@ screenshots:
     alt: 'The first step of the lesson “The fork”: a board with a white knight and two arrows to the black king and rook, the text that explains it in words, the progress “Step 1 of 7” and the bubble of the term “Check” open, with its definition, a mini board and the “See in the glossary” link.'
     caption: 'A lesson, step by step'
   - src: '../../../assets/projects/cheesy/screen-glossary-en.png'
-    alt: 'The glossary in the dark theme, filtered by the Tactics family: the search box, the filters by level and by family, the count “21 of 78 terms” and the first row of cards, each with its example board, its level, its definition and the lesson where it is learnt.'
+    alt: 'The glossary in the dark theme, filtered by the Tactics family: the search box, the filters by level and by family, the count of terms in the family and the first row of cards, each with its example board, its level, its definition and the lesson where it is learnt.'
     caption: 'Chess words, with a board'
   - src: '../../../assets/projects/cheesy/screen-puzzles-en.png'
     alt: 'The Practise more list in the dark theme: real Lichess puzzles grouped by lesson, with three lessons started, “16 of 50 on the first try” in Hanging pieces and 8 of 50 in The fork and The pin, and the rest still to start.'
