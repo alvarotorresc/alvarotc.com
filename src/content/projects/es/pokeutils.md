@@ -3,6 +3,7 @@ name: PokeUtils
 tagline: 'Tu guía Pokémon retro: análisis competitivo, crianza y Pokédex completa.'
 intro: 'Si juegas competitivo, aquí sabes si tu equipo aguanta ese ataque. Si crías, con quién cruza cada uno. Y si solo vienes a consultar la dex, está entera, en español, y no te pide una cuenta.'
 kind: web
+applicationCategory: ReferenceApplication
 status: published
 tier: lab
 order: 5

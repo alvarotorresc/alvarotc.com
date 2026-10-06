@@ -3,6 +3,7 @@ name: PokeUtils
 tagline: 'Your retro Pokémon guide: competitive analysis, breeding and a full Pokédex.'
 intro: 'If you play competitive, here you find out whether your team survives that attack. If you breed, who pairs with whom. And if you just want to check the dex, it is complete, in Spanish, and it does not ask you for an account.'
 kind: web
+applicationCategory: ReferenceApplication
 status: published
 tier: lab
 order: 5

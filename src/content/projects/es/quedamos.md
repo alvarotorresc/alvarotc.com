@@ -3,6 +3,7 @@ name: Quedamos
 tagline: Tu grupo quiere verse. Nadie sabe cuándo.
 intro: 'Quedamos hace la pregunta y os avisa cuando podéis todos. Un calendario compartido para tu cuadrilla, sin más pantallas de las necesarias.'
 kind: hybrid
+applicationCategory: SocialNetworkingApplication
 status: beta
 tier: featured
 order: 2

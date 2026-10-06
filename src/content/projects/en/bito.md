@@ -3,6 +3,7 @@ name: Bito
 tagline: 'Log a habit in one tap, without accounts or cloud.'
 intro: "The habit app that won't steal your time. Lives entirely on your phone: no accounts, no cloud, not one line out to the internet."
 kind: mobile
+applicationCategory: LifestyleApplication
 status: publishing
 tier: featured
 order: 1

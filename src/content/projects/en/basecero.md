@@ -3,6 +3,7 @@ name: BaseCero
 tagline: Your money, from zero. Personal finance that lives entirely on your device.
 intro: 'A website that installs as an app on your phone and works offline. It tells you what is really left until your next payday. No server, no accounts, no telemetry.'
 kind: hybrid
+applicationCategory: FinanceApplication
 status: published
 tier: lab
 order: 4

@@ -3,6 +3,7 @@ name: DevTools
 tagline: 'The tools you open twenty times a day, on one site.'
 intro: 'Format a JSON, decode a JWT, validate an IBAN, work out the VAT on an invoice or read a cron. It all runs in your browser: what you paste never leaves your machine and there is no account.'
 kind: web
+applicationCategory: DeveloperApplication
 status: published
 tier: lab
 order: 7

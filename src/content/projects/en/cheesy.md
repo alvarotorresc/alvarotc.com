@@ -3,6 +3,7 @@ name: Cheesy
 tagline: 'Lessons, openings, endgames and tactics, in your browser.'
 intro: 'Learn from scratch with short lessons, play openings and endgames against the computer, solve tactics puzzles and analyse with an engine. Moves read in words, not notation, and a glossary explains the jargon. No account, nothing to install and no ads: your progress stays in your browser.'
 kind: web
+applicationCategory: GameApplication
 status: published
 tier: lab
 order: 8
