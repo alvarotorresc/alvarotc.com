@@ -1,37 +1,15 @@
-import { readdirSync, readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import clientInteraction from './src/integrations/client-interaction.ts';
 import { MIN_INDEXABLE_TOPIC_POSTS } from './src/lib/topics.ts';
+import { readPublishedPosts } from './src/lib/post-frontmatter.ts';
 
 const SITE = 'https://alvarotc.com';
 
-const readFm = (dir) =>
-  readdirSync(dir)
-    .filter((f) => f.endsWith('.md'))
-    .map((f) => {
-      const src = readFileSync(`${dir}/${f}`, 'utf8');
-      const fm = src.split('---')[1] ?? '';
-      const get = (k) => fm.match(new RegExp(`^${k}:\\s*['"]?([^'"\\n]+)`, 'm'))?.[1]?.trim();
-      const tagsMatch = fm.match(/^tags:\s*\[([^\]]*)\]/m);
-      const tags = tagsMatch
-        ? tagsMatch[1]
-            .split(',')
-            .map((s) => s.trim().replace(/^['"]|['"]$/g, ''))
-            .filter(Boolean)
-        : [];
-      return {
-        id: f.replace(/\.md$/, ''),
-        source: get('source'),
-        date: get('updated') ?? get('date'),
-        tags,
-      };
-    });
-
-const en = readFm('./src/content/posts-en');
-const es = readFm('./src/content/posts');
+const en = readPublishedPosts('./src/content/posts-en');
+const es = readPublishedPosts('./src/content/posts');
 
 const tagCounts = (entries) => {
   const counts = new Map();

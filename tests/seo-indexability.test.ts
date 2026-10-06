@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import { MIN_INDEXABLE_TOPIC_POSTS } from '../src/lib/topics';
+import { readPublishedPosts } from '../src/lib/post-frontmatter';
 
 const dist = resolve('dist');
 const built = existsSync(dist);
@@ -43,14 +44,8 @@ const legalRoutes = [
 
 function topicCounts(dir: string): Map<string, number> {
   const counts = new Map<string, number>();
-  for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
-    const fm = readFileSync(join(dir, file), 'utf8').split('---')[1] ?? '';
-    if (/^draft:\s*true\s*$/m.test(fm)) continue;
-    const tags = (fm.match(/^tags:\s*\[([^\]]*)\]/m)?.[1] ?? '')
-      .split(',')
-      .map((tag) => tag.trim().replace(/^['"]|['"]$/g, ''))
-      .filter(Boolean);
-    for (const tag of tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  for (const post of readPublishedPosts(dir)) {
+    for (const tag of post.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
   }
   return counts;
 }
