@@ -10,6 +10,7 @@ import { formatDate, getReadingTime } from '../lib/utils';
 import { markdownPath, type PostEntry } from '../lib/posts';
 import { blogPostingJsonLd, sectionBreadcrumbJsonLd } from '../lib/jsonld';
 import { tagLabel } from '../lib/tags';
+import { getProjects, projectForPost, projectSlug } from '../lib/projects';
 
 interface Props {
   post: PostEntry;
@@ -32,6 +33,7 @@ const modifiedISO = (updated ?? date).toISOString();
 const wordCount = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
 const displayTags = tags.map((tag) => tagLabel(tag, lang));
 const markdownURL = new URL(markdownPath(post, lang), Astro.site).toString();
+const project = projectForPost(await getProjects(lang), post.id);
 
 const alternateURL = new URL(alternatePath, Astro.site).toString();
 const otherLang = lang === 'es' ? 'en' : 'es';
@@ -102,6 +104,15 @@ const jsonLd = [
           {hasTranslation && (
             <a href={alternatePath} hreflang={lang === 'es' ? 'en' : 'es'} class="text-accent">
               {t('post.alternate', lang)}
+            </a>
+          )}
+          {project && (
+            <a
+              data-project-link
+              href={`${prefix}/projects/${projectSlug(project)}/`}
+              class="text-accent"
+            >
+              {t('post.project', lang).replace('{name}', project.data.name)}
             </a>
           )}
         </div>

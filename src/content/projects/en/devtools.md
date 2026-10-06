@@ -314,6 +314,7 @@ features:
     text: 'DNI and NIE, CIF, IBAN, plates, Social Security, VAT, IRPF and business days with holidays.'
   - title: 'Favorites and recents'
     text: 'In the sidebar and on the home page, so the usual ones are one click away.'
+post: devtools-from-three-tabs-to-one-site
 illustration: '../../../assets/projects/devtools/icon.png'
 built:
   - 'Astro 7 with Svelte 5 islands: each tool is a static page that only hydrates its component.'
