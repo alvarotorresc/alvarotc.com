@@ -320,6 +320,7 @@ built:
   - 'Tests de navegador con Playwright para cada herramienta.'
   - 'Páginas en español y en inglés, cada una con su URL, título y descripción para buscadores.'
   - 'Licencia MIT, código en [github.com/alvarotorresc/devtools](https://github.com/alvarotorresc/devtools).'
+post: devtools-herramientas-que-no-se-llevan-lo-que-pegas
 changelog:
   - version: 'v2.1.0'
     date: 2026-09-27

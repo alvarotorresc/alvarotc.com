@@ -320,6 +320,7 @@ built:
   - 'Browser tests with Playwright for every tool.'
   - 'Pages in Spanish and English, each with its own URL, title and search description.'
   - 'MIT license, code at [github.com/alvarotorresc/devtools](https://github.com/alvarotorresc/devtools).'
+post: devtools-developer-tools-that-keep-what-you-paste-on-your-machine
 changelog:
   - version: 'v2.1.0'
     date: 2026-09-27
