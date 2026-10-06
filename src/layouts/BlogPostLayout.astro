@@ -24,10 +24,11 @@ interface Props {
 const { post, lang, alternatePath, hasTranslation, headings, prev, next } = Astro.props;
 const prefix = lang === 'es' ? '/es' : '';
 const { title, seoTitle, description, date, updated, tags } = post.data;
-const image = post.data.image || `/og/${post.id}.png`;
+const ogImage = `/og/${post.id}.png`;
+const image = post.data.image || ogImage;
 const readingTime = getReadingTime(post.body ?? '');
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImageURL = new URL(image, Astro.site).toString();
+const ogImageURL = new URL(ogImage, Astro.site).toString();
 const modifiedISO = (updated ?? date).toISOString();
 const wordCount = (post.body ?? '').trim().split(/\s+/).filter(Boolean).length;
 const displayTags = tags.map((tag) => tagLabel(tag, lang));
@@ -60,7 +61,7 @@ const jsonLd = blogPostingJsonLd({
 <BaseLayout
   title={seoTitle ?? title}
   description={description}
-  image={image}
+  image={ogImage}
   type="article"
   publishedTime={date.toISOString()}
   modifiedTime={modifiedISO}
