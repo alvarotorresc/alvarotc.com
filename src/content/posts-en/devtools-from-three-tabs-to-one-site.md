@@ -5,7 +5,7 @@ description: 'Why I put the tools I used to hunt for one by one on a single site
 date: 2026-10-06
 draft: false
 image: '/blog/devtools/cover-en.png'
-tags: ['producto', 'privacidad', 'web', 'foss']
+tags: ['producto', 'privacy', 'web', 'foss']
 source: devtools-tres-pestanas-una-web
 ---
 

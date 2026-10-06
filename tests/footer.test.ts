@@ -26,9 +26,11 @@ describe('Footer privacy line', () => {
 });
 
 describe('Footer social links', () => {
-  it('renders four social links, each with an aria-label', async () => {
+  it('renders four social links, each with a text for screen readers', async () => {
     const html = await render(true);
-    const labels = [...html.matchAll(/aria-label="([^"]+)"/g)].map((m) => m[1]);
+    const labels = [...html.matchAll(/<span class="sr-only"[^>]*>([^<]+)<\/span>/g)].map(
+      (m) => m[1],
+    );
     expect(labels).toHaveLength(4);
     expect(labels.some((l) => l.startsWith('GitHub,'))).toBe(true);
     expect(labels.some((l) => l.startsWith('LinkedIn,'))).toBe(true);
@@ -38,7 +40,7 @@ describe('Footer social links', () => {
 
   it('marks the identity links with rel="me" but not the mail link', async () => {
     const html = await render(true);
-    expect(html).toContain('href="https://github.com/alvarotorresc" aria-label="GitHub,');
+    expect(html).not.toMatch(/<a[^>]*aria-label/);
     expect(html).toMatch(/href="https:\/\/github\.com\/alvarotorresc"[^>]*rel="me"/);
     expect(html).toMatch(/href="mailto:hello@alvarotc\.com"/);
     expect(html).not.toMatch(/href="mailto:hello@alvarotc\.com"[^>]*rel="me"/);

@@ -124,10 +124,10 @@ describe('hreflangLinksFor', () => {
   });
 
   it('falls back x-default to its own canonical when the Spanish page has no English equivalent', () => {
-    const links = hreflangLinksFor('es', 'https://alvarotc.com/es/blog/tema/proceso/2/', 'en');
+    const links = hreflangLinksFor('es', 'https://alvarotc.com/es/blog/tema/process/2/', 'en');
     expect(links).toEqual([
-      { lang: 'es', href: 'https://alvarotc.com/es/blog/tema/proceso/2/' },
-      { lang: 'x-default', href: 'https://alvarotc.com/es/blog/tema/proceso/2/' },
+      { lang: 'es', href: 'https://alvarotc.com/es/blog/tema/process/2/' },
+      { lang: 'x-default', href: 'https://alvarotc.com/es/blog/tema/process/2/' },
     ]);
   });
 });

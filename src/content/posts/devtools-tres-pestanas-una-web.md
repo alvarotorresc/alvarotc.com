@@ -5,7 +5,7 @@ description: 'Por qué junté en una web las herramientas que buscaba por separa
 date: 2026-10-06
 draft: false
 image: '/blog/devtools/cover-es.png'
-tags: ['producto', 'privacidad', 'web', 'foss']
+tags: ['producto', 'privacy', 'web', 'foss']
 ---
 
 Estaba sembrando una base de datos de prueba y mi propio formulario rechazaba los DNI inventados, porque la letra no cuadraba. Me había puesto yo mismo la trampa. Para salir de ahí abrí tres pestañas: una para sacar DNI válidos, otra para matrículas válidas y otra para convertir monedas. Cada una con su muro de cookies y algún anuncio encima del resultado. Una web por herramienta, y tantas pestañas como cosas necesitaba.

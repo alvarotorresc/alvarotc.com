@@ -1,5 +1,5 @@
 import { getAuthor, getDomain } from './config';
-import type { Locale } from '../i18n/translations';
+import { t, type Locale } from '../i18n/translations';
 import type { PostEntry } from './posts';
 import { tagLabel } from './tags';
 
@@ -13,6 +13,10 @@ function personSameAs(author: ReturnType<typeof getAuthor>): string[] {
     `https://www.linkedin.com/in/${author.linkedin}/`,
     `https://x.com/${author.twitter}`,
   ];
+}
+
+export function serializeJsonLd(node: unknown): string {
+  return JSON.stringify(node).replace(/</g, '\\u003c');
 }
 
 export function personJsonLd(lang: Locale): Record<string, unknown> {
@@ -78,6 +82,23 @@ export function blogPostingJsonLd({
   };
 }
 
+interface Link {
+  name: string;
+  url: string;
+}
+
+function itemList(items: Link[]): Record<string, unknown> {
+  return {
+    '@type': 'ItemList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: item.url,
+      name: item.name,
+    })),
+  };
+}
+
 interface CollectionPageArgs {
   lang: Locale;
   title: string;
@@ -105,14 +126,61 @@ export function collectionPageJsonLd({
       '@type': 'Blog',
       '@id': `${domain}${lang === 'es' ? '/es' : ''}/blog/`,
     },
-    mainEntity: {
-      '@type': 'ItemList',
-      itemListElement: posts.map((post, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        url: post.url,
-        name: post.headline,
-      })),
-    },
+    mainEntity: itemList(posts.map((post) => ({ name: post.headline, url: post.url }))),
   };
+}
+
+interface ProjectsPageArgs {
+  lang: Locale;
+  title: string;
+  description: string;
+  url: string;
+  projects: Link[];
+}
+
+export function projectsPageJsonLd({
+  lang,
+  title,
+  description,
+  url,
+  projects,
+}: ProjectsPageArgs): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: title,
+    description,
+    url,
+    inLanguage: lang,
+    isPartOf: { '@type': 'WebSite', url: personUrl(lang) },
+    mainEntity: itemList(projects),
+  };
+}
+
+export function breadcrumbJsonLd(crumbs: Link[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((crumb, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  };
+}
+
+export function sectionBreadcrumbJsonLd(
+  lang: Locale,
+  section: 'blog' | 'projects',
+  page: Link,
+): Record<string, unknown> {
+  return breadcrumbJsonLd([
+    { name: t('nav.home', lang), url: personUrl(lang) },
+    {
+      name: t(section === 'blog' ? 'writing.title' : 'projects.title', lang),
+      url: `${personUrl(lang)}${section}/`,
+    },
+    page,
+  ]);
 }

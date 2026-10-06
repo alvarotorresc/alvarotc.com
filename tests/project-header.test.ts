@@ -47,7 +47,7 @@ describe('ProjectHeader, mobile', () => {
     expect(repo).toBeLessThan(site);
     expect(html).toContain('Descargar APK');
     expect(html).toContain('app-release.apk');
-    expect(html).toContain('Código en GitHub');
+    expect(html).toContain('Código de Bito en GitHub');
   });
 
   it('lists the facts in order', async () => {
@@ -74,7 +74,7 @@ describe('ProjectHeader, mobile', () => {
   it('translates the labels to English', async () => {
     const html = await render(makeView(bitoFields, bitoImages, 'en'));
     expect(html).toContain('Download APK');
-    expect(html).toContain('Source on GitHub');
+    expect(html).toContain('Bito source code on GitHub');
     expect(html).toContain('Aug 26, 2026');
     expect(html).toContain('href="/projects/"');
   });
@@ -86,7 +86,7 @@ describe('ProjectHeader, web', () => {
     expect(html).toContain('data-media="web"');
     expect(html).toContain('data-frame="browser"');
     expect(html).toContain('data-action="open"');
-    expect(html).toContain('Abrir la web');
+    expect(html).toContain('Abrir PokeUtils');
     expect(html).not.toContain('data-action="download"');
     expect(html).not.toContain('data-action="site"');
   });
@@ -100,7 +100,7 @@ describe('ProjectHeader, hybrid', () => {
     expect(html).toContain('data-size="small"');
     expect(html).toContain('basecero.alvarotc.com/app/');
     expect(html).toContain('alt="BaseCero instalada en el móvil"');
-    expect(html).toContain('Abrir la app');
+    expect(html).toContain('Abrir BaseCero');
     expect(html).toContain('data-action="site"');
   });
 });
@@ -112,7 +112,7 @@ describe('ProjectHeader, cli', () => {
     expect(html).toContain('data-copied-label="Copiado"');
     expect(html).toContain('Copiar el comando');
     expect(html).toContain('data-action="npm"');
-    expect(html).toContain('Ver en npm');
+    expect(html).toContain('Ver create-astro-blog en npm');
     expect(html).toContain('data-media="cli"');
     expect(html).toContain('~/proyectos');
     expect(html).not.toContain('<img');

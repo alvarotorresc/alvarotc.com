@@ -17,12 +17,8 @@ const icons = {
     '<path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
   copy: '<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>',
 };
-const openLabel =
-  kind === 'web'
-    ? t('project.openWeb', lang)
-    : kind === 'hybrid'
-      ? t('project.openApp', lang)
-      : undefined;
+const named = (key: Parameters<typeof t>[0]) => t(key, lang).replace('{name}', view.name);
+const openLabel = kind === 'web' || kind === 'hybrid' ? named('project.open') : undefined;
 const openIcon = kind === 'web' ? icons.globe : icons.external;
 ---
 
@@ -109,7 +105,7 @@ const openIcon = kind === 'web' ? icons.globe : icons.external;
           aria-hidden="true"
           set:html={icons.code}
         />
-        <span>{t('project.source', lang)}</span>
+        <span>{named('project.source')}</span>
       </a>
     )}
     {(kind === 'mobile' || kind === 'hybrid') && view.url && view.address && (
@@ -143,7 +139,7 @@ const openIcon = kind === 'web' ? icons.globe : icons.external;
           aria-hidden="true"
           set:html={icons.external}
         />
-        <span>{t('project.npmLink', lang)}</span>
+        <span>{named('project.npmLink')}</span>
       </a>
     )}
   </div>

@@ -3,6 +3,7 @@ name: DevTools
 tagline: 'Las herramientas que abres veinte veces al día, en una sola web.'
 intro: 'Formatear un JSON, decodificar un JWT, validar un IBAN, sacar el IVA de una factura o saber qué hace un cron. Todo pasa en tu navegador: lo que pegas no sale de tu equipo y no hay cuenta que crear.'
 kind: web
+applicationCategory: DeveloperApplication
 status: published
 tier: lab
 order: 7
@@ -313,6 +314,7 @@ features:
     text: 'DNI y NIE, CIF, IBAN, matrículas, Seguridad Social, IVA, retención de IRPF y días hábiles con festivos.'
   - title: 'Favoritos y recientes'
     text: 'En la barra lateral y en la portada, para no tener que buscar las de siempre.'
+post: devtools-tres-pestanas-una-web
 illustration: '../../../assets/projects/devtools/icon.png'
 built:
   - 'Astro 7 con islas de Svelte 5: cada herramienta es una página estática que solo hidrata su componente.'

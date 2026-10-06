@@ -3,6 +3,7 @@ name: Huellas
 tagline: A platform to reunite lost pets with their families.
 intro: 'Huellas is the channel that cannot be torn off a lamppost and that reaches the neighbourhood: an app and a website to search for, find and report lost pets, with shelters on board from day one.'
 kind: hybrid
+applicationCategory: LifestyleApplication
 status: design
 tier: featured
 order: 3

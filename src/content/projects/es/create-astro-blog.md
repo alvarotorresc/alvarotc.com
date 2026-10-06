@@ -2,6 +2,7 @@
 name: create-astro-blog
 tagline: Crea un blog con Astro, personalizable, con un solo comando.
 kind: cli
+applicationCategory: DeveloperApplication
 status: published
 tier: lab
 order: 6

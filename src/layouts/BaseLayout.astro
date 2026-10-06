@@ -10,6 +10,7 @@ import CommandPalette from '../components/islands/CommandPalette';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
 import { getExperience, hasMockExperience } from '../lib/experience';
 import { mirroredPath } from '../lib/i18n-paths';
+import { serializeJsonLd } from '../lib/jsonld';
 import { t, type Locale } from '../i18n/translations';
 
 interface HreflangLink {
@@ -19,6 +20,7 @@ interface HreflangLink {
 
 interface Props {
   title: string;
+  documentTitle?: string;
   description?: string;
   image?: string;
   type?: 'website' | 'article';
@@ -30,7 +32,7 @@ interface Props {
   alternatePath?: string;
   hreflangLinks?: HreflangLink[];
   ogLocaleAlternate?: string | null;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   prevHref?: string;
   nextHref?: string;
   noindex?: boolean;
@@ -40,6 +42,7 @@ interface Props {
 const currentPath = Astro.url.pathname;
 const {
   title,
+  documentTitle,
   image = '/og-default.png',
   type = 'website',
   publishedTime,
@@ -62,7 +65,7 @@ const canonicalURL = new URL(currentPath, Astro.site);
 const ogImage = new URL(image, Astro.site);
 const siteName = getSiteName();
 const author = getAuthor();
-const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const fullTitle = documentTitle ?? (title === siteName ? title : `${title} | ${siteName}`);
 
 const alternate = alternatePath ?? mirroredPath(lang, currentPath);
 const alternateURL = new URL(alternate, Astro.site);
@@ -172,7 +175,9 @@ const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden
         document.addEventListener('astro:after-swap', apply);
       })();
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? defaultJsonLd)} />
+    {[jsonLd ?? defaultJsonLd].flat().map((node) => (
+      <script type="application/ld+json" set:html={serializeJsonLd(node)} />
+    ))}
     <ClientRouter />
     {umamiWebsiteId && (
       <script

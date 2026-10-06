@@ -3,6 +3,7 @@ name: DevTools
 tagline: 'The tools you open twenty times a day, on one site.'
 intro: 'Format a JSON, decode a JWT, validate an IBAN, work out the VAT on an invoice or read a cron. It all runs in your browser: what you paste never leaves your machine and there is no account.'
 kind: web
+applicationCategory: DeveloperApplication
 status: published
 tier: lab
 order: 7
@@ -313,6 +314,7 @@ features:
     text: 'DNI and NIE, CIF, IBAN, plates, Social Security, VAT, IRPF and business days with holidays.'
   - title: 'Favorites and recents'
     text: 'In the sidebar and on the home page, so the usual ones are one click away.'
+post: devtools-from-three-tabs-to-one-site
 illustration: '../../../assets/projects/devtools/icon.png'
 built:
   - 'Astro 7 with Svelte 5 islands: each tool is a static page that only hydrates its component.'

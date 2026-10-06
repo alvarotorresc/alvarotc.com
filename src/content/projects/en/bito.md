@@ -3,6 +3,7 @@ name: Bito
 tagline: 'Log a habit in one tap, without accounts or cloud.'
 intro: "The habit app that won't steal your time. Lives entirely on your phone: no accounts, no cloud, not one line out to the internet."
 kind: mobile
+applicationCategory: LifestyleApplication
 status: publishing
 tier: featured
 order: 1
@@ -76,6 +77,7 @@ features:
     text: 'The nudge changes tone by time of day and by which voice you picked. Mornings, it sets up the day; nights, it helps close it.'
   - title: 'Real badges, real stats'
     text: "Heatmaps, records, and badges that earn themselves. The numbers are there to show how you're doing, not to show off anywhere."
+post: from-an-idea-to-an-apk-in-24-hours
 illustration: '../../../assets/projects/bito/illustration.png'
 built:
   - 'Kotlin 2.1 and Jetpack Compose, for Android 8.0 or later.'

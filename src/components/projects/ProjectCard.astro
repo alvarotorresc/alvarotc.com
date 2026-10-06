@@ -55,12 +55,15 @@ const cover = homeImage(project);
     <div class="mt-auto flex gap-4 pt-2 text-[13px] font-semibold text-accent">
       {project.data.url && (
         <a href={project.data.url} rel="noopener">
-          {t('projects.live', lang)}
+          {t('projects.open', lang)} <span class="sr-only">{project.data.name}</span>
         </a>
       )}
       {project.data.repo && (
         <a href={project.data.repo} rel="noopener">
-          {t('projects.repo', lang)}
+          <span class="sr-only">
+            {t('projects.repo', lang).replace('{name}', project.data.name)}
+          </span>{' '}
+          GitHub
         </a>
       )}
     </div>

@@ -29,6 +29,10 @@ export async function getLabProjects(lang: Locale): Promise<ProjectEntry[]> {
   return (await getProjects(lang)).filter((e) => e.data.tier === 'lab');
 }
 
+export function projectForPost(entries: ProjectEntry[], postId: string): ProjectEntry | undefined {
+  return entries.find((e) => e.data.post === postId);
+}
+
 export function homeImage(entry: ProjectEntry): ImageMetadata | undefined {
   return entry.data.promo ?? entry.data.cover;
 }

@@ -29,7 +29,31 @@ function project(overrides: Record<string, unknown> = {}): ProjectEntry {
   } as unknown as ProjectEntry;
 }
 
+const linkTexts = (html: string) =>
+  [...html.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)].map(([, inner]) =>
+    inner
+      .replace(/<[^>]+>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  );
+
 describe('ProjectCard', () => {
+  it('names the project in the site and source links', async () => {
+    const container = await AstroContainer.create();
+    const en = await container.renderToString(ProjectCard, {
+      props: { lang: 'en', project: project() },
+    });
+    const es = await container.renderToString(ProjectCard, {
+      props: { lang: 'es', project: project() },
+    });
+    expect(linkTexts(en)).toEqual(
+      expect.arrayContaining(['Open Bito', 'Bito source code on GitHub']),
+    );
+    expect(linkTexts(es)).toEqual(
+      expect.arrayContaining(['Abrir Bito', 'Código de Bito en GitHub']),
+    );
+  });
+
   it('links to the project page in the current language', async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {

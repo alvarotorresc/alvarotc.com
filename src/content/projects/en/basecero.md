@@ -3,6 +3,7 @@ name: BaseCero
 tagline: Your money, from zero. Personal finance that lives entirely on your device.
 intro: 'A website that installs as an app on your phone and works offline. It tells you what is really left until your next payday. No server, no accounts, no telemetry.'
 kind: hybrid
+applicationCategory: FinanceApplication
 status: published
 tier: lab
 order: 4
@@ -60,6 +61,7 @@ features:
     text: 'The N26 one is recognised automatically; for any other bank, an assistant asks what each column is.'
   - title: 'Light, dark and two languages'
     text: 'Pick a theme or follow your system. In Spanish and English, with the currency and format you choose.'
+post: basecero-your-money-doesnt-have-to-sit-on-someone-elses-server
 illustration: '../../../assets/projects/basecero/icon.png'
 built:
   - 'JavaScript with no framework and no bundler. SQLite in WebAssembly, no server.'

@@ -12,7 +12,7 @@ import {
   otherLangPageNumber,
   hreflangLinksFor,
 } from '../../lib/pagination';
-import { collectionPageJsonLd } from '../../lib/jsonld';
+import { collectionPageJsonLd, sectionBreadcrumbJsonLd } from '../../lib/jsonld';
 import { tagLabel } from '../../lib/tags';
 import { MIN_INDEXABLE_TOPIC_POSTS } from '../../lib/topics';
 
@@ -82,7 +82,7 @@ const hreflangLinks = hreflangLinksFor(
   otherPageExists ? new URL(pagePath(otherBase, pageNum), Astro.site).toString() : undefined,
 );
 
-const jsonLd = collectionPageJsonLd({
+const collectionPage = collectionPageJsonLd({
   lang,
   title: pageTitle,
   description,
@@ -92,6 +92,9 @@ const jsonLd = collectionPageJsonLd({
     url: new URL(htmlPath(post, lang), Astro.site).toString(),
   })),
 });
+const jsonLd = label
+  ? [collectionPage, sectionBreadcrumbJsonLd(lang, 'blog', { name: label, url: canonicalURL })]
+  : collectionPage;
 
 const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
 ---

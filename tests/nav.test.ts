@@ -9,7 +9,7 @@ describe('Nav', () => {
       props: { lang: 'en', currentPath: '/' },
     });
     expect(html).toContain('href="/about/"');
-    expect(html).toContain('href="/#projects"');
+    expect(html).toContain('href="/projects/"');
     expect(html).toContain('href="/blog/"');
     expect(html).not.toContain('href="/stats/"');
     expect(html).toContain('href="/cv/"');
@@ -57,7 +57,7 @@ describe('Nav', () => {
       props: { lang: 'es', currentPath: '/es/' },
     });
     expect(html).toContain('href="/es/about/"');
-    expect(html).toContain('href="/es/#projects"');
+    expect(html).toContain('href="/es/projects/"');
     expect(html).toContain('href="/es/cv/"');
     expect(html).toContain('href="/"');
     expect(html).toContain('Sobre mí');

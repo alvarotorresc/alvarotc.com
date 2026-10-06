@@ -1,15 +1,31 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/projects/ProjectCard.astro';
-import { getFeaturedProjects, getLabProjects } from '../../lib/projects';
+import { getFeaturedProjects, getLabProjects, projectSlug } from '../../lib/projects';
+import { projectsPageJsonLd } from '../../lib/jsonld';
 import { t } from '../../i18n/translations';
 
 const lang = 'es';
 const featured = await getFeaturedProjects(lang);
 const lab = await getLabProjects(lang);
+const jsonLd = projectsPageJsonLd({
+  lang,
+  title: t('projects.title', lang),
+  description: t('projects.description', lang),
+  url: new URL(Astro.url.pathname, Astro.site).toString(),
+  projects: [...featured, ...lab].map((project) => ({
+    name: project.data.name,
+    url: new URL(`/es/projects/${projectSlug(project)}/`, Astro.site).toString(),
+  })),
+});
 ---
 
-<BaseLayout title={t('projects.title', lang)} lang={lang}>
+<BaseLayout
+  title={t('projects.title', lang)}
+  description={t('projects.description', lang)}
+  lang={lang}
+  jsonLd={jsonLd}
+>
   <div class="container-page flex flex-col gap-12 py-14">
     <div class="flex flex-col gap-3">
       <h1 class="text-3xl font-extrabold tracking-tight md:text-4xl">

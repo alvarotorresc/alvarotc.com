@@ -4,7 +4,7 @@ seoTitle: 'VPS observable por menos de 5€/mes'
 description: 'Docker Compose, Caddy, Upptime, Sentry, Firebase Analytics y Umami. Todo lo que necesitas para saber qué pasa en tu infra.'
 date: 2026-03-26
 draft: false
-tags: ['devops', 'docker', 'observabilidad', 'vps', 'self-hosted']
+tags: ['devops', 'docker', 'observability', 'vps', 'self-hosted']
 ---
 
 Tenía varios productos desplegados en servicios gestionados. Un backend en Railway, frontends en Vercel, base de datos en Supabase. Todo funcionaba, pero no tenía ni idea de qué pasaba cuando no estaba mirando. ¿Se caía algo? ¿Cuánta gente usaba mis apps? ¿Qué errores ocurrían en producción? No tenía respuesta a ninguna de esas preguntas.

@@ -3,7 +3,7 @@ title: 'Nueva web, nuevo rumbo'
 description: 'He reconstruido mi web personal desde cero. Aquí cuento por qué, qué decisiones he tomado y qué viene después.'
 date: 2026-02-16
 draft: false
-tags: ['meta', 'web', 'astro', 'proyectos']
+tags: ['meta', 'web', 'astro', 'projects']
 ---
 
 > **Nota (septiembre de 2026):** este artículo describe la primera versión de la web, la de febrero de 2026. En septiembre la rediseñé entera, así que lo que cuenta aquí del diseño y la estructura ya no se corresponde con lo que ves.
