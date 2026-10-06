@@ -44,7 +44,7 @@ Tiene un coste pequeño, y lo asumo a propósito: el DNI que validaste ayer no e
 
 ## Lo que sí sale de tu navegador
 
-Salen dos cosas, y prefiero decirlo yo. La primera es un contador de visitas: Umami, en mi propio servidor. La segunda es la descarga de los tipos de cambio de referencia del BCE para el [conversor de divisas](https://devtools.alvarotc.com/es/conversor-divisas), que guarda la última tabla para funcionar sin conexión. La frase exacta es esta: lo que pegas no sale de tu navegador, pero la visita y la petición de la tabla del BCE sí.
+Salen dos cosas, y prefiero decirlo yo. La primera es un contador de visitas: Umami, en mi propio servidor. La segunda es la descarga de los tipos de cambio de referencia del BCE para el [conversor de divisas](https://devtools.alvarotc.com/es/conversor-divisas). No los pide al BCE, sino a `api.frankfurter.dev`, un servicio que publica esa tabla, en una sola petición sin parámetros, y guarda la última para funcionar sin conexión. La frase exacta es esta: lo que pegas no sale de tu navegador, pero la visita y la petición de la tabla sí.
 
 El conversor es la tercera pestaña de aquella tarde. Pasa entre euros, dólares, libras y otras 27 divisas, y el importe se calcula en tu navegador con la tabla que ya tiene descargada.
 
