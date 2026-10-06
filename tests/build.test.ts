@@ -133,13 +133,13 @@ describe.skipIf(!built)('built project pages', () => {
   it('renders PokeUtils as a web page', () => {
     const html = page('projects/pokeutils/index.html');
     expect(html).toContain('data-media="web"');
-    expect(html).toContain('Open the site');
+    expect(html).toContain('Open PokeUtils');
     expect(html).not.toContain('data-section="playground"');
   });
 
   it('renders DevTools as a web page with its 52 tools', () => {
     [
-      ['projects/devtools/index.html', 'Open the site'],
+      ['projects/devtools/index.html', 'Open DevTools'],
       ['es/projects/devtools/index.html', 'data-media="web"'],
     ].forEach(([route, text]) => {
       const html = page(route);
@@ -151,7 +151,7 @@ describe.skipIf(!built)('built project pages', () => {
 
   it('renders Cheesy as a web page with six image blocks and its two releases', () => {
     [
-      ['projects/cheesy/index.html', 'Open the site'],
+      ['projects/cheesy/index.html', 'Open Cheesy'],
       ['es/projects/cheesy/index.html', 'GPL-3.0'],
     ].forEach(([route, text]) => {
       const html = page(route);
