@@ -15,6 +15,10 @@ function personSameAs(author: ReturnType<typeof getAuthor>): string[] {
   ];
 }
 
+export function serializeJsonLd(node: unknown): string {
+  return JSON.stringify(node).replace(/</g, '\\u003c');
+}
+
 export function personJsonLd(lang: Locale): Record<string, unknown> {
   const author = getAuthor();
   return {
