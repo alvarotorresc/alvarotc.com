@@ -2,6 +2,7 @@ export const translations = {
   en: {
     'site.title': 'Álvaro Torres Carrasco',
     'site.tagline': 'Software Engineer',
+    'nav.home': 'Home',
     'nav.about': 'About',
     'nav.projects': 'Projects',
     'nav.experience': 'Experience',
@@ -297,6 +298,7 @@ export const translations = {
   es: {
     'site.title': 'Álvaro Torres Carrasco',
     'site.tagline': 'Software Engineer',
+    'nav.home': 'Inicio',
     'nav.about': 'Sobre mí',
     'nav.projects': 'Proyectos',
     'nav.experience': 'Experiencia',
