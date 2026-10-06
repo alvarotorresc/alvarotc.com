@@ -3,7 +3,7 @@ title: New website, new direction
 description: "I have rebuilt my personal website from scratch. Here's why, what decisions I made and what comes next."
 date: 2026-02-16
 draft: false
-tags: ['meta', 'web', 'astro', 'proyectos']
+tags: ['meta', 'web', 'astro', 'projects']
 source: nueva-web-nuevo-rumbo
 ---
 

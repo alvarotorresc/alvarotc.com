@@ -4,7 +4,7 @@ seoTitle: 'BaseCero: finance without a server'
 description: 'Why I built a serverless, accountless, open-source finance app when thousands already exist. What it stands for, the trade-offs, and how to install it.'
 date: 2026-09-07
 draft: false
-tags: ['foss', 'privacidad', 'local-first', 'pwa', 'finanzas', 'producto']
+tags: ['foss', 'privacy', 'local-first', 'pwa', 'finanzas', 'producto']
 source: basecero-tu-dinero-no-vive-en-el-servidor-de-nadie
 ---
 

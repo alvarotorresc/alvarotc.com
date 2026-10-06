@@ -122,7 +122,7 @@ describe.skipIf(!built)('post <head> metadata', () => {
     }
   });
 
-  it('translates the Spanish-slugged tag to English on the EN page', () => {
+  it('shows the English tag label on the EN page', () => {
     const html = enHtml();
     expect(html).toContain('>projects<');
     expect(html).not.toContain('>proyectos<');

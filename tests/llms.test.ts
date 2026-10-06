@@ -167,7 +167,7 @@ describe('/blog/<slug>.md', () => {
     expect(text).toContain('## The previous website was dead');
   });
 
-  it('translates the Spanish-slugged tag to English in the frontmatter', async () => {
+  it('uses the English tag label in the frontmatter', async () => {
     const paths = await postMdEnPaths();
     const target = paths.find((p) => p.params.slug === 'new-website-new-direction');
     const res = await postMdEn({ props: target!.props, site } as unknown as Parameters<

@@ -4,7 +4,7 @@ seoTitle: 'VPS observability under €5/mo'
 description: "Docker Compose, Caddy, Upptime, Sentry, Firebase Analytics, and Umami. Everything you need to know what's happening in your infrastructure."
 date: 2026-03-26
 draft: false
-tags: ['devops', 'docker', 'observabilidad', 'vps', 'self-hosted']
+tags: ['devops', 'docker', 'observability', 'vps', 'self-hosted']
 source: vps-observabilidad-completa
 ---
 
