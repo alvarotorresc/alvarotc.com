@@ -19,6 +19,7 @@ interface HreflangLink {
 
 interface Props {
   title: string;
+  documentTitle?: string;
   description?: string;
   image?: string;
   type?: 'website' | 'article';
@@ -40,6 +41,7 @@ interface Props {
 const currentPath = Astro.url.pathname;
 const {
   title,
+  documentTitle,
   image = '/og-default.png',
   type = 'website',
   publishedTime,
@@ -62,7 +64,7 @@ const canonicalURL = new URL(currentPath, Astro.site);
 const ogImage = new URL(image, Astro.site);
 const siteName = getSiteName();
 const author = getAuthor();
-const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+const fullTitle = documentTitle ?? (title === siteName ? title : `${title} | ${siteName}`);
 
 const alternate = alternatePath ?? mirroredPath(lang, currentPath);
 const alternateURL = new URL(alternate, Astro.site);

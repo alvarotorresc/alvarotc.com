@@ -17,4 +17,13 @@ describe('translations', () => {
       for (const key of keys) expect(translations[lang][key].length).toBeLessThan(155);
     }
   });
+
+  it('names the role and the city in the home title', () => {
+    expect(translations.en['home.title']).toBe(
+      'Álvaro Torres Carrasco · Software Engineer in Seville',
+    );
+    expect(translations.es['home.title']).toBe(
+      'Álvaro Torres Carrasco · Software Engineer en Sevilla',
+    );
+  });
 });
