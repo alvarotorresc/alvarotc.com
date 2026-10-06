@@ -45,7 +45,7 @@ It has a small cost, and I accept it on purpose: the DNI you validated yesterday
 
 ## What does leave your browser
 
-Two things leave it, and I'd rather say so myself. The first is a visit counter: Umami, on my own server. The second is the download of the ECB (European Central Bank) reference exchange rates for the [currency converter](https://devtools.alvarotc.com/en/currency-converter), which keeps the latest table so it works offline. The exact sentence is this: what you paste doesn't leave your browser, but the visit and the request for the ECB table do.
+Two things leave it, and I'd rather say so myself. The first is a visit counter: Umami, on my own server. The second is the download of the ECB (European Central Bank) reference exchange rates for the [currency converter](https://devtools.alvarotc.com/en/currency-converter). It doesn't ask the ECB directly but `api.frankfurter.dev`, a service that publishes that table, in a single request with no parameters, and it keeps the latest table so it works offline. The exact sentence is this: what you paste doesn't leave your browser, but the visit and the request for the table do.
 
 The converter is the third tab from that afternoon. It converts between euros, dollars, pounds and 27 other currencies, and the amount is calculated in your browser with the table it has already downloaded.
 
