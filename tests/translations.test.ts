@@ -18,6 +18,15 @@ describe('translations', () => {
     }
   });
 
+  it('gives the projects page its own description of 120 to 155 characters', () => {
+    for (const lang of ['en', 'es'] as const) {
+      const description = translations[lang]['projects.description'];
+      expect(description.length).toBeGreaterThanOrEqual(120);
+      expect(description.length).toBeLessThanOrEqual(155);
+      expect(description).not.toMatch(/sin\s*herencia/i);
+    }
+  });
+
   it('names the role and the city in the home title', () => {
     expect(translations.en['home.title']).toBe(
       'Álvaro Torres Carrasco · Software Engineer in Seville',
