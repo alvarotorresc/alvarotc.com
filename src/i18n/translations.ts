@@ -54,6 +54,8 @@ export const translations = {
     'now.tools': 'Tools',
     'now.building': 'Building',
     'projects.title': 'Projects',
+    'projects.description':
+      'Mobile and web apps I have built: Bito, Quedamos, Huellas, BaseCero, PokeUtils, DevTools and Cheesy, with a link to each one.',
     'projects.featured': 'Featured',
     'projects.all': 'All projects',
     'projects.statusText': 'Every app and service is monitored around the clock.',
@@ -347,6 +349,8 @@ export const translations = {
     'now.tools': 'Herramientas',
     'now.building': 'Construyendo',
     'projects.title': 'Proyectos',
+    'projects.description':
+      'Apps móviles y webs que he hecho: Bito, Quedamos, Huellas, BaseCero, PokeUtils, DevTools y Cheesy, con enlace a cada una.',
     'projects.featured': 'Destacados',
     'projects.all': 'Todos los proyectos',
     'projects.statusText': 'Todas las apps y servicios se vigilan las 24 horas.',
