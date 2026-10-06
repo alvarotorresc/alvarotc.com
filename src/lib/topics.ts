@@ -1,0 +1,1 @@
+export const MIN_INDEXABLE_TOPIC_POSTS = 4;

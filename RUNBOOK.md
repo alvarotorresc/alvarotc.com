@@ -20,7 +20,7 @@ Operación del sitio y de los servicios que dependen de él. Ver también `docs/
 1. Vercel dashboard → proyecto `alvarotc.com` → pestaña **Deployments**.
 2. Localizar el despliegue de producción anterior que funcionaba bien.
 3. Menú `···` de ese despliegue → **Promote to Production**.
-4. Confirmar en `https://www.alvarotc.com` (hoy el host que sirve realmente el contenido; ver `LAUNCH_GATE_REPORT.md` DNS-02 sobre el apex/`www` invertido).
+4. Confirmar en `https://alvarotc.com` (el apex es el host que sirve el contenido; `www` y `http` redirigen 308 al apex, comprobado el 2026-10-06).
 
 No hace falta revertir commits en git para un rollback rápido: promocionar un despliegue anterior no borra el historial ni el commit en `main`.
 
@@ -137,13 +137,13 @@ Estado a día de hoy (2026-09-25): **no está desplegado**. `contact.alvarotc.co
 
 ## Exclusión del tráfico propio en Umami
 
-En la consola del navegador, sobre el dominio que realmente sirve el contenido (hoy `https://www.alvarotc.com`, porque el apex redirige ahí — ver `LAUNCH_GATE_REPORT.md` DNS-02):
+En la consola del navegador, sobre el dominio que sirve el contenido (`https://alvarotc.com`; `www` y `http` redirigen 308 al apex, comprobado el 2026-10-06):
 
 ```js
 localStorage.setItem('umami.disabled', '1');
 ```
 
-Es por origen y por perfil de navegador: hay que repetirlo en cada navegador/dispositivo propio que se use para revisar la web, y de nuevo si el host canónico cambia de `www` al apex.
+Es por origen y por perfil de navegador: hay que repetirlo en cada navegador/dispositivo propio que se use para revisar la web, y de nuevo si el host canónico deja de ser el apex.
 
 ## Coste mensual estimado
 

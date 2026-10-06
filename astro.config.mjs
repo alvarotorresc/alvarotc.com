@@ -1,36 +1,15 @@
-import { readdirSync, readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import clientInteraction from './src/integrations/client-interaction.ts';
+import { MIN_INDEXABLE_TOPIC_POSTS } from './src/lib/topics.ts';
+import { readPublishedPosts } from './src/lib/post-frontmatter.ts';
 
 const SITE = 'https://alvarotc.com';
 
-const readFm = (dir) =>
-  readdirSync(dir)
-    .filter((f) => f.endsWith('.md'))
-    .map((f) => {
-      const src = readFileSync(`${dir}/${f}`, 'utf8');
-      const fm = src.split('---')[1] ?? '';
-      const get = (k) => fm.match(new RegExp(`^${k}:\\s*['"]?([^'"\\n]+)`, 'm'))?.[1]?.trim();
-      const tagsMatch = fm.match(/^tags:\s*\[([^\]]*)\]/m);
-      const tags = tagsMatch
-        ? tagsMatch[1]
-            .split(',')
-            .map((s) => s.trim().replace(/^['"]|['"]$/g, ''))
-            .filter(Boolean)
-        : [];
-      return {
-        id: f.replace(/\.md$/, ''),
-        source: get('source'),
-        date: get('updated') ?? get('date'),
-        tags,
-      };
-    });
-
-const en = readFm('./src/content/posts-en');
-const es = readFm('./src/content/posts');
+const en = readPublishedPosts('./src/content/posts-en');
+const es = readPublishedPosts('./src/content/posts');
 
 const tagCounts = (entries) => {
   const counts = new Map();
@@ -42,10 +21,10 @@ const tagCounts = (entries) => {
 
 const thinTopicUrls = new Set();
 for (const [tag, count] of tagCounts(en)) {
-  if (count < 2) thinTopicUrls.add(`${SITE}/blog/topic/${tag}/`);
+  if (count < MIN_INDEXABLE_TOPIC_POSTS) thinTopicUrls.add(`${SITE}/blog/topic/${tag}/`);
 }
 for (const [tag, count] of tagCounts(es)) {
-  if (count < 2) thinTopicUrls.add(`${SITE}/es/blog/tema/${tag}/`);
+  if (count < MIN_INDEXABLE_TOPIC_POSTS) thinTopicUrls.add(`${SITE}/es/blog/tema/${tag}/`);
 }
 
 const pairs = new Map();
@@ -61,10 +40,10 @@ for (const p of en) {
 }
 for (const p of es) lastmod.set(`${SITE}/es/blog/${p.id}/`, p.date);
 
+const legalPage = /^https:\/\/alvarotc\.com\/(?:es\/)?(?:privacy|legal)\/$/;
+
 const alternatesFor = (url) => {
   if (pairs.has(url)) return pairs.get(url);
-  const legal = url.match(/^https:\/\/alvarotc\.com\/(?:es\/)?(privacy|legal)\/$/);
-  if (legal) return { en: `${SITE}/${legal[1]}/`, es: `${SITE}/es/${legal[1]}/` };
   const t = url.match(
     /^https:\/\/alvarotc\.com\/(?:blog\/topic|es\/blog\/tema)\/([^/]+)\/(\d+\/)?$/,
   );
@@ -86,7 +65,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en', es: 'es' },
       },
-      filter: (page) => !thinTopicUrls.has(page),
+      filter: (page) => !thinTopicUrls.has(page) && !legalPage.test(page),
       serialize(item) {
         const alt = alternatesFor(item.url);
         if (alt) {
