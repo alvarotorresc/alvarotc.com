@@ -3,6 +3,7 @@ name: Huellas
 tagline: Una plataforma para reunir mascotas perdidas con sus familias.
 intro: 'Huellas es el canal que no se puede arrancar de la farola y que llega al barrio: una app y una web para buscar, encontrar y anunciar mascotas perdidas, con las protectoras dentro desde el primer día.'
 kind: hybrid
+applicationCategory: LifestyleApplication
 status: design
 tier: featured
 order: 3

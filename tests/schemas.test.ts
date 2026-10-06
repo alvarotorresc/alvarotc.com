@@ -36,6 +36,7 @@ const minimal = {
   name: 'Bito',
   tagline: 'Habits',
   kind: 'mobile',
+  applicationCategory: 'LifestyleApplication',
   status: 'published',
   tier: 'featured',
   order: 1,

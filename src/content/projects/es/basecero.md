@@ -3,6 +3,7 @@ name: BaseCero
 tagline: Tu dinero, desde cero. Finanzas personales que viven enteras en tu dispositivo.
 intro: 'Una web que se instala como app en el móvil y funciona sin conexión. Te dice cuánto te queda de verdad hasta el próximo cobro. Sin servidor, sin cuentas, sin telemetría.'
 kind: hybrid
+applicationCategory: FinanceApplication
 status: published
 tier: lab
 order: 4

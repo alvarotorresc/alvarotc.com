@@ -3,6 +3,7 @@ name: Cheesy
 tagline: 'Lecciones, aperturas, finales y táctica, en tu navegador.'
 intro: 'Aprendes desde cero con lecciones cortas, juegas aperturas y finales contra el ordenador, resuelves problemas tácticos y analizas con motor. Las jugadas se leen en palabras, no en notación, y un glosario explica la jerga. Sin cuenta, sin instalar nada y sin anuncios: tu progreso se queda en tu navegador.'
 kind: web
+applicationCategory: GameApplication
 status: published
 tier: lab
 order: 8

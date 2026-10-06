@@ -3,6 +3,7 @@ name: Quedamos
 tagline: Your friends want to meet up. Nobody knows when.
 intro: 'Quedamos asks the question and tells you when everyone can make it. A shared calendar for your crew, with no more screens than it needs.'
 kind: hybrid
+applicationCategory: SocialNetworkingApplication
 status: beta
 tier: featured
 order: 2

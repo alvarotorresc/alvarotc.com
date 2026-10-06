@@ -3,6 +3,7 @@ name: Bito
 tagline: 'Registra un hábito en un toque, sin cuentas ni nube.'
 intro: 'La app de hábitos que no te roba tiempo. Vive entera en tu móvil: sin cuentas, sin nube y sin una sola línea que salga a internet.'
 kind: mobile
+applicationCategory: LifestyleApplication
 status: publishing
 tier: featured
 order: 1
