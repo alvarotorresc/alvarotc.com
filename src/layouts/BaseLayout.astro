@@ -31,7 +31,7 @@ interface Props {
   alternatePath?: string;
   hreflangLinks?: HreflangLink[];
   ogLocaleAlternate?: string | null;
-  jsonLd?: Record<string, unknown>;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   prevHref?: string;
   nextHref?: string;
   noindex?: boolean;
@@ -174,7 +174,9 @@ const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden
         document.addEventListener('astro:after-swap', apply);
       })();
     </script>
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd ?? defaultJsonLd)} />
+    {[jsonLd ?? defaultJsonLd].flat().map((node) => (
+      <script type="application/ld+json" set:html={JSON.stringify(node)} />
+    ))}
     <ClientRouter />
     {umamiWebsiteId && (
       <script
