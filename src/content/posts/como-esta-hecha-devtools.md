@@ -5,7 +5,7 @@ description: 'Islas de Svelte, una carpeta por herramienta, privacidad declarada
 date: 2026-10-08
 draft: false
 image: '/blog/devtools/cover-es.png'
-tags: ['producto', 'proceso', 'web', 'foss']
+tags: ['producto', 'process', 'web', 'foss']
 ---
 
 La primera versión de DevTools salió el 14 de febrero de 2026 con 14 herramientas, y era solo para mí. En septiembre quería tres cosas: que se viera mejor y más clara, añadir las herramientas que veía usar a mis compañeros de trabajo (sobre todo para rellenar datos contra la Administración pública) y que dejara de ser algo mío para ser de cualquiera.

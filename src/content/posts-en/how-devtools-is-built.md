@@ -5,7 +5,7 @@ description: 'Svelte islands, one folder per tool, privacy declared in the code 
 date: 2026-10-08
 draft: false
 image: '/blog/devtools/cover-en.png'
-tags: ['producto', 'proceso', 'web', 'foss']
+tags: ['producto', 'process', 'web', 'foss']
 source: como-esta-hecha-devtools
 ---
 
