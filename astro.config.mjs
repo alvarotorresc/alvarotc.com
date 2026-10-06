@@ -61,10 +61,10 @@ for (const p of en) {
 }
 for (const p of es) lastmod.set(`${SITE}/es/blog/${p.id}/`, p.date);
 
+const legalPage = /^https:\/\/alvarotc\.com\/(?:es\/)?(?:privacy|legal)\/$/;
+
 const alternatesFor = (url) => {
   if (pairs.has(url)) return pairs.get(url);
-  const legal = url.match(/^https:\/\/alvarotc\.com\/(?:es\/)?(privacy|legal)\/$/);
-  if (legal) return { en: `${SITE}/${legal[1]}/`, es: `${SITE}/es/${legal[1]}/` };
   const t = url.match(
     /^https:\/\/alvarotc\.com\/(?:blog\/topic|es\/blog\/tema)\/([^/]+)\/(\d+\/)?$/,
   );
@@ -86,7 +86,7 @@ export default defineConfig({
         defaultLocale: 'en',
         locales: { en: 'en', es: 'es' },
       },
-      filter: (page) => !thinTopicUrls.has(page),
+      filter: (page) => !thinTopicUrls.has(page) && !legalPage.test(page),
       serialize(item) {
         const alt = alternatesFor(item.url);
         if (alt) {
