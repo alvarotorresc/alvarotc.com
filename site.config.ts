@@ -22,7 +22,7 @@ export const siteConfig = {
 
   nav: [
     { key: 'nav.about', href: '/about/' },
-    { key: 'nav.projects', href: '/#projects' },
+    { key: 'nav.projects', href: '/projects/' },
     { key: 'nav.experience', href: '/#experience', requires: 'experience' },
     { key: 'nav.writing', href: '/blog/' },
     { key: 'nav.cv', href: '/cv/' },
