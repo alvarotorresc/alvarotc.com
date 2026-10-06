@@ -90,11 +90,11 @@ const year = new Date().getFullYear();
       {socialLinks.map((s) => (
         <a
           href={s.href}
-          aria-label={`${s.label}, ${s.handle}`}
           title={s.handle}
           rel={s.icon === 'mail' ? undefined : 'me'}
           class="footer-social flex h-9 w-9 items-center justify-center rounded-full border border-border text-text"
         >
+          <span class="sr-only">{`${s.label}, ${s.handle}`}</span>
           {s.brand ? (
             <BrandIcon slug={s.brand} size={20} />
           ) : (
