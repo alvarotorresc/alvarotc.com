@@ -14,6 +14,7 @@ import {
 } from '../../lib/pagination';
 import { collectionPageJsonLd } from '../../lib/jsonld';
 import { tagLabel } from '../../lib/tags';
+import { MIN_INDEXABLE_TOPIC_POSTS } from '../../lib/topics';
 
 interface Props {
   lang: Locale;
@@ -104,7 +105,7 @@ const rssHref = lang === 'es' ? '/es/rss.xml' : '/rss.xml';
   prevHref={prevHref}
   nextHref={nextHref}
   jsonLd={jsonLd}
-  noindex={tag ? scoped.length < 2 : undefined}
+  noindex={tag ? scoped.length < MIN_INDEXABLE_TOPIC_POSTS : undefined}
 >
   <div class="container-page py-14">
     <PostList

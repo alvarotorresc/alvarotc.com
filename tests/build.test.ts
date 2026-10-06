@@ -267,14 +267,14 @@ describe.skipIf(!built)('blog index and topic pages: hreflang, description and J
     expect(html).toContain('<meta name="robots" content="noindex, follow">');
   });
 
-  it('does not noindex the docker topic, which has 2 articles', () => {
+  it('noindexes the docker topic, which has 2 articles, below the threshold of 4', () => {
     const html = page('blog/topic/docker/index.html');
-    expect(html).not.toContain('name="robots"');
+    expect(html).toContain('<meta name="robots" content="noindex, follow">');
   });
 });
 
 describe.skipIf(!built)('sitemap', () => {
-  it('pairs post and topic alternates with xhtml:link, and sets lastmod', () => {
+  it('pairs post alternates with xhtml:link, and sets lastmod', () => {
     const xml = readFileSync(join(dist, 'sitemap-0.xml'), 'utf8');
     expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
 
@@ -284,12 +284,6 @@ describe.skipIf(!built)('sitemap', () => {
     expect(postEntry).not.toBeNull();
     expect((postEntry![0].match(/xhtml:link/g) ?? []).length).toBe(3);
     expect(postEntry![0]).toContain('<lastmod>');
-
-    const topicEntry = xml.match(
-      /<url>\s*<loc>https:\/\/alvarotc\.com\/blog\/topic\/docker\/<\/loc>[\s\S]*?<\/url>/,
-    );
-    expect(topicEntry).not.toBeNull();
-    expect(topicEntry![0]).toContain('/es/blog/tema/docker/');
   });
 
   it('excludes noindexed, thin topic pages', () => {
@@ -299,6 +293,8 @@ describe.skipIf(!built)('sitemap', () => {
       .join('\n');
     expect(xml).not.toContain('https://alvarotc.com/blog/topic/proceso/');
     expect(xml).not.toContain('https://alvarotc.com/es/blog/tema/proceso/');
+    expect(xml).not.toContain('https://alvarotc.com/blog/topic/docker/');
+    expect(xml).not.toContain('https://alvarotc.com/es/blog/tema/docker/');
   });
 });
 

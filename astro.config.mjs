@@ -4,6 +4,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import clientInteraction from './src/integrations/client-interaction.ts';
+import { MIN_INDEXABLE_TOPIC_POSTS } from './src/lib/topics.ts';
 
 const SITE = 'https://alvarotc.com';
 
@@ -42,10 +43,10 @@ const tagCounts = (entries) => {
 
 const thinTopicUrls = new Set();
 for (const [tag, count] of tagCounts(en)) {
-  if (count < 2) thinTopicUrls.add(`${SITE}/blog/topic/${tag}/`);
+  if (count < MIN_INDEXABLE_TOPIC_POSTS) thinTopicUrls.add(`${SITE}/blog/topic/${tag}/`);
 }
 for (const [tag, count] of tagCounts(es)) {
-  if (count < 2) thinTopicUrls.add(`${SITE}/es/blog/tema/${tag}/`);
+  if (count < MIN_INDEXABLE_TOPIC_POSTS) thinTopicUrls.add(`${SITE}/es/blog/tema/${tag}/`);
 }
 
 const pairs = new Map();
