@@ -12,6 +12,7 @@ import { getSiteName, getDescription } from '../../lib/config';
 import { getPosts } from '../../lib/posts';
 import { reportMockContent } from '../../lib/mock-report';
 import { personJsonLd } from '../../lib/jsonld';
+import { t } from '../../i18n/translations';
 
 const lang = 'es';
 const posts = await getPosts(lang);
@@ -21,7 +22,13 @@ await reportMockContent();
 const jsonLd = personJsonLd(lang);
 ---
 
-<BaseLayout title={getSiteName()} description={getDescription(lang)} lang={lang} jsonLd={jsonLd}>
+<BaseLayout
+  title={getSiteName()}
+  documentTitle={t('home.title', lang)}
+  description={getDescription(lang)}
+  lang={lang}
+  jsonLd={jsonLd}
+>
   <Hero lang={lang} />
   <About lang={lang} />
   <ProjectBento lang={lang} />
