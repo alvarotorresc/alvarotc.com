@@ -1,6 +1,48 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/blog/topic/proyectos/",
+      "destination": "/blog/topic/projects/",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/tema/proyectos/",
+      "destination": "/es/blog/tema/projects/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/topic/observabilidad/",
+      "destination": "/blog/topic/observability/",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/tema/observabilidad/",
+      "destination": "/es/blog/tema/observability/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/topic/privacidad/",
+      "destination": "/blog/topic/privacy/",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/tema/privacidad/",
+      "destination": "/es/blog/tema/privacy/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/topic/proceso/",
+      "destination": "/blog/topic/process/",
+      "permanent": true
+    },
+    {
+      "source": "/es/blog/tema/proceso/",
+      "destination": "/es/blog/tema/process/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
