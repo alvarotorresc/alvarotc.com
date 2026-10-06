@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { projectSlug, projectLang, sortProjects, tone } from '../src/lib/projects';
+import { projectForPost, projectSlug, projectLang, sortProjects, tone } from '../src/lib/projects';
 import { statusLabel, translations } from '../src/i18n/translations';
 
 const entry = (id: string, order: number) =>
@@ -17,6 +17,20 @@ describe('projects helpers', () => {
     const sorted = sortProjects(list);
     expect(sorted.map((e) => e.id)).toEqual(['en/a', 'en/c', 'en/b']);
     expect(list[0].id).toBe('en/b');
+  });
+});
+
+describe('projectForPost', () => {
+  const withPost = (id: string, post?: string) =>
+    ({ id, data: { order: 1, post } }) as unknown as Parameters<typeof sortProjects>[0][number];
+  const list = [withPost('es/bito', 'de-una-idea'), withPost('es/cheesy')];
+
+  it('finds the project that points to the post', () => {
+    expect(projectForPost(list, 'de-una-idea')?.id).toBe('es/bito');
+  });
+
+  it('returns nothing for a post no project points to', () => {
+    expect(projectForPost(list, 'freshrss')).toBeUndefined();
   });
 });
 

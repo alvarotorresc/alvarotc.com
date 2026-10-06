@@ -61,6 +61,7 @@ features:
     text: 'The N26 one is recognised automatically; for any other bank, an assistant asks what each column is.'
   - title: 'Light, dark and two languages'
     text: 'Pick a theme or follow your system. In Spanish and English, with the currency and format you choose.'
+post: basecero-your-money-doesnt-have-to-sit-on-someone-elses-server
 illustration: '../../../assets/projects/basecero/icon.png'
 built:
   - 'JavaScript with no framework and no bundler. SQLite in WebAssembly, no server.'

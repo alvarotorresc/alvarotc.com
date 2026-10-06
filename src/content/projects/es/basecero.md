@@ -61,6 +61,7 @@ features:
     text: 'El de N26 se reconoce solo; para el resto, un asistente pregunta qué es cada columna.'
   - title: 'Claro, oscuro y dos idiomas'
     text: 'Eliges tema o sigues al sistema. En español e inglés, con la moneda y el formato que elijas.'
+post: basecero-tu-dinero-no-vive-en-el-servidor-de-nadie
 illustration: '../../../assets/projects/basecero/icon.png'
 built:
   - 'JavaScript sin framework ni bundler. SQLite en WebAssembly, sin servidor.'
