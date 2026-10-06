@@ -194,8 +194,8 @@ describe.each(['es', 'en'])('bito (%s)', (lang) => {
     expect(source).not.toMatch(/\p{Extended_Pictographic}/u);
   });
 
-  it('drops hero and gallery and has no post yet', () => {
-    expect(source).not.toMatch(/^(hero|gallery|post):/m);
+  it('drops hero and gallery', () => {
+    expect(source).not.toMatch(/^(hero|gallery):/m);
   });
 
   it('points only at images that exist', () => {
