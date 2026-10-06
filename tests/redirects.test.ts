@@ -25,8 +25,8 @@ const expected = RENAMED.flatMap(([old, tag]) => [
 ]);
 
 describe('vercel.json redirects', () => {
-  it('permanently redirects the 8 renamed topic pages', () => {
-    expect(vercel.redirects).toHaveLength(8);
+  it('permanently redirects every renamed topic page in both languages', () => {
+    expect(vercel.redirects).toHaveLength(expected.length);
     expect(vercel.redirects).toEqual(expect.arrayContaining(expected));
   });
 });
