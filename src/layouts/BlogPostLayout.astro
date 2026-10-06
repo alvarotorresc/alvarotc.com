@@ -8,7 +8,7 @@ import Tag from '../components/ui/Tag.astro';
 import { t, type Locale } from '../i18n/translations';
 import { formatDate, getReadingTime } from '../lib/utils';
 import { markdownPath, type PostEntry } from '../lib/posts';
-import { blogPostingJsonLd } from '../lib/jsonld';
+import { blogPostingJsonLd, sectionBreadcrumbJsonLd } from '../lib/jsonld';
 import { tagLabel } from '../lib/tags';
 
 interface Props {
@@ -47,14 +47,17 @@ const hreflangLinks = hasTranslation
     ];
 const ogLocaleAlternate = hasTranslation ? (lang === 'es' ? 'en_US' : 'es_ES') : null;
 
-const jsonLd = blogPostingJsonLd({
-  post,
-  lang,
-  url: canonicalURL,
-  image: ogImageURL,
-  wordCount,
-  readingTimeMinutes: readingTime,
-});
+const jsonLd = [
+  blogPostingJsonLd({
+    post,
+    lang,
+    url: canonicalURL,
+    image: ogImageURL,
+    wordCount,
+    readingTimeMinutes: readingTime,
+  }),
+  sectionBreadcrumbJsonLd(lang, 'blog', { name: title, url: canonicalURL }),
+];
 ---
 
 <BaseLayout
