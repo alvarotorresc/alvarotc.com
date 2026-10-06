@@ -3,7 +3,7 @@ title: 'De una idea a una APK en 24h'
 description: 'Cuatro documentos de diseño antes de escribir código. Así pasó Bito, mi app de hábitos FOSS para Android, de idea a APK instalada en el móvil.'
 date: 2026-08-14
 draft: false
-tags: ['android', 'kotlin', 'compose', 'foss', 'proceso', 'ia-engineering']
+tags: ['android', 'kotlin', 'compose', 'foss', 'process', 'ia-engineering']
 ---
 
 El 13 de agosto por la noche cerré el primer documento de diseño de Bito. La noche del 14 tenía la APK instalada en mi Pixel. Poco más de veinticuatro horas de reloj, repartidas en dos tardes.

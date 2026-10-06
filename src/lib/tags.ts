@@ -1,15 +1,18 @@
 import type { Locale } from '../i18n/translations';
 
-const EN_LABELS: Record<string, string> = {
-  proceso: 'process',
-  observabilidad: 'observability',
-  privacidad: 'privacy',
-  finanzas: 'finance',
-  producto: 'product',
-  proyectos: 'projects',
+const LABELS: Record<Locale, Record<string, string>> = {
+  en: {
+    finanzas: 'finance',
+    producto: 'product',
+  },
+  es: {
+    process: 'proceso',
+    observability: 'observabilidad',
+    privacy: 'privacidad',
+    projects: 'proyectos',
+  },
 };
 
 export function tagLabel(slug: string, lang: Locale): string {
-  if (lang === 'en' && slug in EN_LABELS) return EN_LABELS[slug];
-  return slug;
+  return LABELS[lang][slug] ?? slug;
 }

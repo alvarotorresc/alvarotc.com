@@ -229,15 +229,15 @@ describe.skipIf(!built)('blog index and topic pages: hreflang, description and J
     );
   });
 
-  it('shows the English label for a Spanish-slugged tag on its EN topic page', () => {
-    const html = page('blog/topic/proceso/index.html');
+  it('shows the English label on the EN topic page', () => {
+    const html = page('blog/topic/process/index.html');
     expect(html).toContain('>process<');
     expect(html).not.toContain('>proceso<');
     expect(html).toContain('Articles about process');
   });
 
-  it('keeps the Spanish label on the matching ES topic page', () => {
-    const html = page('es/blog/tema/proceso/index.html');
+  it('shows the Spanish label on the matching ES topic page', () => {
+    const html = page('es/blog/tema/process/index.html');
     expect(html).toContain('>proceso<');
   });
 

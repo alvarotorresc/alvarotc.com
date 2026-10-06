@@ -4,7 +4,7 @@ seoTitle: 'BaseCero: finanzas sin servidor'
 description: 'Por qué construí una app de finanzas sin servidor, sin cuentas y de código abierto habiendo ya miles. Qué defiende, qué cedes a cambio y cómo instalarla.'
 date: 2026-09-07
 draft: false
-tags: ['foss', 'privacidad', 'local-first', 'pwa', 'finanzas', 'producto']
+tags: ['foss', 'privacy', 'local-first', 'pwa', 'finanzas', 'producto']
 ---
 
 Instala una app de finanzas cualquiera y mira lo que te pide antes de dejarte apuntar el primer gasto. Un correo. Una contraseña. Casi siempre, las credenciales de tu banco, para «sincronizar tus movimientos automáticamente». A cambio no pagas nada.
