@@ -1,5 +1,20 @@
 import { describe, it, expect } from 'vitest';
-import { breadcrumbJsonLd, projectsPageJsonLd, sectionBreadcrumbJsonLd } from '../src/lib/jsonld';
+import {
+  breadcrumbJsonLd,
+  projectsPageJsonLd,
+  sectionBreadcrumbJsonLd,
+  serializeJsonLd,
+} from '../src/lib/jsonld';
+
+describe('serializeJsonLd', () => {
+  it('escapes < so a value cannot close the script tag', () => {
+    const node = { name: '</script><script>alert(1)</script>' };
+    const out = serializeJsonLd(node);
+    expect(out).not.toContain('</script>');
+    expect(out).not.toContain('<');
+    expect(JSON.parse(out)).toEqual(node);
+  });
+});
 
 describe('breadcrumbJsonLd', () => {
   it('numbers the crumbs from 1 and links each one', () => {

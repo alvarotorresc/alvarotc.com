@@ -10,6 +10,7 @@ import CommandPalette from '../components/islands/CommandPalette';
 import { getSiteName, getDescription, getAuthor } from '../lib/config';
 import { getExperience, hasMockExperience } from '../lib/experience';
 import { mirroredPath } from '../lib/i18n-paths';
+import { serializeJsonLd } from '../lib/jsonld';
 import { t, type Locale } from '../i18n/translations';
 
 interface HreflangLink {
@@ -175,7 +176,7 @@ const chrome: { lang: Locale; currentPath: string; alternatePath: string; hidden
       })();
     </script>
     {[jsonLd ?? defaultJsonLd].flat().map((node) => (
-      <script type="application/ld+json" set:html={JSON.stringify(node)} />
+      <script type="application/ld+json" set:html={serializeJsonLd(node)} />
     ))}
     <ClientRouter />
     {umamiWebsiteId && (
