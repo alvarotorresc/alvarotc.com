@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
+import { MIN_INDEXABLE_TOPIC_POSTS } from '../src/lib/topics';
 
 const dist = resolve('dist');
 const built = existsSync(dist);
 const SITE = 'https://alvarotc.com/';
 const NOINDEX = /<meta name="robots" content="noindex[^"]*">/;
-const SITEMAP_URL_COUNT = 36;
 
 function walk(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -41,7 +41,34 @@ const legalRoutes = [
   'es/privacy/index.html',
 ];
 
-const topicRoute = (route: string) => /^(?:blog\/topic|es\/blog\/tema)\//.test(route);
+function topicCounts(dir: string): Map<string, number> {
+  const counts = new Map<string, number>();
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.md'))) {
+    const fm = readFileSync(join(dir, file), 'utf8').split('---')[1] ?? '';
+    if (/^draft:\s*true\s*$/m.test(fm)) continue;
+    const tags = (fm.match(/^tags:\s*\[([^\]]*)\]/m)?.[1] ?? '')
+      .split(',')
+      .map((tag) => tag.trim().replace(/^['"]|['"]$/g, ''))
+      .filter(Boolean);
+    for (const tag of tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+  return counts;
+}
+
+const topics = [
+  ...[...topicCounts(resolve('src/content/posts-en'))].map(([tag, count]) => ({
+    route: `blog/topic/${tag}/index.html`,
+    url: `${SITE}blog/topic/${tag}/`,
+    count,
+  })),
+  ...[...topicCounts(resolve('src/content/posts'))].map(([tag, count]) => ({
+    route: `es/blog/tema/${tag}/index.html`,
+    url: `${SITE}es/blog/tema/${tag}/`,
+    count,
+  })),
+];
+const indexableTopics = topics.filter(({ count }) => count >= MIN_INDEXABLE_TOPIC_POSTS);
+const thinTopics = topics.filter(({ count }) => count < MIN_INDEXABLE_TOPIC_POSTS);
 
 describe.skipIf(!built)('absolute urls in built pages', () => {
   it('uses absolute site urls ending in a slash for canonical, og:url and hreflang', () => {
@@ -89,16 +116,22 @@ describe.skipIf(!built)('indexability', () => {
     expect(readFileSync(join(dist, route), 'utf8')).toMatch(NOINDEX);
   });
 
-  it('noindexes every topic page, since no topic has 4 articles yet', () => {
-    const topics = htmlPages().filter(({ route }) => topicRoute(route));
+  it('finds topics in both languages', () => {
     expect(topics.length).toBeGreaterThan(0);
-    expect(topics.filter(({ html }) => !NOINDEX.test(html)).map(({ route }) => route)).toEqual([]);
   });
 
-  it('keeps legal and topic pages out of the sitemap', () => {
-    const locs = sitemapLocs();
-    expect(locs.filter((url) => /\/(?:legal|privacy)\/$/.test(url))).toEqual([]);
-    expect(locs.filter((url) => /\/(?:blog\/topic|es\/blog\/tema)\//.test(url))).toEqual([]);
+  it.each(thinTopics.map((t) => [t.route, t]))('noindexes thin topic %s', (_, topic) => {
+    expect(readFileSync(join(dist, topic.route), 'utf8')).toMatch(NOINDEX);
+    expect(sitemapLocs()).not.toContain(topic.url);
+  });
+
+  it.each(indexableTopics.map((t) => [t.route, t]))('indexes topic %s', (_, topic) => {
+    expect(readFileSync(join(dist, topic.route), 'utf8')).not.toMatch(NOINDEX);
+    expect(sitemapLocs()).toContain(topic.url);
+  });
+
+  it('keeps legal pages out of the sitemap', () => {
+    expect(sitemapLocs().filter((url) => /\/(?:legal|privacy)\/$/.test(url))).toEqual([]);
   });
 
   it('lists exactly the indexable pages in the sitemap', () => {
@@ -107,7 +140,7 @@ describe.skipIf(!built)('indexability', () => {
       .map(({ html }) => html.match(/<link\b[^>]*rel="canonical"[^>]*href="([^"]*)"/)![1])
       .sort();
     const locs = sitemapLocs().sort();
+    expect(locs.length).toBeGreaterThan(0);
     expect(locs).toEqual(indexable);
-    expect(locs).toHaveLength(SITEMAP_URL_COUNT);
   });
 });
