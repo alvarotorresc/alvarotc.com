@@ -139,4 +139,17 @@ describe.skipIf(!built)('JSON-LD in the build', () => {
       expect(app?.applicationCategory, route).toBe(CATEGORIES[slug]);
     });
   });
+
+  it('links the repository through sameAs instead of codeRepository', () => {
+    const list = fichas();
+    expect(list.length).toBeGreaterThan(0);
+    list.forEach(({ route, html }) => {
+      const [, lang, slug] = route.match(/^(es\/)?projects\/([^/]+)\//)!;
+      const source = readFileSync(`src/content/projects/${lang ? 'es' : 'en'}/${slug}.md`, 'utf8');
+      const repo = source.match(/^repo: (\S+)$/m)?.[1];
+      const app = ofType(jsonLd(html), 'SoftwareApplication');
+      expect(app, route).not.toHaveProperty('codeRepository');
+      expect(app?.sameAs, route).toEqual(repo ? [repo] : undefined);
+    });
+  });
 });
