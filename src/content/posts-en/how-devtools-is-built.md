@@ -2,7 +2,7 @@
 title: 'How DevTools is built: Astro, Svelte and agents with a plan'
 seoTitle: 'How DevTools is built'
 description: 'Svelte islands, one folder per tool, privacy declared in the code and a whole site built by agents running verified plans.'
-date: 2026-10-06
+date: 2026-10-08
 draft: false
 image: '/blog/devtools/cover-en.png'
 tags: ['producto', 'proceso', 'web', 'foss']

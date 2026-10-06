@@ -2,7 +2,7 @@
 title: 'Cómo está hecha DevTools: Astro, Svelte y agentes con plan'
 seoTitle: 'Cómo está hecha DevTools'
 description: 'Islas de Svelte, una carpeta por herramienta, privacidad declarada en el código y una web entera hecha con agentes que ejecutan planes verificados.'
-date: 2026-10-06
+date: 2026-10-08
 draft: false
 image: '/blog/devtools/cover-es.png'
 tags: ['producto', 'proceso', 'web', 'foss']
