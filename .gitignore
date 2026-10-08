@@ -43,3 +43,6 @@ launch-gate/
 reports/
 research_notes/
 .playwright-mcp/
+
+# Planes y specs de trabajo, fuera del repo
+docs/superpowers/
