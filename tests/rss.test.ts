@@ -9,6 +9,7 @@ const enFeed = () => readFileSync(resolve(dist, 'rss.xml'), 'utf8');
 const esFeed = () => readFileSync(resolve(dist, 'es/rss.xml'), 'utf8');
 
 const enTitles = [
+  'How DevTools is built: Astro, Svelte and agents with a plan',
   'DevTools: from three tabs to one site',
   'BaseCero: Your money doesn&apos;t have to sit on someone else&apos;s server',
   'Set up a service on your VPS today and move it to your homelab tomorrow: FreshRSS with Docker and Caddy',
@@ -18,6 +19,7 @@ const enTitles = [
 ];
 
 const esTitles = [
+  'Cómo está hecha DevTools: Astro, Svelte y agentes con plan',
   'DevTools: de tres pestañas a una sola web',
   'BaseCero: tu dinero no tiene por qué vivir en el servidor de nadie',
   'Monta un servicio en tu VPS hoy y múdalo a tu homelab mañana: FreshRSS con Docker y Caddy',
@@ -27,8 +29,8 @@ const esTitles = [
 ];
 
 describe.skipIf(!built)('/rss.xml (English feed)', () => {
-  it('has 6 items', () => {
-    expect([...enFeed().matchAll(/<item>/g)]).toHaveLength(6);
+  it('has 7 items', () => {
+    expect([...enFeed().matchAll(/<item>/g)]).toHaveLength(7);
   });
 
   it('only contains English post titles', () => {
@@ -57,8 +59,8 @@ describe.skipIf(!built)('/rss.xml (English feed)', () => {
 });
 
 describe.skipIf(!built)('/es/rss.xml (Spanish feed)', () => {
-  it('has 6 items', () => {
-    expect([...esFeed().matchAll(/<item>/g)]).toHaveLength(6);
+  it('has 7 items', () => {
+    expect([...esFeed().matchAll(/<item>/g)]).toHaveLength(7);
   });
 
   it('only contains Spanish post titles', () => {
