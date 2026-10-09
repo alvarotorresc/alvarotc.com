@@ -95,10 +95,11 @@ describe('AboutStory', () => {
     expect(html).toContain('data-polaroid="sticky"');
   });
 
-  it('links the closing buttons to contact and the CV', async () => {
+  it('links the closing buttons to contact and the Spanish CV PDF', async () => {
     const html = await render(false);
     expect(html).toContain('href="/es/#contact"');
-    expect(html).toContain('href="/es/cv/"');
+    expect(html).toContain('href="/cv/Alvaro_Torres_Carrasco_CV_ES.pdf"');
+    expect(html).not.toContain('href="/es/cv/"');
   });
 });
 

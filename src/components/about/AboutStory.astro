@@ -4,6 +4,7 @@ import ColorIcon from '../icons/color/ColorIcon.astro';
 import { colorIconTint } from '../icons/color/tints';
 import { firstPolaroid, polaroidFor, type StoryStage } from '../../lib/about-stages';
 import { inlineLinks } from '../../lib/inline-links';
+import { cvPdfPath } from '../../lib/cv';
 import { pagePath } from '../../lib/i18n-paths';
 import { t, type Locale } from '../../i18n/translations';
 
@@ -97,7 +98,7 @@ const mobile = polaroidFor(stages, 'own-2026');
       <a href={`${prefix}/#contact`} class="btn-primary">
         {t('hero.contact', lang)}
       </a>
-      <a href={`${prefix}/cv/`} class="btn-secondary">
+      <a href={cvPdfPath(lang)} class="btn-secondary">
         {t('experience.cv', lang)}
       </a>
     </div>
