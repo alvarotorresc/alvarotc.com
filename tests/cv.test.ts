@@ -115,3 +115,15 @@ describe('.gitignore', () => {
     expect(ignore).toMatch(/^cv\/out\/$/m);
   });
 });
+
+describe('remaining /cv/ links in the source', () => {
+  it('sends the terminal cv command and the 404 suggestions to the PDF', () => {
+    const terminal = readFileSync('src/components/islands/HeroTerminal.tsx', 'utf8');
+    expect(terminal).toContain('cvPdfPath(lang)');
+    expect(terminal).not.toContain("'/es/cv/'");
+
+    const notFound = readFileSync('src/pages/404.astro', 'utf8');
+    expect(notFound).toContain('cvPdfPath(lang)');
+    expect(notFound).not.toContain("'/cv/'");
+  });
+});
