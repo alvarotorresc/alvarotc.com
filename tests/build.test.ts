@@ -188,7 +188,7 @@ describe.skipIf(!built)('built project pages', () => {
     });
   });
 
-  it('renders Cheesy as a web page with six image blocks and its two releases', () => {
+  it('renders Cheesy as a web page with six image blocks and its six releases', () => {
     [
       ['projects/cheesy/index.html', 'Open Cheesy'],
       ['es/projects/cheesy/index.html', 'GPL-3.0'],
@@ -199,9 +199,10 @@ describe.skipIf(!built)('built project pages', () => {
       expect(html.match(/data-feature="block"/g), route).toHaveLength(6);
       expect(html.match(/data-feature="item"/g), route).toHaveLength(7);
       expect(html.match(/<img[^>]+class="[^"]*shot-img/g), route).toHaveLength(11);
-      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(2);
-      expect(html, route).toContain('v0.2.0');
-      expect(html, route).toContain('v0.1.0');
+      expect(html.match(/<li[^>]*\sdata-release[\s>]/g), route).toHaveLength(6);
+      ['v0.4.0', 'v0.3.2', 'v0.3.1', 'v0.3.0', 'v0.2.0', 'v0.1.0'].forEach((v) =>
+        expect(html, route).toContain(v),
+      );
       expect(html, route).toContain('github.com/alvarotorresc/cheesy/releases');
       expect(html, route).not.toContain('role="tab"');
     });
