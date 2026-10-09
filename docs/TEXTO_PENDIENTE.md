@@ -235,10 +235,11 @@ Confirma que cada afirmación es cierta.
 
 ### B7. CV
 
-El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces no se toca `/cv/`.
+El CV se genera con RenderCV desde `cv/cv.es.yaml` y `cv/cv.en.yaml` (`npm run cv`); los PDF
+viven en `public/cv/` y `/cv/` redirige al PDF de cada idioma.
 
-- [ ] Recibir el PDF del CV nuevo y decidir si sustituye a la página `/cv/` o se enlaza desde ella
-- [ ] Apuntar el botón «Descargar CV» de la home al PDF
+- [x] PDF nuevo generado desde el repo; sustituye a la página `/cv/`
+- [x] El botón «Descargar CV» de la home apunta al PDF de su idioma
 
 ### B8. Menores
 
