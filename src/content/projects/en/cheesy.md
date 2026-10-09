@@ -1,7 +1,7 @@
 ---
 name: Cheesy
 tagline: 'Lessons, openings, endgames and tactics, in your browser.'
-intro: 'Learn from scratch with short lessons, play openings and endgames against the computer, solve tactics puzzles and analyse with an engine. Moves read in words, not notation, and a glossary explains the jargon. No account, nothing to install and no ads: your progress stays in your browser.'
+intro: 'Learn from scratch with short lessons, play openings and endgames against the computer, solve tactics puzzles and analyse with an engine. Moves read in words, not notation, and a glossary explains the jargon. No account, nothing to install and no ads: your progress stays in your browser, and you can sync it with a four-word code if you want.'
 kind: web
 applicationCategory: GameApplication
 status: published
@@ -22,7 +22,10 @@ facts:
   - { label: 'Glossary', value: '89 terms, each with its board' }
   - { label: 'Puzzles', value: '550 from Lichess, in batches of 10' }
   - { label: 'Languages', value: 'Spanish and English' }
-  - { label: 'Accounts', value: 'None; progress stays in your browser' }
+  - {
+      label: 'Accounts',
+      value: 'None, no email; progress in your browser, with optional sync by code',
+    }
   - { label: 'Engine', value: 'Stockfish 19, in the browser' }
 screenshotsIntro: 'Learn, the glossary and Practise more, then Openings, Endgames, Positions and Analysis.'
 screenshots:
@@ -86,8 +89,8 @@ features:
     text: 'By default, moves are written in words: “Knight to f3” instead of “Nf3”. A switch in the header turns on notation, and hovering over a move highlights its square on the board.'
   - title: 'With the keyboard'
     text: 'Every board works without a mouse: arrow keys to move around, Enter to pick and play, Escape to cancel. A screen reader announces each square and what is on it.'
-  - title: 'No account, in your browser'
-    text: 'No accounts, no server of its own and no ads. Progress is kept in your browser and visits are counted with Umami, without cookies.'
+  - title: 'No account; syncing is optional'
+    text: 'No accounts, email, passwords or ads. Progress is kept in your browser. To take it to another device, a four-word code stores it on Cloudflare; it is deleted after 12 months unused or whenever you want. Visits are counted with Umami, without cookies.'
   - title: 'Content checked by machine'
     text: 'Before they ship, openings, endgames, positions and lessons are validated automatically: legal moves with chessops, engine checks with Stockfish and the endgames against the Lichess tablebase.'
   - title: 'Spanish and English, light and dark'
@@ -99,13 +102,25 @@ built:
   - 'Angular 22 and TypeScript. The board is chessground and the rules, chessops.'
   - 'Stockfish 19, the single-thread lite build, in a Web Worker in the browser.'
   - 'In endgames, the position is looked up in the Lichess tablebase.'
-  - 'Progress is kept in IndexedDB, in your browser. No backend.'
+  - 'Progress is kept in IndexedDB, in your browser. Optional sync uses a Cloudflare Worker with D1 and an HMAC fingerprint of the code.'
   - 'Lessons are written in TypeScript and built into JSON. Their tests check the moves with chessops, the exercises with Stockfish and the endgames with the Lichess tablebase.'
   - 'A script picks the Practise more puzzles from the open Lichess database, by theme and difficulty.'
-  - 'About 2027 app tests and 748 content tests.'
-  - 'Hosted on Netlify. Visits are counted with a self-hosted Umami, without cookies.'
+  - 'About 2367 app tests, 783 content tests and 115 Worker tests.'
+  - 'Hosted on Cloudflare (Workers and D1). Visits are counted with a self-hosted Umami, without cookies.'
   - 'Free software under GPL-3.0, code at [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
+  - version: 'v0.4.0'
+    date: 2026-10-10
+    note: 'Progress across browsers: a four-word code syncs it, and it is optional. Still no accounts and no email.'
+  - version: 'v0.3.2'
+    date: 2026-10-09
+    note: 'The site moves from Netlify to Cloudflare, with no visible changes.'
+  - version: 'v0.3.1'
+    date: 2026-10-08
+    note: 'SEO wrap-up.'
+  - version: 'v0.3.0'
+    date: 2026-10-08
+    note: 'A page of its own for each opening, endgame, position and lesson, in Spanish and English.'
   - version: 'v0.2.0'
     date: 2026-10-05
     note: 'Learn: 36 lessons in three levels, a glossary with boards and Practise more, with 550 Lichess puzzles. Moves in words by default, and every board works with the keyboard.'
