@@ -18,7 +18,7 @@ Qué proveedores sostienen el sitio, qué depende de cada uno y qué hacer si el
 
 ## Dónde están las credenciales
 
-Gestor de contraseñas: **por confirmar**. Anotar aquí cuál se usa (1Password, Bitwarden, etc.) y quién más tiene acceso a la bóveda compartida, si la hay.
+Gestor de contraseñas: **Proton Pass**. Bóveda personal: solo accede Álvaro.
 
 ## 2FA y correo de recuperación
 
@@ -35,9 +35,9 @@ Marcar cuando esté confirmado (no anotar aquí los correos de recuperación ni 
 
 ## Fechas conocidas
 
-- **Dominio `alvarotc.com`**: caduca el **2027-04-25** (WHOIS, comprobado 2026-09-24). Bloqueo de transferencia (`clientTransferProhibited`) activo. Renovación automática y tarjeta válida en Cloudflare Registrar: **por confirmar**.
+- **Dominio `alvarotc.com`**: caduca el **2027-04-25** (WHOIS, comprobado 2026-09-24). Bloqueo de transferencia (`clientTransferProhibited`) activo. Renovación automática y tarjeta válida en Cloudflare Registrar: activas (confirmado el 2026-10-09).
 - **Certificado TLS**: lo emite y renueva Vercel automáticamente vía Let's Encrypt; no requiere acción manual. El certificado visto el 2026-09-24 fue emitido el 2026-08-20 y caduca el 2026-11-18 (ya se ha renovado solo al menos una vez).
-- Renovaciones anuales o de plan de Cloudflare (si hay plan de pago), Hetzner, Proton y DeepL: **por confirmar**.
+- Planes (confirmado el 2026-10-09): Cloudflare y DeepL, gratuitos. Proton, plan Plus de pago. Hetzner factura el VPS cada mes, sin renovación anual.
 
 ## Si el titular no está disponible
 
