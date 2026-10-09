@@ -10,8 +10,8 @@ const routes = [
   'es/index.html',
   'about/index.html',
   'es/about/index.html',
-  'cv/index.html',
-  'es/cv/index.html',
+  'cv/Alvaro_Torres_Carrasco_CV_EN.pdf',
+  'cv/Alvaro_Torres_Carrasco_CV_ES.pdf',
   'privacy/index.html',
   'es/privacy/index.html',
   'legal/index.html',
@@ -66,6 +66,32 @@ describe.skipIf(!built)('built home page', () => {
 });
 
 const page = (route: string) => readFileSync(join(dist, route), 'utf8');
+
+describe.skipIf(!built)('built CV links', () => {
+  it('no longer builds the /cv/ pages', () => {
+    expect(existsSync(join(dist, 'cv/index.html'))).toBe(false);
+    expect(existsSync(join(dist, 'es/cv/index.html'))).toBe(false);
+  });
+
+  it('links each home to the PDF of its language', () => {
+    expect(page('index.html')).toContain('href="/cv/Alvaro_Torres_Carrasco_CV_EN.pdf"');
+    expect(page('index.html')).not.toContain('href="/cv/"');
+    expect(page('es/index.html')).toContain('href="/cv/Alvaro_Torres_Carrasco_CV_ES.pdf"');
+    expect(page('es/index.html')).not.toContain('href="/es/cv/"');
+  });
+
+  it('lists the PDF of each language in search.json', () => {
+    const json = page('search.json');
+    expect(json).toContain('"/cv/Alvaro_Torres_Carrasco_CV_EN.pdf"');
+    expect(json).toContain('"/cv/Alvaro_Torres_Carrasco_CV_ES.pdf"');
+    expect(json).not.toContain('"/cv/"');
+  });
+
+  it('drops /cv/ from the sitemap', () => {
+    const xml = readFileSync(join(dist, 'sitemap-0.xml'), 'utf8');
+    expect(xml).not.toMatch(/alvarotc\.com\/(?:es\/)?cv\//);
+  });
+});
 
 describe.skipIf(!built)('built project pages', () => {
   it('renders the Bito page with the 1.3.0 copy and six screens', () => {
