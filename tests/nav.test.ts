@@ -12,7 +12,8 @@ describe('Nav', () => {
     expect(html).toContain('href="/projects/"');
     expect(html).toContain('href="/blog/"');
     expect(html).not.toContain('href="/stats/"');
-    expect(html).toContain('href="/cv/"');
+    expect(html).toContain('href="/cv/Alvaro_Torres_Carrasco_CV_EN.pdf"');
+    expect(html).not.toContain('href="/cv/"');
     expect(html).toContain('href="/es/"');
     expect(html).toContain('aria-label="Toggle theme"');
   });
@@ -58,7 +59,8 @@ describe('Nav', () => {
     });
     expect(html).toContain('href="/es/about/"');
     expect(html).toContain('href="/es/projects/"');
-    expect(html).toContain('href="/es/cv/"');
+    expect(html).toContain('href="/cv/Alvaro_Torres_Carrasco_CV_ES.pdf"');
+    expect(html).not.toContain('href="/es/cv/"');
     expect(html).toContain('href="/"');
     expect(html).toContain('Sobre mí');
   });
