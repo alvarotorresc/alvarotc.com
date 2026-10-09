@@ -85,7 +85,7 @@ Por confirmar: si se quiere algo más permanente, añadir un `vercel.json` con u
   docker compose logs contact
   docker compose logs protonmail-bridge
   ```
-- **Umami (VPS)**: autoalojado en `analytics.alvarotc.com`, mismo VPS que el contacto; ruta exacta de su `docker compose` por confirmar (no aparece en el repo web ni en `alvarotc-contact`).
+- **Umami (VPS)**: autoalojado en `analytics.alvarotc.com`, mismo VPS que el contacto; contenedores `umami` y `umami-db` del compose `/opt/services/docker-compose.yml` (proyecto `services`; comprobado el 2026-10-09). Logs: `cd /opt/services && docker compose logs umami`.
 
 ## Servicio de contacto
 

@@ -263,4 +263,4 @@ El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces n
 
 - [ ] Protección de despliegues de Vercel: decidir si se activa (línea 76)
 - [x] Ruta del compose de Caddy en el VPS (línea 81)
-- [ ] Ruta del compose de Umami en el VPS (línea 88)
+- [x] Ruta del compose de Umami en el VPS (línea 88)
