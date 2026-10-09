@@ -254,10 +254,10 @@ El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces n
 
 **`docs/CONTINUIDAD.md`**
 
-- [ ] Gestor de contraseñas y quién más tiene acceso
-- [ ] Renovación automática y tarjeta válida en Cloudflare Registrar (el dominio caduca el
+- [x] Gestor de contraseñas y quién más tiene acceso
+- [x] Renovación automática y tarjeta válida en Cloudflare Registrar (el dominio caduca el
       2027-04-25)
-- [ ] Renovaciones de Cloudflare, Hetzner, Proton y DeepL
+- [x] Renovaciones de Cloudflare, Hetzner, Proton y DeepL
 
 **`RUNBOOK.md`**
 

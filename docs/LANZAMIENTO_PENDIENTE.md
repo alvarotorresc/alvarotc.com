@@ -200,7 +200,7 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
 
 ## 9. Cuentas y seguridad (checklist)
 
-- [ ] Cloudflare Registrar: renovación automática activa y tarjeta válida (`alvarotc.com` caduca
+- [x] Cloudflare Registrar: renovación automática activa y tarjeta válida (`alvarotc.com` caduca
       2027-04-25). Alerta de caducidad activada.
 - [ ] 2FA y correo de recuperación en Cloudflare, Vercel, GitHub, Hetzner, Umami, DeepL, Proton y
       Telegram.
