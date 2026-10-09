@@ -208,7 +208,7 @@ Si algún dato no va a estar para el lanzamiento, retira la sección en vez de d
       (repo público).
 - [ ] Confirma que `alvarotorresc` (GitHub), `alvaro-torres-carrasco` (LinkedIn) y
       `torresc_alvaro` (X) son tuyos: son los que enlaza el pie.
-- [ ] Rellena los «por confirmar» de `RUNBOOK.md` y `docs/CONTINUIDAD.md` (costes, gestor de
+- [x] Rellena los «por confirmar» de `RUNBOOK.md` y `docs/CONTINUIDAD.md` (costes, gestor de
       contraseñas, persona de contacto).
 
 ## 10. Pruebas manuales que no puedo hacer

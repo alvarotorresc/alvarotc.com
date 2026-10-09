@@ -73,7 +73,7 @@ No hay un modo de mantenimiento configurado (`vercel.json` solo tiene redireccio
 2. Vercel → Deployments → ese preview → **Promote to Production**.
 3. Cuando termine el mantenimiento, promocionar de nuevo el despliegue de producción real (el que estaba activo antes) de la misma forma.
 
-Por confirmar: si se quiere algo más permanente, añadir un `vercel.json` con una redirección condicional o activar la protección de despliegue de Vercel (Deployment Protection), si el plan contratado lo incluye.
+Decidido el 2026-10-09: la protección de despliegues de Vercel se queda sin activar. Los previews ya llevan `x-robots-tag: noindex` y el rollback de arriba basta como página temporal.
 
 ## Logs
 

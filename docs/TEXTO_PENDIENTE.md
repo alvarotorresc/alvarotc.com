@@ -261,6 +261,6 @@ El dueño rehace el CV entero fuera de la web y subirá el PDF. Hasta entonces n
 
 **`RUNBOOK.md`**
 
-- [ ] Protección de despliegues de Vercel: decidir si se activa (línea 76)
+- [x] Protección de despliegues de Vercel: decidir si se activa (línea 76)
 - [x] Ruta del compose de Caddy en el VPS (línea 81)
 - [x] Ruta del compose de Umami en el VPS (línea 88)
