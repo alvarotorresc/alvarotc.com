@@ -1,0 +1,192 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.8/schema.json
+# English CV. Built with `npm run cv` (public) and `npm run cv:private` (with phone and Gmail).
+# Public contact only: phone and Gmail come from the command line, read from cv/.env.local.
+cv:
+  name: Álvaro Torres Carrasco
+  headline: Software Engineer (Backend)
+  location: Seville (remote)
+  email: hello@alvarotc.com
+  website: https://alvarotc.com
+  social_networks:
+    - network: LinkedIn
+      username: alvaro-torres-carrasco
+    - network: GitHub
+      username: alvarotorresc
+  sections:
+    SUMMARY:
+      - >-
+        Backend Software Engineer with 5+ years in production with Java (Quarkus), Node.js and
+        Python. I build systems end to end: microservices, APIs, job queues, notifications and
+        the infrastructure they run on. Looking for a remote backend role.
+    TECHNICAL SKILLS:
+      - label: Programming languages
+        details: Java, TypeScript, Python, JavaScript, SQL
+      - label: Frameworks
+        details: Quarkus, Spring Boot, Node.js, NestJS, Django, Django REST Framework, Drools
+      - label: Data and messaging
+        details: PostgreSQL, Oracle, MongoDB, Redis, Apache Kafka, Celery, Prisma
+      - label: APIs and integration
+        details: REST, GraphQL (Apollo, Graphene), WebSockets, OAuth 2.0, JWT
+      - label: Cloud and DevOps
+        details: >-
+          Docker, Kubernetes, Amazon Web Services (AWS), GitHub Actions, GitLab CI, Jenkins, Caddy,
+          Proxmox
+      - label: Testing, tools and methodologies
+        details: JUnit, Pytest, Jest, Vitest, Git, Linux; Agile, Scrum, Kanban
+      - label: Languages
+        details: Spanish (native), English B2 (Trinity College London)
+    PROFESSIONAL EXPERIENCE:
+      - position: Software Engineer (Backend)
+        company: Soltel
+        location: Seville (remote)
+        start_date: 2025-01
+        end_date: present
+        highlights:
+          - >-
+            Develop more than 10 Java (Quarkus) microservices that unify several public grant and
+            scholarship systems.
+          - >-
+            Built from scratch, with Drools, the case-scoring system: intake, scoring and
+            resolution in production.
+          - >-
+            Migrating a shared data bus to microservices with an event-driven architecture
+            (Kafka) and proxies (strangler fig pattern); data modelling in Oracle and MongoDB,
+            tests with JUnit and CI/CD with GitLab CI and Jenkins.
+      - position: Career break
+        company: Own entrepreneurial project
+        start_date: 2024-01
+        end_date: 2024-12
+      - position: Software Engineer (Backend)
+        company: Therapyside
+        location: Madrid (remote)
+        start_date: 2022-03
+        end_date: 2024-01
+        highlights:
+          - >-
+            Maintained the Django REST Framework backend of 5,000+ daily active users and
+            migrated it from Python 2.7 to 3.7.
+          - Raised test coverage from 12% to over 85% and set up the Pytest structure from scratch.
+          - >-
+            Redesigned real-time and push notifications (Celery, Redis, Django Channels) for
+            thousands of concurrent users.
+          - >-
+            Reduced PostgreSQL load with indexes, by removing N+1 queries, Redis caching and
+            documents in MongoDB.
+      - position: Software Engineer (Backend)
+        company: Z1 Digital Studio
+        location: Seville (remote)
+        start_date: 2020-03
+        end_date: 2022-03
+        highlights:
+          - >-
+            Developed backends for clients in the US and Canada: Storytelling with Data, Waking
+            Up, energy and social networking.
+          - >-
+            Built REST and GraphQL APIs (Django, Graphene, NestJS, Apollo), a NestJS and MongoDB
+            back office and OAuth login.
+          - Deployed on AWS with Docker and CI/CD on GitHub Actions, with test coverage above 80%.
+    PROJECTS:
+      - name: Job queue and notification service
+        date: In development
+        highlights:
+          - >-
+            TypeScript queue on PostgreSQL, in production in Quedamos and Huellas: transactional
+            enqueueing, SKIP LOCKED, retries with backoff, duplicate-free cron jobs and workers
+            with configurable concurrency.
+          - >-
+            Notification microservice (push and email) with idempotency, per-channel adapters
+            and a dead-letter queue.
+      - name: '[Huellas](https://github.com/alvarotorresc/huellas) · github.com/alvarotorresc/huellas'
+        date: In development
+        highlights:
+          - >-
+            Platform to reunite lost pets with their families: weighted, explainable rule-based
+            matching between sightings and listings, with proximity search in PostGIS
+            (geography type, GiST index, ST_DWithin).
+          - >-
+            Critical alerts with their own acknowledgement (single-use token) and an email
+            fallback if no acknowledgement arrives within 3 minutes, duplicate-free thanks to the
+            outbox pattern and to the expiry date of each push.
+          - >-
+            Rate limits per action and per origin, uniqueness constraints enforced in the database
+            itself rather than in the application, and encrypted contact details, with an audit
+            log entry for every disclosure.
+      - name: '[Quedamos](https://quedamos.alvarotc.com) · quedamos.alvarotc.com'
+        date: In production
+        highlights:
+          - >-
+            App for organising group meetups, with real-time sync between members; NestJS API
+            with Prisma and PostgreSQL, JWT verified with JWKS, push with Firebase, helmet, rate
+            limiting and Sentry.
+          - >-
+            608 tests with a minimum coverage of 80%; CI/CD that validates the migrations,
+            publishes the image to Docker (ghcr.io) and runs a smoke test after every deploy,
+            checking that the freshly published image is running.
+      - name: Self-hosted infrastructure (VPS and homelab)
+        date: In production
+        highlights:
+          - >-
+            About ten services on Docker Compose behind Caddy, including the Quedamos API:
+            Hetzner VPS and Proxmox VE homelab (LXC, VMs and GPU passthrough), with only
+            WireGuard exposed, a DNS-01 wildcard certificate and fail2ban.
+          - >-
+            Own monitoring (systemd timers, Telegram alerts and an external heartbeat), daily
+            backups with restic (7 daily, 4 weekly, 6 monthly) and pg_dump, with tested restores,
+            and nightly VM backups with vzdump.
+    EDUCATION:
+      - institution: IES Velázquez
+        area: Web Application Development
+        degree: Higher Technician
+        location: Seville
+        start_date: 2018
+        end_date: 2020
+design:
+  theme: engineeringresumes
+  page:
+    size: a4
+    top_margin: 0.8cm
+    bottom_margin: 0.8cm
+    left_margin: 1.4cm
+    right_margin: 1.4cm
+    show_footer: false
+    show_top_note: false
+  typography:
+    alignment: left
+    line_spacing: 0.45em
+    font_size:
+      body: 9.5pt
+      name: 20pt
+      connections: 9pt
+    bold:
+      name: true
+  header:
+    space_below_name: 0.2cm
+    space_below_headline: 0.2cm
+    space_below_connections: 0.2cm
+    connections:
+      phone_number_format: international
+      space_between_connections: 0.25cm
+  section_titles:
+    space_above: 0.15cm
+    space_below: 0.1cm
+  sections:
+    space_between_regular_entries: 0.4cm
+    space_between_text_based_entries: 0.1cm
+  entries:
+    highlights:
+      space_above: 0.05cm
+      space_between_items: 0.08cm
+  templates:
+    single_date: MONTH_IN_TWO_DIGITS/YEAR
+    date_range: START_DATE – END_DATE
+locale:
+  language: english
+settings:
+  render_command:
+    output_folder: out
+    pdf_path: ../public/cv/Alvaro_Torres_Carrasco_CV_EN.pdf
+    typst_path: out/Alvaro_Torres_Carrasco_CV_EN.typ
+    dont_generate_markdown: true
+    dont_generate_html: true
+    dont_generate_png: true
+  pdf_title: Álvaro Torres Carrasco - CV
