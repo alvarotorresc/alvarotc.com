@@ -10,6 +10,7 @@ interface Redirect {
 
 const vercel = JSON.parse(readFileSync(resolve('vercel.json'), 'utf8')) as {
   redirects?: Redirect[];
+  trailingSlash?: boolean;
 };
 
 const RENAMED = [
@@ -38,6 +39,10 @@ describe('vercel.json redirects', () => {
 
   it('sends the old CV pages to the PDF of their language', () => {
     expect(vercel.redirects).toEqual(expect.arrayContaining(cv));
+  });
+
+  it('normalises /cv to /cv/ before redirecting', () => {
+    expect(vercel.trailingSlash).toBe(true);
   });
 
   it('has no other redirects', () => {

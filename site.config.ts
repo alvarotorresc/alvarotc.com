@@ -25,6 +25,7 @@ export const siteConfig = {
     { key: 'nav.projects', href: '/projects/' },
     { key: 'nav.experience', href: '/#experience', requires: 'experience' },
     { key: 'nav.writing', href: '/blog/' },
+    // href is ignored: Nav.astro links to the PDF through cvPdfPath(lang)
     { key: 'nav.cv', href: '/cv/' },
   ] as NavItem[],
 

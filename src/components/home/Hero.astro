@@ -34,7 +34,7 @@ const { lang } = Astro.props;
       <a href="#contact" class="btn-primary">
         {t('hero.contact', lang)}
       </a>
-      <a href={cvPdfPath(lang)} class="btn-secondary">
+      <a href={cvPdfPath(lang)} class="btn-secondary" download>
         {t('hero.cv', lang)}
       </a>
     </div>

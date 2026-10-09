@@ -80,6 +80,19 @@ describe.skipIf(!built)('built CV links', () => {
     expect(page('es/index.html')).not.toContain('href="/es/cv/"');
   });
 
+  it('makes the hero CV button download the PDF', () => {
+    for (const [route, file] of [
+      ['index.html', 'Alvaro_Torres_Carrasco_CV_EN.pdf'],
+      ['es/index.html', 'Alvaro_Torres_Carrasco_CV_ES.pdf'],
+    ] as const) {
+      const link = page(route)
+        .match(/<a[^>]*btn-secondary[^>]*>/g)
+        ?.find((a) => a.includes(file));
+      expect(link).toBeDefined();
+      expect(link).toMatch(/\sdownload(?=[\s>=])/);
+    }
+  });
+
   it('lists the PDF of each language in search.json', () => {
     const json = page('search.json');
     expect(json).toContain('"/cv/Alvaro_Torres_Carrasco_CV_EN.pdf"');
