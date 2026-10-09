@@ -17,6 +17,8 @@
     "og:default": "node --experimental-strip-types scripts/og-default.mjs",
     "icons": "node scripts/icons.mjs",
     "csp:hashes": "node scripts/csp-hashes.mjs",
+    "cv": "node scripts/cv.mjs",
+    "cv:private": "node --env-file-if-exists=cv/.env.local scripts/cv.mjs --private",
     "prepare": "husky"
   },
   "dependencies": {
