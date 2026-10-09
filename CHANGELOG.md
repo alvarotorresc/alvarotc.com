@@ -2,6 +2,35 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Este proyecto sigue [Versionado Semántico](https://semver.org/lang/es/).
 
+## [1.1.0] - 2026-10-09
+
+### Añadido
+
+- CV en PDF optimizado para ATS, en español y en inglés, generado con RenderCV desde `cv/cv.es.yaml` y `cv/cv.en.yaml`: una página, una columna y títulos de sección legibles por los analizadores. `npm run cv` regenera los PDF públicos y `npm run cv:private` crea en local una copia con teléfono y correo personal, fuera de git.
+- Posts de presentación y técnico de DevTools, en los dos idiomas, enlazados con su ficha de proyecto.
+- Datos estructurados: `BreadcrumbList` en posts, temas y fichas, `CollectionPage` con `ItemList` en la página de proyectos y `applicationCategory` propia por proyecto.
+- Verificación de Bing Webmaster Tools.
+
+### Cambiado
+
+- `/cv/` y `/es/cv/` redirigen al PDF de su idioma, y todos los enlaces al CV (home, Sobre mí, menú, experiencia, terminal, 404, buscador y `llms.txt`) apuntan al PDF. El botón de la home lo descarga.
+- SEO: título de la home con rol y ciudad, descripción propia de la página de proyectos, el menú enlaza a `/projects/`, etiquetas del blog con slug en inglés (con redirecciones desde las antiguas) y los temas solo se indexan a partir de cuatro posts.
+- Las páginas legales salen del índice y del sitemap.
+- La portada del último post de la home carga en diferido (Lighthouse móvil de 0,94 a 0,99).
+- Ficha de Cheesy actualizada a su versión 0.2.0.
+- README nuevo en español e inglés.
+- La rama `main` solo admite cambios por PR con CI y Lighthouse en verde.
+
+### Corregido
+
+- Textos reales en los enlaces de iconos y en el enlace al código del pie.
+- `<` escapado en el JSON-LD serializado, el repositorio de cada proyecto en `sameAs` y los borradores fuera del recuento de temas del sitemap.
+- La imagen OG de los posts usa siempre la plantilla generada.
+
+### Eliminado
+
+- La página `/cv/` imprimible, sus componentes y sus textos, sustituidos por el PDF.
+
 ## [1.0.0] - 2026-10-01
 
 Rediseño completo del sitio (rama `redesign/cv-web`).
