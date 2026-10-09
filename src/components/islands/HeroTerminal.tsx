@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { navigate } from 'astro:transitions/client';
 import type { Locale } from '../../i18n/translations';
+import { cvPdfPath } from '../../lib/cv';
 import { getStackGroups } from '../../lib/stack';
 
 type Line = { kind: 'cmd' | 'out' | 'muted' | 'err'; text: string };
@@ -117,7 +118,7 @@ export default function HeroTerminal({ lang, email }: { lang: Locale; email: str
         }
         return [err(s.noFile(arg))];
       case 'cv':
-        void navigate(lang === 'es' ? '/es/cv/' : '/cv/');
+        window.location.assign(cvPdfPath(lang));
         return [];
       case 'lang':
         if (arg === 'en' || arg === 'es') {

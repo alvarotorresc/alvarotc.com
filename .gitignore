@@ -46,3 +46,7 @@ research_notes/
 
 # Planes y specs de trabajo, fuera del repo
 docs/superpowers/
+
+# CV: copia privada y ficheros intermedios de RenderCV
+cv/.env.local
+cv/out/

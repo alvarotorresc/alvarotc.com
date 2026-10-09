@@ -46,6 +46,8 @@ describe('/llms.txt', () => {
     expect(text).toContain('https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo.md');
     expect(text).toContain('https://alvarotc.com/projects/');
     expect(text).toContain('https://alvarotc.com/about/');
+    expect(text).toContain('https://alvarotc.com/cv/Alvaro_Torres_Carrasco_CV_EN.pdf');
+    expect(text).not.toContain('(https://alvarotc.com/cv/)');
     expect(text).toContain('https://alvarotc.com/rss.xml');
     expect(text).toContain('https://alvarotc.com/llms-full.txt');
     expect(text).toContain('https://alvarotc.com/es/llms-full.txt');
@@ -86,6 +88,7 @@ describe('/es/llms.txt', () => {
     expect(text).toContain('https://alvarotc.com/es/blog/nueva-web-nuevo-rumbo.md');
     expect(text).toContain('https://alvarotc.com/es/projects/');
     expect(text).toContain('https://alvarotc.com/es/about/');
+    expect(text).toContain('https://alvarotc.com/cv/Alvaro_Torres_Carrasco_CV_ES.pdf');
     expect(text).toContain('https://alvarotc.com/es/rss.xml');
     expect(text).toContain('https://alvarotc.com/es/llms-full.txt');
     expect(text).toContain('https://alvarotc.com/llms.txt');

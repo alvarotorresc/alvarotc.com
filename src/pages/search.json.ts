@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { t, type Locale } from '../i18n/translations';
+import { cvPdfPath } from '../lib/cv';
 import { getDescription } from '../lib/config';
 import { getPosts } from '../lib/posts';
 import { getProjects, projectSlug } from '../lib/projects';
@@ -7,13 +8,16 @@ import type { SearchItem } from '../lib/search';
 
 const locales: Locale[] = ['en', 'es'];
 
-const pages = [
-  { key: 'nav.about', path: '/about/' },
-  { key: 'nav.projects', path: '/projects/' },
-  { key: 'nav.writing', path: '/blog/' },
-  { key: 'nav.cv', path: '/cv/' },
-  { key: 'contact.title', path: '/#contact' },
-] as const;
+const pages = (lang: Locale) => {
+  const prefix = lang === 'es' ? '/es' : '';
+  return [
+    { key: 'nav.about', url: `${prefix}/about/` },
+    { key: 'nav.projects', url: `${prefix}/projects/` },
+    { key: 'nav.writing', url: `${prefix}/blog/` },
+    { key: 'nav.cv', url: cvPdfPath(lang) },
+    { key: 'contact.title', url: `${prefix}/#contact` },
+  ] as const;
+};
 
 export const GET: APIRoute = async () => {
   const items: SearchItem[] = [];
@@ -21,13 +25,13 @@ export const GET: APIRoute = async () => {
   for (const lang of locales) {
     const prefix = lang === 'es' ? '/es' : '';
 
-    for (const page of pages) {
+    for (const page of pages(lang)) {
       items.push({
         kind: 'page',
         lang,
         title: t(page.key, lang),
         text: getDescription(lang),
-        url: `${prefix}${page.path}`,
+        url: page.url,
       });
     }
 

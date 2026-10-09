@@ -2,6 +2,7 @@ import type { Locale } from '../i18n/translations';
 import { t } from '../i18n/translations';
 import { tagLabel } from './tags';
 import { getSiteName, getDescription } from './config';
+import { cvPdfPath } from './cv';
 import { getPosts, markdownPath } from './posts';
 import { getProjects, projectSlug } from './projects';
 
@@ -64,7 +65,7 @@ export async function buildLlmsTxt(lang: Locale, site: string | URL): Promise<st
 
   const pages: LlmsLink[] = [
     { title: t('nav.about', lang), url: new URL(`${prefix}/about/`, site).toString() },
-    { title: t('nav.cv', lang), url: new URL(`${prefix}/cv/`, site).toString() },
+    { title: t('nav.cv', lang), url: new URL(cvPdfPath(lang), site).toString() },
     { title: t('nav.projects', lang), url: new URL(`${prefix}/projects/`, site).toString() },
   ];
 

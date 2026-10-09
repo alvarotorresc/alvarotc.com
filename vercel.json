@@ -41,6 +41,16 @@
       "source": "/es/blog/tema/proceso/",
       "destination": "/es/blog/tema/process/",
       "permanent": true
+    },
+    {
+      "source": "/cv/",
+      "destination": "/cv/Alvaro_Torres_Carrasco_CV_EN.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/es/cv/",
+      "destination": "/cv/Alvaro_Torres_Carrasco_CV_ES.pdf",
+      "permanent": false
     }
   ],
   "headers": [
