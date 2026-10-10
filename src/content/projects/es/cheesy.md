@@ -105,7 +105,7 @@ built:
   - 'El progreso se guarda en IndexedDB, en tu navegador. La sincronización, opcional, usa un Worker de Cloudflare con D1 y una huella HMAC del código.'
   - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban las jugadas con chessops, los ejercicios con Stockfish y los finales con la tablebase de Lichess.'
   - 'Los problemas de Practica más los elige un script de la base abierta de Lichess, por tema y dificultad.'
-  - 'Unos 2367 tests de la app, 783 del contenido y 115 del Worker.'
+  - 'Unos 2369 tests de la app, 783 del contenido y 115 del Worker.'
   - 'Alojada en Cloudflare (Workers y D1). Las visitas se cuentan con un Umami propio, sin cookies.'
   - 'Software libre bajo GPL-3.0, código en [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:

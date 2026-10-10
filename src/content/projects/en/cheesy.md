@@ -105,7 +105,7 @@ built:
   - 'Progress is kept in IndexedDB, in your browser. Optional sync uses a Cloudflare Worker with D1 and an HMAC fingerprint of the code.'
   - 'Lessons are written in TypeScript and built into JSON. Their tests check the moves with chessops, the exercises with Stockfish and the endgames with the Lichess tablebase.'
   - 'A script picks the Practise more puzzles from the open Lichess database, by theme and difficulty.'
-  - 'About 2367 app tests, 783 content tests and 115 Worker tests.'
+  - 'About 2369 app tests, 783 content tests and 115 Worker tests.'
   - 'Hosted on Cloudflare (Workers and D1). Visits are counted with a self-hosted Umami, without cookies.'
   - 'Free software under GPL-3.0, code at [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
