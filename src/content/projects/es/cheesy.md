@@ -1,7 +1,7 @@
 ---
 name: Cheesy
 tagline: 'Lecciones, aperturas, finales y táctica, en tu navegador.'
-intro: 'Aprendes desde cero con lecciones cortas, juegas aperturas y finales contra el ordenador, resuelves problemas tácticos y analizas con motor. Las jugadas se leen en palabras, no en notación, y un glosario explica la jerga. Sin cuenta, sin instalar nada y sin anuncios: tu progreso se queda en tu navegador.'
+intro: 'Aprendes desde cero con lecciones cortas, juegas aperturas y finales contra el ordenador, resuelves problemas tácticos y analizas con motor. Las jugadas se leen en palabras, no en notación, y un glosario explica la jerga. Sin cuenta, sin instalar nada y sin anuncios: tu progreso se queda en tu navegador, y si quieres, lo sincronizas con un código de cuatro palabras.'
 kind: web
 applicationCategory: GameApplication
 status: published
@@ -22,7 +22,10 @@ facts:
   - { label: 'Glosario', value: '89 términos, cada uno con su tablero' }
   - { label: 'Problemas', value: '550 de Lichess, en tandas de 10' }
   - { label: 'Idiomas', value: 'Español e inglés' }
-  - { label: 'Cuentas', value: 'Sin cuentas; el progreso, en tu navegador' }
+  - {
+      label: 'Cuentas',
+      value: 'Sin cuentas ni email; el progreso, en tu navegador, con sincronización opcional por código',
+    }
   - { label: 'Motor', value: 'Stockfish 19, en el navegador' }
 screenshotsIntro: 'Aprender, el glosario y Practica más, y después Aperturas, Finales, Posiciones y Análisis.'
 screenshots:
@@ -86,8 +89,8 @@ features:
     text: 'Por defecto, las jugadas se escriben en palabras: «Caballo a f3» en vez de «Cf3». Un conmutador en la cabecera pasa a notación, y al pasar por una jugada se resalta su casilla en el tablero.'
   - title: 'Con el teclado'
     text: 'Todos los tableros se manejan sin ratón: flechas para moverte, Intro para elegir y jugar, Escape para anular. Un lector de pantalla anuncia cada casilla y lo que hay en ella.'
-  - title: 'Sin cuenta y en tu navegador'
-    text: 'No hay cuentas, servidor propio ni anuncios. El progreso se guarda en tu navegador y las visitas se cuentan con Umami, sin cookies.'
+  - title: 'Sin cuenta; sincronizar es opcional'
+    text: 'Sin cuentas, email, contraseñas ni anuncios. El progreso se guarda en tu navegador. Si quieres llevarlo a otro dispositivo, un código de cuatro palabras lo guarda en Cloudflare; se borra tras 12 meses sin uso o cuando tú quieras. Las visitas se cuentan con Umami, sin cookies.'
   - title: 'Contenido comprobado por máquina'
     text: 'Antes de publicarse, aperturas, finales, posiciones y lecciones pasan una validación automática: jugadas legales con chessops, comprobaciones con Stockfish y los finales contra la tablebase de Lichess.'
   - title: 'Español e inglés, claro y oscuro'
@@ -99,13 +102,25 @@ built:
   - 'Angular 22 y TypeScript. El tablero es chessground y las reglas, chessops.'
   - 'Stockfish 19, versión lite de un solo hilo, en un Web Worker del navegador.'
   - 'En los finales, la posición se consulta en la tablebase de Lichess.'
-  - 'El progreso se guarda en IndexedDB, en tu navegador. Sin backend.'
+  - 'El progreso se guarda en IndexedDB, en tu navegador. La sincronización, opcional, usa un Worker de Cloudflare con D1 y una huella HMAC del código.'
   - 'Las lecciones se escriben en TypeScript y se generan en JSON. Sus tests comprueban las jugadas con chessops, los ejercicios con Stockfish y los finales con la tablebase de Lichess.'
   - 'Los problemas de Practica más los elige un script de la base abierta de Lichess, por tema y dificultad.'
-  - 'Unos 2027 tests de la app y 748 del contenido.'
-  - 'Alojada en Netlify. Las visitas se cuentan con un Umami propio, sin cookies.'
+  - 'Unos 2369 tests de la app, 783 del contenido y 115 del Worker.'
+  - 'Alojada en Cloudflare (Workers y D1). Las visitas se cuentan con un Umami propio, sin cookies.'
   - 'Software libre bajo GPL-3.0, código en [github.com/alvarotorresc/cheesy](https://github.com/alvarotorresc/cheesy).'
 changelog:
+  - version: 'v0.4.0'
+    date: 2026-10-10
+    note: 'El progreso, entre navegadores: un código de cuatro palabras lo sincroniza, y es opcional. Sigue sin haber cuentas ni email.'
+  - version: 'v0.3.2'
+    date: 2026-10-09
+    note: 'La web pasa de Netlify a Cloudflare, sin cambios visibles.'
+  - version: 'v0.3.1'
+    date: 2026-10-08
+    note: 'Cierre del SEO.'
+  - version: 'v0.3.0'
+    date: 2026-10-08
+    note: 'Una página propia por apertura, final, posición y lección, en español e inglés.'
   - version: 'v0.2.0'
     date: 2026-10-05
     note: 'Aprender: 36 lecciones en tres niveles, un glosario con tablero y Practica más, con 550 problemas de Lichess. Las jugadas, en palabras por defecto, y todos los tableros, con teclado.'

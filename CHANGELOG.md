@@ -2,6 +2,12 @@
 
 Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Este proyecto sigue [Versionado Semántico](https://semver.org/lang/es/).
 
+## [Sin publicar]
+
+### Cambiado
+
+- Ficha de Cheesy actualizada a su versión 0.4.0.
+
 ## [1.1.0] - 2026-10-09
 
 ### Añadido

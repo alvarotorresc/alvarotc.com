@@ -447,11 +447,24 @@ describe.each(['es', 'en'])('cheesy (%s)', (lang) => {
     ]);
   });
 
-  it('dates v0.2.0 first and keeps v0.1.0, the first GitHub release', () => {
-    expect(source).toMatch(
-      /^changelog:\n  - version: 'v0\.2\.0'\n    date: 2026-10-05\n    note: '[^']+'\n  - version: 'v0\.1\.0'\n    date: 2026-09-30\n    note: '[^']+'$/m,
-    );
-    expect(source.match(/^\s+- version:/gm)).toHaveLength(2);
+  it('lists six versions, newest first, from v0.4.0 down to v0.1.0', () => {
+    const rows = [
+      ['v0.4.0', '2026-10-10'],
+      ['v0.3.2', '2026-10-09'],
+      ['v0.3.1', '2026-10-08'],
+      ['v0.3.0', '2026-10-08'],
+      ['v0.2.0', '2026-10-05'],
+      ['v0.1.0', '2026-09-30'],
+    ];
+    const changelog = source.slice(source.indexOf('\nchangelog:'));
+    expect(changelog.match(/^ {2}- version: '(v[\d.]+)'\n {4}date: ([\d-]+)$/gm)).toHaveLength(6);
+    expect(
+      [...changelog.matchAll(/^ {2}- version: '(v[\d.]+)'\n {4}date: ([\d-]+)$/gm)].map((m) => [
+        m[1],
+        m[2],
+      ]),
+    ).toEqual(rows);
+    expect(source.match(/^\s+- version:/gm)).toHaveLength(6);
   });
 
   it('lists no tools and no playground', () => {
